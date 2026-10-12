@@ -13,20 +13,15 @@ router = APIRouter(prefix="/api", tags=["Tutor RAG"])
 
 @router.post("/courses/{courseId}/rag/query")
 def rag_query(courseId: str, body: RagIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
-    return query_rag(db, user, courseId, body.question, body.conversationId)
+    return query_rag(db, user, courseId, body.question, body.conversationId, str(body.folderId) if body.folderId else None, [str(i) for i in body.contentIds] if body.contentIds is not None else None)
 
 @router.get("/rag/conversations")
 def conversations(courseId: str, page: int = Query(1, ge=1), limit: int = Query(20, ge=1, le=100), user: User = Depends(current_user), db: Session = Depends(get_db)):
     can_access_course(db, user, courseId)
-    q = db.query(Conversation).filter(Conversation.curso_id == courseId)
-    if user.rol == "estudiante":
-        q = q.filter(Conversation.usuario_id == user.id)
-    elif user.rol == "docente":
-        # El docente propietario puede revisar conversaciones del curso para seguimiento pedagógico.
-        pass
+    q = db.query(Conversation).filter(Conversation.curso_id == courseId, Conversation.usuario_id == user.id)
     total = q.count()
     rows = q.order_by(Conversation.creado_en.desc()).offset((page - 1) * limit).limit(limit).all()
-    return {"items": [{"id": c.id, "courseId": c.curso_id, "usuarioId": c.usuario_id if user.rol != "estudiante" else None, "estado": c.estado, "creadoEn": dtiso(c.creado_en)} for c in rows], "page": page, "total": total}
+    return {"items": [{"id": c.id, "courseId": c.curso_id, "scope": c.alcance, "usuarioId": c.usuario_id if user.rol != "estudiante" else None, "estado": c.estado, "creadoEn": dtiso(c.creado_en)} for c in rows], "page": page, "total": total}
 
 @router.get("/rag/conversations/{conversationId}/messages")
 def conversation_messages(conversationId: str, page: int = Query(1, ge=1), limit: int = Query(50, ge=1, le=100), user: User = Depends(current_user), db: Session = Depends(get_db)):
@@ -34,7 +29,7 @@ def conversation_messages(conversationId: str, page: int = Query(1, ge=1), limit
     if not conv:
         api_error(404, "CONVERSATION_NOT_FOUND", "Conversación no encontrada.")
     can_access_course(db, user, conv.curso_id)
-    if user.rol == "estudiante" and conv.usuario_id != user.id:
+    if conv.usuario_id != user.id:
         api_error(403, "FORBIDDEN", "Conversación no autorizada.")
     q = db.query(Message).filter(Message.conversacion_id == conversationId)
     total = q.count()

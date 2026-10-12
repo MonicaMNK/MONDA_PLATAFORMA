@@ -8,15 +8,21 @@ Aplicación web educativa con FastAPI, PostgreSQL 16 + pgvector, React, control 
 
 - Autenticación, access JWT, refresh rotativo por cookie HttpOnly, CSRF, recuperación de acceso y control de fuerza bruta.
 - Roles `administrador`, `docente` y `estudiante`; autorización por curso y matrícula activa.
-- Cursos, matrículas sin duplicados, materiales PDF/DOCX versionados, estado de indexación y descarga autorizada.
-- Tutor RAG Gemini / Ollama / fallback léxico, con fuentes, abstención por evidencia insuficiente y correlation ID.
+- Cursos, matrículas sin duplicados, carpetas y subcarpetas por semana, materiales PDF/DOCX versionados, vista previa y descarga autorizada.
+- Tutor RAG Gemini / Ollama / fallback léxico, con historial privado por usuario y curso, fuentes, abstención por evidencia insuficiente y correlation ID.
 - Evaluaciones: generación de borradores, revisión/aprobación docente obligatoria, publicación, intento único y nota calculada en backend sobre 20.
 - Indicadores, alertas explicables, exportación CSV y sincronización idempotente de acciones permitidas.
-- PostgreSQL 16 + pgvector; 22 tablas entre las 20 estructuras definidas por PI7 y las 2 estructuras operativas de esta implementación. Versiones Alembic.
+- PostgreSQL 16 + pgvector; 23 tablas: las 20 estructuras PI7, 2 estructuras operativas y carpetas de materiales. Versiones Alembic.
 - Auditoría append-only, OpenAPI y trazas JSONL locales; integración MLflow opcional.
 - Adaptador de almacenamiento local y adaptador S3 para migración.
 
 ## Requisitos
+
+### Prueba rápida sin Docker (Windows)
+
+Ejecuta `INICIAR_MONDA_LOCAL.bat` y abre http://127.0.0.1:8000.
+Este modo usa SQLite persistente y el tutor léxico. Instalación y recorrido completo:
+[Prueba local](docs/PRUEBA_LOCAL.md).
 
 - Docker Desktop o Docker Engine + Compose plugin, recomendados para ejecutar PostgreSQL y API.
 - Alternativa sin Docker: Python 3.12+, PostgreSQL 16 con extensión pgvector instalada.

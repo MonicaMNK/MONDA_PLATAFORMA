@@ -7,6 +7,7 @@ INSERT INTO permisos_rol (rol, permiso, version) VALUES
 ('administrador','admin:config',1),
 ('administrador','admin:audit',1),
 ('administrador','course:read',1),
+('administrador','rag:query',1),
 ('docente','course:read',1),
 ('docente','course:write',1),
 ('docente','enrollment:write',1),

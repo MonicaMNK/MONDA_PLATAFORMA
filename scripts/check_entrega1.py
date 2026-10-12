@@ -10,7 +10,7 @@ expected = [
     "mensajes", "valoraciones", "evaluaciones", "reactivos", "intentos",
     "respuestas", "eventos", "alertas", "auditoria", "configuracion",
     "sesiones", "recuperaciones", "permisos_rol", "sincronizaciones", "trabajos",
-    "fragmentos_rag", "borradores_sync",
+    "fragmentos_rag", "borradores_sync", "carpetas_contenido",
 ]
 found = re.findall(r"CREATE TABLE IF NOT EXISTS\s+([a-z_]+)\s*\(", schema, flags=re.I)
 if found != expected:

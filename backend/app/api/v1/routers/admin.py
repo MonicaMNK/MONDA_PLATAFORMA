@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import secrets
+import requests
 from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy import func
@@ -12,13 +13,33 @@ from ....core.errors import api_error
 from ....core.security import hash_password
 from ....db.audit import audit
 from ....db.session import get_db
-from ....models import Audit, Config, RolePermission, User
+from ....models import Audit, Config, Course, RolePermission, User
 from ....schemas import AdminUserIn, AdminUserPatch, ConfigPatch, RolePatch
 from ....services.access import has_permission
 from ....services.serializers import dtiso, user_json
 
 router = APIRouter(prefix="/api/admin", tags=["Administración"])
 ROLES = {"administrador", "docente", "estudiante"}
+
+
+@router.get("/providers")
+def provider_status(user: User = Depends(current_user), db: Session = Depends(get_db)):
+    _require_admin_permission(db, user, "admin:config")
+    row = db.get(Config, "rag")
+    cfg = row.valor if row else {}
+    model = cfg.get("ollamaModel") or settings.ollama_llm_model
+    embedding = settings.ollama_embedding_model
+    ollama = {"available": False, "baseUrl": settings.ollama_base_url, "models": [], "llmModel": model, "embeddingModel": embedding, "llmReady": False, "embeddingReady": False}
+    try:
+        response = requests.get(settings.ollama_base_url.rstrip('/') + '/api/tags', timeout=2)
+        response.raise_for_status()
+        names = [m.get('name', '') for m in response.json().get('models', [])]
+        def installed(name):
+            return name in names or (':' not in name and name + ':latest' in names)
+        ollama.update(available=True, models=names, llmReady=installed(model), embeddingReady=installed(embedding))
+    except (requests.RequestException, ValueError):
+        pass
+    return {"gemini": {"configured": bool(settings.gemini_api_key)}, "ollama": ollama}
 
 
 def _require_admin_permission(db: Session, user: User, permission: str):
@@ -45,10 +66,14 @@ def create_admin_user(body: AdminUserIn, user: User = Depends(current_user), db:
     if body.rol not in ROLES:
         api_error(422, "ROLE_INVALID", "Rol inválido.")
     email = body.correo.strip().lower()
+    if "@" not in email or not email.split("@", 1)[1] or " " in email:
+        api_error(422, "EMAIL_INVALID", "Correo inválido.")
+    if body.estado not in {"activo", "inactivo", "pendiente"}:
+        api_error(422, "STATE_INVALID", "Estado inválido.")
     if db.query(User).filter(func.lower(User.correo) == email).first():
         api_error(409, "EMAIL_EXISTS", "El correo ya existe.")
-    temp = "Monda" + secrets.token_hex(4) + "!"
-    created = User(rol=body.rol, nombre=body.nombre, correo=email, password_hash=hash_password(temp), estado="pendiente")
+    temp = body.password or "Monda" + secrets.token_hex(4) + "!"
+    created = User(rol=body.rol, nombre=body.nombre, correo=email, password_hash=hash_password(temp), estado=body.estado)
     db.add(created)
     db.flush()
     audit(db, user.id, "USER_CREATE", f"usuario:{created.id}")
@@ -67,10 +92,22 @@ def update_admin_user(userId: str, body: AdminUserPatch, user: User = Depends(cu
         api_error(404, "USER_NOT_FOUND", "Usuario no encontrado.")
     if target.version != body.version:
         api_error(409, "VERSION_CONFLICT", "El usuario cambió. Recarga antes de guardar.")
-    if target.rol == "administrador" and target.estado == "activo" and (body.estado == "inactivo" or (body.rol is not None and body.rol != "administrador")):
+    if target.rol == "administrador" and target.estado == "activo" and ((body.estado is not None and body.estado != "activo") or (body.rol is not None and body.rol != "administrador")):
         active_admins = db.query(User).filter(User.rol == "administrador", User.estado == "activo").count()
         if active_admins <= 1:
             api_error(409, "LAST_ADMIN", "No se puede desactivar o degradar al último administrador activo.")
+    if target.rol == "docente" and ((body.rol is not None and body.rol != "docente") or (body.estado is not None and body.estado != "activo")):
+        if db.query(Course).filter(Course.docente_id == target.id, Course.estado == "activo").first():
+            api_error(409, "TEACHER_HAS_COURSES", "Reasigna o archiva los cursos activos antes de cambiar al docente.")
+    if body.nombre is not None:
+        target.nombre = body.nombre
+    if body.correo is not None:
+        email = body.correo.strip().lower()
+        if "@" not in email or not email.split("@", 1)[1] or " " in email:
+            api_error(422, "EMAIL_INVALID", "Correo inválido.")
+        if db.query(User).filter(func.lower(User.correo) == email, User.id != target.id).first():
+            api_error(409, "EMAIL_EXISTS", "El correo ya existe.")
+        target.correo = email
     if body.rol is not None:
         if body.rol not in ROLES:
             api_error(422, "ROLE_INVALID", "Rol inválido.")

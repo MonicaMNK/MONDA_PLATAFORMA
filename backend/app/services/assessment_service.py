@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from ..core.config import settings
 from ..core.errors import api_error
 from ..db.audit import audit
-from ..models import Answer, Assessment, Config, Event, Job, Question, RAGFragment, User, uid
+from ..models import Answer, Assessment, Config, Content, Event, Job, Question, RAGFragment, User, uid
 from ..rag import get_provider_with_fallback, lexical_search
 from .access import can_access_course, require_permission, teacher_course
 
@@ -61,7 +61,7 @@ def generate_assessment(db: Session, user: User, course_id: str, tema: str, bloo
     if not fragments:
         fragments = [
             type("F", (), {"id": f.id, "contenido_id": f.contenido_id, "ordinal": f.ordinal, "texto": f.texto})
-            for f in db.query(RAGFragment).filter(RAGFragment.curso_id == course_id).limit(max(cantidad, 4)).all()
+            for f in db.query(RAGFragment).join(Content, Content.id == RAGFragment.contenido_id).filter(RAGFragment.curso_id == course_id, Content.activo.is_(True), Content.estado_indexacion == "indexado").limit(max(cantidad, 4)).all()
         ]
     if not fragments:
         api_error(422, "NO_CONTENT", "No hay material indexado para generar reactivos.")
@@ -133,6 +133,8 @@ CONTEXTO:\n{context}"""
 
 def publish_assessment(db: Session, user: User, assessment: Assessment, start, end, version: int) -> dict:
     teacher_course(db, user, assessment.curso_id)
+    if assessment.estado!='borrador':
+        api_error(409,'ASSESSMENT_ALREADY_PUBLISHED','La evaluación ya se publicó; no puede reabrirse.')
     if assessment.version != version:
         api_error(409, "VERSION_CONFLICT", "La evaluación cambió. Recarga antes de publicar.")
     if end <= start:

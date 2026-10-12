@@ -53,6 +53,17 @@ expected = {
     ("GET", "/api/admin/config"),
     ("PATCH", "/api/admin/config"),
     ("GET", "/api/admin/audit"),
+    ("GET", "/api/courses/{courseId}/folders"),
+    ("POST", "/api/courses/{courseId}/folders"),
+    ("PATCH", "/api/folders/{folderId}"),
+    ("PATCH", "/api/contents/{contentId}/folder"),
+    ("GET", "/api/contents/{contentId}/preview"),
+    ("GET", "/api/admin/providers"),
+    ("GET", "/api/assessments/{id}/submissions"),
+    ("POST", "/api/assessments/{id}/results/publish"),
+    ("GET", "/api/assessments/{id}/results"),
+    ("GET", "/api/assessments/{id}/my-attempt"),
+    ("GET", "/api/users/me/grades"),
 }
 actual = set()
 # Se usa el esquema OpenAPI y no app.routes: las versiones recientes de FastAPI
@@ -72,4 +83,4 @@ factory = (ROOT / "backend/app/rag/providers/factory.py").read_text(encoding="ut
 for provider in ("gemini", "ollama", "fallback"):
     if provider not in factory:
         raise SystemExit(f"Proveedor RAG faltante: {provider}")
-print("Entrega 2 OK: 41 operaciones PI7 exactas + health, backend modular y RAG triple modo presentes.")
+print('Contrato OK: 41 operaciones PI7 + 11 operaciones de biblioteca, resultados y proveedores + health.')

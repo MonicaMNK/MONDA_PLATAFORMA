@@ -1,6 +1,6 @@
 export type Role = 'administrador' | 'docente' | 'estudiante';
 export interface User { id: string; nombre: string; correo: string; rol: Role; estado: string }
-export interface Course { id: string; nombre: string; estado: string; docenteId?: string }
+export interface Course { id: string; nombre: string; estado: string; docenteId?: string; descripcion?:string; docente?:{id:string;nombre:string;correo:string};materialCount?:number }
 export interface ApiError extends Error { status?: number; code?: string }
 
 const readCookie = (name: string) => document.cookie.split('; ').find(row => row.startsWith(`${name}=`))?.split('=').slice(1).join('=') ?? '';
@@ -28,7 +28,7 @@ export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
     const csrf = decodeURIComponent(readCookie('monda_csrf'));
     if (csrf) {
       const refresh = await fetch('/api/auth/refresh', { method: 'POST', credentials: 'same-origin', headers: { 'X-CSRF-Token': csrf } });
-      if (refresh.ok) { const data = await refresh.json(); setToken(data.accessToken); const retry = new Headers(init.headers); retry.set('Authorization', `Bearer ${data.accessToken}`); response = await fetch(path, { ...init, headers: retry, credentials: 'same-origin' }); }
+      if (refresh.ok) { const data = await refresh.json(); const expected=JSON.parse(sessionStorage.getItem('monda_user')||'null'); if(expected&&data.user?.id!==expected.id){setToken('');throw new Error('La sesión cambió en otra pestaña. Cierra sesión e ingresa con tu cuenta.');} setToken(data.accessToken); const retry = new Headers(headers); retry.set('Authorization', `Bearer ${data.accessToken}`); response = await fetch(path, { ...init, headers: retry, credentials: 'same-origin' }); }
     }
   }
   return decode<T>(response);

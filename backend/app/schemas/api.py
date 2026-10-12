@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Any
+from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
@@ -29,11 +30,15 @@ class ProfilePatch(StrictModel):
 
 class CourseIn(StrictModel):
     nombre: str = Field(min_length=2, max_length=150)
+    docenteId: UUID | None = None
+    descripcion: str = Field(default="", max_length=5000)
 
 
 class CoursePatch(StrictModel):
     nombre: str | None = Field(default=None, min_length=2, max_length=150)
     estado: str | None = None
+    docenteId: UUID | None = None
+    descripcion: str | None = Field(default=None, max_length=5000)
 
 
 class EnrollIn(StrictModel):
@@ -47,6 +52,21 @@ class EnrollPatch(StrictModel):
 class RagIn(StrictModel):
     question: str = Field(min_length=1, max_length=2000)
     conversationId: str | None = None
+    folderId: UUID | None = None
+    contentIds: list[UUID] | None = Field(default=None, max_length=100)
+
+
+class FolderIn(StrictModel):
+    nombre: str = Field(min_length=1, max_length=100)
+    parentId: UUID | None = None
+
+
+class FolderPatch(StrictModel):
+    nombre: str = Field(min_length=1, max_length=100)
+
+
+class ContentFolderPatch(StrictModel):
+    folderId: UUID | None = None
 
 
 class RatingIn(StrictModel):
@@ -66,6 +86,7 @@ class ReviewIn(StrictModel):
     enunciado: str | None = None
     opciones: dict[str, str] | None = None
     clave: str | None = None
+    justificacion: str | None = Field(default=None, min_length=1, max_length=5000)
     estado: str
     version: int = Field(ge=1)
 
@@ -73,6 +94,10 @@ class ReviewIn(StrictModel):
 class PublishIn(StrictModel):
     fechaInicio: datetime
     fechaFin: datetime
+    version: int = Field(ge=1)
+
+
+class ResultsPublishIn(StrictModel):
     version: int = Field(ge=1)
 
 
@@ -91,9 +116,13 @@ class AdminUserIn(StrictModel):
     correo: str
     nombre: str = Field(min_length=2, max_length=150)
     rol: str
+    estado: str = "pendiente"
+    password: str | None = Field(default=None, min_length=8, max_length=72)
 
 
 class AdminUserPatch(StrictModel):
+    nombre: str | None = Field(default=None, min_length=2, max_length=150)
+    correo: str | None = None
     rol: str | None = None
     estado: str | None = None
     version: int = Field(ge=1)

@@ -1,0 +1,10 @@
+import { useEffect,useState } from 'react';
+import { Cpu,CheckCircle2,AlertCircle,RefreshCw } from './Icons';
+import { api } from './lib/api';
+
+export function ProviderStatus() {
+  const [status,setStatus]=useState<any>(),[busy,setBusy]=useState(false),[error,setError]=useState('');
+  async function check(){setBusy(true);try{setStatus(await api('/api/admin/providers'));setError('');}catch(e){setError(e instanceof Error?e.message:'No se pudo comprobar');}finally{setBusy(false)}}
+  useEffect(()=>{check()},[]);
+  return <div className="panel provider-panel"><div className="section-title"><div><div className="eyebrow">PROVEEDORES DEL TUTOR</div><h3>Gemini y Ollama</h3></div><button className="button subtle" disabled={busy} onClick={check}><RefreshCw/> Comprobar conexión</button></div>{error&&<p className="alert error">{error}</p>}<div className="provider-cards"><div><CheckCircle2/><b>Gemini</b><p>{status?.gemini.configured?'Clave configurada en el servidor.':'Falta configurar la clave en el servidor.'}</p></div><div><Cpu/><b>Ollama local</b><p>{status?.ollama.available?'Servicio conectado.':'Servicio sin conexión. Instala y abre Ollama en esta máquina.'}</p><small>{status?.ollama.llmReady?'✓':'○'} Generación: {status?.ollama.llmModel||'llama3'}</small><small>{status?.ollama.embeddingReady?'✓':'○'} Embeddings: {status?.ollama.embeddingModel||'nomic-embed-text'}</small></div></div><details className="ollama-guide"><summary><AlertCircle/> Cómo activar Ollama</summary><ol><li>Instala <a href="https://ollama.com/download/windows" target="_blank" rel="noreferrer">Ollama para Windows</a> y abre la aplicación.</li><li>Descarga los modelos desde PowerShell:<pre>ollama pull {status?.ollama.llmModel||'llama3'}{'\n'}ollama pull {status?.ollama.embeddingModel||'nomic-embed-text'}</pre></li><li>Si el servicio no está activo, ejecuta <code>ollama serve</code>.</li><li>En la configuración de abajo, elige modo Ollama y guarda.</li><li>Reindexa los materiales del curso para usar sus embeddings.</li></ol></details></div>;
+}

@@ -17,7 +17,8 @@ router = APIRouter(prefix="/api/auth", tags=["Autenticación"])
 def _set_cookies(response: Response, refresh: str, csrf: str | None = None) -> None:
     response.set_cookie("monda_refresh", refresh, httponly=True, secure=settings.cookie_secure, samesite="strict", max_age=settings.refresh_days * 86400, path="/api/auth")
     if csrf is not None:
-        response.set_cookie("monda_csrf", csrf, httponly=False, secure=settings.cookie_secure, samesite="strict", max_age=settings.refresh_days * 86400, path="/api/auth")
+        response.delete_cookie("monda_csrf", path="/api/auth")
+        response.set_cookie("monda_csrf", csrf, httponly=False, secure=settings.cookie_secure, samesite="strict", max_age=settings.refresh_days * 86400, path="/")
 
 
 @router.post("/login")
@@ -35,7 +36,7 @@ def refresh_endpoint(request: Request, response: Response, x_csrf_token: str | N
         api_error(403, "CSRF_INVALID", "CSRF inválido.")
     user, access, new_refresh = rotate_refresh(db, raw, request.state.correlation_id)
     _set_cookies(response, new_refresh)
-    return {"accessToken": access, "expiresIn": settings.access_minutes * 60}
+    return {"accessToken": access, "expiresIn": settings.access_minutes * 60, "user": user_json(user)}
 
 
 @router.post("/logout", status_code=204)
@@ -46,6 +47,7 @@ def logout_endpoint(request: Request, response: Response, x_csrf_token: str | No
         api_error(403, "CSRF_INVALID", "CSRF inválido.")
     logout_family(db, raw, None, request.state.correlation_id)
     response.delete_cookie("monda_refresh", path="/api/auth")
+    response.delete_cookie("monda_csrf", path="/")
     response.delete_cookie("monda_csrf", path="/api/auth")
 
 

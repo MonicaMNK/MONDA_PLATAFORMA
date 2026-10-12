@@ -4,7 +4,7 @@ import math
 import re
 from dataclasses import dataclass
 
-from sqlalchemy import text
+from sqlalchemy import text, bindparam
 from sqlalchemy.orm import Session
 
 from ..models import Content, RAGFragment
@@ -30,7 +30,9 @@ def _cosine(a: list[float], b: list[float]) -> float:
     return dot / (na * nb) if na and nb else -1.0
 
 
-def vector_search(db: Session, course_id: str, query_vector: list[float], top_k: int) -> list[RetrievedFragment]:
+def vector_search(db: Session, course_id: str, query_vector: list[float], top_k: int, embedding_model: str, embedding_provider: str, content_ids: list[str] | None = None) -> list[RetrievedFragment]:
+    if content_ids == []:
+        return []
     if db.bind and db.bind.dialect.name == "postgresql":
         literal = "[" + ",".join(f"{x:.10g}" for x in query_vector) + "]"
         sql = text("""
@@ -41,15 +43,24 @@ def vector_search(db: Session, course_id: str, query_vector: list[float], top_k:
             WHERE f.curso_id = CAST(:course_id AS uuid)
               AND c.activo = true AND c.estado_indexacion = 'indexado'
               AND f.embedding IS NOT NULL
+              AND f.embedding_model = :model AND f.embedding_provider = :provider
             ORDER BY f.embedding <=> CAST(:q AS vector)
             LIMIT :limit
         """)
-        rows = db.execute(sql, {"q": literal, "course_id": course_id, "limit": max(1, top_k)}).mappings().all()
+        params={"q": literal, "course_id": course_id, "limit": max(1, top_k), "model": embedding_model, "provider": embedding_provider}
+        if content_ids is not None:
+            sql=text(sql.text.replace('ORDER BY', 'AND f.contenido_id::text IN :content_ids ORDER BY')).bindparams(bindparam('content_ids',expanding=True))
+            params['content_ids']=content_ids
+        rows = db.execute(sql, params).mappings().all()
         return [RetrievedFragment(id=r["id"], contenido_id=r["contenido_id"], ordinal=r["ordinal"], texto=r["texto"], ubicacion=r["ubicacion"], score=float(r["score"]), metadata=r["metadata"] or {}) for r in rows]
 
-    rows = db.query(RAGFragment).join(Content, Content.id == RAGFragment.contenido_id).filter(
-        RAGFragment.curso_id == course_id, Content.activo.is_(True), Content.estado_indexacion == "indexado"
-    ).all()
+    query = db.query(RAGFragment).join(Content, Content.id == RAGFragment.contenido_id).filter(
+        RAGFragment.curso_id == course_id, Content.activo.is_(True), Content.estado_indexacion == "indexado",
+        RAGFragment.embedding_model == embedding_model, RAGFragment.embedding_provider == embedding_provider
+    )
+    if content_ids is not None:
+        query=query.filter(RAGFragment.contenido_id.in_(content_ids))
+    rows=query.all()
     ranked = []
     for row in rows:
         if row.embedding:
@@ -57,10 +68,15 @@ def vector_search(db: Session, course_id: str, query_vector: list[float], top_k:
     return sorted(ranked, key=lambda x: x.score, reverse=True)[:top_k]
 
 
-def lexical_search(db: Session, course_id: str, question: str, top_k: int) -> list[RetrievedFragment]:
-    rows = db.query(RAGFragment).join(Content, Content.id == RAGFragment.contenido_id).filter(
+def lexical_search(db: Session, course_id: str, question: str, top_k: int, content_ids: list[str] | None = None) -> list[RetrievedFragment]:
+    if content_ids == []:
+        return []
+    query = db.query(RAGFragment).join(Content, Content.id == RAGFragment.contenido_id).filter(
         RAGFragment.curso_id == course_id, Content.activo.is_(True), Content.estado_indexacion == "indexado"
-    ).all()
+    )
+    if content_ids is not None:
+        query=query.filter(RAGFragment.contenido_id.in_(content_ids))
+    rows=query.all()
     query_terms = {t for t in re.findall(r"[\wáéíóúñü]+", question.lower()) if len(t) > 2}
     ranked: list[RetrievedFragment] = []
     for row in rows:

@@ -8,7 +8,7 @@ from ...deps import current_user
 from ....core.errors import api_error
 from ....db.audit import audit
 from ....db.session import get_db
-from ....models import Course, Enrollment, User
+from ....models import Course, Content, Enrollment, User
 from ....schemas import CourseIn, CoursePatch, EnrollIn, EnrollPatch
 from ....services.access import can_access_course, require_permission, teacher_course
 from ....services.serializers import course_json, user_json
@@ -26,21 +26,29 @@ def list_courses(page: int = Query(1, ge=1), limit: int = Query(20, ge=1, le=100
         q = q.join(Enrollment, Enrollment.curso_id == Course.id).filter(Enrollment.estudiante_id == user.id, Enrollment.estado == "activa")
     total = q.count()
     rows = q.order_by(Course.creado_en.desc()).offset((page - 1) * limit).limit(limit).all()
-    return {"items": [course_json(c) for c in rows], "page": page, "total": total}
+    items=[]
+    for course in rows:
+        teacher=db.get(User,course.docente_id)
+        items.append({**course_json(course), "docente": {"id":teacher.id,"nombre":teacher.nombre,"correo":teacher.correo} if teacher else None, "materialCount":db.query(Content).filter(Content.curso_id==course.id).count()})
+    return {"items": items, "page": page, "total": total}
 
 
 @router.post("", status_code=201)
 def create_course(body: CourseIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     if user.rol == "docente":
+        if body.docenteId is not None and str(body.docenteId) != user.id:
+            api_error(403, "FORBIDDEN", "Solo el administrador puede asignar otro docente.")
         require_permission(db, user, "course:write")
         teacher = user
     elif user.rol == "administrador":
-        teacher = db.query(User).filter(User.rol == "docente", User.estado == "activo").order_by(User.creado_en).first()
+        teacher = db.get(User, str(body.docenteId)) if body.docenteId else db.query(User).filter(User.rol == "docente", User.estado == "activo").order_by(User.creado_en).first()
         if not teacher:
             api_error(422, "NO_TEACHER", "No existe un docente activo para asignar el curso.")
+        if teacher.rol != "docente" or teacher.estado != "activo":
+            api_error(422, "INVALID_TEACHER", "Selecciona un docente activo.")
     else:
         api_error(403, "FORBIDDEN", "Solo docentes o administradores pueden crear cursos.")
-    course = Course(docente_id=teacher.id, nombre=body.nombre, estado="activo")
+    course = Course(docente_id=teacher.id, nombre=body.nombre, descripcion=body.descripcion, estado="activo")
     db.add(course)
     db.flush()
     audit(db, user.id, "COURSE_CREATE", f"curso:{course.id}")
@@ -51,8 +59,17 @@ def create_course(body: CourseIn, user: User = Depends(current_user), db: Sessio
 @router.patch("/{courseId}")
 def patch_course(courseId: str, body: CoursePatch, user: User = Depends(current_user), db: Session = Depends(get_db)):
     course = teacher_course(db, user, courseId)
+    if body.docenteId is not None:
+        if user.rol != "administrador":
+            api_error(403, "FORBIDDEN", "Solo el administrador puede reasignar docentes.")
+        teacher = db.get(User, str(body.docenteId))
+        if not teacher or teacher.rol != "docente" or teacher.estado != "activo":
+            api_error(422, "INVALID_TEACHER", "Selecciona un docente activo.")
+        course.docente_id = teacher.id
     if body.nombre is not None:
         course.nombre = body.nombre
+    if body.descripcion is not None:
+        course.descripcion = body.descripcion
     if body.estado is not None:
         if body.estado not in {"activo", "archivado"}:
             api_error(422, "COURSE_STATE", "Estado inválido.")

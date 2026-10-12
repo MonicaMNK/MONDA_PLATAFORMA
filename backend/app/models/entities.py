@@ -57,6 +57,7 @@ class Course(Base):
     id: Mapped[str] = mapped_column(UUID, primary_key=True, default=uid)
     docente_id: Mapped[str] = mapped_column(UUID, ForeignKey("usuarios.id"), nullable=False)
     nombre: Mapped[str] = mapped_column(String(150), nullable=False)
+    descripcion: Mapped[str] = mapped_column(Text, nullable=False, default="")
     estado: Mapped[str] = mapped_column(String(12), nullable=False, default="activo")
     creado_en: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 
@@ -84,8 +85,19 @@ class Content(Base):
     estado_indexacion: Mapped[str] = mapped_column(String(15), nullable=False, default="pendiente")
     activo: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     modelo_embedding: Mapped[str] = mapped_column(String(100), nullable=False, default="fallback-lexical-v1")
+    carpeta_id: Mapped[str | None] = mapped_column(UUID, ForeignKey("carpetas_contenido.id"), nullable=True, index=True)
     creado_en: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
     __table_args__ = (UniqueConstraint("documento_id", "version", name="uq_documento_version"), UniqueConstraint("id", "curso_id", name="uq_contenido_curso"))
+
+
+class ContentFolder(Base):
+    __tablename__ = "carpetas_contenido"
+    id: Mapped[str] = mapped_column(UUID, primary_key=True, default=uid)
+    curso_id: Mapped[str] = mapped_column(UUID, ForeignKey("cursos.id"), nullable=False, index=True)
+    padre_id: Mapped[str | None] = mapped_column(UUID, ForeignKey("carpetas_contenido.id"), nullable=True)
+    nombre: Mapped[str] = mapped_column(String(100), nullable=False)
+    creado_por: Mapped[str] = mapped_column(UUID, ForeignKey("usuarios.id"), nullable=False)
+    creado_en: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 
 
 class Conversation(Base):
@@ -94,6 +106,7 @@ class Conversation(Base):
     usuario_id: Mapped[str] = mapped_column(UUID, ForeignKey("usuarios.id"), nullable=False)
     curso_id: Mapped[str] = mapped_column(UUID, ForeignKey("cursos.id"), nullable=False)
     estado: Mapped[str] = mapped_column(String(10), nullable=False, default="activa")
+    alcance: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
     creado_en: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 
 

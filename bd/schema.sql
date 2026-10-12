@@ -330,4 +330,19 @@ CREATE TRIGGER auditoria_inmutable
 BEFORE UPDATE OR DELETE ON auditoria
 FOR EACH ROW EXECUTE FUNCTION bloquear_mutacion_auditoria();
 
+-- 23. Carpetas de materiales: semanas, unidades y subcarpetas.
+ALTER TABLE cursos ADD COLUMN IF NOT EXISTS descripcion text NOT NULL DEFAULT '';
+ALTER TABLE conversaciones ADD COLUMN IF NOT EXISTS alcance jsonb NOT NULL DEFAULT '{}';
+CREATE TABLE IF NOT EXISTS carpetas_contenido (
+  id uuid PRIMARY KEY,
+  curso_id uuid NOT NULL REFERENCES cursos(id),
+  padre_id uuid REFERENCES carpetas_contenido(id),
+  nombre varchar(100) NOT NULL,
+  creado_por uuid NOT NULL REFERENCES usuarios(id),
+  creado_en timestamptz NOT NULL DEFAULT now()
+);
+ALTER TABLE contenidos ADD COLUMN IF NOT EXISTS carpeta_id uuid REFERENCES carpetas_contenido(id);
+CREATE INDEX IF NOT EXISTS ix_carpetas_curso ON carpetas_contenido(curso_id);
+CREATE INDEX IF NOT EXISTS ix_contenidos_carpeta_id ON contenidos(carpeta_id);
+
 COMMIT;

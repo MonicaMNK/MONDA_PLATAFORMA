@@ -4,7 +4,7 @@ import hashlib
 from pathlib import Path
 
 from docx import Document
-from sqlalchemy import func
+from sqlalchemy import func, inspect, text
 
 from ..core.config import UPLOAD_DIR, settings
 from ..core.security import hash_password
@@ -13,7 +13,7 @@ from .session import SessionLocal, engine
 from ..models import Base
 
 PERMISSIONS = {
-    "administrador": ["admin:users", "admin:roles", "admin:config", "admin:audit", "course:read"],
+    "administrador": ["admin:users", "admin:roles", "admin:config", "admin:audit", "course:read", "rag:query"],
     "docente": ["course:read", "course:write", "content:write", "assessment:write", "analytics:read", "rag:query"],
     "estudiante": ["course:read", "rag:query", "assessment:solve"],
 }
@@ -23,6 +23,15 @@ def create_schema_for_tests(reset: bool = False) -> None:
     if reset:
         Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
+    if engine.dialect.name == 'sqlite' and 'carpeta_id' not in {c['name'] for c in inspect(engine).get_columns('contenidos')}:
+        with engine.begin() as connection:
+            connection.execute(text('ALTER TABLE contenidos ADD COLUMN carpeta_id CHAR(32) REFERENCES carpetas_contenido(id)'))
+    if engine.dialect.name == 'sqlite' and 'descripcion' not in {c['name'] for c in inspect(engine).get_columns('cursos')}:
+        with engine.begin() as connection:
+            connection.execute(text("ALTER TABLE cursos ADD COLUMN descripcion TEXT NOT NULL DEFAULT ''"))
+    if engine.dialect.name == 'sqlite' and 'alcance' not in {c['name'] for c in inspect(engine).get_columns('conversaciones')}:
+        with engine.begin() as connection:
+            connection.execute(text("ALTER TABLE conversaciones ADD COLUMN alcance JSON NOT NULL DEFAULT '{}'"))
 
 
 def seed_demo_data(force: bool = False) -> None:

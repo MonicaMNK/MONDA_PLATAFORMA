@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, timezone
 from sqlalchemy.orm import Session
 
 from ..db.audit import audit
-from ..models import Alert, Assessment, Attempt, Conversation, Enrollment, Event, Message, Rating, User
+from ..models import Alert, Assessment, Attempt, Config, Conversation, Enrollment, Event, Message, Rating, User
 from .access import teacher_course
 
 
@@ -22,28 +22,35 @@ def _aware(value: datetime | None) -> datetime | None:
 
 
 def ensure_alerts(db: Session, course_id: str) -> list[Alert]:
-    enrollments = db.query(Enrollment).filter(Enrollment.curso_id == course_id, Enrollment.estado == "activa").all()
+    config=db.get(Config,'alerts')
+    cfg=config.valor if config else {}
+    threshold=float(cfg.get('promedioMinimo',11));days=int(cfg.get('inactividadDias',7))
+    now=utcnow()
+    enrollments=db.query(Enrollment).filter(Enrollment.curso_id==course_id,Enrollment.estado=='activa').all()
+    active={e.estudiante_id for e in enrollments}
     for enrollment in enrollments:
-        attempts = (
-            db.query(Attempt)
-            .join(Assessment, Attempt.evaluacion_id == Assessment.id)
-            .filter(Assessment.curso_id == course_id, Attempt.estudiante_id == enrollment.estudiante_id, Attempt.estado == "cerrado")
-            .all()
-        )
-        scores = [float(x.puntaje) for x in attempts if x.puntaje is not None]
-        if scores:
-            avg = sum(scores) / len(scores)
-            if avg < 11:
-                exists = db.query(Alert).filter(Alert.estudiante_id == enrollment.estudiante_id, Alert.curso_id == course_id, Alert.regla == "promedio_bajo", Alert.estado == "abierta").first()
-                if not exists:
-                    db.add(Alert(estudiante_id=enrollment.estudiante_id, curso_id=course_id, regla="promedio_bajo", evidencia={"promedio": round(avg, 2), "umbral": 11, "intentos": len(scores), "fechaCorte": utcnow().isoformat()}))
-        latest = db.query(Event).filter(Event.usuario_seudonimo == db.get(User, enrollment.estudiante_id).seudonimo, Event.curso_id == course_id).order_by(Event.creado_en.desc()).first()
-        if latest and (_aware(latest.creado_en) or utcnow()) <= utcnow() - timedelta(days=7):
-            exists = db.query(Alert).filter(Alert.estudiante_id == enrollment.estudiante_id, Alert.curso_id == course_id, Alert.regla == "inactividad_7d", Alert.estado == "abierta").first()
-            if not exists:
-                db.add(Alert(estudiante_id=enrollment.estudiante_id, curso_id=course_id, regla="inactividad_7d", evidencia={"dias": 7, "ultimaActividad": latest.creado_en.isoformat()}))
+        student=db.get(User,enrollment.estudiante_id)
+        attempts=db.query(Attempt).join(Assessment,Attempt.evaluacion_id==Assessment.id).filter(Assessment.curso_id==course_id,Attempt.estudiante_id==student.id,Attempt.estado=='cerrado').all()
+        scores=[float(a.puntaje) for a in attempts if a.puntaje is not None]
+        avg=sum(scores)/len(scores) if scores else None
+        latest=db.query(Event).filter(Event.usuario_seudonimo==student.seudonimo,Event.curso_id==course_id).order_by(Event.creado_en.desc()).first()
+        last=_aware(latest.creado_en) if latest else _aware(enrollment.creado_en)
+        elapsed=max(0,(now-last).days) if last else 0
+        conditions={'promedio_bajo':(avg is not None and avg<threshold,{'promedio':round(avg,2) if avg is not None else None,'umbral':threshold,'intentos':len(scores),'fechaCorte':now.isoformat()}),'inactividad_7d':(elapsed>=days,{'dias':elapsed,'umbralDias':days,'ultimaActividad':last.isoformat() if last else None,'fechaCorte':now.isoformat()})}
+        for rule,(trigger,evidence) in conditions.items():
+            old=db.query(Alert).filter(Alert.estudiante_id==student.id,Alert.curso_id==course_id,Alert.regla==rule).order_by(Alert.creado_en.desc()).first()
+            if trigger:
+                if old:
+                    was_resolved=bool((old.evidencia or {}).get('resuelta'))
+                    old.evidencia={**(old.evidencia or {}),**evidence,'resuelta':False}
+                    if was_resolved:old.estado='abierta';old.revisado_por=None;old.fecha_revision=None
+                else:db.add(Alert(estudiante_id=student.id,curso_id=course_id,regla=rule,evidencia={**evidence,'resuelta':False}))
+            elif old:
+                old.evidencia={**(old.evidencia or {}),**evidence,'resuelta':True}
+    for alert in db.query(Alert).filter(Alert.curso_id==course_id).all():
+        if alert.estudiante_id not in active:alert.evidencia={**(alert.evidencia or {}),'resuelta':True}
     db.commit()
-    return db.query(Alert).filter(Alert.curso_id == course_id).all()
+    return db.query(Alert).filter(Alert.curso_id==course_id).order_by(Alert.creado_en.desc()).all()
 
 
 def analytics(db: Session, user: User, course_id: str, desde: datetime | None = None, hasta: datetime | None = None, corte: datetime | None = None) -> dict:
@@ -63,7 +70,7 @@ def analytics(db: Session, user: User, course_id: str, desde: datetime | None = 
     alerts = ensure_alerts(db, course_id)
     return {
         "indicadores": {"estudiantesActivos": len(enrollments), "promedio": avg, "intentosCerrados": len(attempts), "evaluacionesPublicadas": published, "utilidadTutorPct": utility},
-        "alertas": [{"id": a.id, "estudianteId": a.estudiante_id, "regla": a.regla, "evidencia": a.evidencia, "estado": a.estado} for a in alerts],
+        "alertas": [{"id": a.id, "estudianteId": a.estudiante_id, "estudiante": db.get(User,a.estudiante_id).nombre, "regla": a.regla, "evidencia": a.evidencia, "estado": a.estado} for a in alerts],
         "fechaCorte": (corte or utcnow()).isoformat(),
     }
 
@@ -84,10 +91,11 @@ def export_csv(db: Session, user: User, course_id: str, desde: datetime | None =
         q = q.filter(Attempt.fecha_cierre <= hasta)
     out = io.StringIO()
     writer = csv.writer(out)
-    writer.writerow(["seudonimo", "evaluacion", "puntaje", "fecha_cierre", "fecha_corte"])
+    writer.writerow(["seudonimo", "evaluacion", "puntaje", "fecha_cierre", "fecha_corte", "fecha_inicio", "duracion_segundos"])
     cut = corte or utcnow()
     for attempt, student, assessment in q.all():
-        writer.writerow([safe_csv(student.seudonimo), safe_csv(assessment.titulo), float(attempt.puntaje), attempt.fecha_cierre.isoformat(), cut.isoformat()])
+        duration=int((_aware(attempt.fecha_cierre)-_aware(attempt.fecha_inicio)).total_seconds())
+        writer.writerow([safe_csv(student.seudonimo), safe_csv(assessment.titulo), float(attempt.puntaje), _aware(attempt.fecha_cierre).isoformat(), cut.isoformat(),_aware(attempt.fecha_inicio).isoformat(),duration])
     audit(db, user.id, "REPORT_EXPORT", f"curso:{course_id}")
     db.commit()
     return out.getvalue().encode("utf-8-sig")

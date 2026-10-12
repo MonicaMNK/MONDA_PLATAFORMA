@@ -36,6 +36,14 @@ app.add_middleware(CorrelationIdMiddleware)
 app.add_exception_handler(HTTPException, http_exception_handler)
 app.include_router(api_router)
 
+
+@app.get('/dashboard.html',include_in_schema=False)
+def complete_dashboard():
+    path=ROOT/'frontend'/'monda-dashboard.html'
+    if not path.exists():
+        raise HTTPException(status_code=404,detail='Compila y empaqueta el frontend primero.')
+    return FileResponse(path,media_type='text/html')
+
 FRONTEND = ROOT / "frontend"
 BUILT_FRONTEND = FRONTEND / "dist"
 # Si existe un build de Vite, se sirve ese frontend; si no, se usa la UI React
@@ -51,6 +59,10 @@ if (BUILT_FRONTEND / "vite-src" / "index.html").exists():
     @app.get("/", include_in_schema=False)
     def home():
         return FileResponse(BUILT_FRONTEND / "vite-src" / "index.html")
+elif (FRONTEND / 'monda-dashboard.html').exists():
+    @app.get('/',include_in_schema=False)
+    def home():
+        return FileResponse(FRONTEND/'monda-dashboard.html')
 elif (FRONTEND / "index.html").exists():
     @app.get("/", include_in_schema=False)
     def home():

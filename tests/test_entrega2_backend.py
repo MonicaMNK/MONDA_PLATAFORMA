@@ -86,7 +86,8 @@ def test_full_pi7_backend_flow_fallback_rag():
             json={"accion": "cerrar", "intentoId": started.json()["attemptId"], "respuestas": answers},
         )
         assert closed.status_code == 200, closed.text
-        assert closed.json()["puntaje"] == 20.0
+        assert closed.json()["puntaje"] is None
+        assert closed.json()["resultsPublished"] is False
         # Reenvío no duplica calificación.
         repeated = client.post(
             f"/api/assessments/{assessment_id}/attempts",
@@ -94,7 +95,13 @@ def test_full_pi7_backend_flow_fallback_rag():
             json={"accion": "cerrar", "intentoId": started.json()["attemptId"], "respuestas": answers},
         )
         assert repeated.status_code == 200
-        assert repeated.json()["puntaje"] == 20.0
+        assert repeated.json()["puntaje"] is None
+        current=client.get(f'/api/assessments/{assessment_id}',headers=teacher).json()
+        released=client.post(f'/api/assessments/{assessment_id}/results/publish',headers=teacher,json={'version':current['version']})
+        assert released.status_code==200,released.text
+        result=client.get(f'/api/assessments/{assessment_id}/results',headers=student)
+        assert result.status_code==200
+        assert result.json()['puntaje']==20.0
 
         admin = auth(client, "admin@monda.local", "Admin123!")
         assert client.get("/api/admin/users", headers=admin).status_code == 200

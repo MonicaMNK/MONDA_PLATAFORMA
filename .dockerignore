@@ -1,8 +1,17 @@
 .git
+.env
+.env.*
+!.env.example
+data/uploads
+data/traces
 __pycache__
 *.pyc
 .pytest_cache
 .venv
+.venv-local
+.tools
+data/.local_secret
+data/.gemini.env
 node_modules
 data/*.db
 data/s3_cache

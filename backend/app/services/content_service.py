@@ -10,14 +10,22 @@ from sqlalchemy.orm import Session
 from ..core.config import settings
 from ..core.errors import api_error
 from ..db.audit import audit
-from ..models import Config, Content, Job, RAGFragment, User, uid
+from ..models import Config, Content, ContentFolder, Job, RAGFragment, User, uid
 from ..rag import chunk_text, extract_text, get_provider_with_fallback
 from .access import teacher_course
 from .storage import get_storage
 
 
-def create_content(db: Session, user: User, course_id: str, filename: str, media_type: str | None, data: bytes, documento_id: str | None, version: int) -> Content:
+def create_content(db: Session, user: User, course_id: str, filename: str, media_type: str | None, data: bytes, documento_id: str | None, version: int, folder_id: str | None = None) -> Content:
     teacher_course(db, user, course_id)
+    if folder_id:
+        try:
+            folder_id = str(uuid.UUID(folder_id))
+        except ValueError:
+            api_error(422, "FOLDER_INVALID", "Carpeta inválida.")
+        folder = db.get(ContentFolder, folder_id)
+        if not folder or folder.curso_id != course_id:
+            api_error(403, "FOLDER_FORBIDDEN", "La carpeta no pertenece a este curso.")
     ext = Path(filename).suffix.lower()
     if ext not in {".pdf", ".docx"}:
         api_error(415, "UNSUPPORTED_MEDIA", "Solo se admiten PDF o DOCX.")
@@ -34,6 +42,8 @@ def create_content(db: Session, user: User, course_id: str, filename: str, media
             api_error(422, "DOCUMENT_ID_INVALID", "documentoId debe ser UUID válido.")
     else:
         doc_id = uid()
+    if db.query(Content).filter(Content.documento_id == doc_id, Content.curso_id != course_id).first():
+        api_error(403, "DOCUMENT_COURSE_FORBIDDEN", "El documento pertenece a otro curso.")
     if db.query(Content).filter(Content.documento_id == doc_id, Content.version == version).first():
         api_error(409, "CONTENT_VERSION_EXISTS", "Ya existe esta versión del documento.")
     cid = uid()
@@ -54,6 +64,7 @@ def create_content(db: Session, user: User, course_id: str, filename: str, media
         estado_indexacion="pendiente",
         activo=False,
         modelo_embedding="pendiente",
+        carpeta_id=folder_id,
     )
     db.add(content)
     audit(db, user.id, "CONTENT_UPLOAD", f"contenido:{cid}")
@@ -63,7 +74,11 @@ def create_content(db: Session, user: User, course_id: str, filename: str, media
 
 def index_content(db: Session, user: User, content: Content, mode: str | None = None) -> Job:
     teacher_course(db, user, content.curso_id)
-    if content.estado_indexacion == "indexado" and content.activo:
+    rag_cfg = db.get(Config, "rag")
+    cfg = rag_cfg.valor if rag_cfg else {}
+    selected_mode = mode or cfg.get("mode") or settings.rag_mode
+    requested_provider, _ = get_provider_with_fallback(selected_mode, ollama_model=cfg.get("ollamaModel"), llm_model=cfg.get("modelo"))
+    if content.estado_indexacion == "indexado" and content.activo and content.modelo_embedding == requested_provider.embedding_model:
         prior = Job(usuario_id=user.id, curso_id=content.curso_id, tipo="ingesta", estado="completado", resultado={"contentId": content.id, "fragmentCount": db.query(RAGFragment).filter(RAGFragment.contenido_id == content.id).count(), "idempotent": True}, correlation_id=uid())
         db.add(prior)
         db.commit()
@@ -123,7 +138,7 @@ def index_content(db: Session, user: User, content: Content, mode: str | None = 
                 embedding_provider=provider.name,
                 hash_fragmento=fragment_hash,
             ))
-        db.query(Content).filter(Content.documento_id == content.documento_id).update({"activo": False}, synchronize_session=False)
+        db.query(Content).filter(Content.documento_id == content.documento_id, Content.curso_id == content.curso_id, Content.id != content.id).update({"activo": False}, synchronize_session=False)
         content.activo = True
         content.estado_indexacion = "indexado"
         content.modelo_embedding = provider.embedding_model

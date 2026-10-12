@@ -1,5 +1,9 @@
 .env
 .venv/
+.venv-local/
+.tools/
+data/.local_secret
+data/.gemini.env
 __pycache__/
 *.py[cod]
 .pytest_cache/

@@ -4,6 +4,7 @@ import hashlib
 import json
 import uuid
 from fastapi import APIRouter, Depends
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 from ...deps import current_user
@@ -11,6 +12,7 @@ from ....db.audit import audit
 from ....db.session import get_db
 from ....models import Draft, SyncAction, User
 from ....schemas import SyncIn
+from ....services.access import can_access_course
 
 router = APIRouter(prefix="/api", tags=["Sincronización"])
 ALLOWED = {"borrador_personal", "valoracion"}
@@ -24,7 +26,7 @@ def sync(body: SyncIn, user: User = Depends(current_user), db: Session = Depends
         except Exception:
             results.append({"actionId": action.actionId, "status": "rejected", "result": {"code": "ACTION_ID_INVALID"}})
             continue
-        payload_bytes = json.dumps(action.payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+        payload_bytes = json.dumps({"tipo": action.tipo, "version": action.version, "payload": action.payload}, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
         payload_hash = hashlib.sha256(payload_bytes).hexdigest()
         old = db.get(SyncAction, {"usuario_id": user.id, "accion_id": action_id})
         if old:
@@ -39,6 +41,13 @@ def sync(body: SyncIn, user: User = Depends(current_user), db: Session = Depends
             results.append({"actionId": action_id, "status": "rejected", "result": result})
             continue
         course_id = action.payload.get("courseId")
+        if course_id is not None:
+            try:
+                course_id = str(uuid.UUID(str(course_id)))
+                can_access_course(db, user, course_id)
+            except (ValueError, HTTPException):
+                results.append({"actionId": action_id, "status": "rejected", "result": {"code": "COURSE_FORBIDDEN"}})
+                continue
         draft = Draft(usuario_id=user.id, curso_id=course_id, tipo=action.tipo, payload=action.payload, base_version=action.version, accion_id=action_id, sincronizado=True)
         db.add(draft)
         db.flush()
