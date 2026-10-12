@@ -28,7 +28,7 @@ Aplicación web educativa con FastAPI, PostgreSQL 16 + pgvector, React, control 
 
    ```bash
    git clone <URL_DE_TU_REPOSITORIO>
-   cd MONDA_PLATAFORMA_COMPLETA
+   cd MONDA_PLATAFORMA
    ```
 
 2. Crea la configuración local y cambia la clave de firma por una aleatoria propia:
