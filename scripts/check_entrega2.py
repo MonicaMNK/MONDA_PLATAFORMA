@@ -1,4 +1,3 @@
-from backend.app.main import app
 import os
 import sys
 from pathlib import Path
@@ -6,11 +5,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-os.environ.setdefault(
-    "DATABASE_URL", f"sqlite:///{ROOT / 'data' / 'check_entrega2.db'}")
+os.environ.setdefault("DATABASE_URL", f"sqlite:///{ROOT / 'data' / 'check_entrega2.db'}")
 os.environ.setdefault("MONDA_ALLOW_PBKDF2_FOR_TESTS", "1")
 os.environ.setdefault("RAG_MODE", "fallback")
 
+from backend.app.main import app
 
 expected = {
     ("POST", "/api/auth/login"),
@@ -67,11 +66,9 @@ for path, operations in app.openapi().get("paths", {}).items():
 missing = sorted(expected - actual)
 extra = sorted(actual - expected)
 if missing or extra:
-    raise SystemExit(
-        f"Contrato PI7 no coincide. Faltantes={missing}; extra={extra}")
+    raise SystemExit(f"Contrato PI7 no coincide. Faltantes={missing}; extra={extra}")
 
-factory = (
-    ROOT / "backend/app/rag/providers/factory.py").read_text(encoding="utf-8")
+factory = (ROOT / "backend/app/rag/providers/factory.py").read_text(encoding="utf-8")
 for provider in ("gemini", "ollama", "fallback"):
     if provider not in factory:
         raise SystemExit(f"Proveedor RAG faltante: {provider}")
