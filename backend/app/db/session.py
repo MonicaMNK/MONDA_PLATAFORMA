@@ -1,21 +1,24 @@
 from __future__ import annotations
 
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from ..core.config import settings
 
-connect_args = {"check_same_thread": False} if settings.database_url.startswith("sqlite") else {}
-engine = create_engine(settings.database_url, future=True, pool_pre_ping=True, connect_args=connect_args)
+if settings.database_url.startswith("sqlite"):
+    connect_args = {"check_same_thread": False}
+elif settings.database_url.startswith("postgresql"):
+    # El search_path se fija en la conexión misma (opción de arranque del servidor).
+    # Un "SET search_path" ejecutado en el evento connect queda dentro de una transacción
+    # y se pierde con el primer rollback del pool, por eso el esquema `monda` dejaba de verse.
+    connect_args = {"options": "-c search_path=monda,public"}
+else:
+    connect_args = {}
+engine = create_engine(settings.database_url, future=True,
+                       pool_pre_ping=True, connect_args=connect_args)
 
-if settings.database_url.startswith("postgresql"):
-    @event.listens_for(engine, "connect")
-    def _postgres_search_path(dbapi_connection, _connection_record):
-        cursor = dbapi_connection.cursor()
-        cursor.execute("SET search_path TO monda, public")
-        cursor.close()
-
-SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
+SessionLocal = sessionmaker(
+    bind=engine, autoflush=False, expire_on_commit=False)
 
 
 def get_db():
