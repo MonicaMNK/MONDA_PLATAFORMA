@@ -16,13 +16,13 @@ from ....services.access import teacher_course
 from ....services.analytics_service import analytics, export_csv
 from ....services.serializers import dtiso
 
-router = APIRouter(tags=["Seguimiento y reportes"])
+router = APIRouter(prefix="/api", tags=["Seguimiento y reportes"])
 
-@router.get("/api/courses/{courseId}/analytics")
+@router.get("/courses/{courseId}/analytics")
 def course_analytics(courseId: str, desde: datetime | None = None, hasta: datetime | None = None, corte: datetime | None = None, user: User = Depends(current_user), db: Session = Depends(get_db)):
     return analytics(db, user, courseId, desde, hasta, corte)
 
-@router.patch("/api/alerts/{alertId}")
+@router.patch("/alerts/{alertId}")
 def patch_alert(alertId: str, body: AlertPatch, user: User = Depends(current_user), db: Session = Depends(get_db)):
     alert = db.get(Alert, alertId)
     if not alert:
@@ -40,7 +40,7 @@ def patch_alert(alertId: str, body: AlertPatch, user: User = Depends(current_use
     db.commit()
     return {"id": alert.id, "estado": alert.estado, "revisadoPor": alert.revisado_por, "fechaRevision": dtiso(alert.fecha_revision)}
 
-@router.get("/api/courses/{courseId}/reports/export")
+@router.get("/courses/{courseId}/reports/export")
 def report_export(courseId: str, desde: datetime | None = None, hasta: datetime | None = None, corte: datetime | None = None, format: str = "csv", user: User = Depends(current_user), db: Session = Depends(get_db)):
     if format != "csv":
         api_error(422, "FORMAT_INVALID", "Solo CSV está habilitado.")

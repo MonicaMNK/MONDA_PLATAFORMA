@@ -15,3 +15,7 @@ Esta carpeta incorpora el ZIP original PI7 y los cambios de las entregas 1 y 2, 
 - No se inició Uvicorn, `npm start`, Docker Compose ni ningún servidor persistente para las verificaciones.
 
 La ruta local recomendada es `docker compose up --build -d`, que sirve la interfaz React estática incluida con FastAPI y usa el modo fallback por defecto cuando no hay API key. La compilación del frontend moderno se hace separadamente desde `frontend/` en una máquina que tenga acceso al registry npm. Las pruebas automatizadas no sustituyen el recorrido manual en navegador, pruebas contra PostgreSQL real, llamadas reales a Gemini/Ollama, pruebas de carga ni ensayos de backup/restore en AWS.
+
+## Hotfix CI 2026-10-11
+
+Se normalizaron los routers de Contenidos, Evaluaciones, Seguimiento, Tutor RAG y Sincronizacion para usar un unico prefijo `/api`, evitando rutas duplicadas o ausentes en el OpenAPI. El contrato PI7 queda verificado con 41 operaciones + `/api/health`.

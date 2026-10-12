@@ -14,7 +14,7 @@ from ....services.access import can_access_course, require_permission, teacher_c
 from ....services.assessment_service import generate_assessment, publish_assessment
 from ....services.serializers import dtiso, question_json
 
-router = APIRouter(tags=["Evaluaciones"])
+router = APIRouter(prefix="/api", tags=["Evaluaciones"])
 
 
 def _aware(value: datetime | None) -> datetime | None:
@@ -23,12 +23,12 @@ def _aware(value: datetime | None) -> datetime | None:
     return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
 
 
-@router.post("/api/courses/{courseId}/assessments/generate", status_code=202)
+@router.post("/courses/{courseId}/assessments/generate", status_code=202)
 def generate(courseId: str, body: GenerateIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     return generate_assessment(db, user, courseId, body.tema, body.bloom, body.dificultad, body.cantidad, body.tipo)
 
 
-@router.get("/api/courses/{courseId}/assessments")
+@router.get("/courses/{courseId}/assessments")
 def list_assessments(courseId: str, page: int = Query(1, ge=1), limit: int = Query(20, ge=1, le=100), user: User = Depends(current_user), db: Session = Depends(get_db)):
     can_access_course(db, user, courseId)
     q = db.query(Assessment).filter(Assessment.curso_id == courseId)
@@ -39,7 +39,7 @@ def list_assessments(courseId: str, page: int = Query(1, ge=1), limit: int = Que
     return {"items": [{"id": a.id, "titulo": a.titulo, "estado": a.estado, "fechaInicio": dtiso(a.fecha_inicio), "fechaFin": dtiso(a.fecha_fin), "version": a.version} for a in rows], "page": page, "total": total}
 
 
-@router.get("/api/assessments/{id}")
+@router.get("/assessments/{id}")
 def assessment_detail(id: str, user: User = Depends(current_user), db: Session = Depends(get_db)):
     assessment = db.get(Assessment, id)
     if not assessment:
@@ -52,7 +52,7 @@ def assessment_detail(id: str, user: User = Depends(current_user), db: Session =
     return {"id": assessment.id, "cursoId": assessment.curso_id, "titulo": assessment.titulo, "estado": assessment.estado, "configuracion": assessment.configuracion, "fechaInicio": dtiso(assessment.fecha_inicio), "fechaFin": dtiso(assessment.fecha_fin), "version": assessment.version, "questions": [question_json(q, include_keys) for q in questions]}
 
 
-@router.patch("/api/questions/{questionId}/review")
+@router.patch("/questions/{questionId}/review")
 def review_question(questionId: str, body: ReviewIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     question = db.get(Question, questionId)
     if not question:
@@ -86,7 +86,7 @@ def review_question(questionId: str, body: ReviewIn, user: User = Depends(curren
     return question_json(question, True)
 
 
-@router.post("/api/assessments/{id}/publish")
+@router.post("/assessments/{id}/publish")
 def publish(id: str, body: PublishIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     assessment = db.get(Assessment, id)
     if not assessment:
@@ -94,7 +94,7 @@ def publish(id: str, body: PublishIn, user: User = Depends(current_user), db: Se
     return publish_assessment(db, user, assessment, body.fechaInicio, body.fechaFin, body.version)
 
 
-@router.post("/api/assessments/{id}/attempts")
+@router.post("/assessments/{id}/attempts")
 def attempt_action(id: str, body: AttemptIn, idempotency_key: str | None = Header(default=None, alias="Idempotency-Key"), user: User = Depends(current_user), db: Session = Depends(get_db)):
     require_permission(db, user, "assessment:solve")
     if user.rol != "estudiante":

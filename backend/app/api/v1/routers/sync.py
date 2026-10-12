@@ -12,10 +12,10 @@ from ....db.session import get_db
 from ....models import Draft, SyncAction, User
 from ....schemas import SyncIn
 
-router = APIRouter(tags=["Sincronización"])
+router = APIRouter(prefix="/api", tags=["Sincronización"])
 ALLOWED = {"borrador_personal", "valoracion"}
 
-@router.post("/api/sync")
+@router.post("/sync")
 def sync(body: SyncIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     results = []
     for action in body.actions:

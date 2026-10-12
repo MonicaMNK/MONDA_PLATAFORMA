@@ -14,17 +14,17 @@ from ....services.content_service import create_content, index_content
 from ....services.serializers import content_json
 from ....services.storage import get_storage
 
-router = APIRouter(tags=["Contenidos"])
+router = APIRouter(prefix="/api", tags=["Contenidos"])
 
 
-@router.post("/api/courses/{courseId}/contents", status_code=201)
+@router.post("/courses/{courseId}/contents", status_code=201)
 async def upload_content(courseId: str, file: UploadFile = File(...), documentoId: str | None = Form(None), version: int = Form(1), user: User = Depends(current_user), db: Session = Depends(get_db)):
     data = await file.read()
     content = create_content(db, user, courseId, file.filename or "material", file.content_type, data, documentoId, version)
     return {"contentId": content.id, "documentoId": content.documento_id, "version": content.version, "estado": content.estado_indexacion}
 
 
-@router.post("/api/contents/{contentId}/index", status_code=202)
+@router.post("/contents/{contentId}/index", status_code=202)
 def request_index(contentId: str, idempotency_key: str | None = Header(default=None, alias="Idempotency-Key"), user: User = Depends(current_user), db: Session = Depends(get_db)):
     content = db.get(Content, contentId)
     if not content:
@@ -33,7 +33,7 @@ def request_index(contentId: str, idempotency_key: str | None = Header(default=N
     return {"jobId": job.id, "estado": job.estado, "result": job.resultado}
 
 
-@router.get("/api/contents/{contentId}/status")
+@router.get("/contents/{contentId}/status")
 def content_status(contentId: str, user: User = Depends(current_user), db: Session = Depends(get_db)):
     content = db.get(Content, contentId)
     if not content:
@@ -43,7 +43,7 @@ def content_status(contentId: str, user: User = Depends(current_user), db: Sessi
     return {"estado": content.estado_indexacion, "errorCode": "INDEX_ERROR" if content.estado_indexacion == "error" else None, "fragmentCount": count}
 
 
-@router.get("/api/contents/{contentId}/download")
+@router.get("/contents/{contentId}/download")
 def download_content(contentId: str, user: User = Depends(current_user), db: Session = Depends(get_db)):
     content = db.get(Content, contentId)
     if not content:
@@ -58,7 +58,7 @@ def download_content(contentId: str, user: User = Depends(current_user), db: Ses
     return FileResponse(path, filename=content.nombre_original)
 
 
-@router.get("/api/courses/{courseId}/contents")
+@router.get("/courses/{courseId}/contents")
 def list_contents(courseId: str, page: int = Query(1, ge=1), limit: int = Query(20, ge=1, le=100), user: User = Depends(current_user), db: Session = Depends(get_db)):
     can_access_course(db, user, courseId)
     q = db.query(Content).filter(Content.curso_id == courseId)
@@ -67,7 +67,7 @@ def list_contents(courseId: str, page: int = Query(1, ge=1), limit: int = Query(
     return {"items": [content_json(c) for c in rows], "page": page, "total": total}
 
 
-@router.get("/api/jobs/{jobId}")
+@router.get("/jobs/{jobId}")
 def job_status(jobId: str, user: User = Depends(current_user), db: Session = Depends(get_db)):
     job = db.get(Job, jobId)
     if not job:

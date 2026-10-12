@@ -9,13 +9,13 @@ from ....services.access import can_access_course
 from ....services.rag_service import query_rag
 from ....services.serializers import dtiso
 
-router = APIRouter(tags=["Tutor RAG"])
+router = APIRouter(prefix="/api", tags=["Tutor RAG"])
 
-@router.post("/api/courses/{courseId}/rag/query")
+@router.post("/courses/{courseId}/rag/query")
 def rag_query(courseId: str, body: RagIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     return query_rag(db, user, courseId, body.question, body.conversationId)
 
-@router.get("/api/rag/conversations")
+@router.get("/rag/conversations")
 def conversations(courseId: str, page: int = Query(1, ge=1), limit: int = Query(20, ge=1, le=100), user: User = Depends(current_user), db: Session = Depends(get_db)):
     can_access_course(db, user, courseId)
     q = db.query(Conversation).filter(Conversation.curso_id == courseId)
@@ -28,7 +28,7 @@ def conversations(courseId: str, page: int = Query(1, ge=1), limit: int = Query(
     rows = q.order_by(Conversation.creado_en.desc()).offset((page - 1) * limit).limit(limit).all()
     return {"items": [{"id": c.id, "courseId": c.curso_id, "usuarioId": c.usuario_id if user.rol != "estudiante" else None, "estado": c.estado, "creadoEn": dtiso(c.creado_en)} for c in rows], "page": page, "total": total}
 
-@router.get("/api/rag/conversations/{conversationId}/messages")
+@router.get("/rag/conversations/{conversationId}/messages")
 def conversation_messages(conversationId: str, page: int = Query(1, ge=1), limit: int = Query(50, ge=1, le=100), user: User = Depends(current_user), db: Session = Depends(get_db)):
     conv = db.get(Conversation, conversationId)
     if not conv:
@@ -41,7 +41,7 @@ def conversation_messages(conversationId: str, page: int = Query(1, ge=1), limit
     rows = q.order_by(Message.creado_en.asc()).offset((page - 1) * limit).limit(limit).all()
     return {"items": [{"id": m.id, "autor": m.autor, "contenido": m.contenido, "fuentes": m.fuentes, "evidenceSufficient": m.evidencia_suficiente, "creadoEn": dtiso(m.creado_en)} for m in rows], "page": page, "total": total}
 
-@router.post("/api/rag/messages/{messageId}/rating")
+@router.post("/rag/messages/{messageId}/rating")
 def rate_message(messageId: str, body: RatingIn, user: User = Depends(current_user), db: Session = Depends(get_db)):
     message = db.get(Message, messageId)
     if not message or message.autor != "tutor":
