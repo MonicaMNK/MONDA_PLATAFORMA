@@ -1,0 +1,22 @@
+digraph G {
+graph [fontname="Arial", bgcolor="white", nodesep=0.35, ranksep=0.45, pad=0.25]; node [fontname="Arial", fontsize=13, shape=box, style="rounded,filled", fillcolor="#f1f5f9", color="#64748b", margin="0.14,0.10"]; edge [fontname="Arial", fontsize=11, color="#475569", arrowsize=0.7];
+rankdir=TB;
+ login [label="UI-01 Acceso y recuperación"]; login -> inicio;
+ inicio [label="UI-02 Inicio y cursos
+Perfil y estado de conexión"];
+ inicio -> contenidos; inicio -> tutor; inicio -> evaluaciones; inicio -> seguimiento; inicio -> admin;
+ contenidos [label="UI-03 Contenidos
+Cargar, versiones y estado"];
+ tutor [label="UI-04 Tutor RAG
+Fuentes, historial y valoración"];
+ evaluaciones [label="UI-05 Generar evaluación
+UI-06 Revisar y publicar
+UI-07 Resolver"];
+ seguimiento [label="UI-08 Seguimiento
+Alertas y exportación"];
+ admin [label="UI-09 Administración
+Usuarios, roles y auditoría"];
+ inicio -> sync; sync [label="UI-10 Sincronización
+Pendientes y conflictos"];
+
+}

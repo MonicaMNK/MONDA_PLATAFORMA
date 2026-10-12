@@ -1,0 +1,28 @@
+digraph G {
+graph [fontname="Arial", bgcolor="white", nodesep=0.35, ranksep=0.45, pad=0.25]; node [fontname="Arial", fontsize=13, shape=box, style="rounded,filled", fillcolor="#f1f5f9", color="#64748b", margin="0.14,0.10"]; edge [fontname="Arial", fontsize=11, color="#475569", arrowsize=0.7];
+rankdir=TB; node [shape=box];
+ usuarios [label="usuarios"]; cursos [label="cursos"];
+ sesiones [label="sesiones
+id PK · usuario_id FK
+familia_id · token_hash UQ"];
+ recuperaciones [label="recuperaciones
+id PK · usuario_id FK
+token_hash UQ · usado_en"];
+ sincronizaciones [label="sincronizaciones
+PK usuario_id + accion_id
+payload_hash · resultado"];
+ trabajos [label="trabajos
+id PK · usuario_id FK
+curso_id FK · estado"];
+ permisos [label="permisos_rol
+PK rol + permiso
+catálogo de política RBAC"];
+ sesiones -> usuarios [dir=none,taillabel="0..N",headlabel="1"];
+ recuperaciones -> usuarios [dir=none,taillabel="0..N",headlabel="1"];
+ sincronizaciones -> usuarios [dir=none,taillabel="0..N",headlabel="1"];
+ trabajos -> usuarios [dir=none,taillabel="0..N",headlabel="1"];
+ trabajos -> cursos [dir=none,taillabel="0..N",headlabel="1"];
+ permisos -> usuarios [style=dashed,label="política por rol
+sin FK",dir=none];
+
+}

@@ -1,0 +1,16 @@
+digraph G {
+graph [fontname="Arial", bgcolor="white", nodesep=0.35, ranksep=0.45, pad=0.25]; node [fontname="Arial", fontsize=13, shape=box, style="rounded,filled", fillcolor="#f1f5f9", color="#64748b", margin="0.14,0.10"]; edge [fontname="Arial", fontsize=11, color="#475569", arrowsize=0.7];
+rankdir=TB; start [shape=circle,label="",fillcolor=black,width=.12]; end [shape=doublecircle,label="",fillcolor=black,width=.16];start -> n0;
+n0 [label="Usuario consulta curso autorizado",shape=box];
+n1 [label="M1 valida sesión y matrícula",shape=box];
+n2 [label="M4 vectoriza pregunta",shape=box];
+n3 [label="M5 recupera fuentes del curso",shape=box];
+n4 [label="¿Existe evidencia suficiente?",shape=diamond,fillcolor=white];
+n5 [label="Generar, validar citas, persistir y responder",shape=box];
+n0 -> n1;
+n1 -> n2;
+n2 -> n3;
+n3 -> n4;
+n4 -> n5 [label="Sí"];
+error [label="Persistir abstención sin generar"]; n4 -> error [label="No"];error -> end;n5 -> end;
+}

@@ -1,0 +1,3118 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Monda API PI7",
+    "version": "0.1.0",
+    "description": "Contrato de diseño PI7. Los valores de diseño refinan PI6; no representan un servicio desplegado. Ver contrato_api.md para reglas transaccionales."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Entorno local previsto"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "operationId": "op_01",
+        "tags": [
+          "M1"
+        ],
+        "summary": "{correo,password} → {accessToken,expiresIn:1800}; cookie refresh",
+        "responses": {
+          "200": {
+            "description": "{accessToken,expiresIn:1800}; cookie refresh",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/refresh": {
+      "post": {
+        "operationId": "op_02",
+        "tags": [
+          "M1"
+        ],
+        "summary": "Cookie refresh; token CSRF → {accessToken,expiresIn}; refresh rotado",
+        "responses": {
+          "200": {
+            "description": "{accessToken,expiresIn}; refresh rotado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "description": "Exige cookie HttpOnly/Secure/SameSite=Strict y validación de origen/CSRF. La ausencia de bearer no implica acceso anónimo."
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "operationId": "op_03",
+        "tags": [
+          "M1"
+        ],
+        "summary": "Sesión y CSRF → Sin cuerpo; familia de sesión revocada",
+        "responses": {
+          "204": {
+            "description": "Sin cuerpo; familia de sesión revocada"
+          },
+          "401": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/recovery": {
+      "post": {
+        "operationId": "op_04",
+        "tags": [
+          "M1"
+        ],
+        "summary": "{correo} → {message}; respuesta uniforme",
+        "responses": {
+          "202": {
+            "description": "{message}; respuesta uniforme",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Recovery"
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/auth/reset": {
+      "post": {
+        "operationId": "op_05",
+        "tags": [
+          "M1"
+        ],
+        "summary": "{token,password} → Contraseña reemplazada; sesiones revocadas",
+        "responses": {
+          "204": {
+            "description": "Contraseña reemplazada; sesiones revocadas"
+          },
+          "400": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reset"
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/users/me": {
+      "get": {
+        "operationId": "op_06",
+        "tags": [
+          "M1"
+        ],
+        "summary": "Sesión → {id,nombre,correo,rol,estado}",
+        "responses": {
+          "200": {
+            "description": "{id,nombre,correo,rol,estado}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "op_07",
+        "tags": [
+          "M1"
+        ],
+        "summary": "{nombre}; no acepta rol → Perfil actualizado",
+        "responses": {
+          "200": {
+            "description": "Perfil actualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Profile"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/courses": {
+      "get": {
+        "operationId": "op_08",
+        "tags": [
+          "M3"
+        ],
+        "summary": "page,limit → {items[],page,total}",
+        "responses": {
+          "200": {
+            "description": "{items[],page,total}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ]
+      },
+      "post": {
+        "operationId": "op_09",
+        "tags": [
+          "M3"
+        ],
+        "summary": "{nombre} → {courseId,nombre,estado}",
+        "responses": {
+          "201": {
+            "description": "{courseId,nombre,estado}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Course"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/courses/{courseId}/enrollments": {
+      "post": {
+        "operationId": "op_10",
+        "tags": [
+          "M3"
+        ],
+        "summary": "{estudianteId} → {courseId,estudianteId,estado}",
+        "responses": {
+          "201": {
+            "description": "{courseId,estudianteId,estado}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Enrollment"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "op_40",
+        "tags": [
+          "M3"
+        ],
+        "summary": "page,limit → {items[],page,total}; solo docente propietario",
+        "responses": {
+          "200": {
+            "description": "{items[],page,total}; solo docente propietario",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ]
+      }
+    },
+    "/api/courses/{courseId}/contents": {
+      "post": {
+        "operationId": "op_11",
+        "tags": [
+          "M3"
+        ],
+        "summary": "multipart: file,documentoId,version → {contentId,estado:pendiente}",
+        "responses": {
+          "201": {
+            "description": "{contentId,estado:pendiente}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "file",
+                  "documentoId",
+                  "version"
+                ],
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "documentoId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "op_38",
+        "tags": [
+          "M3"
+        ],
+        "summary": "page,limit → {items[],page,total}; solo versiones autorizadas",
+        "responses": {
+          "200": {
+            "description": "{items[],page,total}; solo versiones autorizadas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ]
+      }
+    },
+    "/api/contents/{contentId}/index": {
+      "post": {
+        "operationId": "op_12",
+        "tags": [
+          "M3"
+        ],
+        "summary": "Idempotency-Key → {jobId,estado}; Location de estado",
+        "responses": {
+          "202": {
+            "description": "{jobId,estado}; Location de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/contents/{contentId}/status": {
+      "get": {
+        "operationId": "op_13",
+        "tags": [
+          "M3"
+        ],
+        "summary": "Sesión y autorización de curso → {estado,errorCode,fragmentCount}",
+        "responses": {
+          "200": {
+            "description": "{estado,errorCode,fragmentCount}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/contents/{contentId}/download": {
+      "get": {
+        "operationId": "op_14",
+        "tags": [
+          "M3"
+        ],
+        "summary": "Sesión; contentId → URL privada de vigencia breve o stream",
+        "responses": {
+          "200": {
+            "description": "URL privada de vigencia breve o stream",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "contentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/courses/{courseId}/rag/query": {
+      "post": {
+        "operationId": "op_15",
+        "tags": [
+          "M5"
+        ],
+        "summary": "{question,conversationId?} → {answer,sources[],evidenceSufficient,correlationId}",
+        "responses": {
+          "200": {
+            "description": "{answer,sources[],evidenceSufficient,correlationId}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RagResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RagQuery"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/rag/conversations": {
+      "get": {
+        "operationId": "op_16",
+        "tags": [
+          "M5"
+        ],
+        "summary": "courseId,page,limit → {items[],page,total}",
+        "responses": {
+          "200": {
+            "description": "{items[],page,total}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ]
+      }
+    },
+    "/api/rag/conversations/{conversationId}/messages": {
+      "get": {
+        "operationId": "op_17",
+        "tags": [
+          "M5"
+        ],
+        "summary": "page,limit → {items[],page,total}",
+        "responses": {
+          "200": {
+            "description": "{items[],page,total}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "conversationId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ]
+      }
+    },
+    "/api/rag/messages/{messageId}/rating": {
+      "post": {
+        "operationId": "op_18",
+        "tags": [
+          "M5"
+        ],
+        "summary": "{util,comentario?} → {ratingId,util}",
+        "responses": {
+          "200": {
+            "description": "{ratingId,util}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "{ratingId,util}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Rating"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/courses/{courseId}/assessments/generate": {
+      "post": {
+        "operationId": "op_19",
+        "tags": [
+          "M6"
+        ],
+        "summary": "{tema,bloom,dificultad,cantidad,tipo} → {jobId,estado:pendiente}",
+        "responses": {
+          "202": {
+            "description": "{jobId,estado:pendiente}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Generate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/jobs/{jobId}": {
+      "get": {
+        "operationId": "op_20",
+        "tags": [
+          "M3, M6"
+        ],
+        "summary": "Sesión; dueño del job → {estado,result,errorCode}",
+        "responses": {
+          "200": {
+            "description": "{estado,result,errorCode}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "jobId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/courses/{courseId}/assessments": {
+      "get": {
+        "operationId": "op_21",
+        "tags": [
+          "M6"
+        ],
+        "summary": "page,limit → Evaluaciones visibles sin claves para estudiante",
+        "responses": {
+          "200": {
+            "description": "Evaluaciones visibles sin claves para estudiante",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ]
+      }
+    },
+    "/api/assessments/{id}": {
+      "get": {
+        "operationId": "op_22",
+        "tags": [
+          "M6"
+        ],
+        "summary": "Sesión y rol → Evaluación y reactivos según visibilidad del rol",
+        "responses": {
+          "200": {
+            "description": "Evaluación y reactivos según visibilidad del rol",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/questions/{questionId}/review": {
+      "patch": {
+        "operationId": "op_23",
+        "tags": [
+          "M6"
+        ],
+        "summary": "{enunciado?,opciones?,clave?,estado,version} → Reactivo revisado con autor y fecha",
+        "responses": {
+          "200": {
+            "description": "Reactivo revisado con autor y fecha",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Review"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assessments/{id}/publish": {
+      "post": {
+        "operationId": "op_24",
+        "tags": [
+          "M6"
+        ],
+        "summary": "{fechaInicio,fechaFin,version} → {id,estado:publicada}",
+        "responses": {
+          "200": {
+            "description": "{id,estado:publicada}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Publish"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/assessments/{id}/attempts": {
+      "post": {
+        "operationId": "op_25",
+        "tags": [
+          "M6"
+        ],
+        "summary": "{accion:iniciar|cerrar,intentoId?,respuestas?}; Idempotency-Key → {attemptId,estado,puntaje?}",
+        "responses": {
+          "200": {
+            "description": "{attemptId,estado,puntaje?}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "{attemptId,estado,puntaje?}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Attempt"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/courses/{courseId}/analytics": {
+      "get": {
+        "operationId": "op_26",
+        "tags": [
+          "M7"
+        ],
+        "summary": "desde,hasta,corte → {indicadores,alertas,fechaCorte}",
+        "responses": {
+          "200": {
+            "description": "{indicadores,alertas,fechaCorte}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "desde",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hasta",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "corte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/alerts/{alertId}": {
+      "patch": {
+        "operationId": "op_27",
+        "tags": [
+          "M7"
+        ],
+        "summary": "{estado:revisada,comentario} → Alerta con revisor y fecha",
+        "responses": {
+          "200": {
+            "description": "Alerta con revisor y fecha",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "alertId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlertReview"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/courses/{courseId}/reports/export": {
+      "get": {
+        "operationId": "op_28",
+        "tags": [
+          "M7"
+        ],
+        "summary": "desde,hasta,corte,format=csv → text/csv; nombre y fecha de corte",
+        "responses": {
+          "200": {
+            "description": "text/csv; nombre y fecha de corte",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "desde",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hasta",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "corte",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/sync": {
+      "post": {
+        "operationId": "op_29",
+        "tags": [
+          "M8"
+        ],
+        "summary": "{actions:[{actionId,tipo,payload,version}]} → {results:[{actionId,status,result}]}",
+        "responses": {
+          "200": {
+            "description": "{results:[{actionId,status,result}]}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Sync"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/users": {
+      "get": {
+        "operationId": "op_30",
+        "tags": [
+          "M2"
+        ],
+        "summary": "page,limit,rol?,estado? → {items[],page,total}",
+        "responses": {
+          "200": {
+            "description": "{items[],page,total}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "rol",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "estado",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "post": {
+        "operationId": "op_31",
+        "tags": [
+          "M2"
+        ],
+        "summary": "{correo,nombre,rol} → {id,estado:pendiente}; activación por enlace",
+        "responses": {
+          "201": {
+            "description": "{id,estado:pendiente}; activación por enlace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/users/{userId}": {
+      "patch": {
+        "operationId": "op_32",
+        "tags": [
+          "M2"
+        ],
+        "summary": "{rol?,estado?,version} → Usuario actualizado y auditado",
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado y auditado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUser"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/roles": {
+      "get": {
+        "operationId": "op_33",
+        "tags": [
+          "M2"
+        ],
+        "summary": "Sesión administrativa → Matriz permiso–rol",
+        "responses": {
+          "200": {
+            "description": "Matriz permiso–rol",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "op_34",
+        "tags": [
+          "M2"
+        ],
+        "summary": "{rol,permisos,version} → Matriz actualizada",
+        "responses": {
+          "200": {
+            "description": "Matriz actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Roles"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/config": {
+      "get": {
+        "operationId": "op_35",
+        "tags": [
+          "M2"
+        ],
+        "summary": "Sesión administrativa → {topK,umbral,modelo,version}",
+        "responses": {
+          "200": {
+            "description": "{topK,umbral,modelo,version}",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "op_36",
+        "tags": [
+          "M2"
+        ],
+        "summary": "{topK,umbral,modelo,version} → Configuración actualizada",
+        "responses": {
+          "200": {
+            "description": "Configuración actualizada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Config"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/audit": {
+      "get": {
+        "operationId": "op_37",
+        "tags": [
+          "M2"
+        ],
+        "summary": "actor?,desde,hasta,page,limit → Registros sin secretos ni contenido personal",
+        "responses": {
+          "200": {
+            "description": "Registros sin secretos ni contenido personal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "actor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "desde",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "hasta",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        ]
+      }
+    },
+    "/api/courses/{courseId}": {
+      "patch": {
+        "operationId": "op_39",
+        "tags": [
+          "M3"
+        ],
+        "summary": "{nombre?,estado:activo|archivado} → Curso actualizado sin eliminar resultados",
+        "responses": {
+          "200": {
+            "description": "Curso actualizado sin eliminar resultados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseUpdate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/courses/{courseId}/enrollments/{studentId}": {
+      "patch": {
+        "operationId": "op_41",
+        "tags": [
+          "M3"
+        ],
+        "summary": "{estado:activa|inactiva} → Matrícula actualizada; revocación de acceso efectiva",
+        "responses": {
+          "200": {
+            "description": "Matrícula actualizada; revocación de acceso efectiva",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Error tipificado; sin cambio parcial de estado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "courseId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "studentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrollmentUpdate"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "correlationId"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "correlationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "required": [
+          "correo",
+          "password"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "correo": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "writeOnly": true
+          }
+        }
+      },
+      "RagQuery": {
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "conversationId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "RagResponse": {
+        "type": "object",
+        "required": [
+          "answer",
+          "sources",
+          "evidenceSufficient",
+          "correlationId"
+        ],
+        "properties": {
+          "answer": {
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "contentId",
+                "version",
+                "fragmentId",
+                "location"
+              ],
+              "properties": {
+                "contentId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "fragmentId": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "evidenceSufficient": {
+            "type": "boolean"
+          },
+          "correlationId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Generate": {
+        "type": "object",
+        "required": [
+          "tema",
+          "bloom",
+          "dificultad",
+          "cantidad",
+          "tipo"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "tema": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "bloom": {
+            "type": "string",
+            "enum": [
+              "recordar",
+              "comprender",
+              "aplicar",
+              "analizar",
+              "evaluar",
+              "crear"
+            ]
+          },
+          "dificultad": {
+            "type": "string",
+            "enum": [
+              "baja",
+              "media",
+              "alta"
+            ]
+          },
+          "cantidad": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "tipo": {
+            "type": "string",
+            "enum": [
+              "opcion_multiple",
+              "verdadero_falso"
+            ]
+          }
+        }
+      },
+      "Sync": {
+        "type": "object",
+        "required": [
+          "actions"
+        ],
+        "properties": {
+          "actions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "required": [
+                "actionId",
+                "tipo",
+                "payload",
+                "version"
+              ],
+              "properties": {
+                "actionId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "tipo": {
+                  "type": "string",
+                  "enum": [
+                    "borrador",
+                    "valoracion"
+                  ]
+                },
+                "payload": {
+                  "type": "object"
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "Rating": {
+        "type": "object",
+        "required": [
+          "util"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "util": {
+            "type": "boolean"
+          },
+          "comentario": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "required": [
+          "nombre"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          }
+        }
+      },
+      "Course": {
+        "type": "object",
+        "required": [
+          "nombre"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          }
+        }
+      },
+      "Enrollment": {
+        "type": "object",
+        "required": [
+          "estudianteId"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "estudianteId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Publish": {
+        "type": "object",
+        "required": [
+          "fechaInicio",
+          "fechaFin",
+          "version"
+        ],
+        "properties": {
+          "fechaInicio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fechaFin": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "Attempt": {
+        "type": "object",
+        "required": [
+          "accion"
+        ],
+        "properties": {
+          "accion": {
+            "type": "string",
+            "enum": [
+              "iniciar",
+              "cerrar"
+            ]
+          },
+          "intentoId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "respuestas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "reactivoId"
+              ],
+              "properties": {
+                "reactivoId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "opcionElegida": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "Recovery": {
+        "type": "object",
+        "required": [
+          "correo"
+        ],
+        "properties": {
+          "correo": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      },
+      "Reset": {
+        "type": "object",
+        "required": [
+          "token",
+          "password"
+        ],
+        "properties": {
+          "token": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "password": {
+            "type": "string",
+            "minLength": 12,
+            "maxLength": 72,
+            "writeOnly": true
+          }
+        }
+      },
+      "Config": {
+        "type": "object",
+        "required": [
+          "topK",
+          "umbral",
+          "modelo",
+          "version"
+        ],
+        "properties": {
+          "topK": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "umbral": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "modelo": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "Review": {
+        "type": "object",
+        "required": [
+          "estado",
+          "version"
+        ],
+        "properties": {
+          "estado": {
+            "type": "string",
+            "enum": [
+              "borrador",
+              "aprobado",
+              "rechazado"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "enunciado": {
+            "type": "string"
+          },
+          "opciones": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "clave": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateUser": {
+        "type": "object",
+        "required": [
+          "correo",
+          "nombre",
+          "rol"
+        ],
+        "properties": {
+          "correo": {
+            "type": "string",
+            "format": "email"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "rol": {
+            "type": "string",
+            "enum": [
+              "administrador",
+              "docente",
+              "estudiante"
+            ]
+          }
+        }
+      },
+      "UpdateUser": {
+        "type": "object",
+        "required": [
+          "version"
+        ],
+        "properties": {
+          "rol": {
+            "type": "string",
+            "enum": [
+              "administrador",
+              "docente",
+              "estudiante"
+            ]
+          },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "activo",
+              "inactivo",
+              "pendiente"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "Roles": {
+        "type": "object",
+        "required": [
+          "rol",
+          "permisos",
+          "version"
+        ],
+        "properties": {
+          "rol": {
+            "type": "string",
+            "enum": [
+              "administrador",
+              "docente",
+              "estudiante"
+            ]
+          },
+          "permisos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "AlertReview": {
+        "type": "object",
+        "required": [
+          "estado"
+        ],
+        "properties": {
+          "estado": {
+            "type": "string",
+            "enum": [
+              "revisada"
+            ]
+          },
+          "comentario": {
+            "type": "string",
+            "maxLength": 500
+          }
+        }
+      },
+      "CourseUpdate": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 150
+          },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "activo",
+              "archivado"
+            ]
+          }
+        }
+      },
+      "EnrollmentUpdate": {
+        "type": "object",
+        "required": [
+          "estado"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "estado": {
+            "type": "string",
+            "enum": [
+              "activa",
+              "inactiva"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

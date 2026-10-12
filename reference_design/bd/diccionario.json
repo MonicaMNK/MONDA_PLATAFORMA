@@ -1,0 +1,968 @@
+{
+  "usuarios": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "rol",
+        "varchar(20)",
+        "NOT NULL CHECK (rol IN ('administrador','docente','estudiante'))",
+        "Rol principal"
+      ],
+      [
+        "nombre",
+        "varchar(150)",
+        "NOT NULL",
+        "Nombre del usuario"
+      ],
+      [
+        "correo",
+        "varchar(254)",
+        "NOT NULL",
+        "Correo normalizado"
+      ],
+      [
+        "password_hash",
+        "varchar(100)",
+        "NOT NULL",
+        "Hash bcrypt; nunca contraseña en claro"
+      ],
+      [
+        "seudonimo",
+        "uuid",
+        "NOT NULL UNIQUE",
+        "Identidad de análisis"
+      ],
+      [
+        "estado",
+        "varchar(15)",
+        "NOT NULL DEFAULT 'pendiente' CHECK (estado IN ('activo','inactivo','pendiente'))",
+        "Estado de acceso"
+      ],
+      [
+        "version",
+        "integer",
+        "NOT NULL DEFAULT 1 CHECK (version > 0)",
+        "Control de concurrencia"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": []
+  },
+  "cursos": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "docente_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Docente responsable"
+      ],
+      [
+        "nombre",
+        "varchar(150)",
+        "NOT NULL",
+        "Denominación"
+      ],
+      [
+        "estado",
+        "varchar(12)",
+        "NOT NULL DEFAULT 'activo' CHECK (estado IN ('activo','archivado'))",
+        "Estado del curso"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": []
+  },
+  "matriculas": {
+    "fields": [
+      [
+        "curso_id",
+        "uuid",
+        "NOT NULL REFERENCES cursos(id)",
+        "Curso autorizado"
+      ],
+      [
+        "estudiante_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Estudiante matriculado"
+      ],
+      [
+        "estado",
+        "varchar(12)",
+        "NOT NULL DEFAULT 'activa' CHECK (estado IN ('activa','inactiva'))",
+        "Vigencia de acceso"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": [
+      "PRIMARY KEY (curso_id, estudiante_id)"
+    ]
+  },
+  "contenidos": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "documento_id",
+        "uuid",
+        "NOT NULL",
+        "Identidad lógica conservada entre versiones"
+      ],
+      [
+        "curso_id",
+        "uuid",
+        "NOT NULL REFERENCES cursos(id)",
+        "Curso de pertenencia"
+      ],
+      [
+        "version",
+        "integer",
+        "NOT NULL CHECK (version > 0)",
+        "Número de versión"
+      ],
+      [
+        "s3_key",
+        "text",
+        "NOT NULL UNIQUE",
+        "Clave privada del objeto"
+      ],
+      [
+        "hash_sha256",
+        "char(64)",
+        "NOT NULL",
+        "Integridad del archivo"
+      ],
+      [
+        "autor_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Autor de la carga"
+      ],
+      [
+        "estado_indexacion",
+        "varchar(15)",
+        "NOT NULL DEFAULT 'pendiente' CHECK (estado_indexacion IN ('pendiente','procesando','indexado','error'))",
+        "Estado de ingesta"
+      ],
+      [
+        "activo",
+        "boolean",
+        "NOT NULL DEFAULT false",
+        "Versión elegible para recuperación"
+      ],
+      [
+        "modelo_embedding",
+        "varchar(100)",
+        "NOT NULL",
+        "Modelo que produjo los vectores"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": [
+      "UNIQUE (documento_id, version)",
+      "CHECK (NOT activo OR estado_indexacion = 'indexado')"
+    ]
+  },
+  "conversaciones": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "usuario_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Propietario"
+      ],
+      [
+        "curso_id",
+        "uuid",
+        "NOT NULL REFERENCES cursos(id)",
+        "Contexto autorizado"
+      ],
+      [
+        "estado",
+        "varchar(10)",
+        "NOT NULL DEFAULT 'activa' CHECK (estado IN ('activa','cerrada'))",
+        "Estado del hilo"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": []
+  },
+  "mensajes": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "conversacion_id",
+        "uuid",
+        "NOT NULL REFERENCES conversaciones(id)",
+        "Conversación"
+      ],
+      [
+        "autor",
+        "varchar(10)",
+        "NOT NULL CHECK (autor IN ('usuario','tutor'))",
+        "Emisor del mensaje"
+      ],
+      [
+        "contenido",
+        "text",
+        "NOT NULL",
+        "Texto del mensaje"
+      ],
+      [
+        "fuentes",
+        "jsonb",
+        "NOT NULL DEFAULT '[]'::jsonb CHECK (jsonb_typeof(fuentes) = 'array')",
+        "Lista de contenidoId, versión, fragmentoId y ubicación"
+      ],
+      [
+        "score_max",
+        "double precision",
+        "CHECK (score_max BETWEEN -1 AND 1)",
+        "Máximo coseno real"
+      ],
+      [
+        "evidencia_suficiente",
+        "boolean",
+        "NOT NULL DEFAULT false",
+        "Decisión de fundamentación"
+      ],
+      [
+        "correlation_id",
+        "uuid",
+        "NOT NULL",
+        "Correlación MLflow"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": []
+  },
+  "valoraciones": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "mensaje_id",
+        "uuid",
+        "NOT NULL REFERENCES mensajes(id)",
+        "Mensaje del tutor"
+      ],
+      [
+        "usuario_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Propietario que valora"
+      ],
+      [
+        "util",
+        "boolean",
+        "NOT NULL",
+        "Utilidad percibida"
+      ],
+      [
+        "comentario",
+        "varchar(500)",
+        "",
+        "Observación opcional"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": [
+      "UNIQUE (mensaje_id, usuario_id)"
+    ]
+  },
+  "evaluaciones": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "curso_id",
+        "uuid",
+        "NOT NULL REFERENCES cursos(id)",
+        "Curso"
+      ],
+      [
+        "titulo",
+        "varchar(200)",
+        "NOT NULL",
+        "Título visible"
+      ],
+      [
+        "configuracion",
+        "jsonb",
+        "NOT NULL CHECK (jsonb_typeof(configuracion) = 'object')",
+        "Tema, Bloom, dificultad y cantidad"
+      ],
+      [
+        "estado",
+        "varchar(12)",
+        "NOT NULL DEFAULT 'borrador' CHECK (estado IN ('borrador','publicada','cerrada'))",
+        "Ciclo de publicación"
+      ],
+      [
+        "fecha_inicio",
+        "timestamptz",
+        "",
+        "Apertura de intentos"
+      ],
+      [
+        "fecha_fin",
+        "timestamptz",
+        "",
+        "Límite de cierre"
+      ],
+      [
+        "version",
+        "integer",
+        "NOT NULL DEFAULT 1 CHECK (version > 0)",
+        "Revisión de la evaluación"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": [
+      "CHECK (fecha_fin IS NULL OR fecha_inicio IS NULL OR fecha_fin > fecha_inicio)",
+      "CHECK (estado = 'borrador' OR (fecha_inicio IS NOT NULL AND fecha_fin IS NOT NULL))"
+    ]
+  },
+  "reactivos": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "evaluacion_id",
+        "uuid",
+        "NOT NULL REFERENCES evaluaciones(id)",
+        "Evaluación propietaria"
+      ],
+      [
+        "enunciado",
+        "text",
+        "NOT NULL",
+        "Pregunta"
+      ],
+      [
+        "opciones",
+        "jsonb",
+        "NOT NULL CHECK (jsonb_typeof(opciones) = 'object' AND opciones <> '{}'::jsonb)",
+        "Mapa de código a texto"
+      ],
+      [
+        "clave_correcta",
+        "varchar(10)",
+        "NOT NULL",
+        "Código de opción correcto"
+      ],
+      [
+        "justificacion",
+        "text",
+        "NOT NULL",
+        "Fundamento docente"
+      ],
+      [
+        "nivel_bloom",
+        "varchar(15)",
+        "NOT NULL CHECK (nivel_bloom IN ('recordar','comprender','aplicar','analizar','evaluar','crear'))",
+        "Nivel cognitivo propuesto"
+      ],
+      [
+        "dificultad",
+        "varchar(8)",
+        "NOT NULL CHECK (dificultad IN ('baja','media','alta'))",
+        "Dificultad"
+      ],
+      [
+        "contenido_id",
+        "uuid",
+        "NOT NULL REFERENCES contenidos(id)",
+        "Versión fuente"
+      ],
+      [
+        "fragmento_id",
+        "text",
+        "NOT NULL",
+        "Referencia lógica a OpenSearch"
+      ],
+      [
+        "estado_revision",
+        "varchar(10)",
+        "NOT NULL DEFAULT 'borrador' CHECK (estado_revision IN ('borrador','aprobado','rechazado'))",
+        "Decisión humana"
+      ],
+      [
+        "version",
+        "integer",
+        "NOT NULL DEFAULT 1 CHECK (version > 0)",
+        "Versión del reactivo"
+      ],
+      [
+        "revisado_por",
+        "uuid",
+        "REFERENCES usuarios(id)",
+        "Docente revisor"
+      ],
+      [
+        "fecha_revision",
+        "timestamptz",
+        "",
+        "Fecha de revisión"
+      ]
+    ],
+    "constraints": [
+      "UNIQUE (id, evaluacion_id)",
+      "CHECK (opciones ? clave_correcta)",
+      "CHECK (estado_revision <> 'aprobado' OR (revisado_por IS NOT NULL AND fecha_revision IS NOT NULL))"
+    ]
+  },
+  "intentos": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "evaluacion_id",
+        "uuid",
+        "NOT NULL REFERENCES evaluaciones(id)",
+        "Evaluación resuelta"
+      ],
+      [
+        "estudiante_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Estudiante"
+      ],
+      [
+        "fecha_inicio",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Inicio confirmado por servidor"
+      ],
+      [
+        "fecha_cierre",
+        "timestamptz",
+        "",
+        "Cierre definitivo"
+      ],
+      [
+        "puntaje",
+        "numeric(5,2)",
+        "CHECK (puntaje BETWEEN 0 AND 20)",
+        "Calificación objetiva"
+      ],
+      [
+        "estado",
+        "varchar(10)",
+        "NOT NULL DEFAULT 'abierto' CHECK (estado IN ('abierto','cerrado'))",
+        "Estado del intento"
+      ]
+    ],
+    "constraints": [
+      "UNIQUE (evaluacion_id, estudiante_id)",
+      "UNIQUE (id, evaluacion_id)",
+      "CHECK ((estado = 'abierto' AND fecha_cierre IS NULL AND puntaje IS NULL) OR (estado = 'cerrado' AND fecha_cierre IS NOT NULL AND puntaje IS NOT NULL))"
+    ]
+  },
+  "respuestas": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "intento_id",
+        "uuid",
+        "NOT NULL",
+        "Intento"
+      ],
+      [
+        "reactivo_id",
+        "uuid",
+        "NOT NULL",
+        "Reactivo de la misma evaluación"
+      ],
+      [
+        "evaluacion_id",
+        "uuid",
+        "NOT NULL",
+        "Llave de coherencia entre intento y reactivo"
+      ],
+      [
+        "opcion_elegida",
+        "varchar(10)",
+        "",
+        "Nulo representa omisión"
+      ],
+      [
+        "es_correcta",
+        "boolean",
+        "NOT NULL",
+        "Resultado calculado en servidor"
+      ]
+    ],
+    "constraints": [
+      "UNIQUE (intento_id, reactivo_id)",
+      "FOREIGN KEY (intento_id, evaluacion_id) REFERENCES intentos(id, evaluacion_id)",
+      "FOREIGN KEY (reactivo_id, evaluacion_id) REFERENCES reactivos(id, evaluacion_id)"
+    ]
+  },
+  "eventos": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "usuario_seudonimo",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(seudonimo)",
+        "Identificador no nominal"
+      ],
+      [
+        "curso_id",
+        "uuid",
+        "NOT NULL REFERENCES cursos(id)",
+        "Curso"
+      ],
+      [
+        "tipo",
+        "varchar(40)",
+        "NOT NULL",
+        "Acceso, consulta, material o evaluación"
+      ],
+      [
+        "correlation_id",
+        "uuid",
+        "NOT NULL",
+        "Traza operativa"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": []
+  },
+  "alertas": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "estudiante_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Estudiante asociado"
+      ],
+      [
+        "curso_id",
+        "uuid",
+        "NOT NULL REFERENCES cursos(id)",
+        "Curso"
+      ],
+      [
+        "regla",
+        "varchar(40)",
+        "NOT NULL",
+        "Regla y versión aplicada"
+      ],
+      [
+        "evidencia",
+        "jsonb",
+        "NOT NULL",
+        "Métricas, umbral y fecha de corte"
+      ],
+      [
+        "estado",
+        "varchar(10)",
+        "NOT NULL DEFAULT 'abierta' CHECK (estado IN ('abierta','revisada'))",
+        "Estado de atención"
+      ],
+      [
+        "revisado_por",
+        "uuid",
+        "REFERENCES usuarios(id)",
+        "Docente revisor"
+      ],
+      [
+        "fecha_revision",
+        "timestamptz",
+        "",
+        "Momento de atención"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": []
+  },
+  "auditoria": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "actor_id",
+        "uuid",
+        "REFERENCES usuarios(id)",
+        "Actor; nulo en eventos de sistema o acceso fallido"
+      ],
+      [
+        "accion",
+        "varchar(60)",
+        "NOT NULL",
+        "Operación auditada"
+      ],
+      [
+        "objeto",
+        "text",
+        "NOT NULL",
+        "Entidad y referencia"
+      ],
+      [
+        "resultado",
+        "varchar(30)",
+        "NOT NULL",
+        "Éxito o error"
+      ],
+      [
+        "correlation_id",
+        "uuid",
+        "NOT NULL",
+        "Correlación de solicitud"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": []
+  },
+  "configuracion": {
+    "fields": [
+      [
+        "clave",
+        "varchar(60)",
+        "PRIMARY KEY",
+        "Parámetro permitido"
+      ],
+      [
+        "valor",
+        "jsonb",
+        "NOT NULL",
+        "Valor validado por servicio"
+      ],
+      [
+        "version",
+        "integer",
+        "NOT NULL DEFAULT 1 CHECK (version > 0)",
+        "Control optimista"
+      ],
+      [
+        "actualizado_por",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Administrador"
+      ],
+      [
+        "actualizado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha de cambio"
+      ]
+    ],
+    "constraints": []
+  },
+  "sesiones": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "usuario_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Titular"
+      ],
+      [
+        "familia_id",
+        "uuid",
+        "NOT NULL",
+        "Familia de rotación"
+      ],
+      [
+        "token_hash",
+        "char(64)",
+        "NOT NULL UNIQUE",
+        "Hash de token aleatorio"
+      ],
+      [
+        "expira_en",
+        "timestamptz",
+        "NOT NULL",
+        "Máximo siete días"
+      ],
+      [
+        "revocada",
+        "boolean",
+        "NOT NULL DEFAULT false",
+        "Revocación"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": []
+  },
+  "recuperaciones": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "usuario_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Titular"
+      ],
+      [
+        "token_hash",
+        "char(64)",
+        "NOT NULL UNIQUE",
+        "Hash del token de un solo uso"
+      ],
+      [
+        "expira_en",
+        "timestamptz",
+        "NOT NULL",
+        "Quince minutos"
+      ],
+      [
+        "usado_en",
+        "timestamptz",
+        "",
+        "Nulo hasta consumo"
+      ]
+    ],
+    "constraints": []
+  },
+  "permisos_rol": {
+    "fields": [
+      [
+        "rol",
+        "varchar(20)",
+        "NOT NULL CHECK (rol IN ('administrador','docente','estudiante'))",
+        "Rol"
+      ],
+      [
+        "permiso",
+        "varchar(80)",
+        "NOT NULL",
+        "Operación autorizada"
+      ],
+      [
+        "version",
+        "integer",
+        "NOT NULL DEFAULT 1",
+        "Versión de política"
+      ]
+    ],
+    "constraints": [
+      "PRIMARY KEY (rol, permiso)"
+    ]
+  },
+  "sincronizaciones": {
+    "fields": [
+      [
+        "usuario_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Propietario"
+      ],
+      [
+        "accion_id",
+        "uuid",
+        "NOT NULL",
+        "Clave idempotente"
+      ],
+      [
+        "payload_hash",
+        "char(64)",
+        "NOT NULL",
+        "Identidad del payload"
+      ],
+      [
+        "resultado",
+        "jsonb",
+        "NOT NULL",
+        "Respuesta de la acción"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": [
+      "PRIMARY KEY (usuario_id, accion_id)"
+    ]
+  },
+  "trabajos": {
+    "fields": [
+      [
+        "id",
+        "uuid",
+        "PRIMARY KEY",
+        "Identificador generado por la aplicación"
+      ],
+      [
+        "usuario_id",
+        "uuid",
+        "NOT NULL REFERENCES usuarios(id)",
+        "Propietario del trabajo"
+      ],
+      [
+        "curso_id",
+        "uuid",
+        "NOT NULL REFERENCES cursos(id)",
+        "Curso autorizado"
+      ],
+      [
+        "tipo",
+        "varchar(15)",
+        "NOT NULL CHECK (tipo IN ('ingesta','generacion'))",
+        "Operación asíncrona"
+      ],
+      [
+        "estado",
+        "varchar(15)",
+        "NOT NULL DEFAULT 'pendiente' CHECK (estado IN ('pendiente','procesando','completado','error'))",
+        "Estado del trabajo"
+      ],
+      [
+        "resultado",
+        "jsonb",
+        "",
+        "Resultado o error tipificado sin secretos"
+      ],
+      [
+        "correlation_id",
+        "uuid",
+        "NOT NULL",
+        "Traza"
+      ],
+      [
+        "creado_en",
+        "timestamptz",
+        "NOT NULL DEFAULT now()",
+        "Fecha del servidor en UTC"
+      ]
+    ],
+    "constraints": []
+  }
+}

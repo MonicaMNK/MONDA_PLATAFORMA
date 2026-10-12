@@ -1,0 +1,26 @@
+digraph G {
+graph [fontname="Arial", bgcolor="white", nodesep=0.35, ranksep=0.45, pad=0.25]; node [fontname="Arial", fontsize=13, shape=box, style="rounded,filled", fillcolor="#f1f5f9", color="#64748b", margin="0.14,0.10"]; edge [fontname="Arial", fontsize=11, color="#475569", arrowsize=0.7];
+rankdir=LR; graph [nodesep=.28,ranksep=.45]; node [shape=record, style=filled, fontsize=14];
+usuarios [label="{usuarios|id PK\l}"];
+cursos [label="{cursos|id PK\ldocente_id FK\l}"];
+conversaciones [label="{conversaciones|id PK\lusuario_id FK\lcurso_id FK\l}"];
+mensajes [label="{mensajes|id PK\lconversacion_id FK\l}"];
+valoraciones [label="{valoraciones|id PK\lmensaje_id FK\lusuario_id FK\l}"];
+eventos [label="{eventos|id PK\lusuario_seudonimo FK\lcurso_id FK\l}"];
+alertas [label="{alertas|id PK\lestudiante_id FK\lcurso_id FK\lrevisado_por FK\l}"];
+auditoria [label="{auditoria|id PK\lactor_id FK\l}"];
+configuracion [label="{configuracion|actualizado_por FK\l}"];
+cursos -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+conversaciones -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+conversaciones -> cursos [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+mensajes -> conversaciones [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+valoraciones -> mensajes [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+valoraciones -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+eventos -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+eventos -> cursos [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+alertas -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+alertas -> cursos [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+alertas -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+auditoria -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+configuracion -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+}

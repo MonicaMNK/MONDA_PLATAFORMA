@@ -1,0 +1,21 @@
+digraph G {
+graph [fontname="Arial", bgcolor="white", nodesep=0.35, ranksep=0.45, pad=0.25]; node [fontname="Arial", fontsize=13, shape=box, style="rounded,filled", fillcolor="#f1f5f9", color="#64748b", margin="0.14,0.10"]; edge [fontname="Arial", fontsize=11, color="#475569", arrowsize=0.7];
+rankdir=TB;
+ inicio [shape=circle,label="",fillcolor=black,width=.15,height=.15]; fin [shape=doublecircle,label="",fillcolor=black,width=.18,height=.18];
+ inicio -> cargar; cargar [label="Docente
+Seleccionar PDF o DOCX"];
+ cargar -> validar; validar [label="API
+Autorizar y validar archivo"];
+ validar -> ok; ok [shape=diamond,label="¿Válido?",fillcolor=white];
+ ok -> error [label="No"]; error [label="Informar error
+Conservar versión previa"];
+ ok -> guardar [label="Sí"]; guardar [label="RDS y S3
+Registrar versión pendiente"];
+ guardar -> procesar; procesar [label="Lambda + M4
+Extraer, fragmentar y vectorizar"];
+ procesar -> completo; completo [shape=diamond,label="¿Índice completo?",fillcolor=white];
+ completo -> error [label="No"]; completo -> activar [label="Sí"];
+ activar [label="RDS
+Activar versión de forma atómica"]; activar -> fin; error -> fin;
+
+}

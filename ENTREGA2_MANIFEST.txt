@@ -1,0 +1,33 @@
+PLATAFORMA MONDA - ENTREGA 2
+============================
+
+Base: MONDA_PLATAFORMA_ENTREGA1.zip
+Objetivo: Backend FastAPI completo PI7, conservando las 22 tablas de Entrega 1.
+
+IMPLEMENTADO
+- Backend canónico modular en backend/app/.
+- 41 operaciones HTTP del contrato PI7 + /api/health.
+- JWT HS256, bcrypt costo 12, refresh rotativo, CSRF, recuperación y rate limit local.
+- RBAC dinámico + aislamiento de cursos/matrículas.
+- Carga/versionado PDF/DOCX e indexación idempotente.
+- RAG triple modo: Gemini / Ollama / fallback.
+- pgvector 768d + búsqueda léxica de contingencia.
+- Evaluaciones: generación, revisión docente obligatoria, publicación, intento y nota del servidor.
+- Seguimiento, alertas, CSV seudonimizado, auditoría y sync idempotente.
+- Adaptador de almacenamiento local/S3.
+- Trazas RAG JSONL y adaptador opcional MLflow.
+- OpenAPI generado en api/openapi.json.
+- Tests no interactivos en tests/test_entrega2_backend.py.
+
+NO SE EJECUTARON
+- uvicorn
+- npm start / npm run dev
+- procesos en segundo plano
+
+PENDIENTE PARA ENTREGA 3
+- Sustituir/terminar frontend por React + TypeScript + Tailwind CSS y conectarlo al contrato ya implementado.
+
+PENDIENTE PARA ENTREGA 4
+- README final de prueba end-to-end.
+- AWS_MIGRATION.md final.
+- script final de empaquetado.

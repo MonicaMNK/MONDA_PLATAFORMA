@@ -1,0 +1,46 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-monda}
+      POSTGRES_USER: ${POSTGRES_USER:-monda_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-monda_local_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-monda_app} -d ${POSTGRES_DB:-monda}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    volumes:
+      - monda_pg:/var/lib/postgresql/data
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-monda_app}:${POSTGRES_PASSWORD:-monda_local_password}@db:5432/${POSTGRES_DB:-monda}
+      MONDA_SECRET_KEY: ${MONDA_SECRET_KEY:-monda-compose-local-secret-change-before-production-2026}
+      MONDA_DEMO: ${MONDA_DEMO:-1}
+      COOKIE_SECURE: ${COOKIE_SECURE:-0}
+      RAG_MODE: ${RAG_MODE:-auto}
+      RAG_ALLOW_FALLBACK: ${RAG_ALLOW_FALLBACK:-1}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_LLM_MODEL: ${GEMINI_LLM_MODEL:-gemini-3.8-flash}
+      GEMINI_EMBEDDING_MODEL: ${GEMINI_EMBEDDING_MODEL:-gemini-embedding-2}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      OLLAMA_LLM_MODEL: ${OLLAMA_LLM_MODEL:-llama3}
+      OLLAMA_EMBEDDING_MODEL: ${OLLAMA_EMBEDDING_MODEL:-nomic-embed-text}
+      STORAGE_MODE: local
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/uploads:/app/data/uploads
+      - ./data/traces:/app/data/traces
+
+volumes:
+  monda_pg:

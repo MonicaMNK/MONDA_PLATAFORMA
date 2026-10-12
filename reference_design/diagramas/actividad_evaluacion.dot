@@ -1,0 +1,26 @@
+digraph G {
+graph [fontname="Arial", bgcolor="white", nodesep=0.35, ranksep=0.45, pad=0.25]; node [fontname="Arial", fontsize=13, shape=box, style="rounded,filled", fillcolor="#f1f5f9", color="#64748b", margin="0.14,0.10"]; edge [fontname="Arial", fontsize=11, color="#475569", arrowsize=0.7];
+rankdir=TB;
+ inicio [shape=circle,label="",fillcolor=black,width=.15]; inicio -> configurar;
+ configurar [label="Docente
+Configurar tema, Bloom y dificultad"];
+ configurar -> generar; generar [label="M4 + M6
+Recuperar fuentes y generar borradores"];
+ generar -> revisar; revisar [label="Docente
+Revisar, editar y aprobar"];
+ revisar -> decision; decision [shape=diamond,label="¿Todos aprobados?",fillcolor=white];
+ decision -> revisar [label="No"]; decision -> publicar [label="Sí"];
+ publicar [label="M6
+Publicar y fijar versión"]; publicar -> responder;
+ responder [label="Estudiante
+Iniciar y responder intento"]; responder -> vigente;
+ vigente [shape=diamond,label="¿Cierre válido?",fillcolor=white]; vigente -> rechazar [label="No"];
+ rechazar [label="Mostrar error
+No duplicar cierre"];
+ vigente -> calificar [label="Sí"]; calificar [label="M6
+Calificar en una transacción"];
+ calificar -> indicadores; indicadores [label="M7
+Actualizar indicadores y alertas"];
+ indicadores -> fin; rechazar -> fin; fin [shape=doublecircle,label="",fillcolor=black,width=.18];
+
+}

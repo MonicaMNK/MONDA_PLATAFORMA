@@ -1,0 +1,25 @@
+digraph G {
+graph [fontname="Arial", bgcolor="white", nodesep=0.35, ranksep=0.45, pad=0.25]; node [fontname="Arial", fontsize=13, shape=box, style="rounded,filled", fillcolor="#f1f5f9", color="#64748b", margin="0.14,0.10"]; edge [fontname="Arial", fontsize=11, color="#475569", arrowsize=0.7];
+rankdir=LR; graph [nodesep=.28,ranksep=.45]; node [shape=record, style=filled, fontsize=14];
+usuarios [label="{usuarios|id PK\l}"];
+cursos [label="{cursos|id PK\ldocente_id FK\l}"];
+matriculas [label="{matriculas|curso_id FK\lestudiante_id FK\l}"];
+contenidos [label="{contenidos|id PK\ldocumento_id\lcurso_id FK\lautor_id FK\l}"];
+evaluaciones [label="{evaluaciones|id PK\lcurso_id FK\l}"];
+reactivos [label="{reactivos|id PK\levaluacion_id FK\lcontenido_id FK\lrevisado_por FK\l}"];
+intentos [label="{intentos|id PK\levaluacion_id FK\lestudiante_id FK\l}"];
+respuestas [label="{respuestas|id PK\lintento_id\lreactivo_id\levaluacion_id\l}"];
+cursos -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+matriculas -> cursos [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+matriculas -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+contenidos -> cursos [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+contenidos -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+evaluaciones -> cursos [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+reactivos -> evaluaciones [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+reactivos -> contenidos [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+reactivos -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+intentos -> evaluaciones [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+intentos -> usuarios [taillabel="0..N",headlabel="1",label="",fontsize=10,dir=none];
+respuestas -> intentos [label="intento y evaluación",taillabel="0..N",headlabel="1",dir=none];
+respuestas -> reactivos [label="reactivo y evaluación",taillabel="0..N",headlabel="1",dir=none];
+}

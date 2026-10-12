@@ -1,0 +1,26 @@
+digraph G {
+graph [fontname="Arial", bgcolor="white", nodesep=0.35, ranksep=0.45, pad=0.25]; node [fontname="Arial", fontsize=13, shape=box, style="rounded,filled", fillcolor="#f1f5f9", color="#64748b", margin="0.14,0.10"]; edge [fontname="Arial", fontsize=11, color="#475569", arrowsize=0.7];
+rankdir=TB;
+ usuarios [label="Administrador · Docente · Estudiante"];
+ vista [label="Vista
+React 18 y PWA"];
+ controller [label="Controlador
+FastAPI · Pydantic · RBAC"];
+ domain [label="Modelo
+Entidades SQLAlchemy y servicios M1 a M7"];
+ usuarios -> vista [label="HTTPS"]; vista -> controller [label="REST / JSON"]; controller -> domain;
+ rds [label="RDS PostgreSQL 16
+Datos transaccionales"];
+ s3 [label="S3
+Documentos versionados"];
+ vector [label="OpenSearch
+Vectores 1536d"];
+ ia [label="OpenAI API
+Embeddings y generación"];
+ domain -> rds; domain -> s3; domain -> vector; domain -> ia;
+ lambda [label="Lambda
+Ingesta asíncrona"]; s3 -> lambda; lambda -> vector; lambda -> ia;
+ obs [label="MLflow en EC2 · CloudWatch
+Trazas, métricas y auditoría"]; domain -> obs;
+
+}

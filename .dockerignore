@@ -1,0 +1,9 @@
+.git
+__pycache__
+*.pyc
+.pytest_cache
+.venv
+node_modules
+data/*.db
+data/s3_cache
+*.zip

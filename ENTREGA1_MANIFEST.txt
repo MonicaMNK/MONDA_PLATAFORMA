@@ -1,0 +1,19 @@
+PLATAFORMA MONDA - ENTREGA 1
+Fecha: 2026-10-04
+
+Entregado:
+- Estructura modular preparada para backend FastAPI por capas.
+- PostgreSQL 16 + pgvector.
+- bd/schema.sql con 22 tablas.
+- 20 tablas base PI7 + fragmentos_rag + borradores_sync.
+- Alembic con revisiones 20261004_0001 y 20261004_0002.
+- docker-compose.db.yml para PostgreSQL/pgvector.
+- seed inicial de matriz de permisos por rol.
+- verificador scripts/check_entrega1.py.
+
+Validaciones realizadas sin iniciar servidores:
+- check_entrega1.py: OK, 22 tablas.
+- compileall backend/: OK.
+- alembic upgrade head --sql: OK, genera 22 CREATE TABLE en esquema monda.
+
+No se ejecutaron uvicorn, npm start ni procesos persistentes.

@@ -1,0 +1,19 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: monda-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-monda}
+      POSTGRES_USER: ${POSTGRES_USER:-monda_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-monda_local_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-monda_app} -d ${POSTGRES_DB:-monda}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    volumes:
+      - monda_pg:/var/lib/postgresql/data
+volumes:
+  monda_pg:

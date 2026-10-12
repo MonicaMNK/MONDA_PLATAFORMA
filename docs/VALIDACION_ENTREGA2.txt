@@ -1,0 +1,24 @@
+VALIDACION ENTREGA 2 - 2026-10-04
+$ python scripts/check_entrega1.py
+OK Entrega 1
+- 22 tablas: usuarios, cursos, matriculas, contenidos, conversaciones, mensajes, valoraciones, evaluaciones, reactivos, intentos, respuestas, eventos, alertas, auditoria, configuracion, sesiones, recuperaciones, permisos_rol, sincronizaciones, trabajos, fragmentos_rag, borradores_sync
+- pgvector + HNSW configurados
+- auditoria append-only configurada
+- 2 revisiones Alembic presentes
+$ python scripts/check_entrega2.py
+Entrega 2 OK: 41 operaciones PI7 exactas + health, backend modular y RAG triple modo presentes.
+$ pytest -q
+......                                                                   [100%]
+6 passed in 1.85s
+$ python -m compileall -q backend
+compileall: OK
+$ alembic upgrade head --sql
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Generating static SQL
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 20261004_0001, PI7 base: 20 relational tables.
+INFO  [alembic.runtime.migration] Running upgrade 20261004_0001 -> 20261004_0002, RAG pgvector and offline drafts: tables 21-22.
+monda tables in Alembic SQL: 22
+$ OpenAPI PI7 operations
+PI7 operations: 41
+health: True
