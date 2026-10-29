@@ -1,0 +1,34 @@
+{
+  "courses": [
+    {
+      "slug": "historia",
+      "name": "Historia",
+      "description": "Materiales sobre el descubrimiento de América, el Imperio Inca y el Tahuantinsuyo.",
+      "materials": [
+        {"filename": "El Descubrimiento de Amèrica.pdf"},
+        {"filename": "El Imperio Inca.pdf"},
+        {"filename": "El Tahuantinsuyo.pdf"}
+      ]
+    },
+    {
+      "slug": "literatura",
+      "name": "Literatura",
+      "description": "Lecturas de Los gallinazos sin plumas, Paco Yunque y Romeo y Julieta.",
+      "materials": [
+        {"filename": "Los Gallinazos Sin Plumas.pdf"},
+        {"filename": "Paco Yunque.pdf"},
+        {"filename": "Romeo y Julieta.pdf"}
+      ]
+    },
+    {
+      "slug": "biologia",
+      "name": "Biología",
+      "description": "Materiales sobre la célula, los ecosistemas y el sistema nervioso.",
+      "materials": [
+        {"filename": "El Sistema Nervioso.pdf"},
+        {"filename": "La Cèlula.pdf"},
+        {"filename": "Los Ecosistemas.pdf"}
+      ]
+    }
+  ]
+}
