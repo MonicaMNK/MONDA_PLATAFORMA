@@ -1,0 +1,16 @@
+.\.venv312\Scripts\python.exe : INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+En línea: 2 Carácter: 126
++ ... NG='utf-8'; .\.venv312\Scripts\python.exe -m alembic upgrade head 2>& ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO  [alembic....PostgresqlImpl.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 20261004_0001, PI7 base: 20 relational tables.
+INFO  [alembic.runtime.migration] Running upgrade 20261004_0001 -> 20261004_0002, RAG pgvector and offline drafts:
+tables 21-22.
+INFO  [alembic.runtime.migration] Running upgrade 20261004_0002 -> 20261011_0003, Update the server default to current
+Gemini embedding model.
+INFO  [alembic.runtime.migration] Running upgrade 20261011_0003 -> 20261012_0004, Carpetas jerárquicas de materiales
+por curso.
+INFO  [alembic.runtime.migration] Running upgrade 20261012_0004 -> 20261012_0005, Descripción del curso.

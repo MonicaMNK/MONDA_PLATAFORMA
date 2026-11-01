@@ -9,7 +9,10 @@ from backend.app.models import Alert,Attempt,Config,Content,ContentFolder,Enroll
 def login(c,role):
     email,password=('docente','Docente123!') if role=='teacher' else ('estudiante','Estudiante123!')
     d=c.post('/api/auth/login',json={'correo':email+'@monda.local','password':password}).json()
-    return {'Authorization':'Bearer '+d['accessToken']}
+    headers={'Authorization':'Bearer '+d['accessToken']}
+    if not d.get('legalTermsAccepted'):
+        assert c.post('/api/legal/terms/accept',headers=headers,json={'version':'2026-10-v1','accepted':True}).status_code==200
+    return headers
 
 
 def test_completed_delivery_hidden_grade_teacher_correction_and_release():

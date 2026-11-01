@@ -1,0 +1,5 @@
+{
+  "model": "gemini-flash-latest",
+  "status": "FAIL",
+  "error": "ReadTimeout: HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=45)"
+}

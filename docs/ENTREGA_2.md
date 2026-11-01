@@ -67,7 +67,7 @@ backend/app/
 
 ### `RAG_MODE=gemini`
 
-- LLM: `GEMINI_LLM_MODEL=gemini-3.8-flash`.
+- LLM: principal `gemini-3-flash-preview`, con respaldos ordenados `gemini-3.8-flash` y `gemini-3.6-flash`; se pueden cambiar desde Configuración RAG de administración. La prueba sintética del principal respondió HTTP 200 y «OK» el 2026-11-01. Los modelos de respaldo quedan como alternativas configuradas, no como modelos individualmente probados.
 - Embeddings: `GEMINI_EMBEDDING_MODEL=gemini-embedding-2`.
 - Dimensión canónica: 768.
 - Recuperación: pgvector/HNSW filtrada por `curso_id` y material activo.

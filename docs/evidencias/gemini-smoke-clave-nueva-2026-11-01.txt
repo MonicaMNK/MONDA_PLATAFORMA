@@ -1,0 +1,9 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.8-flash",
+  "prompt": "Responde solo con la palabra OK.",
+  "generation": {
+    "status": "FAIL",
+    "error": "RuntimeError: Gemini HTTP 503"
+  }
+}

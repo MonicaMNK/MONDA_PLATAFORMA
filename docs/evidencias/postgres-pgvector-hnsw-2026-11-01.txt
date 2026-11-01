@@ -1,0 +1,12 @@
+CREATE TABLE
+INSERT 0 3
+CREATE INDEX
+SET
+DO
+docker : NOTICE:  PASS: HNSW index used; nearest id=1
+En línea: 24 Carácter: 6
++ '@ | docker exec -i monda-postgres psql -U monda_app -d monda -v ON_E ...
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (NOTICE:  PASS: ...d; nearest id=1:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+

@@ -1,0 +1,28 @@
+{
+  "model_access_check": [
+    {
+      "model": "gemini-flash-latest",
+      "http_status": 200,
+      "returned_name": "models/gemini-flash-latest",
+      "supported_methods": [
+        "generateContent",
+        "countTokens",
+        "createCachedContent",
+        "batchGenerateContent"
+      ],
+      "error": null
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "http_status": 200,
+      "returned_name": "models/gemini-3.8-flash",
+      "supported_methods": [
+        "generateContent",
+        "countTokens",
+        "createCachedContent",
+        "batchGenerateContent"
+      ],
+      "error": null
+    }
+  ]
+}

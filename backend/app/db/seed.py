@@ -89,7 +89,15 @@ def seed_demo_data(force: bool = False) -> None:
         rag_config = db.get(Config, "rag")
         if rag_config is None:
             db.add(Config(clave="rag", valor={"topK": settings.rag_top_k, "umbral": settings.rag_similarity_threshold, "mode": settings.rag_mode,
-                   "modelo": settings.gemini_llm_model, "ollamaModel": settings.ollama_llm_model}, version=1, actualizado_por=admin.id))
+                   "modelo": settings.gemini_llm_model, "modelosRespaldo": settings.gemini_llm_fallback_models,
+                   "ollamaModel": settings.ollama_llm_model}, version=1, actualizado_por=admin.id))
+        elif "modelosRespaldo" not in (rag_config.valor or {}):
+            value = dict(rag_config.valor or {})
+            if value.get("modelo") in {None, "gemini-3.8-flash"}:
+                value["modelo"] = settings.gemini_llm_model
+            value["modelosRespaldo"] = settings.gemini_llm_fallback_models
+            rag_config.valor = value
+            rag_config.version += 1
         if db.get(Config, "alerts") is None:
             db.add(Config(clave="alerts", valor={
                    "inactividadDias": 7, "promedioMinimo": 11}, version=1, actualizado_por=admin.id))

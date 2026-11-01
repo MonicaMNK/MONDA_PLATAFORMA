@@ -9,7 +9,11 @@ def auth(client: TestClient, email: str, password: str):
     response = client.post(
         "/api/auth/login", json={"correo": email, "password": password})
     assert response.status_code == 200, response.text
-    return {"Authorization": "Bearer " + response.json()["accessToken"]}
+    headers = {"Authorization": "Bearer " + response.json()["accessToken"]}
+    if not response.json().get("legalTermsAccepted"):
+        accepted = client.post("/api/legal/terms/accept", headers=headers, json={"version": "2026-10-v1", "accepted": True})
+        assert accepted.status_code == 200, accepted.text
+    return headers
 
 
 def test_full_pi7_backend_flow_fallback_rag():
@@ -185,7 +189,7 @@ def test_material_upload_version_and_index_fallback():
             headers=teacher,
             files={"file": ("mvc.docx", buf.getvalue(
             ), "application/vnd.openxmlformats-officedocument.wordprocessingml.document")},
-            data={"version": "1"},
+            data={"version": "1", "acceptSharingTerms": "true", "sharingTermsVersion": "2026-10-v1"},
         )
         assert upload.status_code == 201, upload.text
         content_id = upload.json()["contentId"]

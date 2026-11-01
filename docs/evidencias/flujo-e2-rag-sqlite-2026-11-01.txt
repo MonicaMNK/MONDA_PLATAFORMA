@@ -1,0 +1,20 @@
+E2 ? ensayo integrado local sobre corpus sint?tico
+Fecha: 2026-11-01
+Persistencia: SQLite local
+Proveedor de respuesta: fallback l?xico (NO Gemini)
+
+consulta_con_fuente
+HTTP 200
+Pregunta: Explica la fotosintesis: plantas, luz solar, agua, dioxido de carbono, glucosa, oxigeno y clorofila
+Modo: fallback
+Respuesta: Según los materiales del curso: MONDA DEMOSTRACION SINTETICA. La fotosintesis es el proceso por el cual las plantas usan luz solar, agua y dioxido de carbono para producir glucosa y liberar oxigeno. La clorofila capta energia luminosa. Este material se creo unicamente para probar carga, indexacion y recuperacion.
+Fuentes: [{"fragmentId": "c0ae1627-df6c-5a1f-9fcd-e0286dc37b52", "contentId": "ca0d448b-487a-486c-9563-6bd42a8d1a3f", "nombre": "material-sintetico-e1.pdf", "ordinal": 1, "location": "fragmento 1", "score": 1.0, "excerpt": "MONDA DEMOSTRACION SINTETICA. La fotosintesis es el proceso por el cual las plantas usan luz solar, agua y dioxido de carbono para producir glucosa y liberar oxigeno. La clorofila capta energia luminosa. Este material se creo unicamente para probar carga, indexacion y recuperacion."}]
+evidenceSufficient: True
+
+consulta_fuera_del_material
+HTTP 200
+Pregunta: ?Qui?n gan? el mundial de f?tbol del a?o 2010?
+Modo: fallback
+Respuesta: No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza.
+Fuentes: []
+evidenceSufficient: False

@@ -19,15 +19,20 @@ from ....rag import extract_text
 from ....services.content_service import create_content, index_content
 from ....services.serializers import content_json
 from ....services.storage import get_storage
+from ...legal import CONTENT_SHARING_TERMS_VERSION
 
 router = APIRouter(prefix="/api", tags=["Contenidos"])
 
 
 @router.post("/courses/{courseId}/contents", status_code=201)
-async def upload_content(courseId: str, file: UploadFile = File(...), documentoId: str | None = Form(None), version: int = Form(1), folderId: str | None = Form(None), user: User = Depends(current_user), db: Session = Depends(get_db)):
+async def upload_content(courseId: str, file: UploadFile = File(...), documentoId: str | None = Form(None), version: int = Form(1), folderId: str | None = Form(None), acceptSharingTerms: bool = Form(False), sharingTermsVersion: str | None = Form(None), user: User = Depends(current_user), db: Session = Depends(get_db)):
     can_access_course(db, user, courseId, write=True)
+    if not acceptSharingTerms or sharingTermsVersion != CONTENT_SHARING_TERMS_VERSION:
+        api_error(422, "CONTENT_TERMS_REQUIRED", "Confirma la declaracion de permisos y privacidad antes de subir materiales.")
     data = await file.read(settings.max_upload_bytes + 1)
     content = create_content(db, user, courseId, file.filename or "material", file.content_type, data, documentoId, version, folderId)
+    audit(db, user.id, "CONTENT_SHARING_ACCEPT", f"course:{courseId};content:{content.id};version:{CONTENT_SHARING_TERMS_VERSION}")
+    db.commit()
     return {"contentId": content.id, "documentoId": content.documento_id, "version": content.version, "estado": content.estado_indexacion}
 
 
