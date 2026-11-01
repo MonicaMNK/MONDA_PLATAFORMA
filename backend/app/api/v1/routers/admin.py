@@ -39,7 +39,7 @@ def provider_status(user: User = Depends(current_user), db: Session = Depends(ge
         ollama.update(available=True, models=names, llmReady=installed(model), embeddingReady=installed(embedding))
     except (requests.RequestException, ValueError):
         pass
-    return {"gemini": {"configured": bool(settings.gemini_api_key)}, "ollama": ollama}
+    return {"gemini": {"configured": bool(settings.gemini_api_key), "externalProcessingAuthorized": settings.gemini_external_processing_authorized, "enabled": bool(settings.gemini_api_key) and settings.gemini_external_processing_authorized}, "ollama": ollama}
 
 
 def _require_admin_permission(db: Session, user: User, permission: str):
