@@ -1,0 +1,16 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Usuario\MONDA_PLATAFORMA\.venv312\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Usuario\MONDA_PLATAFORMA
+plugins: anyio-4.16.0
+collecting ... collected 1 item
+
+tests/test_basic_fixes.py::test_vector_search_excludes_other_embedding_spaces PASSED [100%]
+
+============================== warnings summary ===============================
+.venv312\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\Usuario\MONDA_PLATAFORMA\.venv312\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 1 passed, 1 warning in 5.55s =========================

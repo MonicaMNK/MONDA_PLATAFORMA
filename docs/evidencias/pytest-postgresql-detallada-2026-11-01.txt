@@ -1,0 +1,40 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Usuario\MONDA_PLATAFORMA\.venv312\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Usuario\MONDA_PLATAFORMA
+plugins: anyio-4.16.0
+collecting ... collected 25 items
+
+tests/test_admin_management.py::test_admin_creates_edits_users_and_assigns_courses PASSED [  4%]
+tests/test_basic_fixes.py::test_csrf_cookie_visible_at_home_and_logout_clears_it PASSED [  8%]
+tests/test_basic_fixes.py::test_sync_checks_course_and_full_action_identity PASSED [ 12%]
+tests/test_basic_fixes.py::test_document_cannot_be_reused_in_another_course PASSED [ 16%]
+tests/test_basic_fixes.py::test_vector_search_excludes_other_embedding_spaces PASSED [ 20%]
+tests/test_basic_fixes.py::test_assessment_does_not_use_inactive_material PASSED [ 24%]
+tests/test_basic_fixes.py::test_reindex_active_material_keeps_it_available PASSED [ 28%]
+tests/test_basic_fixes.py::test_demo_seed_has_three_courses_and_nine_visible_pdfs PASSED [ 32%]
+tests/test_basic_fixes.py::test_platform_terms_are_required_and_versioned PASSED [ 36%]
+tests/test_basic_fixes.py::test_teacher_must_accept_material_sharing_terms_for_each_upload PASSED [ 40%]
+tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag PASSED [ 44%]
+tests/test_entrega2_backend.py::test_course_isolation_and_rbac PASSED    [ 48%]
+tests/test_entrega2_backend.py::test_sync_idempotency_and_rejects_assessment_offline PASSED [ 52%]
+tests/test_entrega2_backend.py::test_material_upload_version_and_index_fallback PASSED [ 56%]
+tests/test_entrega2_backend.py::test_refresh_rotation_requires_csrf PASSED [ 60%]
+tests/test_entrega2_backend.py::test_rag_provider_modes_are_available_without_starting_servers PASSED [ 64%]
+tests/test_gemini_authorization.py::test_gemini_is_never_constructed_without_external_processing_authorization PASSED [ 68%]
+tests/test_learning_workflow.py::test_completed_delivery_hidden_grade_teacher_correction_and_release PASSED [ 72%]
+tests/test_learning_workflow.py::test_rag_scope_includes_subfolders_and_never_broadens_empty_selection PASSED [ 76%]
+tests/test_learning_workflow.py::test_alerts_track_never_active_students_and_do_not_duplicate_reviewed PASSED [ 80%]
+tests/test_private_chat_folders.py::test_conversations_are_private_for_every_role PASSED [ 84%]
+tests/test_private_chat_folders.py::test_week_folders_upload_preview_move_and_student_read_only PASSED [ 88%]
+tests/test_private_chat_folders.py::test_folders_and_previews_cannot_cross_courses PASSED [ 92%]
+tests/test_private_chat_folders.py::test_provider_status_is_admin_only_and_checks_models PASSED [ 96%]
+tests/test_private_chat_folders.py::test_sqlite_upgrade_preserves_existing_rows_and_is_idempotent PASSED [100%]
+
+============================== warnings summary ===============================
+.venv312\Lib\site-packages\fastapi\testclient.py:1
+  C:\Users\Usuario\MONDA_PLATAFORMA\.venv312\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================== 25 passed, 1 warning in 99.27s (0:01:39) ===================

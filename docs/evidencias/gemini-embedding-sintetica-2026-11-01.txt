@@ -1,0 +1,10 @@
+{
+  "provider": "gemini",
+  "embedding_model": "gemini-embedding-2",
+  "embedding": {
+    "status": "PASS",
+    "count": 1,
+    "dimensions": 768,
+    "finite": true
+  }
+}
