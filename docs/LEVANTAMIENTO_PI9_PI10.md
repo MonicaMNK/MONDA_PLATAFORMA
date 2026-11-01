@@ -25,3 +25,33 @@ El 2026-11-01 pasaron las suites SQLite y PostgreSQL con 25/25 casos cada una (u
 ## Verificacion adicional de Gemini (2026-11-01)
 
 La llamada sintética con `gemini-3-flash-preview` completó correctamente con `thinkingLevel=MINIMAL` y límite de 64 tokens: HTTP 200, respuesta «OK», 12 tokens de entrada y 1 de salida. `gemini-2.5-flash` no está habilitado para esta cuenta nueva (HTTP 404). Se actualizó el modelo inicial de generación a `gemini-3-flash-preview` en configuración, esquema API, OpenAPI, `.env.example`, README y documentación de entrega. La evidencia íntegra está en `docs/evidencias/gemini-alternativas-sinteticas-2026-11-01.txt`.
+
+
+## Validación observada por caso (2026-11-01)
+
+La demostración funcional se realizó contra la aplicación local y una base SQLite nueva, con un curso, PDF y cuenta estudiante sintéticos. No hubo participantes del colegio; por tanto, la muestra de campo observada es **n=0**. La muestra planificada confirmada sigue siendo **14 estudiantes y 2 docentes (n=16)**. No presentar estos registros de demostración como resultados del piloto.
+
+| Caso | Criterio asociado | Instrumento | Muestra observada / planificada | Resultado observado | ¿Responde? |
+|---|---|---|---|---|---|
+| E1 carga e indexación | El PDF debe conservar curso y versión e indexarse. | Ejecución por API y registro de estado del contenido. | 1 PDF sintético; piloto: 14 estudiantes + 2 docentes, aún no ejecutado. | HTTP 201; versión 1; indexación completada; 1 fragmento; proveedor `fallback-lexical-v1`. | Sí, en SQLite local. |
+| E1 caso negativo de acceso | Un usuario sin matrícula en el curso no debe leer su material. | Consulta autenticada de estado por cuenta estudiante de otro curso. | 1 cuenta estudiante sintética sin acceso al curso de demostración. | HTTP 403 `COURSE_FORBIDDEN`. | Sí, en SQLite local. |
+| E2 pregunta respaldada | La respuesta debe tener una fuente autorizada y evidencia suficiente. | Consulta RAG y revisión de `sources`/`evidenceSufficient` en la respuesta API. | 1 PDF y 1 fragmento sintéticos; muestra de campo n=0. | Respuesta con el fragmento del PDF, score léxico 1,0 y `evidenceSufficient=true`; proveedor `fallback`. | Parcial: fuente observada, pero no es Gemini ni mide precisión de citas. |
+| E2 caso negativo fuera del material | Sin respaldo suficiente, el tutor debe abstenerse y no inventar fuente. | Consulta RAG ajena al corpus; revisión de respuesta y lista `sources`. | 1 pregunta sintética fuera del material. | Mensaje de abstención; `sources=[]`; `evidenceSufficient=false`. | Sí, para el fallback local. |
+| E3 evaluación | El docente revisa/aprueba antes de publicar; el puntaje se calcula sobre 20. | Recorrido API de generación, revisión, publicación, intento y consulta del resultado. | 3 reactivos; 1 estudiante sintético; muestra planificada n=16, piloto n=0. | Generación local fallback: 3 reactivos; 3 aprobados; evaluación publicada; resultado **6,67/20**. | Sí, en SQLite local; reactivos no generados por Gemini. |
+| E3 seguimiento | Un promedio bajo debe crear alerta conforme al umbral. | Consulta de analítica del curso tras publicar resultados. | 1 intento sintético; umbral configurado 11/20. | Promedio 6,67/20; alerta abierta `promedio_bajo`, umbral 11. | Sí, en SQLite local. |
+| E2 Gemini en el flujo RAG | Respuesta generativa real con fuente en el flujo completo del tutor. | Ejecución integrada de la aplicación con Gemini habilitado y corpus sintético. | No ejecutada en esta demostración. | La llamada sintética aislada `gemini-3-flash-preview` HTTP 200 previa no es una prueba RAG. | No demostrado. |
+| D07 persistencia/integración del flujo | Repetir E1-E3 sobre PostgreSQL + pgvector y verificar vector/HNSW en esos recorridos. | Protocolo de integración con registro de BD, consultas y capturas. | No ejecutada; la suite automatizada PostgreSQL (25/25) es evidencia separada. | La demostración E1-E3 aquí observada usa SQLite. La corrida automatizada de PostgreSQL no demuestra estos recorridos interactivos ni el uso real del índice HNSW. | Pendiente. |
+
+**Evidencia de ejecución:** [E1 carga, indexación y denegación](evidencias/flujo-e1-api-2026-11-01.txt), [E2 RAG fallback](evidencias/flujo-e2-rag-sqlite-2026-11-01.txt), [E3 evaluación y seguimiento](evidencias/flujo-e2-e3-sqlite-2026-11-01.txt), [salidas automatizadas SQLite](evidencias/pytest-suite-detallada-2026-11-01.txt) y [PostgreSQL + pgvector](evidencias/pytest-postgresql-detallada-2026-11-01.txt). Las capturas reales de las pantallas de E1, E2 y E3 quedan pendientes; las figuras de referencia del DOCX no se atribuyen a esta ejecución.
+
+## Criterio, instrumento y muestra
+
+- **OE1 / E1:** criterio funcional de carga, versión, indexación y denegación entre cursos; instrumento: guía de observación y registro API; muestra planificada: 14 estudiantes y 2 docentes. Evidencia actual únicamente con un PDF sintético y cuentas de demostración.
+- **OE2 / E2:** fuente vinculada y abstención ante distractor; instrumento: conjunto de preguntas con material de referencia y registro de fuentes/respuesta; muestra planificada: 14 estudiantes y 2 docentes. La exactitud de citas ≥95 % y fidelidad ≥4/5 no se calcularon; falta la corrida Gemini RAG y evaluación experta.
+- **OE3 / E3:** revisión docente, calificación `/20` y alerta de seguimiento; instrumento: rúbrica de evaluación, reporte de intento y consulta de alertas; muestra planificada: 14 estudiantes y 2 docentes. El resultado 6,67/20 corresponde a una cuenta sintética, no al piloto.
+
+## Conclusión del artefacto
+
+Hoy el artefacto resuelve técnicamente la dispersión y falta de trazabilidad de materiales en el entorno local: organiza el contenido por curso y versión, indexa el PDF, limita el acceso por curso y entrega una respuesta con fragmento o una abstención. También completa el flujo docente de crear, aprobar y publicar una evaluación, calcular la nota sobre 20 y generar una alerta por promedio bajo. Estos resultados se observaron con datos sintéticos y SQLite; el tutor usó fallback léxico.
+
+Queda pendiente demostrar los mismos recorridos con capturas reales, verificar E1-E3 en la aplicación conectada a PostgreSQL + pgvector, validar el flujo RAG con Gemini real (no solo una llamada aislada), calibrar citas/fidelidad con expertos y ejecutar el piloto con consentimiento institucional y la muestra de 14 estudiantes y 2 docentes. La suite PostgreSQL aprobada (25/25) acredita sus pruebas automatizadas, no el cierre de D07.
