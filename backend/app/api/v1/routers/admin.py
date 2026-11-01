@@ -157,8 +157,11 @@ def get_config(user: User = Depends(current_user), db: Session = Depends(get_db)
     _require_admin_permission(db, user, "admin:config")
     row = db.get(Config, "rag")
     if not row:
-        return {"topK": settings.rag_top_k, "umbral": settings.rag_similarity_threshold, "mode": settings.rag_mode, "modelo": settings.gemini_llm_model, "ollamaModel": settings.ollama_llm_model, "version": 1}
-    return {**row.valor, "version": row.version}
+        return {"topK": settings.rag_top_k, "umbral": settings.rag_similarity_threshold, "mode": settings.rag_mode, "modelo": settings.gemini_llm_model, "modelosRespaldo": settings.gemini_llm_fallback_models, "ollamaModel": settings.ollama_llm_model, "version": 1}
+    return {"modelo": settings.gemini_llm_model, "modelosRespaldo": settings.gemini_llm_fallback_models,
+            "ollamaModel": settings.ollama_llm_model, "topK": settings.rag_top_k,
+            "umbral": settings.rag_similarity_threshold, "mode": settings.rag_mode,
+            **row.valor, "version": row.version}
 
 
 @router.patch("/config")
@@ -169,7 +172,8 @@ def patch_config(body: ConfigPatch, user: User = Depends(current_user), db: Sess
     row = db.get(Config, "rag")
     if row and row.version != body.version:
         api_error(409, "VERSION_CONFLICT", "La configuración cambió. Recarga antes de guardar.")
-    value = {"topK": body.topK, "umbral": body.umbral, "mode": body.mode, "modelo": body.modelo, "ollamaModel": body.ollamaModel}
+    value = {"topK": body.topK, "umbral": body.umbral, "mode": body.mode, "modelo": body.modelo,
+             "modelosRespaldo": body.modelosRespaldo, "ollamaModel": body.ollamaModel}
     if row is None:
         row = Config(clave="rag", valor=value, version=1, actualizado_por=user.id)
         db.add(row)

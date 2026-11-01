@@ -15,14 +15,14 @@ def _gemini_authorized() -> bool:
     return bool(settings.gemini_external_processing_authorized)
 
 
-def get_provider(mode: str | None = None, *, llm_model: str | None = None, embedding_model: str | None = None, ollama_model: str | None = None) -> RAGProvider:
+def get_provider(mode: str | None = None, *, llm_model: str | None = None, llm_fallback_models: list[str] | None = None, embedding_model: str | None = None, ollama_model: str | None = None) -> RAGProvider:
     chosen = (mode or settings.rag_mode or "fallback").lower()
     if chosen == "gemini":
         if not _gemini_authorized():
             raise ExternalProviderAuthorizationRequired(
                 "Gemini está bloqueado: falta autorización institucional para procesamiento externo."
             )
-        return GeminiProvider(llm_model=llm_model, embedding_model=embedding_model)
+        return GeminiProvider(llm_model=llm_model, fallback_models=llm_fallback_models, embedding_model=embedding_model)
     if chosen == "ollama":
         return OllamaProvider(llm_model=ollama_model or llm_model, embedding_model=embedding_model)
     if chosen == "auto":
@@ -31,7 +31,7 @@ def get_provider(mode: str | None = None, *, llm_model: str | None = None, embed
                 raise ExternalProviderAuthorizationRequired(
                     "Gemini está bloqueado: falta autorización institucional para procesamiento externo."
                 )
-            return GeminiProvider(llm_model=llm_model, embedding_model=embedding_model)
+            return GeminiProvider(llm_model=llm_model, fallback_models=llm_fallback_models, embedding_model=embedding_model)
         return FallbackProvider()
     return FallbackProvider()
 

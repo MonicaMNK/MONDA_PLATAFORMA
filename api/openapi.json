@@ -3010,7 +3010,7 @@
           "modelo": {
             "type": "string",
             "title": "Modelo",
-            "default": "gemini-3.8-flash"
+            "default": "gemini-3-flash-preview"
           },
           "ollamaModel": {
             "type": "string",
@@ -3021,6 +3021,18 @@
             "type": "integer",
             "minimum": 1.0,
             "title": "Version"
+          },
+          "modelosRespaldo": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 2,
+            "type": "array",
+            "title": "Modelosrespaldo",
+            "default": [
+              "gemini-3.8-flash",
+              "gemini-3.6-flash"
+            ]
           }
         },
         "additionalProperties": false,

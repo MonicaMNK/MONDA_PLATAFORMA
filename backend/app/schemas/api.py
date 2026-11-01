@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+import re
 from typing import Any
 from uuid import UUID
 from pydantic import BaseModel, ConfigDict, Field, field_validator
@@ -138,9 +139,25 @@ class ConfigPatch(StrictModel):
     topK: int = Field(ge=1, le=10)
     umbral: float = Field(ge=0, le=1)
     mode: str = "fallback"
-    modelo: str = "gemini-3.8-flash"
+    modelo: str = "gemini-3-flash-preview"
+    modelosRespaldo: list[str] = Field(default_factory=lambda: ["gemini-3.8-flash", "gemini-3.6-flash"], max_length=2)
     ollamaModel: str = "llama3"
     version: int = Field(ge=1)
+
+    @field_validator("modelo")
+    @classmethod
+    def validate_gemini_model(cls, value: str) -> str:
+        if not re.fullmatch(r"gemini-[A-Za-z0-9._-]{1,90}", value):
+            raise ValueError("modelo Gemini invalido")
+        return value
+
+    @field_validator("modelosRespaldo")
+    @classmethod
+    def validate_gemini_fallback_models(cls, value: list[str], info) -> list[str]:
+        primary = info.data.get("modelo", "gemini-3-flash-preview")
+        if any(not re.fullmatch(r"gemini-[A-Za-z0-9._-]{1,90}", item) for item in value):
+            raise ValueError("todos los modelos de respaldo deben ser modelos Gemini validos")
+        return list(dict.fromkeys(item for item in value if item != primary))
 
 
 class SyncActionIn(StrictModel):

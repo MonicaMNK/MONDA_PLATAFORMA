@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -41,7 +41,12 @@ class Settings:
     # Gemini must remain disabled until the institution explicitly authorizes
     # sending course material and learner questions to the external provider.
     gemini_external_processing_authorized: bool = _bool("GEMINI_EXTERNAL_PROCESSING_AUTHORIZED", False)
-    gemini_llm_model: str = os.getenv("GEMINI_LLM_MODEL", "gemini-3.8-flash")
+    gemini_llm_model: str = os.getenv("GEMINI_LLM_MODEL", "gemini-3-flash-preview")
+    gemini_llm_fallback_models: list[str] = field(default_factory=lambda: [
+        model.strip()
+        for model in os.getenv("GEMINI_LLM_FALLBACK_MODELS", "gemini-3.8-flash,gemini-3.6-flash").split(",")
+        if model.strip()
+    ])
     gemini_embedding_model: str = os.getenv("GEMINI_EMBEDDING_MODEL", "gemini-embedding-2")
     gemini_base_url: str = os.getenv("GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta")
 

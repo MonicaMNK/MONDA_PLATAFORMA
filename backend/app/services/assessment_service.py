@@ -71,7 +71,7 @@ def generate_assessment(db: Session, user: User, course_id: str, tema: str, bloo
     db.flush()
     cfg_row = db.get(Config, "rag")
     cfg = cfg_row.valor if cfg_row else {}
-    provider, warning = get_provider_with_fallback(cfg.get("mode"), llm_model=cfg.get("modelo"), ollama_model=cfg.get("ollamaModel"))
+    provider, warning = get_provider_with_fallback(cfg.get("mode"), llm_model=cfg.get("modelo"), llm_fallback_models=cfg.get("modelosRespaldo"), ollama_model=cfg.get("ollamaModel"))
     questions = None
     if provider.supports_generation:
         context = "\n\n".join(f"fragmentId={f.id}; contentId={f.contenido_id}; texto={f.texto}" for f in fragments[:8])
@@ -83,6 +83,7 @@ La clave debe ser una de A/B/C/D y fragmentId/contentId deben existir en el cont
 CONTEXTO:\n{context}"""
         try:
             generated = provider.generate(prompt)
+            warning = (warning + "; " if warning else "") + (getattr(provider, "last_generation_warning", None) or "")
             parsed = _extract_json(generated.text)
             if isinstance(parsed, list) and len(parsed) >= cantidad:
                 questions = parsed[:cantidad]
