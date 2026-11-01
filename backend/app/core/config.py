@@ -38,6 +38,9 @@ class Settings:
     rag_candidate_multiplier: int = int(os.getenv("RAG_CANDIDATE_MULTIPLIER", "4"))
 
     gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
+    # Gemini must remain disabled until the institution explicitly authorizes
+    # sending course material and learner questions to the external provider.
+    gemini_external_processing_authorized: bool = _bool("GEMINI_EXTERNAL_PROCESSING_AUTHORIZED", False)
     gemini_llm_model: str = os.getenv("GEMINI_LLM_MODEL", "gemini-3.8-flash")
     gemini_embedding_model: str = os.getenv("GEMINI_EMBEDDING_MODEL", "gemini-embedding-2")
     gemini_base_url: str = os.getenv("GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta")
