@@ -6,7 +6,10 @@ from backend.app.main import app
 def login(client, email, password):
     result=client.post('/api/auth/login',json={'correo':email,'password':password})
     assert result.status_code==200
-    return {'Authorization':'Bearer '+result.json()['accessToken']}
+    headers={'Authorization':'Bearer '+result.json()['accessToken']}
+    if not result.json().get('legalTermsAccepted'):
+        assert client.post('/api/legal/terms/accept',headers=headers,json={'version':'2026-10-v1','accepted':True}).status_code==200
+    return headers
 
 
 def test_admin_creates_edits_users_and_assigns_courses():

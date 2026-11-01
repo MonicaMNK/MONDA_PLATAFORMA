@@ -19,7 +19,10 @@ def login(client,role):
     name,password=names[role]
     response=client.post('/api/auth/login',json={'correo':name+'@monda.local','password':password})
     assert response.status_code==200
-    return {'Authorization':'Bearer '+response.json()['accessToken']}
+    headers={'Authorization':'Bearer '+response.json()['accessToken']}
+    if not response.json().get('legalTermsAccepted'):
+        assert client.post('/api/legal/terms/accept',headers=headers,json={'version':'2026-10-v1','accepted':True}).status_code==200
+    return headers
 
 
 def docx_bytes():
@@ -60,7 +63,7 @@ def test_week_folders_upload_preview_move_and_student_read_only(client):
     assert client.post(base+'/folders',headers=student,json={'nombre':'No permitido'}).status_code==403
     assert client.patch('/api/folders/'+folder,headers=student,json={'nombre':'Otro'}).status_code==403
     assert len(client.get(base+'/folders',headers=student).json()['items'])==2
-    upload=client.post(base+'/contents',headers=teacher,files={'file':('semana1.docx',docx_bytes())},data={'folderId':nested.json()['id']})
+    upload=client.post(base+'/contents',headers=teacher,files={'file':('semana1.docx',docx_bytes())},data={'folderId':nested.json()['id'],'acceptSharingTerms':'true','sharingTermsVersion':'2026-10-v1'})
     assert upload.status_code==201,upload.text
     cid=upload.json()['contentId']
     files=client.get(base+'/contents',headers=student).json()['items']
@@ -85,8 +88,8 @@ def test_folders_and_previews_cannot_cross_courses(client):
     folder=client.post(f'/api/courses/{other}/folders',headers=teacher,json={'nombre':'Privado'}).json()['id']
     assert client.get(f'/api/courses/{other}/folders',headers=student).status_code==403
     assert client.post(f'/api/courses/{course}/folders',headers=teacher,json={'nombre':'Cruce','parentId':folder}).status_code==403
-    assert client.post(f'/api/courses/{course}/contents',headers=teacher,files={'file':('cross.docx',docx_bytes())},data={'folderId':folder}).status_code==403
-    upload=client.post(f'/api/courses/{other}/contents',headers=teacher,files={'file':('privado.docx',docx_bytes())},data={'folderId':folder}).json()['contentId']
+    assert client.post(f'/api/courses/{course}/contents',headers=teacher,files={'file':('cross.docx',docx_bytes())},data={'folderId':folder,'acceptSharingTerms':'true','sharingTermsVersion':'2026-10-v1'}).status_code==403
+    upload=client.post(f'/api/courses/{other}/contents',headers=teacher,files={'file':('privado.docx',docx_bytes())},data={'folderId':folder,'acceptSharingTerms':'true','sharingTermsVersion':'2026-10-v1'}).json()['contentId']
     assert client.get(f'/api/contents/{upload}/preview',headers=student).status_code==403
     own=client.get(f'/api/courses/{course}/contents',headers=teacher).json()['items'][0]['id']
     assert client.patch(f'/api/contents/{own}/folder',headers=teacher,json={'folderId':folder}).status_code==403

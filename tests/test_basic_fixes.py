@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 from backend.app.db.seed import init_test_db
 from backend.app.db.session import SessionLocal
 from backend.app.main import app
-from backend.app.models import Content, Course, RAGFragment, User
+from backend.app.models import Audit, Content, Course, RAGFragment, User
 from backend.app.rag.retrieval import vector_search
 from backend.app.services.content_service import create_content
 from backend.app.services.assessment_service import generate_assessment
@@ -24,7 +24,11 @@ def login(client, email="estudiante@monda.local", password="Estudiante123!"):
     response = client.post(
         "/api/auth/login", json={"correo": email, "password": password})
     assert response.status_code == 200
-    return {"Authorization": "Bearer " + response.json()["accessToken"]}, response
+    headers = {"Authorization": "Bearer " + response.json()["accessToken"]}
+    if not response.json().get("legalTermsAccepted"):
+        accepted = client.post("/api/legal/terms/accept", headers=headers, json={"version": "2026-10-v1", "accepted": True})
+        assert accepted.status_code == 200, accepted.text
+    return headers, response
 
 
 def test_csrf_cookie_visible_at_home_and_logout_clears_it(demo):
@@ -155,3 +159,36 @@ def test_demo_seed_has_three_courses_and_nine_visible_pdfs(demo):
         assert db.query(Course).count() == 3
         assert db.query(Content).count() == 9
         assert {item.id for item in db.query(Content).all()} == content_ids
+
+
+def test_platform_terms_are_required_and_versioned(demo):
+    response = demo.post('/api/auth/login', json={'correo':'estudiante@monda.local','password':'Estudiante123!'})
+    assert response.status_code == 200
+    headers = {'Authorization': 'Bearer ' + response.json()['accessToken']}
+    assert response.json()['legalTermsAccepted'] is False
+    assert demo.get('/api/courses', headers=headers).status_code == 428
+    terms = demo.get('/api/legal/terms', headers=headers)
+    assert terms.status_code == 200
+    version = terms.json()['version']
+    assert demo.post('/api/legal/terms/accept', headers=headers, json={'version':version,'accepted':False}).status_code == 422
+    accepted = demo.post('/api/legal/terms/accept', headers=headers, json={'version':version,'accepted':True})
+    assert accepted.status_code == 200
+    assert demo.get('/api/courses', headers=headers).status_code == 200
+    with SessionLocal() as db:
+        assert db.query(Audit).filter_by(accion='PLATFORM_TERMS_ACCEPT',objeto=f'version:{version}').count() == 1
+
+
+def test_teacher_must_accept_material_sharing_terms_for_each_upload(demo):
+    headers, _ = login(demo, 'docente@monda.local', 'Docente123!')
+    course_id = demo.get('/api/courses', headers=headers).json()['items'][0]['id']
+    base = f'/api/courses/{course_id}/contents'
+    payload = {'file': ('material.pdf', b'%PDF-demo-content', 'application/pdf')}
+    assert demo.post(base, headers=headers, files=payload).status_code == 422
+    uploaded = demo.post(base, headers=headers, files=payload, data={'acceptSharingTerms':'true','sharingTermsVersion':'2026-10-v1'})
+    assert uploaded.status_code == 201, uploaded.text
+    with SessionLocal() as db:
+        record = db.query(Audit).filter_by(
+            accion='CONTENT_SHARING_ACCEPT',
+            objeto=f"course:{course_id};content:{uploaded.json()['contentId']};version:2026-10-v1",
+        ).one()
+        assert record.actor_id is not None
