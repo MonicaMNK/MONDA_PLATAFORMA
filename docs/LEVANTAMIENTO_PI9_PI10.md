@@ -57,3 +57,11 @@ La demostración funcional se realizó contra la aplicación local y una base SQ
 Hoy el artefacto resuelve técnicamente la dispersión y falta de trazabilidad de materiales en el entorno local: organiza el contenido por curso y versión, indexa el PDF, limita el acceso por curso y entrega una respuesta con fragmento o una abstención. También completa el flujo docente de crear, aprobar y publicar una evaluación, calcular la nota sobre 20 y generar una alerta por promedio bajo. Estos resultados se observaron con datos sintéticos y SQLite; el tutor usó fallback léxico.
 
 Queda pendiente verificar E1-E3 en la aplicación conectada a PostgreSQL + pgvector (D07), validar el flujo RAG con Gemini real (las capturas E2 adjuntas muestran fallback local), calibrar citas/fidelidad con expertos y ejecutar el piloto con consentimiento institucional y la muestra de 14 estudiantes y 2 docentes. La suite PostgreSQL aprobada (25/25) acredita sus pruebas automatizadas, no el cierre de D07.
+
+## Verificación adicional ES06 y ES10 (2026-11-01)
+
+- **ES06:** una cuenta estudiante intentó publicar un borrador docente. La API respondió HTTP 403 `FORBIDDEN`; la evaluación y su versión quedaron sin cambios.
+- **ES10 API:** un borrador personal se aplicó una sola vez. El reenvío devolvió `repeated`, el mismo `actionId` con otro contenido devolvió `conflict` y una entrega de evaluación fuera de línea fue rechazada.
+- **ES10 Chrome:** se guardó una nota sintética sin conexión, la aplicación y el borrador sobrevivieron a una recarga sin red y la nota se sincronizó al reconectar. Hay capturas de ambos estados.
+
+Las pruebas dirigidas aprobaron **2/2** casos; la suite completa posterior aprobó **27/27**. Los resultados y enlaces están en [resultado ES06/ES10](evidencias/resultado-es06-es10-2026-11-01.md). El informe PI11/PI12 que combina los cambios del usuario y esta evidencia está en [T5-T9_PI11-PI12_combinado.docx](evidencias/T5-T9_PI11-PI12_combinado.docx). Esta evidencia es local, sintética y en Chrome; los resultados de la campaña formal se mantienen vacíos. D07 sigue pendiente.
