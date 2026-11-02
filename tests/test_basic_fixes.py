@@ -1,10 +1,11 @@
+import json
 from uuid import uuid4
 
 import pytest
 from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
-from backend.app.db.seed import init_test_db
+from backend.app.db.seed import DEMO_CATALOG_PATH, init_test_db
 from backend.app.db.session import SessionLocal
 from backend.app.main import app
 from backend.app.models import Audit, Content, Course, RAGFragment, User
@@ -131,9 +132,17 @@ def test_reindex_active_material_keeps_it_available(demo, monkeypatch):
             Content, content.id).modelo_embedding == 'fallback-lexical-v1'
 
 
-def test_demo_seed_has_three_courses_and_nine_visible_pdfs(demo):
+def test_demo_seed_has_three_courses_and_nine_pdf_records(demo):
     from backend.app.db.seed import seed_demo_data
 
+    catalog = json.loads(DEMO_CATALOG_PATH.read_text(encoding="utf-8"))
+    ocr_files = {
+        material["filename"]
+        for course in catalog["courses"]
+        for material in course["materials"]
+        if material.get("requires_ocr")
+    }
+    assert len(ocr_files) == 1
     with SessionLocal() as db:
         courses = db.query(Course).all()
         assert len(courses) == 3
@@ -146,8 +155,12 @@ def test_demo_seed_has_three_courses_and_nine_visible_pdfs(demo):
             for item in contents:
                 fragment_count = db.query(RAGFragment).filter_by(
                     contenido_id=item.id).count()
-                assert item.activo and item.estado_indexacion == "indexado"
-                assert fragment_count > 0
+                if item.nombre_original in ocr_files:
+                    assert not item.activo and item.estado_indexacion == "error"
+                    assert fragment_count == 0
+                else:
+                    assert item.activo and item.estado_indexacion == "indexado"
+                    assert fragment_count > 0
             content_ids.update(item.id for item in contents)
 
     seed_demo_data()

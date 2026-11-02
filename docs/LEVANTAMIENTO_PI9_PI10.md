@@ -65,3 +65,5 @@ Queda pendiente verificar E1-E3 en la aplicación conectada a PostgreSQL + pgvec
 - **ES10 Chrome:** se guardó una nota sintética sin conexión, la aplicación y el borrador sobrevivieron a una recarga sin red y la nota se sincronizó al reconectar. Hay capturas de ambos estados.
 
 Las pruebas dirigidas aprobaron **2/2** casos; la suite completa posterior aprobó **27/27**. Los resultados y enlaces están en [resultado ES06/ES10](evidencias/resultado-es06-es10-2026-11-01.md). El informe PI11/PI12 que combina los cambios del usuario y esta evidencia está en [T5-T9_PI11-PI12_combinado.docx](evidencias/T5-T9_PI11-PI12_combinado.docx). Esta evidencia es local, sintética y en Chrome; los resultados de la campaña formal se mantienen vacíos. D07 sigue pendiente.
+
+**Integración del 2 de noviembre de 2026:** tras incorporar el commit de Mónica `c40f04f` y reconciliar la expectativa del PDF demo que requiere OCR, la suite SQLite completa terminó con **29/29 casos aprobados** y una advertencia. Véase [resultado de la suite integrada](evidencias/resultado-suite-integrada-2026-11-02.md). Esta corrida no sustituye la verificación D07.
