@@ -16,7 +16,9 @@ from .tracing import trace_rag
 
 def _config(db: Session) -> dict:
     row = db.get(Config, "rag")
-    return row.valor if row else {"topK": settings.rag_top_k, "umbral": settings.rag_similarity_threshold, "mode": settings.rag_mode}
+    defaults = {"topK": settings.rag_top_k, "umbral": settings.rag_similarity_threshold, "mode": settings.rag_mode,
+                "modelo": settings.gemini_llm_model, "modelosRespaldo": settings.gemini_llm_fallback_models}
+    return {**defaults, **(row.valor or {})} if row else defaults
 
 
 def query_rag(db: Session, user: User, course_id: str, question: str, conversation_id: str | None = None, folder_id: str | None = None, content_ids: list[str] | None = None) -> dict:
@@ -60,7 +62,7 @@ def query_rag(db: Session, user: User, course_id: str, question: str, conversati
 
     started = time.perf_counter()
     vector_store = VectorStoreRepository(db)
-    provider, warning = get_provider_with_fallback(mode, llm_model=cfg.get("modelo"), ollama_model=cfg.get("ollamaModel"))
+    provider, warning = get_provider_with_fallback(mode, llm_model=cfg.get("modelo"), llm_fallback_models=cfg.get("modelosRespaldo"), ollama_model=cfg.get("ollamaModel"))
     provider_latency = 0.0
     input_tokens = output_tokens = None
     try:
@@ -106,6 +108,7 @@ def query_rag(db: Session, user: User, course_id: str, question: str, conversati
         try:
             generated = provider.generate(prompt)
             provider_latency += time.perf_counter() - t
+            warning = (warning + "; " if warning else "") + (getattr(provider, "last_generation_warning", None) or "")
             answer = generated.text.strip()
             input_tokens = generated.input_tokens
             output_tokens = generated.output_tokens
@@ -135,7 +138,7 @@ def query_rag(db: Session, user: User, course_id: str, question: str, conversati
         "correlationId": corr,
         "courseId": course_id,
         "provider": provider.name,
-        "model": provider.llm_model,
+        "model": getattr(provider, "last_generation_model", provider.llm_model),
         "embeddingModel": provider.embedding_model,
         "evidenceSufficient": sufficient,
         "maxScore": max_score,

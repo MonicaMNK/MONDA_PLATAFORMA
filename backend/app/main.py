@@ -46,6 +46,21 @@ def complete_dashboard():
 
 FRONTEND = ROOT / "frontend"
 BUILT_FRONTEND = FRONTEND / "dist"
+if (BUILT_FRONTEND / "sw.js").exists():
+    @app.get("/sw.js", include_in_schema=False)
+    def service_worker():
+        return FileResponse(BUILT_FRONTEND / "sw.js", media_type="application/javascript")
+
+if (BUILT_FRONTEND / "manifest.webmanifest").exists():
+    @app.get("/manifest.webmanifest", include_in_schema=False)
+    def web_manifest():
+        return FileResponse(BUILT_FRONTEND / "manifest.webmanifest", media_type="application/manifest+json")
+
+if (BUILT_FRONTEND / "icon.svg").exists():
+    @app.get("/icon.svg", include_in_schema=False)
+    def app_icon():
+        return FileResponse(BUILT_FRONTEND / "icon.svg", media_type="image/svg+xml")
+
 # Si existe un build de Vite, se sirve ese frontend; si no, se usa la UI React
 # estática incluida para que el arranque local no dependa de Node/npm.
 if (BUILT_FRONTEND / "assets").exists():

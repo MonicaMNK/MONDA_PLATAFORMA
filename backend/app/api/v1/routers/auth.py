@@ -8,6 +8,8 @@ from ....core.config import settings
 from ....core.errors import api_error
 from ....db.session import get_db
 from ....schemas import LoginIn, RecoveryIn, ResetIn
+from ....models import Audit
+from ...legal import PLATFORM_TERMS_VERSION
 from ....services.auth_service import login, logout_family, request_recovery, reset_password, rotate_refresh
 from ....services.serializers import user_json
 
@@ -25,7 +27,8 @@ def _set_cookies(response: Response, refresh: str, csrf: str | None = None) -> N
 def login_endpoint(body: LoginIn, request: Request, response: Response, db: Session = Depends(get_db)):
     user, access, refresh, csrf = login(db, body.correo, body.password, request.state.correlation_id)
     _set_cookies(response, refresh, csrf)
-    return {"accessToken": access, "expiresIn": settings.access_minutes * 60, "csrfToken": csrf, "user": user_json(user)}
+    accepted = db.query(Audit.id).filter_by(actor_id=user.id, accion="PLATFORM_TERMS_ACCEPT", objeto=f"version:{PLATFORM_TERMS_VERSION}").first() is not None
+    return {"accessToken": access, "expiresIn": settings.access_minutes * 60, "csrfToken": csrf, "legalTermsAccepted": accepted, "user": user_json(user)}
 
 
 @router.post("/refresh")
@@ -36,7 +39,8 @@ def refresh_endpoint(request: Request, response: Response, x_csrf_token: str | N
         api_error(403, "CSRF_INVALID", "CSRF inválido.")
     user, access, new_refresh = rotate_refresh(db, raw, request.state.correlation_id)
     _set_cookies(response, new_refresh)
-    return {"accessToken": access, "expiresIn": settings.access_minutes * 60, "user": user_json(user)}
+    accepted = db.query(Audit.id).filter_by(actor_id=user.id, accion="PLATFORM_TERMS_ACCEPT", objeto=f"version:{PLATFORM_TERMS_VERSION}").first() is not None
+    return {"accessToken": access, "expiresIn": settings.access_minutes * 60, "legalTermsAccepted": accepted, "user": user_json(user)}
 
 
 @router.post("/logout", status_code=204)

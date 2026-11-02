@@ -77,7 +77,7 @@ def index_content(db: Session, user: User, content: Content, mode: str | None = 
     rag_cfg = db.get(Config, "rag")
     cfg = rag_cfg.valor if rag_cfg else {}
     selected_mode = mode or cfg.get("mode") or settings.rag_mode
-    requested_provider, _ = get_provider_with_fallback(selected_mode, ollama_model=cfg.get("ollamaModel"), llm_model=cfg.get("modelo"))
+    requested_provider, _ = get_provider_with_fallback(selected_mode, ollama_model=cfg.get("ollamaModel"), llm_model=cfg.get("modelo"), llm_fallback_models=cfg.get("modelosRespaldo"))
     if content.estado_indexacion == "indexado" and content.activo and content.modelo_embedding == requested_provider.embedding_model:
         prior = Job(usuario_id=user.id, curso_id=content.curso_id, tipo="ingesta", estado="completado", resultado={"contentId": content.id, "fragmentCount": db.query(RAGFragment).filter(RAGFragment.contenido_id == content.id).count(), "idempotent": True}, correlation_id=uid())
         db.add(prior)
@@ -100,7 +100,7 @@ def index_content(db: Session, user: User, content: Content, mode: str | None = 
         rag_cfg = db.get(Config, "rag")
         cfg = rag_cfg.valor if rag_cfg else {}
         selected_mode = mode or cfg.get("mode") or settings.rag_mode
-        provider, provider_warning = get_provider_with_fallback(selected_mode, ollama_model=cfg.get("ollamaModel"), llm_model=cfg.get("modelo"))
+        provider, provider_warning = get_provider_with_fallback(selected_mode, ollama_model=cfg.get("ollamaModel"), llm_model=cfg.get("modelo"), llm_fallback_models=cfg.get("modelosRespaldo"))
         vectors: list[list[float] | None]
         if provider.supports_embeddings:
             try:

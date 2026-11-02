@@ -43,6 +43,10 @@ si no existe un build de Vite. Está enlazado únicamente a `127.0.0.1`.
 7. Prueba recuperación/reset y sincronización desde `/docs`: pulsa Authorize con el `accessToken` obtenido en `/api/auth/login`.
 8. Para comprobar renovación automática, elimina `monda_token` de sessionStorage y recarga mientras la cookie de sesión siga vigente.
 
+Al iniciar sesion, cada cuenta debe leer y aceptar las condiciones vigentes. Para subir material, el docente debe marcar la declaracion de permisos y privacidad; la aceptacion queda en auditoria.
+
+Gemini queda deshabilitado para procesamiento externo por defecto, incluso si existe una clave. Solo habilitalo cuando exista autorizacion institucional: define `GEMINI_EXTERNAL_PROCESSING_AUTHORIZED=1` en el entorno. En Docker Compose, configura el valor en `.env`. Consulta `docs/PRIVACIDAD_Y_ACEPTACIONES.md`.
+
 El lanzador carga `data/.gemini.env` si existe. En esta máquina Gemini está configurado
 con `gemini-3.1-flash-lite` para generación y `gemini-embedding-2` para embeddings.
 La clave se mantiene fuera de Git y de la imagen Docker. Sin ese archivo, usa modo auto.

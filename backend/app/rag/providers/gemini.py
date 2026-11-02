@@ -12,12 +12,16 @@ class GeminiProvider(RAGProvider):
     name = "gemini"
     embedding_dimensions = 768
 
-    def __init__(self, llm_model: str | None = None, embedding_model: str | None = None):
+    def __init__(self, llm_model: str | None = None, fallback_models: list[str] | None = None, embedding_model: str | None = None):
         if not settings.gemini_api_key:
             raise RuntimeError("GEMINI_API_KEY no configurada")
         self.api_key = settings.gemini_api_key
         self.embedding_model = embedding_model or settings.gemini_embedding_model
         self.llm_model = llm_model or settings.gemini_llm_model
+        fallbacks = fallback_models if fallback_models is not None else settings.gemini_llm_fallback_models
+        self.llm_models = list(dict.fromkeys([self.llm_model, *fallbacks]))
+        self.last_generation_model = self.llm_model
+        self.last_generation_warning: str | None = None
         self.base = settings.gemini_base_url.rstrip("/")
 
     def _post(self, url: str, payload: dict, timeout: int = 30) -> dict:
@@ -79,19 +83,24 @@ class GeminiProvider(RAGProvider):
         return out
 
     def generate(self, prompt: str) -> GenerationResult:
-        url = f"{self.base}/models/{self.llm_model}:generateContent"
-        # Evita parámetros antiguos de muestreo que ya no son aceptados por las
-        # generaciones actuales de Gemini 3.x.
-        data = self._post(url, {"contents": [{"role": "user", "parts": [{"text": prompt}]}]}, timeout=45)
-        candidates = data.get("candidates") or []
-        if not candidates:
-            raise RuntimeError("Gemini no devolvió candidatos")
-        parts = candidates[0].get("content", {}).get("parts") or []
-        text = "\n".join(str(part.get("text", "")) for part in parts).strip()
-        usage = data.get("usageMetadata") or {}
-        return GenerationResult(
-            text=text,
-            raw=data,
-            input_tokens=usage.get("promptTokenCount"),
-            output_tokens=usage.get("candidatesTokenCount"),
-        )
+        errors: list[str] = []
+        self.last_generation_warning = None
+        for model in self.llm_models:
+            try:
+                url = f"{self.base}/models/{model}:generateContent"
+                data = self._post(url, {"contents": [{"role": "user", "parts": [{"text": prompt}]}]}, timeout=45)
+                candidates = data.get("candidates") or []
+                parts = candidates[0].get("content", {}).get("parts") or [] if candidates else []
+                text = "\n".join(str(part.get("text", "")) for part in parts).strip()
+                if not text:
+                    finish = candidates[0].get("finishReason", "NO_CANDIDATE") if candidates else "NO_CANDIDATE"
+                    raise RuntimeError(f"respuesta vacia ({finish})")
+                usage = data.get("usageMetadata") or {}
+                self.last_generation_model = model
+                if errors:
+                    self.last_generation_warning = "Se uso el modelo de respaldo " + model + " tras fallar: " + "; ".join(errors)
+                data["_mondaModel"] = model
+                return GenerationResult(text=text, raw=data, input_tokens=usage.get("promptTokenCount"), output_tokens=usage.get("candidatesTokenCount"))
+            except Exception as exc:
+                errors.append(f"{model}: {str(exc)[:120]}")
+        raise RuntimeError("Todos los modelos Gemini configurados fallaron: " + "; ".join(errors))

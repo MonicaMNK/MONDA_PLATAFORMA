@@ -1,0 +1,13 @@
+E3 - ejecucion local sobre SQLite
+Fecha: 2026-11-01
+Datos: curso, docente y estudiante sinteticos; no corresponden al piloto institucional.
+
+Generacion: HTTP 202; 3 reactivos; proveedor fallback.
+Revision docente: 3/3 aprobados (HTTP 200 cada uno).
+Publicacion de evaluacion: HTTP 200.
+Intento del estudiante: iniciado y cerrado (HTTP 200).
+Publicacion de resultados: HTTP 200.
+Resultado visible: 6.67/20 (1 respuesta correcta de 3).
+Analitica del curso: promedio 6.67/20; 1 intento cerrado; alerta abierta promedio_bajo con umbral 11/20.
+
+El proveedor fue fallback local. La ejecucion no valida Gemini, no involucra alumnos reales y no acredita PostgreSQL/pgvector.

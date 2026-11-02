@@ -1,0 +1,20 @@
+Pruebas sintéticas de modelos alternativos Gemini
+Fecha: 2026-11-01
+Prompt: «Prueba sintética: responde únicamente OK.» (sin datos personales).
+Clave API omitida.
+
+Modelo: gemini-3-flash-preview
+- Resultado final: EXITOSO.
+- HTTP: 200.
+- Configuración: thinkingLevel=MINIMAL, máximo de salida 64 tokens, temperatura 0.
+- Respuesta del modelo: «OK».
+- Tokens reportados: entrada 12, salida 1, total 13.
+- Nota diagnóstica: dos primeras llamadas tuvieron HTTP 200 pero finishReason=MAX_TOKENS y texto vacío porque los límites de 8 y 16 tokens incluían el razonamiento. Al usar MINIMAL y 64 tokens, la prueba terminó con finishReason=STOP y generó la respuesta.
+
+Modelo: gemini-2.5-flash
+- Resultado: NO DISPONIBLE PARA ESTA CUENTA NUEVA.
+- HTTP: 404 NOT_FOUND.
+- Mensaje de Google: el modelo ya no está disponible para nuevos usuarios y recomienda migrar a gemini-3.8-flash.
+- Tokens: no aplica; la solicitud no generó contenido.
+
+Conclusión: entre las dos alternativas probadas, gemini-3-flash-preview funcionó con la clave probada. gemini-2.5-flash no se puede usar en esta cuenta. La confirmación de nivel gratuito se basa en la tabla pública de precios; el límite/cuota concreta depende del proyecto y puede variar.

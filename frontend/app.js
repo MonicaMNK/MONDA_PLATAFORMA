@@ -137,7 +137,7 @@ class App extends React.Component{
   saveConfig(){var c=this.state.adminConfig;if(!c)return;this.api('/api/admin/config',{method:'PATCH',json:{topK:Number(c.topK),umbral:Number(c.umbral),mode:c.mode||'auto',modelo:c.modelo,ollamaModel:c.ollamaModel,version:c.version}}).then((d)=>this.setState({adminConfig:d,msg:'Configuración guardada y auditada.'},()=>this.loadAdmin())).catch((e)=>this.setMsg(e.message))}
   sync(){
     if(this.state.offline)return this.setMsg('Conecta el equipo antes de sincronizar.');
-    this.api('/api/sync',{method:'POST',json:{actions:[{actionId:crypto.randomUUID(),tipo:'draft',payload:{tipo:'nota_local',texto:'Borrador de demostración'},version:1}]}}).then((d)=>this.setMsg('Sincronización aplicada: '+d.results[0].status)).catch((e)=>this.setMsg(e.message));
+    this.api('/api/sync',{method:'POST',json:{actions:[{actionId:crypto.randomUUID(),tipo:'borrador_personal',payload:{texto:'Borrador de demostración'},version:1}]}}).then((d)=>this.setMsg('Sincronización: '+d.results[0].status)).catch((e)=>this.setMsg(e.message));
   }
   renderLogin(){
     var cred=(name,email,pass)=>h('button',{className:'btn secondary',style:{marginRight:8,marginTop:8},onClick:()=>this.setState({email:email,password:pass})},name);

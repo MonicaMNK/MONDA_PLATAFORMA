@@ -1,0 +1,9 @@
+{
+  "provider": "gemini",
+  "model": "gemini-flash-latest",
+  "prompt": "Explain how AI works in a few words.",
+  "generation": {
+    "status": "FAIL",
+    "error": "RuntimeError: Gemini HTTP 503"
+  }
+}
