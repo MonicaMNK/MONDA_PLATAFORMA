@@ -24,6 +24,16 @@ def get_terms(user: User = Depends(authenticated_user)):
     return {**PLATFORM_TERMS, "role": user.rol}
 
 
+@router.get("/terms/status")
+def terms_status(user: User = Depends(authenticated_user), db: Session = Depends(get_db)):
+    accepted = db.query(Audit).filter_by(
+        actor_id=user.id,
+        accion="PLATFORM_TERMS_ACCEPT",
+        objeto=f"version:{PLATFORM_TERMS_VERSION}",
+    ).first() is not None
+    return {"accepted": accepted, "version": PLATFORM_TERMS_VERSION}
+
+
 @router.get("/content-sharing")
 def get_content_sharing_terms(user: User = Depends(authenticated_user)):
     if user.rol not in {"administrador", "docente"}:

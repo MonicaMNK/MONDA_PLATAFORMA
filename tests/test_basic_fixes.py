@@ -164,6 +164,7 @@ def test_platform_terms_are_required_and_versioned(demo):
     assert response.status_code == 200
     headers = {'Authorization': 'Bearer ' + response.json()['accessToken']}
     assert response.json()['legalTermsAccepted'] is False
+    assert demo.get('/api/legal/terms/status', headers=headers).json()['accepted'] is False
     assert demo.get('/api/courses', headers=headers).status_code == 428
     terms = demo.get('/api/legal/terms', headers=headers)
     assert terms.status_code == 200
@@ -173,6 +174,7 @@ def test_platform_terms_are_required_and_versioned(demo):
     accepted = demo.post('/api/legal/terms/accept', headers=headers,
                          json={'version': version, 'accepted': True})
     assert accepted.status_code == 200
+    assert demo.get('/api/legal/terms/status', headers=headers).json()['accepted'] is True
     assert demo.get('/api/courses', headers=headers).status_code == 200
     with SessionLocal() as db:
         assert db.query(Audit).filter_by(
