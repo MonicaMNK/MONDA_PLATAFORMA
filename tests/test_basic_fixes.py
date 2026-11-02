@@ -26,7 +26,8 @@ def login(client, email="estudiante@monda.local", password="Estudiante123!"):
     assert response.status_code == 200
     headers = {"Authorization": "Bearer " + response.json()["accessToken"]}
     if not response.json().get("legalTermsAccepted"):
-        accepted = client.post("/api/legal/terms/accept", headers=headers, json={"version": "2026-10-v1", "accepted": True})
+        accepted = client.post("/api/legal/terms/accept", headers=headers,
+                               json={"version": "2026-10-v1", "accepted": True})
         assert accepted.status_code == 200, accepted.text
     return headers, response
 
@@ -145,12 +146,8 @@ def test_demo_seed_has_three_courses_and_nine_visible_pdfs(demo):
             for item in contents:
                 fragment_count = db.query(RAGFragment).filter_by(
                     contenido_id=item.id).count()
-                if item.nombre_original == "El Descubrimiento de Amèrica.pdf":
-                    assert item.estado_indexacion == "error" and not item.activo
-                    assert fragment_count == 0
-                else:
-                    assert item.activo and item.estado_indexacion == "indexado"
-                    assert fragment_count > 0
+                assert item.activo and item.estado_indexacion == "indexado"
+                assert fragment_count > 0
             content_ids.update(item.id for item in contents)
 
     seed_demo_data()
@@ -162,7 +159,8 @@ def test_demo_seed_has_three_courses_and_nine_visible_pdfs(demo):
 
 
 def test_platform_terms_are_required_and_versioned(demo):
-    response = demo.post('/api/auth/login', json={'correo':'estudiante@monda.local','password':'Estudiante123!'})
+    response = demo.post(
+        '/api/auth/login', json={'correo': 'estudiante@monda.local', 'password': 'Estudiante123!'})
     assert response.status_code == 200
     headers = {'Authorization': 'Bearer ' + response.json()['accessToken']}
     assert response.json()['legalTermsAccepted'] is False
@@ -170,21 +168,27 @@ def test_platform_terms_are_required_and_versioned(demo):
     terms = demo.get('/api/legal/terms', headers=headers)
     assert terms.status_code == 200
     version = terms.json()['version']
-    assert demo.post('/api/legal/terms/accept', headers=headers, json={'version':version,'accepted':False}).status_code == 422
-    accepted = demo.post('/api/legal/terms/accept', headers=headers, json={'version':version,'accepted':True})
+    assert demo.post('/api/legal/terms/accept', headers=headers,
+                     json={'version': version, 'accepted': False}).status_code == 422
+    accepted = demo.post('/api/legal/terms/accept', headers=headers,
+                         json={'version': version, 'accepted': True})
     assert accepted.status_code == 200
     assert demo.get('/api/courses', headers=headers).status_code == 200
     with SessionLocal() as db:
-        assert db.query(Audit).filter_by(accion='PLATFORM_TERMS_ACCEPT',objeto=f'version:{version}').count() == 1
+        assert db.query(Audit).filter_by(
+            accion='PLATFORM_TERMS_ACCEPT', objeto=f'version:{version}').count() == 1
 
 
 def test_teacher_must_accept_material_sharing_terms_for_each_upload(demo):
     headers, _ = login(demo, 'docente@monda.local', 'Docente123!')
-    course_id = demo.get('/api/courses', headers=headers).json()['items'][0]['id']
+    course_id = demo.get(
+        '/api/courses', headers=headers).json()['items'][0]['id']
     base = f'/api/courses/{course_id}/contents'
-    payload = {'file': ('material.pdf', b'%PDF-demo-content', 'application/pdf')}
+    payload = {
+        'file': ('material.pdf', b'%PDF-demo-content', 'application/pdf')}
     assert demo.post(base, headers=headers, files=payload).status_code == 422
-    uploaded = demo.post(base, headers=headers, files=payload, data={'acceptSharingTerms':'true','sharingTermsVersion':'2026-10-v1'})
+    uploaded = demo.post(base, headers=headers, files=payload, data={
+                         'acceptSharingTerms': 'true', 'sharingTermsVersion': '2026-10-v1'})
     assert uploaded.status_code == 201, uploaded.text
     with SessionLocal() as db:
         record = db.query(Audit).filter_by(
@@ -192,3 +196,172 @@ def test_teacher_must_accept_material_sharing_terms_for_each_upload(demo):
             objeto=f"course:{course_id};content:{uploaded.json()['contentId']};version:2026-10-v1",
         ).one()
         assert record.actor_id is not None
+
+
+@pytest.mark.parametrize(
+    ("question", "query_vector", "evidence_expected"),
+    [
+        ("¿Qué explica el material sobre reciprocidad?",
+         [1.0] + [0.0] * 767, True),
+        ("¿Qué dosis recomienda para una enfermedad ajena al material?",
+         [0.0, 1.0] + [0.0] * 766, False),
+    ],
+)
+def test_gemini_rag_api_generates_cited_answer_or_abstains(
+    demo, monkeypatch, question, query_vector, evidence_expected
+):
+    from backend.app.models import Config
+    from backend.app.rag.providers.base import GenerationResult
+    from backend.app.services import rag_service
+
+    class ControlledGeminiProvider:
+        name = "gemini"
+        embedding_model = "gemini-integration-test-768"
+        llm_model = "gemini-integration-test"
+        supports_embeddings = True
+        supports_generation = True
+        last_generation_model = llm_model
+        last_generation_warning = None
+
+        def __init__(self):
+            self.generation_calls = 0
+            self.embedding_tasks = []
+
+        def embed(self, texts, task="document"):
+            self.embedding_tasks.append(task)
+            assert len(texts) == 1
+            return [query_vector]
+
+        def generate(self, prompt):
+            self.generation_calls += 1
+            assert "[F1 | fragmentId=" in prompt
+            return GenerationResult("La fuente describe la reciprocidad andina [F1].")
+
+    provider = ControlledGeminiProvider()
+    monkeypatch.setattr(
+        rag_service, "get_provider_with_fallback", lambda *args, **kwargs: (
+            provider, None)
+    )
+    monkeypatch.setattr(rag_service, "trace_rag",
+                        lambda *_args, **_kwargs: None)
+
+    with SessionLocal() as db:
+        course = db.query(Course).filter_by(nombre="Historia").one()
+        content = db.query(Content).filter_by(
+            curso_id=course.id, nombre_original="El Tahuantinsuyo.pdf"
+        ).one()
+        fragment = db.query(RAGFragment).filter_by(
+            contenido_id=content.id).first()
+        fragment.embedding = [1.0] + [0.0] * 767
+        fragment.embedding_model = provider.embedding_model
+        fragment.embedding_provider = provider.name
+        rag_config = db.get(Config, "rag")
+        rag_config.valor = {**rag_config.valor,
+                            "mode": "gemini", "topK": 1, "umbral": 0.62}
+        course_id = course.id
+        db.commit()
+
+    headers, _ = login(demo, "docente@monda.local", "Docente123!")
+    response = demo.post(
+        f"/api/courses/{course_id}/rag/query",
+        headers=headers,
+        json={"question": question},
+    )
+
+    assert response.status_code == 200, response.text
+    result = response.json()
+    assert provider.embedding_tasks == ["query"]
+    assert result["mode"] == "gemini"
+    assert result["evidenceSufficient"] is evidence_expected
+    if evidence_expected:
+        assert provider.generation_calls == 1
+        assert "[F1]" in result["answer"]
+        assert result["sources"][0]["nombre"] == "El Tahuantinsuyo.pdf"
+    else:
+        assert provider.generation_calls == 0
+        assert "No encuentro evidencia suficiente" in result["answer"]
+
+
+@pytest.mark.parametrize(
+    ("question", "query_vector", "evidence_expected"),
+    [
+        ("¿Qué explica el material sobre reciprocidad?",
+         [1.0] + [0.0] * 767, True),
+        ("¿Qué dosis recomienda para una enfermedad ajena al material?",
+         [0.0, 1.0] + [0.0] * 766, False),
+    ],
+)
+def test_gemini_rag_api_generates_cited_answer_or_abstains(
+    demo, monkeypatch, question, query_vector, evidence_expected
+):
+    from backend.app.models import Config
+    from backend.app.rag.providers.base import GenerationResult
+    from backend.app.services import rag_service
+
+    class ControlledGeminiProvider:
+        name = "gemini"
+        embedding_model = "gemini-integration-test-768"
+        llm_model = "gemini-integration-test"
+        supports_embeddings = True
+        supports_generation = True
+        last_generation_model = llm_model
+        last_generation_warning = None
+
+        def __init__(self):
+            self.generation_calls = 0
+            self.embedding_tasks = []
+
+        def embed(self, texts, task="document"):
+            self.embedding_tasks.append(task)
+            assert len(texts) == 1
+            return [query_vector]
+
+        def generate(self, prompt):
+            self.generation_calls += 1
+            assert "[F1 | fragmentId=" in prompt
+            assert "El Tahuantinsuyo.pdf" not in prompt
+            return GenerationResult("La fuente describe la reciprocidad andina [F1].")
+
+    provider = ControlledGeminiProvider()
+    monkeypatch.setattr(
+        rag_service, "get_provider_with_fallback", lambda *args, **kwargs: (
+            provider, None)
+    )
+    monkeypatch.setattr(rag_service, "trace_rag",
+                        lambda *_args, **_kwargs: None)
+
+    with SessionLocal() as db:
+        course = db.query(Course).filter_by(nombre="Historia").one()
+        content = db.query(Content).filter_by(
+            curso_id=course.id, nombre_original="El Tahuantinsuyo.pdf"
+        ).one()
+        fragment = db.query(RAGFragment).filter_by(
+            contenido_id=content.id).first()
+        fragment.embedding = [1.0] + [0.0] * 767
+        fragment.embedding_model = provider.embedding_model
+        fragment.embedding_provider = provider.name
+        rag_config = db.get(Config, "rag")
+        rag_config.valor = {**rag_config.valor,
+                            "mode": "gemini", "topK": 1, "umbral": 0.62}
+        course_id = course.id
+        db.commit()
+
+    headers, _ = login(demo, "docente@monda.local", "Docente123!")
+    response = demo.post(
+        f"/api/courses/{course_id}/rag/query",
+        headers=headers,
+        json={"question": question},
+    )
+
+    assert response.status_code == 200, response.text
+    result = response.json()
+    assert provider.embedding_tasks == ["query"]
+    assert result["mode"] == "gemini"
+    assert result["evidenceSufficient"] is evidence_expected
+    if evidence_expected:
+        assert provider.generation_calls == 1
+        assert "[F1]" in result["answer"]
+        assert result["sources"][0]["nombre"] == "El Tahuantinsuyo.pdf"
+    else:
+        assert provider.generation_calls == 0
+        assert "No encuentro evidencia suficiente" in result["answer"]
