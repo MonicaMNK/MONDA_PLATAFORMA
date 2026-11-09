@@ -5,7 +5,7 @@ import { Rate } from "k6/metrics";
 const baseUrl = (__ENV.LOAD_BASE_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
 const courseId = __ENV.LOAD_COURSE_ID;
 const token = __ENV.LOAD_BEARER_TOKEN;
-const acceptance = JSON.parse(open("../data/acceptance_thresholds.json")).requirements["RNF-01"];
+const acceptance = JSON.parse(open("./data/acceptance_thresholds.json")).requirements["RNF-01"];
 const users = Number(__ENV.LOAD_USERS || acceptance.target_concurrent_users);
 const failures = new Rate("acceptance_failures");
 
