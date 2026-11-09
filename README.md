@@ -1,4 +1,4 @@
-# Plataforma Monda — repositorio integrado PI6 / PI7 (T6–T9)
+# Plataforma Monda — repositorio integrado (T6–T9)
 
 Aplicación web educativa con FastAPI, PostgreSQL 16 + pgvector, React, control de acceso por roles y tutor RAG con tres adaptadores. El repositorio conserva el diseño, contratos y diagramas PI7 en `reference_design/` y mantiene el DDL ejecutable versionado con Alembic.
 
@@ -60,13 +60,13 @@ Este modo usa SQLite persistente y el tutor léxico. Instalación y recorrido co
 
 Solo para entorno local con `MONDA_DEMO=1`:
 
-| Rol | Correo | Contraseña |
-|---|---|---|
-| Administrador | `admin@monda.local` | `Admin123!` |
-| Docente | `docente@monda.local` | `Docente123!` |
-| Estudiante | `estudiante@monda.local` | `Estudiante123!` |
+| Rol           | Correo                   | Contraseña       |
+| ------------- | ------------------------ | ---------------- |
+| Administrador | `admin@monda.local`      | `Admin123!`      |
+| Docente       | `docente@monda.local`    | `Docente123!`    |
+| Estudiante    | `estudiante@monda.local` | `Estudiante123!` |
 
-El seed crea el curso **Introducción a Sistemas**, matrícula del estudiante y fragmentos de texto base para probar el tutor en fallback. Los usuarios y las contraseñas son exclusivamente datos sintéticos de desarrollo. Deshabilita seeds y cambia secretos para cualquier entorno compartido.
+El seed crea los cursos **Historia**, **Literatura** y **Biología**, matrícula del estudiante y nueve materiales PDF de demostración en `data/demo_materials/`. El PDF de Historia sobre el descubrimiento de América incluye actualmente una capa OCR y es indexable; un PDF escaneado sin texto reconocible no genera fragmentos para el tutor. Los usuarios y las contraseñas son exclusivamente datos sintéticos de desarrollo. Deshabilita seeds y cambia secretos para cualquier entorno compartido.
 
 ## Ejecución manual sin Docker Compose completo
 
@@ -93,7 +93,7 @@ Estos comandos arrancan los procesos únicamente cuando el desarrollador los eje
 En `.env` selecciona el modo:
 
 - `RAG_MODE=auto`: elige Gemini si `GEMINI_API_KEY` está configurada; de otro modo usa fallback, si `RAG_ALLOW_FALLBACK=1`.
-- `RAG_MODE=gemini`: API de Gemini con `GEMINI_LLM_MODEL=gemini-3-flash-preview` por defecto y `GEMINI_LLM_FALLBACK_MODELS=gemini-3.8-flash,gemini-3.6-flash` como respaldos ordenados. Si la generación del modelo principal falla o devuelve texto vacío, el adaptador intenta el siguiente y registra el modelo usado. El administrador puede cambiar el modelo principal y hasta dos respaldos desde Configuración RAG. Al ser preview, el modelo principal puede cambiar o tener límites más estrictos. `GEMINI_EMBEDDING_MODEL=gemini-embedding-2` genera embeddings de 768 dimensiones compatibles con `vector(768)`; los respaldos solo se aplican a la generación y no cambian el modelo de embeddings.
+- `RAG_MODE=gemini`: API de Gemini con `GEMINI_LLM_MODEL=gemini-3-flash-preview` por defecto y `GEMINI_LLM_FALLBACK_MODELS=gemini-3.8-flash,gemini-3.6-flash` como respaldos ordenados. Requiere `GEMINI_API_KEY` y autorización explícita `GEMINI_EXTERNAL_PROCESSING_AUTHORIZED=1`; sin autorización el proveedor no se construye y el modo `auto` puede usar fallback si está permitido. Si la generación del modelo principal falla o devuelve texto vacío, el adaptador intenta el siguiente y registra el modelo usado. El administrador puede cambiar el modelo principal y hasta dos respaldos desde Configuración RAG. Al ser preview, el modelo principal puede cambiar o tener límites más estrictos. `GEMINI_EMBEDDING_MODEL=gemini-embedding-2` genera embeddings de 768 dimensiones compatibles con `vector(768)`; los respaldos solo se aplican a la generación y no cambian el modelo de embeddings.
 - `RAG_MODE=ollama`: servicio Ollama ejecutándose en la máquina anfitriona, con `OLLAMA_LLM_MODEL` y `OLLAMA_EMBEDDING_MODEL` descargados previamente.
 - `RAG_MODE=fallback`: búsqueda local por términos/frases del material; no llama a proveedor externo y funciona para smoke tests.
 
@@ -139,6 +139,8 @@ alembic upgrade head --sql > /tmp/monda-schema-preview.sql
 
 La prueba de integración utiliza la base de datos de pruebas configurada por `tests/conftest.py`. Estas verificaciones no reemplazan pruebas reales contra una instancia PostgreSQL, llamadas a Gemini, servidor Ollama ni pruebas de carga.
 
+En la revisión actual, `pytest --collect-only -q` recoge 30 casos. `test_gemini_mode_rag_api_with_controlled_provider_generates_cited_answer_or_abstains` prueba el flujo del endpoint con un proveedor simulado; **no** realiza llamadas reales a Gemini. Para una evaluación live opcional, `python scripts/evaluate_rag_gemini_live.py --confirm-external` usa el fixture de 100 consultas y la calibración guardada, envía a Gemini las preguntas con evidencia suficiente y registra respuestas, citas y abstenciones. Requiere `GEMINI_API_KEY` y autorización externa explícita, consume cuota y no sustituye la revisión factual humana; la precisión de citas se mide a nivel de PDF.
+
 ## Estructura del repositorio
 
 ```text
@@ -176,7 +178,7 @@ También se puede reconstruir un ZIP limpio con `python scripts/package_release.
 
 ## Recorrido de prueba sugerido
 
-1. Inicia sesión como docente y selecciona **Introducción a Sistemas**.
+1. Inicia sesión como docente y selecciona **Historia**, **Literatura** o **Biología**.
 2. Consulta los materiales existentes; carga un PDF/DOCX con texto extraíble y verifica el estado de indexación.
 3. Pregunta al tutor sobre el texto de un material y comprueba las fuentes. Con una consulta fuera de tema, verifica la abstención si no hay contexto suficiente.
 4. Genera una evaluación, revisa los reactivos y aprueba cada uno. Confirma que publicar una evaluación con reactivos no aprobados devuelve conflicto.
