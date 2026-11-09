@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "description": "Four reference cases per objective for code-level acceptance traceability. D07/CP11 is an environment check and is not counted in OE1 or OE3.",
+  "objectives": {
+    "OE1": [
+      {"case": "valid_pdf_and_docx_indexing", "test_file": "tests/test_content_formats.py", "test": "test_docx_upload_extracts_and_indexes_text"},
+      {"case": "active_version_indexing", "test_file": "tests/test_entrega2_backend.py", "test": "test_material_upload_version_and_index_fallback"},
+      {"case": "enrolled_student_access", "test_file": "tests/test_entrega2_backend.py", "test": "test_course_isolation_and_rbac"},
+      {"case": "different_course_access_denied", "test_file": "tests/test_entrega2_backend.py", "test": "test_course_isolation_and_rbac"}
+    ],
+    "OE3": [
+      {"case": "scores_10_14_average_12", "test_file": "tests/test_learning_workflow.py", "test": "test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert"},
+      {"case": "low_average_alert", "test_file": "tests/test_learning_workflow.py", "test": "test_low_average_alert_requires_closed_attempts_and_uses_configured_threshold"},
+      {"case": "no_closed_attempts_no_low_average_alert", "test_file": "tests/test_learning_workflow.py", "test": "test_low_average_alert_requires_closed_attempts_and_uses_configured_threshold"},
+      {"case": "foreign_teacher_export_denied", "test_file": "tests/test_admin_management.py", "test": "test_admin_creates_edits_users_and_assigns_courses"}
+    ]
+  }
+}
