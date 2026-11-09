@@ -18,7 +18,6 @@ if str(ROOT) not in sys.path:
 
 DATA = ROOT / "data"
 PDF_ROOT = DATA / "demo_materials"
-FIXTURE_PATH = DATA / "rag_calibration_100.json"
 VALIDATION_FIXTURE_PATH = DATA / "rag_validation_100.json"
 CALIBRATION_PATH = DATA / "rag_calibration_gemini_20261101.json"
 PARTIAL_PATH = DATA / "rag_gemini_live_20261101.partial.json"
@@ -27,6 +26,7 @@ COURSE_DIRS = {"Biología": "biologia",
                "Historia": "historia", "Literatura": "literatura"}
 ABSTENTION = "No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza."
 CITATION_PATTERN = re.compile(r"\[F(\d+)\]")
+CATEGORY_COUNTS = {"factual": 40, "integration": 30, "no_evidence": 15, "adversarial": 15}
 
 
 def sha256(data: bytes) -> str:
@@ -54,6 +54,15 @@ def validate_validation_fixture(fixture: dict, calibration: dict) -> None:
         raise ValueError("Cada consulta final debe pertenecer a un curso conocido.")
     if any(not isinstance(item.get("answerable"), bool) for item in queries):
         raise ValueError("Cada consulta final debe declarar answerable como booleano.")
+    categories = [item.get("category") for item in queries]
+    if any(category not in CATEGORY_COUNTS for category in categories):
+        raise ValueError("Cada consulta debe tener categoría factual, integration, no_evidence o adversarial.")
+    for category, expected_count in CATEGORY_COUNTS.items():
+        if categories.count(category) != expected_count:
+            raise ValueError(f"La categoría {category} requiere exactamente {expected_count} consultas.")
+    if any(item["answerable"] != (item["category"] in {"factual", "integration"})
+           for item in queries):
+        raise ValueError("Factual/integration deben ser respondibles; no_evidence/adversarial deben ser controles.")
     if any(item["answerable"] and not item.get("gold_pdf") for item in queries):
         raise ValueError("Cada consulta respondible requiere gold_pdf.")
 
@@ -158,6 +167,24 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
     generation_attempted = sum(
         item["generation_attempted"] for item in results)
     errors = sum(bool(item["generation_error"]) for item in results)
+    false_answer_ids = [query["id"] for query in controls
+                        if not by_id[query["id"]]["system_abstained"]]
+    cross_course_query_ids = [
+        query["id"] for query in evaluated
+        if any(source.get("course") != query["course"]
+               for source in by_id[query["id"]].get("retrieved_sources", []))
+    ]
+    category_metrics = {}
+    for category in CATEGORY_COUNTS:
+        category_queries = [query for query in evaluated if query.get("category") == category]
+        category_answered = sum(not by_id[query["id"]]["system_abstained"]
+                                for query in category_queries)
+        category_metrics[category] = {
+            "queries": len(category_queries),
+            "answered": category_answered,
+            "abstained": len(category_queries) - category_answered,
+            "answer_rate": category_answered / len(category_queries) if category_queries else None,
+        }
     return {
         "queries_evaluated": len(evaluated),
         "answerable_evaluated": len(answerable),
@@ -169,6 +196,10 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
         "generated_nonempty_rate": answers_generated / generation_attempted if generation_attempted else None,
         "generation_attempted": generation_attempted,
         "generation_errors": errors,
+        "false_answer_count": len(false_answer_ids),
+        "false_answer_query_ids": false_answer_ids,
+        "cross_course_source_query_ids": cross_course_query_ids,
+        "category_metrics": category_metrics,
         "factual_answer_correctness": None,
         "factual_answer_correctness_note": "Requires independent human/reference-answer review; this fixture has no gold answer text.",
     }
@@ -271,6 +302,7 @@ def main() -> None:
         source_payload = [
             {
                 "citation_id": f"F{rank + 1}",
+                "course": fragment["course"],
                 "pdf": fragment["filename"],
                 "fragment_ordinal": fragment["ordinal"],
                 "text_sha256": fragment["text_sha256"],
@@ -331,6 +363,7 @@ def main() -> None:
         output["results"].append({
             "query_id": query["id"],
             "course": query["course"],
+            "category": query["category"],
             "question": query["question"],
             "answerable": query["answerable"],
             "gold_pdf": query["gold_pdf"],

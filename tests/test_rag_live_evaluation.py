@@ -4,13 +4,16 @@ from scripts.evaluate_rag_gemini_live import validate_validation_fixture
 
 
 def make_fixture():
+    categories = (["factual"] * 40 + ["integration"] * 30
+                  + ["no_evidence"] * 15 + ["adversarial"] * 15)
     queries = []
-    for index in range(100):
+    for index, category in enumerate(categories):
         row = {
             "id": f"V{index + 1:02d}",
             "course": "Historia",
             "question": f"Consulta final nueva número {index + 1}",
-            "answerable": index % 2 == 0,
+            "category": category,
+            "answerable": category in {"factual", "integration"},
         }
         if row["answerable"]:
             row["gold_pdf"] = "El Tahuantinsuyo.pdf"
@@ -46,3 +49,26 @@ def test_validation_fixture_rejects_missing_gold_source():
 
     with pytest.raises(ValueError, match="gold_pdf"):
         validate_validation_fixture(fixture, calibration_fixture())
+
+
+def test_live_summary_lists_false_answers_and_separates_categories():
+    from scripts.evaluate_rag_gemini_live import summarize
+
+    fixture = make_fixture()
+    query = fixture["queries"][70]
+    results = [{
+        "query_id": query["id"],
+        "system_abstained": False,
+        "citations": [],
+        "generation_attempted": False,
+        "generation_error": None,
+        "answer": "respuesta",
+        "retrieved_sources": [{"course": "Historia"}],
+    }]
+
+    summary = summarize(results, fixture["queries"])
+
+    assert summary["false_answer_count"] == 1
+    assert summary["false_answer_query_ids"] == [query["id"]]
+    assert summary["category_metrics"]["no_evidence"]["answered"] == 1
+    assert summary["cross_course_source_query_ids"] == []
