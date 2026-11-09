@@ -52,11 +52,11 @@ def content_status(contentId: str, user: User = Depends(current_user), db: Sessi
         api_error(404, "CONTENT_NOT_FOUND", "Contenido no encontrado.")
     can_access_course(db, user, content.curso_id)
     count = db.query(RAGFragment).filter(RAGFragment.contenido_id == content.id).count()
-    latest_job = db.query(Job).filter(
-        Job.tipo == "ingesta", Job.curso_id == content.curso_id
-    ).order_by(Job.creado_en.desc()).all()
-    matching_job = next((job for job in latest_job
-                         if (job.resultado or {}).get("contentId") == content.id), None)
+    matching_job = db.query(Job).filter(
+        Job.tipo == "ingesta",
+        Job.curso_id == content.curso_id,
+        Job.resultado["contentId"].as_string() == content.id,
+    ).order_by(Job.creado_en.desc()).first()
     error_code = ((matching_job.resultado or {}).get("errorCode")
                   if content.estado_indexacion == "error" and matching_job else None)
     return {"estado": content.estado_indexacion, "errorCode": error_code, "fragmentCount": count}
