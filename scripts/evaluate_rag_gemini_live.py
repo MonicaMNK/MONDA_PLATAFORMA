@@ -6,6 +6,7 @@ import json
 import math
 import re
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -18,6 +19,7 @@ if str(ROOT) not in sys.path:
 DATA = ROOT / "data"
 PDF_ROOT = DATA / "demo_materials"
 FIXTURE_PATH = DATA / "rag_calibration_100.json"
+VALIDATION_FIXTURE_PATH = DATA / "rag_validation_100.json"
 CALIBRATION_PATH = DATA / "rag_calibration_gemini_20261101.json"
 PARTIAL_PATH = DATA / "rag_gemini_live_20261101.partial.json"
 FINAL_PATH = DATA / "rag_gemini_live_20261101.json"
@@ -38,17 +40,49 @@ def save_json(path: Path, payload: dict) -> None:
     temporary.replace(path)
 
 
-def load_and_validate_inputs() -> tuple[dict, list[dict], dict, dict, str, str]:
-    fixture_bytes = FIXTURE_PATH.read_bytes()
+def validate_validation_fixture(fixture: dict, calibration: dict) -> None:
+    queries = fixture.get("queries")
+    if not isinstance(queries, list) or len(queries) != 100:
+        raise ValueError("El banco final debe contener exactamente 100 consultas.")
+    ids = [str(item.get("id", "")).strip() for item in queries]
+    if any(not query_id for query_id in ids) or len(set(ids)) != len(ids):
+        raise ValueError("Cada consulta final debe tener un ID único y no vacío.")
+    if any(not isinstance(item.get("question"), str) or not item["question"].strip()
+           for item in queries):
+        raise ValueError("Cada consulta final debe incluir una pregunta no vacía.")
+    if any(item.get("course") not in COURSE_DIRS for item in queries):
+        raise ValueError("Cada consulta final debe pertenecer a un curso conocido.")
+    if any(not isinstance(item.get("answerable"), bool) for item in queries):
+        raise ValueError("Cada consulta final debe declarar answerable como booleano.")
+    if any(item["answerable"] and not item.get("gold_pdf") for item in queries):
+        raise ValueError("Cada consulta respondible requiere gold_pdf.")
+
+    calibration_queries = calibration.get("queries", [])
+    calibration_ids = {str(item.get("id", "")).strip() for item in calibration_queries}
+    if set(ids) & calibration_ids:
+        raise ValueError("El banco final comparte IDs con el conjunto de calibración.")
+    normalize = lambda value: " ".join(value.casefold().split())
+    normalized_queries = [normalize(item["question"]) for item in queries]
+    if len(set(normalized_queries)) != len(normalized_queries):
+        raise ValueError("El banco final contiene preguntas duplicadas.")
+    calibration_questions = {normalize(item.get("question", ""))
+                             for item in calibration_queries}
+    if any(normalize(item["question"]) in calibration_questions for item in queries):
+        raise ValueError("El banco final contiene preguntas del conjunto de calibración.")
+
+
+def load_and_validate_inputs(fixture_path: Path = VALIDATION_FIXTURE_PATH) -> tuple[dict, list[dict], dict, dict, str, str]:
+    fixture_bytes = fixture_path.read_bytes()
     calibration_bytes = CALIBRATION_PATH.read_bytes()
     fixture = json.loads(fixture_bytes)
     calibration = json.loads(calibration_bytes)
     if calibration.get("status") != "complete":
         raise ValueError(
             "El artefacto de calibración Gemini no está completo.")
-    if fixture["queries"] != calibration["queries"]:
+    if fixture["queries"] == calibration["queries"]:
         raise ValueError(
             "El fixture de consultas no coincide con los vectores calibrados.")
+    validate_validation_fixture(fixture, calibration)
 
     fragments = []
     pdf_hashes = {}
@@ -149,6 +183,8 @@ def main() -> None:
                         help="Reanuda desde el JSON parcial si fixture y artefacto coinciden.")
     parser.add_argument("--confirm-external", action="store_true",
                         help="Confirma el envío de preguntas y fragmentos recuperados a Gemini.")
+    parser.add_argument("--fixture", type=Path, default=VALIDATION_FIXTURE_PATH,
+                        help="Banco final independiente de calibración (100 consultas).")
     args = parser.parse_args()
     if not 1 <= args.limit <= 100:
         raise SystemExit("--limit debe estar entre 1 y 100.")
@@ -162,7 +198,7 @@ def main() -> None:
         raise SystemExit(
             "Gemini requiere API key y GEMINI_EXTERNAL_PROCESSING_AUTHORIZED=1.")
 
-    fixture, fragments, calibration, chosen, fixture_hash, calibration_hash = load_and_validate_inputs()
+    fixture, fragments, calibration, chosen, fixture_hash, calibration_hash = load_and_validate_inputs(args.fixture)
     queries = fixture["queries"][: args.limit]
     output_metadata = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -170,10 +206,12 @@ def main() -> None:
         "llm_model_requested": settings.gemini_llm_model,
         "embedding_model": calibration["metadata"]["embedding_model"],
         "fixture_sha256": fixture_hash,
+        "calibration_fixture_sha256": calibration["metadata"]["fixture_sha256"],
         "calibration_artifact_sha256": calibration_hash,
         "source_pdf_sha256": calibration["metadata"]["source_pdf_sha256"],
         "k": chosen["k"],
         "cosine_threshold": chosen["cosine_threshold"],
+        "minimum_score_margin": chosen.get("minimum_score_margin", 0.0),
         "query_limit": args.limit,
         "human_review_required_for_factual_correctness": True,
     }
@@ -204,8 +242,11 @@ def main() -> None:
         embedding_model=calibration["metadata"]["embedding_model"],
     )
     ranked_by_query = []
+    embedding_latency_ms = []
     for index, query in enumerate(queries):
-        query_vector = calibration["query_vectors"][index]
+        embedding_started = time.perf_counter()
+        query_vector = provider.embed([query["question"]], task="query")[0]
+        embedding_latency_ms.append(round((time.perf_counter() - embedding_started) * 1000, 2))
         candidates = []
         for fragment, document_vector in zip(fragments, calibration["document_vectors"]):
             if fragment["course"] == query["course"]:
@@ -221,10 +262,12 @@ def main() -> None:
         ranked = ranked_by_query[index]
         top_k = chosen["k"]
         threshold = chosen["cosine_threshold"]
+        min_margin = chosen.get("minimum_score_margin", 0.0)
+        score_gap = ranked[0][0] - ranked[1][0] if len(ranked) > 1 else 2.0
         selected = ranked[:top_k]
         top_score = ranked[0][0] if ranked else None
         evidence_sufficient = bool(
-            top_score is not None and top_score >= threshold)
+            top_score is not None and top_score >= threshold and score_gap >= min_margin)
         source_payload = [
             {
                 "citation_id": f"F{rank + 1}",
@@ -242,6 +285,7 @@ def main() -> None:
         generation_attempted = evidence_sufficient
         response_model = None
         input_tokens = output_tokens = None
+        generation_latency_ms = 0.0
         if not evidence_sufficient:
             answer = "No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza."
         else:
@@ -258,7 +302,9 @@ def main() -> None:
                 f"CONTEXTO:\n{context}\n\nPREGUNTA:\n{query['question']}"
             )
             try:
+                generation_started = time.perf_counter()
                 generated = provider.generate(prompt)
+                generation_latency_ms = round((time.perf_counter() - generation_started) * 1000, 2)
                 answer = generated.text.strip()
                 response_model = provider.last_generation_model
                 input_tokens = generated.input_tokens
@@ -289,6 +335,10 @@ def main() -> None:
             "answerable": query["answerable"],
             "gold_pdf": query["gold_pdf"],
             "top_cosine": top_score,
+            "top_two_score_gap": score_gap if ranked else None,
+            "minimum_score_margin": min_margin,
+            "embedding_latency_ms": embedding_latency_ms[index],
+            "generation_latency_ms": generation_latency_ms,
             "evidence_sufficient": evidence_sufficient,
             "system_abstained": system_abstained,
             "generation_attempted": generation_attempted,
