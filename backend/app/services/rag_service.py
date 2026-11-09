@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import time
 
 from sqlalchemy.orm import Session
@@ -12,6 +13,11 @@ from ..rag import get_provider_with_fallback
 from ..repositories import VectorStoreRepository
 from .access import can_access_course, require_permission
 from .tracing import trace_rag
+
+
+def _has_valid_citations(answer: str, source_count: int) -> bool:
+    citation_refs = [int(value) for value in re.findall(r"\[F(\d+)\]", answer)]
+    return bool(citation_refs) and all(1 <= ref <= source_count for ref in citation_refs)
 
 
 def _config(db: Session) -> dict:
@@ -114,6 +120,11 @@ def query_rag(db: Session, user: User, course_id: str, question: str, conversati
             output_tokens = generated.output_tokens
             if not answer:
                 raise ValueError("Generación vacía")
+            # Do not expose generated claims with missing or unbound citations.
+            # Semantic faithfulness still requires human review.
+            if not _has_valid_citations(answer, len(ranked)):
+                sufficient = False
+                answer = "No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza."
         except Exception as exc:
             if not settings.rag_allow_fallback:
                 raise

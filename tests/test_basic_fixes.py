@@ -317,3 +317,18 @@ def test_gemini_mode_rag_api_with_controlled_provider_generates_cited_answer_or_
     else:
         assert provider.generation_calls == 0
         assert "No encuentro evidencia suficiente" in result["answer"]
+
+
+@pytest.mark.parametrize(
+    ("answer", "source_count", "expected"),
+    [
+        ("Respuesta sustentada [F1].", 1, True),
+        ("Respuesta sustentada [F2].", 1, False),
+        ("Respuesta sin marcador.", 1, False),
+        ("Respuesta con [F1] y [F9].", 2, False),
+    ],
+)
+def test_generated_answer_requires_valid_source_markers(answer, source_count, expected):
+    from backend.app.services.rag_service import _has_valid_citations
+
+    assert _has_valid_citations(answer, source_count) is expected
