@@ -24,6 +24,8 @@ class Settings:
     app_version: str = os.getenv("APP_VERSION", "2.0.0-entrega2")
     environment: str = os.getenv("APP_ENV", "local")
     database_url: str = os.getenv("DATABASE_URL", f"sqlite:///{DATA_DIR / 'monda.db'}")
+    db_pool_size: int = int(os.getenv("DB_POOL_SIZE", "30"))
+    db_max_overflow: int = int(os.getenv("DB_MAX_OVERFLOW", "30"))
     secret_key: str = os.getenv("MONDA_SECRET_KEY", "monda-local-change-me-2026-use-32-bytes-minimum")
     access_minutes: int = int(os.getenv("ACCESS_MINUTES", "30"))
     refresh_days: int = int(os.getenv("REFRESH_DAYS", "7"))

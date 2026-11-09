@@ -14,8 +14,19 @@ elif settings.database_url.startswith("postgresql"):
     connect_args = {"options": "-c search_path=monda,public"}
 else:
     connect_args = {}
-engine = create_engine(settings.database_url, future=True,
-                       pool_pre_ping=True, connect_args=connect_args)
+
+engine_options = {
+    "future": True,
+    "pool_pre_ping": True,
+    "connect_args": connect_args,
+}
+if settings.database_url.startswith("postgresql"):
+    engine_options.update(
+        pool_size=settings.db_pool_size,
+        max_overflow=settings.db_max_overflow,
+    )
+
+engine = create_engine(settings.database_url, **engine_options)
 
 SessionLocal = sessionmaker(
     bind=engine, autoflush=False, expire_on_commit=False)
