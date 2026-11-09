@@ -42,10 +42,23 @@ def sha256_file(path: Path) -> str:
 
 def build_manifest(files: list[Path], hardware_notes: str = "", network_notes: str = "") -> dict:
     from backend.app.core.config import settings
+    from backend.app.db.session import SessionLocal
+    from backend.app.models import Config
 
     dirty_entries = git_output("status", "--porcelain", "--untracked-files=normal").splitlines()
     alembic = AlembicConfig(str(ROOT / "alembic.ini"))
     migrations = ScriptDirectory.from_config(alembic)
+    with SessionLocal() as db:
+        rag_row = db.get(Config, "rag")
+        rag_config = rag_row.valor if rag_row else {}
+    effective_rag = {
+        "mode": rag_config.get("mode", settings.rag_mode),
+        "topK": rag_config.get("topK", settings.rag_top_k),
+        "umbral": rag_config.get("umbral", settings.rag_similarity_threshold),
+        "margenMinimo": rag_config.get("margenMinimo", settings.rag_minimum_score_margin),
+        "modelo": rag_config.get("modelo", settings.gemini_llm_model),
+        "modelosRespaldo": rag_config.get("modelosRespaldo", settings.gemini_llm_fallback_models),
+    }
     return {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "repository": {
@@ -65,11 +78,12 @@ def build_manifest(files: list[Path], hardware_notes: str = "", network_notes: s
             "environment": settings.environment,
             "database": sanitize_database_url(settings.database_url),
             "alembic_head": migrations.get_current_head(),
-            "rag_mode": settings.rag_mode,
-            "rag_top_k": settings.rag_top_k,
-            "rag_similarity_threshold": settings.rag_similarity_threshold,
-            "rag_minimum_score_margin": settings.rag_minimum_score_margin,
-            "gemini_llm_model": settings.gemini_llm_model,
+            "rag_mode": effective_rag["mode"],
+            "rag_top_k": effective_rag["topK"],
+            "rag_similarity_threshold": effective_rag["umbral"],
+            "rag_minimum_score_margin": effective_rag["margenMinimo"],
+            "llm_model": effective_rag["modelo"],
+            "llm_fallback_models": effective_rag["modelosRespaldo"],
             "gemini_embedding_model": settings.gemini_embedding_model,
         },
         "files_sha256": {

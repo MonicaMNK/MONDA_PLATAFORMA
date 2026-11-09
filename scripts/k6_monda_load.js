@@ -5,7 +5,8 @@ import { Rate } from "k6/metrics";
 const baseUrl = (__ENV.LOAD_BASE_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
 const courseId = __ENV.LOAD_COURSE_ID;
 const token = __ENV.LOAD_BEARER_TOKEN;
-const users = Number(__ENV.LOAD_USERS || 50);
+const acceptance = JSON.parse(open("../data/acceptance_thresholds.json")).requirements["RNF-01"];
+const users = Number(__ENV.LOAD_USERS || acceptance.target_concurrent_users);
 const failures = new Rate("acceptance_failures");
 
 if (!courseId || !token) {
@@ -21,22 +22,22 @@ export const options = {
       executor: "constant-vus",
       exec: "exerciseReadRoutes",
       vus: users,
-      duration: "5m",
+      duration: `${acceptance.warmup_minutes}m`,
       tags: { phase: "warmup" },
     },
     measurement: {
       executor: "constant-vus",
       exec: "exerciseReadRoutes",
-      startTime: "5m",
+      startTime: `${acceptance.warmup_minutes}m`,
       vus: users,
-      duration: "15m",
+      duration: `${acceptance.measurement_minutes}m`,
       tags: { phase: "measurement" },
     },
   },
   thresholds: {
-    "http_req_duration{phase:measurement}": ["p(95)<800"],
-    "http_req_failed{phase:measurement}": ["rate<0.01"],
-    "acceptance_failures{phase:measurement}": ["rate<0.01"],
+    "http_req_duration{phase:measurement}": [`p(95)<${acceptance.transactional_api_p95_ms}`],
+    "http_req_failed{phase:measurement}": [`rate<${acceptance.max_http_error_rate}`],
+    "acceptance_failures{phase:measurement}": [`rate<${acceptance.max_http_error_rate}`],
   },
 };
 
@@ -63,6 +64,6 @@ export function handleSummary(data) {
   if (__ENV.K6_SUMMARY_PATH) {
     output[__ENV.K6_SUMMARY_PATH] = JSON.stringify(data, null, 2);
   }
-  output.stdout = `k6 completed: ${users} VUs; warmup 5m; measurement 15m\n`;
+  output.stdout = `k6 completed: ${users} VUs; warmup ${acceptance.warmup_minutes}m; measurement ${acceptance.measurement_minutes}m\n`;
   return output;
 }

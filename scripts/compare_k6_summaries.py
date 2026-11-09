@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+from scripts.validation_thresholds import REQUIREMENTS
 
 def find_metric(summary: dict, name: str) -> dict:
     metrics = summary.get("metrics", {})
@@ -17,8 +18,13 @@ def find_metric(summary: dict, name: str) -> dict:
     raise ValueError(f"No se encontró la métrica k6 {name} de measurement.")
 
 
-def compare_summaries(baseline: dict, target: dict, p95_limit_ms: float = 800.0,
-                      error_rate_limit: float = 0.01, degradation_limit_pct: float = 20.0) -> dict:
+def compare_summaries(baseline: dict, target: dict, p95_limit_ms: float | None = None,
+                      error_rate_limit: float | None = None,
+                      degradation_limit_pct: float | None = None) -> dict:
+    acceptance = REQUIREMENTS["RNF-01"]
+    p95_limit_ms = p95_limit_ms if p95_limit_ms is not None else acceptance["transactional_api_p95_ms"]
+    error_rate_limit = error_rate_limit if error_rate_limit is not None else acceptance["max_http_error_rate"]
+    degradation_limit_pct = degradation_limit_pct if degradation_limit_pct is not None else acceptance["max_degradation_percent"]
     baseline_p95 = float(find_metric(baseline, "http_req_duration")["p(95)"])
     target_p95 = float(find_metric(target, "http_req_duration")["p(95)"])
     target_error_rate = float(find_metric(target, "http_req_failed")["rate"])

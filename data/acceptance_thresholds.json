@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "requirements": {
+    "RNF-01": {
+      "transactional_api_p95_ms": 800,
+      "max_http_error_rate": 0.01,
+      "max_degradation_percent": 20,
+      "target_concurrent_users": 50,
+      "comparison_concurrent_users": 25,
+      "warmup_minutes": 5,
+      "measurement_minutes": 15
+    },
+    "RNF-02": {
+      "rag_median_ms": 3000,
+      "rag_p95_ms": 5000
+    },
+    "RNF-06": {
+      "sus_minimum": 68,
+      "lighthouse_accessibility_minimum": 90
+    },
+    "RNF-08": {
+      "pdf_citation_precision_minimum": 0.95,
+      "faithfulness_mean_minimum": 4.0,
+      "minimum_aiken_v": 0.80
+    },
+    "OE2": {
+      "final_query_count": 100,
+      "category_counts": {
+        "factual": 40,
+        "integration": 30,
+        "no_evidence": 15,
+        "adversarial": 15
+      },
+      "minimum_answerable_coverage": 0.85,
+      "minimum_correct_abstention": 0.9333333333,
+      "minimum_adversarial_pass_rate": 1.0
+    }
+  }
+}

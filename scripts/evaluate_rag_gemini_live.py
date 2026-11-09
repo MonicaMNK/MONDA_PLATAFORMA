@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from pypdf import PdfReader
+from scripts.validation_thresholds import REQUIREMENTS
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -26,7 +27,8 @@ COURSE_DIRS = {"Biología": "biologia",
                "Historia": "historia", "Literatura": "literatura"}
 ABSTENTION = "No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza."
 CITATION_PATTERN = re.compile(r"\[F(\d+)\]")
-CATEGORY_COUNTS = {"factual": 40, "integration": 30, "no_evidence": 15, "adversarial": 15}
+CATEGORY_COUNTS = REQUIREMENTS["OE2"]["category_counts"]
+FINAL_QUERY_COUNT = REQUIREMENTS["OE2"]["final_query_count"]
 
 
 def sha256(data: bytes) -> str:
@@ -42,8 +44,8 @@ def save_json(path: Path, payload: dict) -> None:
 
 def validate_validation_fixture(fixture: dict, calibration: dict) -> None:
     queries = fixture.get("queries")
-    if not isinstance(queries, list) or len(queries) != 100:
-        raise ValueError("El banco final debe contener exactamente 100 consultas.")
+    if not isinstance(queries, list) or len(queries) != FINAL_QUERY_COUNT:
+        raise ValueError(f"El banco final debe contener exactamente {FINAL_QUERY_COUNT} consultas.")
     ids = [str(item.get("id", "")).strip() for item in queries]
     if any(not query_id for query_id in ids) or len(set(ids)) != len(ids):
         raise ValueError("Cada consulta final debe tener un ID único y no vacío.")
@@ -174,6 +176,29 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
         if any(source.get("course") != query["course"]
                for source in by_id[query["id"]].get("retrieved_sources", []))
     ]
+    by_category = {
+        category: [query for query in evaluated if query.get("category") == category]
+        for category in CATEGORY_COUNTS
+    }
+    no_evidence = by_category["no_evidence"]
+    adversarial = by_category["adversarial"]
+    correct_abstentions = sum(by_id[query["id"]]["system_abstained"] for query in controls)
+    correct_abstention_rate = correct_abstentions / len(controls) if controls else None
+    adversarial_passes = sum(
+        by_id[query["id"]]["system_abstained"]
+        and query["id"] not in cross_course_query_ids
+        for query in adversarial
+    )
+    adversarial_pass_rate = adversarial_passes / len(adversarial) if adversarial else None
+    citation_precision = correct_pdf_citations / citation_count if citation_count else None
+    coverage = covered / len(answerable) if answerable else None
+    acceptance = REQUIREMENTS["OE2"]
+    acceptance_checks = {
+        "answerable_coverage": coverage is not None and coverage >= acceptance["minimum_answerable_coverage"],
+        "pdf_citation_precision": citation_precision is not None and citation_precision >= REQUIREMENTS["RNF-08"]["pdf_citation_precision_minimum"],
+        "correct_abstention": correct_abstention_rate is not None and correct_abstention_rate >= acceptance["minimum_correct_abstention"],
+        "adversarial_restrictions": adversarial_pass_rate is not None and adversarial_pass_rate >= acceptance["minimum_adversarial_pass_rate"],
+    }
     category_metrics = {}
     for category in CATEGORY_COUNTS:
         category_queries = [query for query in evaluated if query.get("category") == category]
@@ -189,9 +214,10 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
         "queries_evaluated": len(evaluated),
         "answerable_evaluated": len(answerable),
         "controls_evaluated": len(controls),
-        "answer_coverage": covered / len(answerable) if answerable else None,
-        "correct_abstention": correct_abstentions / len(controls) if controls else None,
-        "pdf_level_citation_precision": correct_pdf_citations / citation_count if citation_count else None,
+        "answer_coverage": coverage,
+        "correct_abstention": correct_abstention_rate,
+        "pdf_level_citation_precision": citation_precision,
+        "adversarial_pass_rate": adversarial_pass_rate,
         "valid_citation_reference_rate": valid_citation_count / citation_count if citation_count else None,
         "generated_nonempty_rate": answers_generated / generation_attempted if generation_attempted else None,
         "generation_attempted": generation_attempted,
@@ -200,6 +226,9 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
         "false_answer_query_ids": false_answer_ids,
         "cross_course_source_query_ids": cross_course_query_ids,
         "category_metrics": category_metrics,
+        "acceptance_thresholds": acceptance,
+        "acceptance_checks": acceptance_checks,
+        "acceptance_passed": all(acceptance_checks.values()),
         "factual_answer_correctness": None,
         "factual_answer_correctness_note": "Requires independent human/reference-answer review; this fixture has no gold answer text.",
     }
