@@ -141,7 +141,7 @@ La suite automatizada usa la base de pruebas configurada por `tests/conftest.py`
 
 La suite de SQLite del 8 de noviembre aprobó 78/78; la validación del 9 de noviembre repitió 78/78 contra PostgreSQL + pgvector y registró el recorrido API E1–E3 con Gemini real. Consulta [el índice de evidencias](docs/evidencias/README.md) para distinguir resultados actuales, históricos y pendientes.
 
-`test_gemini_mode_rag_api_with_controlled_provider_generates_cited_answer_or_abstains` usa un proveedor simulado para probar el endpoint. La evaluación final de RAG sigue pendiente: requiere un banco docente independiente de 100 preguntas en `data/rag_validation_100.json`, conforme a `data/acceptance_thresholds.json`, y ejecutar `python scripts/evaluate_rag_gemini_live.py --confirm-external`. Esa ejecución envía preguntas y fragmentos a Gemini, consume cuota y requiere `GEMINI_API_KEY`; después deben revisarse manualmente respuestas, citas, abstenciones y falsos positivos.
+`test_gemini_mode_rag_api_with_controlled_provider_generates_cited_answer_or_abstains` usa un proveedor simulado para probar el endpoint. El banco final docente de 100 consultas ya fue evaluado con Gemini; las métricas y comprobaciones están en `data/rag_gemini_live_20261101.json`. Los umbrales de aceptación fueron revisados en `data/acceptance_thresholds.json`. Las comprobaciones métricas pasan con los umbrales revisados; la corrección factual de las respuestas generadas aún requiere revisión humana independiente contra `gold_answer`.
 
 ## Estructura del repositorio
 
