@@ -200,8 +200,10 @@ Los umbrales de recuperación están calibrados sobre el fixture de 100 consulta
 
 - Regla de decisión: promedio de cosíneos de los fragmentos top-k ≥ umbral (con `top_k = 1` equivale al histórico "mejor cosíneo ≥ umbral").
 - Defaults del servicio: `RAG_TOP_K=1`, `RAG_SIMILARITY_THRESHOLD=0.69`, `RAG_MINIMUM_SCORE_MARGIN=0`.
-- Métricas fuera de pliegue (validación cruzada 5-fold): cobertura 73,75 %, abstención 45 %.
-- Métricas en muestra (100 consultas): cobertura 71,25 %, abstención 50 %.
+- Métricas fuera de pliegue (validación cruzada 5-fold): cobertura 73,75 %, abstención 45 %, precisión de cita 74,5 %.
+- Métricas en muestra (100 consultas): cobertura 71,25 %, abstención 50 %, precisión de cita 83,6 %.
+
+Los números anteriores provienen de `data/rag_calibration_gemini_abstencion_20261101.json`. No uses `data/rag_calibration_gemini_20261101.json` para el informe: contiene la calibración previa (igual ponderación, umbral 0,62) y no incluye las métricas de cita.
 
 Estos valores son **metas de calibración del informe**, no criterios de aceptación de OE2. La fila `rag` de la tabla `Config` en la base de datos pisa los defaults de `settings`; si existe una fila previa con valores antiguos (`topK=4`, `umbral=0.35`), se mantendrán hasta que se edite desde el panel de administrador o se re-siembre.
 

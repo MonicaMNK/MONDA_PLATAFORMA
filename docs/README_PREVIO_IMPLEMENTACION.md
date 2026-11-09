@@ -63,7 +63,7 @@ La implementación SQLAlchemy crea el esquema equivalente de aplicación. Para m
 
 ### Modo incluido, sin modelo adicional
 
-Funciona inmediatamente: extrae PDF/DOCX, crea fragmentos, recupera los más similares y construye una respuesta extractiva con fuentes. Conserva el umbral PI7 de **0,35** y se abstiene si no hay evidencia suficiente.
+Funciona inmediatamente: extrae PDF/DOCX, crea fragmentos, recupera los más similares y construye una respuesta extractiva con fuentes. Conserva el umbral PI7 de **0,69** y se abstiene si no hay evidencia suficiente. *(Umbral histórico de diseño PI7: 0,35 — conservado para trazabilidad)*
 
 ### Modo generativo local con Ollama (opcional)
 
