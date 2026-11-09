@@ -29,7 +29,7 @@ def _has_valid_citations(answer: str, source_count: int) -> bool:
 
 def _config(db: Session) -> dict:
     row = db.get(Config, "rag")
-    defaults = {"topK": settings.rag_top_k, "umbral": settings.rag_similarity_threshold, "margenMinimo": 0.0, "mode": settings.rag_mode,
+    defaults = {"topK": settings.rag_top_k, "umbral": settings.rag_similarity_threshold, "margenMinimo": settings.rag_minimum_score_margin, "mode": settings.rag_mode,
                 "modelo": settings.gemini_llm_model, "modelosRespaldo": settings.gemini_llm_fallback_models}
     return {**defaults, **(row.valor or {})} if row else defaults
 
@@ -70,7 +70,7 @@ def query_rag(db: Session, user: User, course_id: str, question: str, conversati
     mode = str(cfg.get("mode") or settings.rag_mode)
     top_k = int(cfg.get("topK", settings.rag_top_k))
     threshold = float(cfg.get("umbral", settings.rag_similarity_threshold))
-    min_margin = min(2.0, max(0.0, float(cfg.get("margenMinimo", 0.0))))
+    min_margin = min(2.0, max(0.0, float(cfg.get("margenMinimo", settings.rag_minimum_score_margin))))
     corr = uid()
     db.add(Message(conversacion_id=conv.id, autor="usuario", contenido=question, fuentes=[], score_max=None, evidencia_suficiente=False, correlation_id=corr))
 

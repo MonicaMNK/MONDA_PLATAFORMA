@@ -350,3 +350,24 @@ def test_rag_evidence_margin_rejects_ambiguous_top_results(scores, threshold, ma
 
     ranked = [SimpleNamespace(score=score) for score in scores]
     assert _evidence_is_sufficient(ranked, threshold, margin) is expected
+
+
+def test_rag_minimum_margin_uses_environment_setting_as_default(monkeypatch):
+    from types import SimpleNamespace
+    from backend.app.services import rag_service
+
+    class EmptyDatabase:
+        @staticmethod
+        def get(_model, _key):
+            return None
+
+    monkeypatch.setattr(rag_service, "settings", SimpleNamespace(
+        rag_top_k=4,
+        rag_similarity_threshold=0.35,
+        rag_minimum_score_margin=0.08,
+        rag_mode="fallback",
+        gemini_llm_model="model-a",
+        gemini_llm_fallback_models=[],
+    ))
+
+    assert rag_service._config(EmptyDatabase())["margenMinimo"] == 0.08

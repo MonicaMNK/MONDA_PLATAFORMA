@@ -35,6 +35,7 @@ class Settings:
     rag_allow_fallback: bool = _bool("RAG_ALLOW_FALLBACK", True)
     rag_top_k: int = int(os.getenv("RAG_TOP_K", "4"))
     rag_similarity_threshold: float = float(os.getenv("RAG_SIMILARITY_THRESHOLD", "0.35"))
+    rag_minimum_score_margin: float = float(os.getenv("RAG_MINIMUM_SCORE_MARGIN", "0.0"))
     rag_candidate_multiplier: int = int(os.getenv("RAG_CANDIDATE_MULTIPLIER", "4"))
 
     gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
