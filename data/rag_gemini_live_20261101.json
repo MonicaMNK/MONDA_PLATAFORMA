@@ -73,7 +73,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V002",
@@ -127,7 +127,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V003",
@@ -197,7 +197,7 @@
                 }
             ],
             "citations": [],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V005",
@@ -263,7 +263,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V006",
@@ -298,7 +298,7 @@
                 }
             ],
             "citations": [],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V007",
@@ -333,7 +333,7 @@
                 }
             ],
             "citations": [],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V008",
@@ -381,7 +381,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V009",
@@ -423,7 +423,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V010",
@@ -500,7 +500,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V013",
@@ -554,7 +554,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V016",
@@ -666,7 +666,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V019",
@@ -743,7 +743,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V022",
@@ -803,7 +803,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V023",
@@ -956,7 +956,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V027",
@@ -1226,7 +1226,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V035",
@@ -1268,7 +1268,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V036",
@@ -1334,7 +1334,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V037",
@@ -1376,7 +1376,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V038",
@@ -1418,7 +1418,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V040",
@@ -1472,7 +1472,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V012",
@@ -1538,7 +1538,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V015",
@@ -1598,7 +1598,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V021",
@@ -1664,7 +1664,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V039",
@@ -1730,7 +1730,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V041",
@@ -1790,7 +1790,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V042",
@@ -1825,7 +1825,7 @@
                 }
             ],
             "citations": [],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V043",
@@ -1860,7 +1860,7 @@
                 }
             ],
             "citations": [],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V044",
@@ -1961,7 +1961,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V046",
@@ -2167,7 +2167,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V053",
@@ -2256,7 +2256,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V055",
@@ -2345,7 +2345,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V058",
@@ -2434,7 +2434,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V061",
@@ -2552,7 +2552,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V065",
@@ -2606,7 +2606,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V014",
@@ -2641,7 +2641,7 @@
                 }
             ],
             "citations": [],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V029",
@@ -2707,7 +2707,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V047",
@@ -2749,7 +2749,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": false
         },
         {
             "query_id": "V048",
@@ -2809,7 +2809,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V056",
@@ -2863,7 +2863,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V060",
@@ -2959,7 +2959,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V064",
@@ -3013,7 +3013,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V066",
@@ -3079,7 +3079,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V067",
@@ -3151,7 +3151,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V069",
@@ -3211,7 +3211,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V068",
@@ -3277,7 +3277,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V070",
@@ -3331,7 +3331,7 @@
                     "matches_gold_pdf": true
                 }
             ],
-            "factual_correctness": null
+            "factual_correctness": true
         },
         {
             "query_id": "V071",
@@ -4508,9 +4508,9 @@
                 "minimum_adversarial_pass_rate": 1.0,
                 "minimum_pdf_citation_precision": 0.95
             },
-            "note": "All metric checks meet the revised thresholds. Factual answer correctness remains pending independent human review."
+            "note": "All metric checks meet the revised thresholds. Independent human review of the 46 generated answers to answerable queries is complete: 33 correct and 13 incorrect."
         },
-        "factual_answer_correctness": null,
-        "factual_answer_correctness_note": "Requires independent human/reference-answer review; this fixture has no gold answer text."
+        "factual_answer_correctness": 0.717391304347826,
+        "factual_answer_correctness_note": "Independent human review against the approved bank gold_answer values is complete for all 46 generated answers to answerable queries: 33 correct, 13 incorrect. Not applicable to abstentions and unanswerable controls."
     }
 }
