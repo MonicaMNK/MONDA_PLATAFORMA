@@ -15,8 +15,14 @@ from .access import can_access_course, require_permission
 from .tracing import trace_rag
 
 
-def _evidence_is_sufficient(ranked, threshold: float, min_margin: float = 0.0) -> bool:
-    if not ranked or ranked[0].score < threshold:
+def _evidence_is_sufficient(ranked, threshold: float, min_margin: float = 0.0, top_k: int = 1) -> bool:
+    if not ranked:
+        return False
+    # Con top_k = 1 el promedio de los top-k coincide con el mejor cosíneo,
+    # por lo que esta regla es equivalente a la histórica "top-1 >= umbral".
+    k = max(1, min(top_k, len(ranked)))
+    mean_score = sum(f.score for f in ranked[:k]) / k
+    if mean_score < threshold:
         return False
     second_score = ranked[1].score if len(ranked) > 1 else -1.0
     return ranked[0].score - second_score >= min_margin
@@ -99,7 +105,7 @@ def query_rag(db: Session, user: User, course_id: str, question: str, conversati
         from ..rag.providers.fallback import FallbackProvider
         provider = FallbackProvider()
 
-    sufficient = _evidence_is_sufficient(ranked, threshold, min_margin)
+    sufficient = _evidence_is_sufficient(ranked, threshold, min_margin, top_k)
     ranked = ranked[:max(top_k, 1)]
     content_names = {c.id: c.nombre_original for c in db.query(Content).filter(Content.id.in_([f.contenido_id for f in ranked])).all()} if ranked else {}
     sources = [{"fragmentId": f.id, "contentId": f.contenido_id, "nombre": content_names.get(f.contenido_id, "Material del curso"), "ordinal": f.ordinal, "location": f.ubicacion, "score": round(float(f.score), 4), "excerpt": f.texto[:360]} for f in ranked]

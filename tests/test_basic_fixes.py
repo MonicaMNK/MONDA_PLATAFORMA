@@ -294,7 +294,7 @@ def test_gemini_mode_rag_api_with_controlled_provider_generates_cited_answer_or_
         fragment.embedding_provider = provider.name
         rag_config = db.get(Config, "rag")
         rag_config.valor = {**rag_config.valor,
-                            "mode": "gemini", "topK": 1, "umbral": 0.62}
+                            "mode": "gemini", "topK": 1, "umbral": 0.69}
         course_id = course.id
         db.commit()
 
@@ -362,8 +362,8 @@ def test_rag_minimum_margin_uses_environment_setting_as_default(monkeypatch):
             return None
 
     monkeypatch.setattr(rag_service, "settings", SimpleNamespace(
-        rag_top_k=4,
-        rag_similarity_threshold=0.35,
+        rag_top_k=1,
+        rag_similarity_threshold=0.69,
         rag_minimum_score_margin=0.08,
         rag_mode="fallback",
         gemini_llm_model="model-a",
