@@ -1,6 +1,10 @@
+from datetime import datetime, timedelta, timezone
+
 from fastapi.testclient import TestClient
 from backend.app.db.seed import init_test_db
+from backend.app.db.session import SessionLocal
 from backend.app.main import app
+from backend.app.models import Assessment
 
 
 def login(client, email, password):
@@ -47,6 +51,22 @@ def test_admin_creates_edits_users_and_assigns_courses():
         assert foreign_upload.status_code == 403
         assert client.get(
             f'/api/courses/{cid}/reports/export', headers=teacher).status_code == 403
+        with SessionLocal() as db:
+            foreign_assessment = Assessment(
+                curso_id=cid, titulo='Evaluación de otro curso', estado='borrador')
+            db.add(foreign_assessment)
+            db.commit()
+            foreign_assessment_id = foreign_assessment.id
+        start = datetime.now(timezone.utc) - timedelta(minutes=1)
+        end = datetime.now(timezone.utc) + timedelta(days=1)
+        denied_publish = client.post(
+            f'/api/assessments/{foreign_assessment_id}/publish',
+            headers=teacher,
+            json={'fechaInicio': start.isoformat(), 'fechaFin': end.isoformat(), 'version': 1},
+        )
+        assert denied_publish.status_code == 403
+        with SessionLocal() as db:
+            assert db.get(Assessment, foreign_assessment_id).estado == 'borrador'
         assert client.post('/api/courses', headers=admin, json={
                            'nombre': 'Curso inválido', 'docenteId': student['id']}).status_code == 422
         assert client.patch('/api/courses/'+cid, headers=teacher,
