@@ -332,3 +332,21 @@ def test_generated_answer_requires_valid_source_markers(answer, source_count, ex
     from backend.app.services.rag_service import _has_valid_citations
 
     assert _has_valid_citations(answer, source_count) is expected
+
+
+@pytest.mark.parametrize(
+    ("scores", "threshold", "margin", "expected"),
+    [
+        ([0.83, 0.70], 0.62, 0.05, True),
+        ([0.83, 0.80], 0.62, 0.05, False),
+        ([0.61, 0.20], 0.62, 0.0, False),
+        ([0.70], 0.62, 0.05, True),
+        ([], 0.62, 0.0, False),
+    ],
+)
+def test_rag_evidence_margin_rejects_ambiguous_top_results(scores, threshold, margin, expected):
+    from types import SimpleNamespace
+    from backend.app.services.rag_service import _evidence_is_sufficient
+
+    ranked = [SimpleNamespace(score=score) for score in scores]
+    assert _evidence_is_sufficient(ranked, threshold, margin) is expected

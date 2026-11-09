@@ -34,6 +34,7 @@ FOLD_SEED = 20261101
 K_CANDIDATES = (1, 2, 3, 4, 5, 6, 8)
 THRESHOLD_CANDIDATES = tuple(round(value / 100, 2)
                              for value in range(20, 81, 2))
+MARGIN_CANDIDATES = (0.0, 0.02, 0.05, 0.10, 0.15)
 
 
 def sha256(data: bytes) -> str:
@@ -197,9 +198,10 @@ def evaluate(indices, config_for, queries, ranked) -> dict:
     covered = correct_abstentions = citation_hits = citation_total = false_answers = 0
     for index in indices:
         query = queries[index]
-        top_k, threshold = config_for(index)
+        top_k, threshold, min_margin = config_for(index)
         results = ranked[index]
-        accepted = bool(results and results[0][0] >= threshold)
+        score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
+        accepted = bool(results and results[0][0] >= threshold and score_gap >= min_margin)
         if query["answerable"] and accepted:
             covered += 1
         if not query["answerable"]:
@@ -268,20 +270,23 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
         candidates = []
         for top_k in K_CANDIDATES:
             for threshold in THRESHOLD_CANDIDATES:
-                metrics = evaluate(train, lambda _i, k=top_k,
-                                   t=threshold: (k, t), queries, ranked)
-                candidates.append((
-                    metrics["balanced_score_equal_weight"],
-                    metrics["citation_precision_pdf"],
-                    metrics["correct_abstention"],
-                    metrics["answer_coverage"],
-                    -top_k,
-                    -threshold,
-                    top_k,
-                    threshold,
-                ))
+                for margin in MARGIN_CANDIDATES:
+                    metrics = evaluate(train, lambda _i, k=top_k,
+                                       t=threshold, m=margin: (k, t, m), queries, ranked)
+                    candidates.append((
+                        metrics["balanced_score_equal_weight"],
+                        metrics["citation_precision_pdf"],
+                        metrics["correct_abstention"],
+                        metrics["answer_coverage"],
+                        -top_k,
+                        -threshold,
+                        -margin,
+                        top_k,
+                        threshold,
+                        margin,
+                    ))
         best = max(candidates)
-        selected = (best[-2], best[-1])
+        selected = (best[-3], best[-2], best[-1])
         for index in test:
             oof_config[index] = selected
         fold_results.append({
@@ -290,6 +295,7 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
             "test_count": len(test),
             "selected_k": selected[0],
             "selected_cosine_threshold": selected[1],
+            "selected_minimum_score_margin": selected[2],
         })
 
     out_of_fold_metrics = evaluate(
@@ -297,32 +303,38 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
     full_candidates = []
     for top_k in K_CANDIDATES:
         for threshold in THRESHOLD_CANDIDATES:
-            metrics = evaluate(full_indices, lambda _i, k=top_k,
-                               t=threshold: (k, t), queries, ranked)
-            full_candidates.append((
-                metrics["balanced_score_equal_weight"],
-                metrics["citation_precision_pdf"],
-                metrics["correct_abstention"],
-                metrics["answer_coverage"],
-                -top_k,
-                -threshold,
-                top_k,
-                threshold,
-                metrics,
-            ))
+            for margin in MARGIN_CANDIDATES:
+                metrics = evaluate(full_indices, lambda _i, k=top_k,
+                                   t=threshold, m=margin: (k, t, m), queries, ranked)
+                full_candidates.append((
+                    metrics["balanced_score_equal_weight"],
+                    metrics["citation_precision_pdf"],
+                    metrics["correct_abstention"],
+                    metrics["answer_coverage"],
+                    -top_k,
+                    -threshold,
+                    -margin,
+                    top_k,
+                    threshold,
+                    margin,
+                    metrics,
+                ))
     best_full = max(full_candidates)
 
     predictions = []
     for index, query in enumerate(queries):
-        top_k, threshold = oof_config[index]
+        top_k, threshold, min_margin = oof_config[index]
         results = ranked[index]
-        accepted = bool(results and results[0][0] >= threshold)
+        score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
+        accepted = bool(results and results[0][0] >= threshold and score_gap >= min_margin)
         predictions.append({
             "query_id": query["id"],
             "fold": fold_of[index] + 1,
             "selected_k": top_k,
             "selected_cosine_threshold": threshold,
+            "selected_minimum_score_margin": min_margin,
             "top_cosine": results[0][0] if results else None,
+            "top_two_score_gap": score_gap if results else None,
             "accepted": accepted,
             "gold_answerable": query["answerable"],
             "sources": [
@@ -337,14 +349,16 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
             "fold_seed": FOLD_SEED,
             "k_candidates": list(K_CANDIDATES),
             "cosine_threshold_candidates": list(THRESHOLD_CANDIDATES),
+            "minimum_score_margin_candidates": list(MARGIN_CANDIDATES),
             "selection_objective": "equal-weight mean of answer coverage, correct abstention, and PDF-level citation precision",
             "scope": "course-restricted retrieval over pypdf-extracted 512-token chunks with 50-token overlap",
         },
         "folds": fold_results,
         "out_of_fold_metrics": out_of_fold_metrics,
         "full_dataset_selected_config_in_sample": {
-            "k": best_full[-3],
-            "cosine_threshold": best_full[-2],
+            "k": best_full[-4],
+            "cosine_threshold": best_full[-3],
+            "minimum_score_margin": best_full[-2],
             "metrics_in_sample_not_generalization": best_full[-1],
         },
         "out_of_fold_predictions": predictions,
