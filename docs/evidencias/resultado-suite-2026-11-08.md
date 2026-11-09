@@ -7,4 +7,4 @@
 
 La advertencia corresponde a la deprecación de Starlette por el uso de `httpx` con `TestClient`. La corrida cubre pruebas automatizadas y escenarios sintéticos. No ejecutó PostgreSQL + pgvector, llamadas reales a Gemini, el banco final de 100 consultas ni k6.
 
-Los resultados 25/25 de SQLite y PostgreSQL documentados para el 1 de noviembre corresponden a otra versión y se conservan como evidencia histórica; esta corrida de 76 casos no los reemplaza ni afirma que PostgreSQL se haya repetido.
+Los resultados 25/25 de SQLite y PostgreSQL del 1 de noviembre corresponden a otra versión y se conservan como evidencia histórica. Esta corrida cubrió 78 casos en SQLite. El 9 de noviembre se repitieron 78 casos contra PostgreSQL + pgvector; véase [la validación actual](validacion-postgresql-pgvector-2026-11-09.md), que también enlaza el recorrido API E1–E3 con Gemini real.

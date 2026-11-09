@@ -137,9 +137,11 @@ python -m compileall -q backend
 alembic upgrade head --sql > /tmp/monda-schema-preview.sql
 ```
 
-La prueba de integración utiliza la base de datos de pruebas configurada por `tests/conftest.py`. Estas verificaciones no reemplazan pruebas reales contra una instancia PostgreSQL, llamadas a Gemini, servidor Ollama ni pruebas de carga.
+La suite automatizada usa la base de pruebas configurada por `tests/conftest.py`. Los resultados de PostgreSQL + pgvector, Gemini y k6 se registran por separado en el [índice de evidencias](docs/evidencias/README.md); no acreditan por sí solos el despliegue en AWS ni prueban Ollama.
 
-En la revisión del 8 de noviembre de 2026, `pytest --collect-only -q` recoge 78 casos y la corrida completa en SQLite aprobó 78/78; consulta `docs/evidencias/resultado-suite-2026-11-08.md`. Esa corrida no volvió a ejecutar PostgreSQL ni Gemini real. `test_gemini_mode_rag_api_with_controlled_provider_generates_cited_answer_or_abstains` prueba el flujo del endpoint con un proveedor simulado; **no** realiza llamadas reales a Gemini. Para la evaluación live, crea primero un banco final independiente en `data/rag_validation_100.json` conforme a `data/acceptance_thresholds.json`; luego `python scripts/evaluate_rag_gemini_live.py --confirm-external` envía las preguntas y fragmentos a Gemini y registra respuestas, citas, abstenciones y latencias. Requiere `GEMINI_API_KEY` y autorización externa explícita, consume cuota y no sustituye la revisión factual humana; la precisión de citas se mide a nivel de PDF.
+La suite de SQLite del 8 de noviembre aprobó 78/78; la validación del 9 de noviembre repitió 78/78 contra PostgreSQL + pgvector y registró el recorrido API E1–E3 con Gemini real. Consulta [el índice de evidencias](docs/evidencias/README.md) para distinguir resultados actuales, históricos y pendientes.
+
+`test_gemini_mode_rag_api_with_controlled_provider_generates_cited_answer_or_abstains` usa un proveedor simulado para probar el endpoint. La evaluación final de RAG sigue pendiente: requiere un banco docente independiente de 100 preguntas en `data/rag_validation_100.json`, conforme a `data/acceptance_thresholds.json`, y ejecutar `python scripts/evaluate_rag_gemini_live.py --confirm-external`. Esa ejecución envía preguntas y fragmentos a Gemini, consume cuota y requiere `GEMINI_API_KEY`; después deben revisarse manualmente respuestas, citas, abstenciones y falsos positivos.
 
 ## Estructura del repositorio
 

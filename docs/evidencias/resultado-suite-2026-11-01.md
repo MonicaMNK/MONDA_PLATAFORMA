@@ -1,5 +1,7 @@
 # Resultados detallados de pruebas
 
+> Evidencia histórica del 1 de noviembre de 2026. Sus resultados describen esa versión del código; para las verificaciones actuales, consulta [la validación PostgreSQL + pgvector del 9 de noviembre](validacion-postgresql-pgvector-2026-11-09.md) y [la suite SQLite del 8 de noviembre](resultado-suite-2026-11-08.md).
+
 **Fecha:** 1 de noviembre de 2026
 **Entorno:** Windows, Python 3.12.16, pytest 9.2.0.
 **SQLite:** 25 aprobadas, 0 fallidas, 1 advertencia; 107,51 s.
@@ -65,11 +67,11 @@ Se enviaron frases sintéticas sin datos personales. La clave no está guardada 
 | Metadatos de gemini-flash-latest y gemini-3.8-flash | HTTP 200 | Ambos modelos fueron reconocidos y listan generateContent. Esta consulta de solo lectura no demuestra que la inferencia complete correctamente. |
 | gemini-embedding-2, embedding | Aprobada | Devolvió un vector finito de 768 dimensiones. |
 
-Evidencias Gemini: gemini-smoke-sintetica-2026-11-01.txt, gemini-smoke-reintento-2026-11-01.txt, gemini-smoke-clave-nueva-2026-11-01.txt, gemini-smoke-clave-nueva-reintento-2026-11-01.txt, gemini-flash-latest-curl-2026-11-01.txt, gemini-model-access-2026-11-01.txt, gemini-flash-latest-curl-clave-2026-11-01.txt, gemini-python-sdk-2026-11-01.txt y gemini-embedding-sintetica-2026-11-01.txt.
+Evidencias Gemini: gemini-smoke-sintetica-2026-11-01.txt, gemini-smoke-reintento-2026-11-01.txt, gemini-smoke-clave-nueva-2026-11-01.txt, gemini-flash-latest-curl-2026-11-01.txt, gemini-model-access-2026-11-01.txt, gemini-flash-latest-curl-clave-2026-11-01.txt, gemini-python-sdk-2026-11-01.txt y gemini-embedding-sintetica-2026-11-01.txt.
 
 ## Alcance
 
-Las pruebas verifican los flujos locales en SQLite y PostgreSQL + pgvector/HNSW. No son una medición de carga ni una prueba del despliegue AWS. La generación real de Gemini continúa pendiente. El SDK oficial también recibió HTTP 503 UNAVAILABLE con el mensaje de Google de alta demanda temporal. Google distingue los 503 de los 429 de cuota/rate limit; el nivel gratuito puede limitar qué modelos están disponibles. Fuentes: https://ai.google.dev/gemini-api/docs/troubleshooting, https://ai.google.dev/gemini-api/docs/generate-content/api-errors y https://ai.google.dev/gemini-api/docs/pricing.
+Las pruebas verifican los flujos locales de esa versión en SQLite y PostgreSQL + pgvector/HNSW. No son una medición de carga ni una prueba del despliegue AWS. En esa fecha la generación de Gemini no completó por HTTP 503; el 9 de noviembre se realizó un recorrido API E1–E3 con Gemini real, documentado en [la evidencia actual](flujo-e1-e3-postgresql-gemini-2026-11-09.md). Fuentes sobre el resultado histórico: https://ai.google.dev/gemini-api/docs/troubleshooting, https://ai.google.dev/gemini-api/docs/generate-content/api-errors y https://ai.google.dev/gemini-api/docs/pricing.
 
 Actualizacion de modelo (2026-11-01): el modelo predeterminado del proyecto se cambio a `gemini-3-flash-preview` tras la llamada sintetica exitosa. El modelo es preview; verificar cuota y disponibilidad en el despliegue.
 

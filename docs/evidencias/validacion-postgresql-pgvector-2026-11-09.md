@@ -6,3 +6,9 @@
 - **Comparación SQLite:** la evidencia del 8 de noviembre registra **78 aprobadas, 0 fallidas, 1 advertencia**, 131.40 s. La advertencia en ambas corridas corresponde a la deprecación de Starlette/httpx.
 
 La corrida se hizo en una base local recién creada con el contenedor del proyecto. La prueba de migración y la suite no usaron una instancia productiva.
+
+## Recorrido aplicativo E1–E3 con Gemini
+
+Como verificación adicional, el 9 de noviembre se ejecutó el recorrido E1–E3 mediante la API de una instancia local conectada a una base PostgreSQL temporal con pgvector. La indexación y las consultas E2 usaron Gemini real (`gemini-embedding-2` y `gemini-3-flash-preview`); E3 generó y publicó una evaluación sintética, registró un intento y produjo una alerta de promedio bajo. El detalle de endpoints, resultados y limitaciones está en [flujo E1–E3 PostgreSQL + Gemini](flujo-e1-e3-postgresql-gemini-2026-11-09.md).
+
+Este recorrido fue por API, no desde el navegador. No reemplaza la captura de E2 en la interfaz que solicita la revisión académica. La base temporal y el material fueron sintéticos; no participaron estudiantes reales ni se usó una base productiva.
