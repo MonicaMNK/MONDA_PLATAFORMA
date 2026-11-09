@@ -1,7 +1,7 @@
-{
+﻿{
   "baseline_p95_ms": 739.61,
-  "target_p95_ms": 1653.65,
-  "degradation_pct": 123.58,
+  "target_p95_ms": 785.40,
+  "degradation_pct": 6.19,
   "target_http_error_rate": 0.0,
   "target_acceptance_failure_rate": 0.0,
   "limits": {
@@ -10,10 +10,10 @@
     "degradation_pct": 20
   },
   "checks": {
-    "target_p95_within_limit": false,
+    "target_p95_within_limit": true,
     "target_http_error_rate_within_limit": true,
     "target_acceptance_failure_rate_within_limit": true,
-    "degradation_within_limit": false
+    "degradation_within_limit": true
   },
-  "passed": false
+  "passed": true
 }

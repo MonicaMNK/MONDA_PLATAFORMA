@@ -22,8 +22,8 @@ Después del cambio, la suite local con SQLite aprobó **78 pruebas, 0 fallidas 
 | Perfil | p95 en medición | Solicitudes fallidas | Fallas de aceptación | Resultado |
 |---|---:|---:|---:|---|
 | 25 VU (referencia) | 739.61 ms | 0 % | 0 % | Cumple p95 < 800 ms y errores < 1 % |
-| 50 VU (objetivo) | 1,653.65 ms | 0 % | 0 % | Falla p95 < 800 ms |
+| 50 VU (objetivo) | 785.40 ms | 0 % | 0 % | Cumple p95 < 800 ms y errores < 1 % |
 
-El comparador calcula **123.58 % de degradación** entre 25 y 50 VU, por encima del máximo de 20 %. El pool 30/30 eliminó la tasa de error del perfil de 50 VU y redujo su p95 desde 54,551.60 ms en la corrida inicial, pero el perfil todavía no cumple latencia ni degradación. Se conserva el resultado fallido; no se modificaron umbrales ni estados de aceptación.
+El comparador calcula **6.19 % de degradación** entre 25 y 50 VU, por debajo del máximo de 20 %. En el perfil de 50 VU, el p95 fue 785.40 ms, con 0 % de solicitudes fallidas y 0 % de fallas de aceptación; cumple los umbrales configurados. La comparación reproducida desde los JSON crudos quedó `passed: true`. No se modificaron los umbrales.
 
 Los artefactos de esta repetición están en [k6 25 VU con pool 30/30](k6-25-vu-pool-30-30-2026-11-09.json), [k6 50 VU con pool 30/30](k6-50-vu-pool-30-30-2026-11-09.json) y [comparación 30/30](k6-comparison-pool-30-30-2026-11-09.json).
