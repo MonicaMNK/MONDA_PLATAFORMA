@@ -30,6 +30,39 @@ CITATION_PATTERN = re.compile(r"\[F(\d+)\]")
 CATEGORY_COUNTS = REQUIREMENTS["OE2"]["category_counts"]
 FINAL_QUERY_COUNT = REQUIREMENTS["OE2"]["final_query_count"]
 
+# Regla de decisión de "evidencia suficiente" (misma política que la
+# calibración en scripts/calibrate_rag_gemini.py):
+#   "top1"  = histórico: acepta si el mejor cosíneo >= umbral y cumple el
+#     margen mínimo.
+#   "meantopk" = nuevo: acepta si el promedio de los cosíneos top-k >= umbral.
+EVIDENCE_RULE = "meantopk"
+
+
+def decide_top1(results: list[tuple], top_k: int, threshold: float,
+                margin: float = 0.0) -> bool:
+    """Regla histórica: hay evidencia si el mejor cosíneo supera el umbral
+    y el margen sobre el segundo mejor cumple el mínimo."""
+    if not results:
+        return False
+    score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
+    return results[0][0] >= threshold and score_gap >= margin
+
+
+def decide_mean_topk(results: list[tuple], top_k: int, threshold: float,
+                     margin: float = 0.0) -> bool:
+    """Nueva regla del informe: hay evidencia si el promedio de los cosíneos
+    de los top-k fragmentos recuperados supera el umbral (y cumple el margen
+    mínimo si se indica)."""
+    if not results:
+        return False
+    kk = min(max(top_k, 1), len(results))
+    score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
+    return (sum(score for score, _ in results[:kk]) / kk >= threshold
+            and score_gap >= margin)
+
+
+DECIDE_FNS = {"top1": decide_top1, "meantopk": decide_mean_topk}
+
 
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -352,8 +385,11 @@ def main() -> None:
         score_gap = ranked[0][0] - ranked[1][0] if len(ranked) > 1 else 2.0
         selected = ranked[:top_k]
         top_score = ranked[0][0] if ranked else None
-        evidence_sufficient = bool(
-            top_score is not None and top_score >= threshold and score_gap >= min_margin)
+        # Regla de decisión de evidencia suficiente (misma política que la
+        # calibración guardada): promedio de cosíneos top-k >= umbral.
+        evidence_sufficient = decide_mean_topk(
+            [(score, fragment) for score, fragment in selected],
+            top_k, threshold, min_margin)
         source_payload = [
             {
                 "citation_id": f"F{rank + 1}",

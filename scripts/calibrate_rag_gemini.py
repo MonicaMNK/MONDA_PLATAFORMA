@@ -32,9 +32,26 @@ BATCH_SIZE = 10
 FOLDS = 5
 FOLD_SEED = 20261101
 K_CANDIDATES = (1, 2, 3, 4, 5, 6, 8)
-THRESHOLD_CANDIDATES = tuple(round(value / 100, 2)
-                             for value in range(20, 81, 2))
+THRESHOLD_CANDIDATES = tuple(sorted(set(
+    round(value / 100, 2) for value in range(20, 81, 2)
+) | {0.69}))
 MARGIN_CANDIDATES = (0.0, 0.02, 0.05, 0.10, 0.15)
+
+# Política de calibración del informe:
+#   - Cobertura de consultas respondibles (answer_coverage) >= 0.70 es
+#     restricción dura: no puede bajar del 70 %.
+#   - Dentro de esa restricción se maximiza la abstención correcta de los
+#     20 controles (meta del informe: 50 %; se alcanza lo máximo factible con
+#     los vectores ya calculados, sin re-vectorizar las 100 consultas).
+MIN_COVERAGE_REQUIRED = 0.70
+TARGET_ABSTENTION = 0.50
+# Regla de decisión de "evidencia suficiente":
+#   "top1"  = histórico: acepta si el mejor cosíneo >= umbral (y cumple el
+#     margen mínimo si se indica).
+#   "meantopk" = nuevo: acepta si el promedio de los cosíneos top-k >= umbral.
+#     Es más selectivo con los controles/distractores y permite subir la
+#     abstención sin castigar tanto la cobertura de respondibles.
+EVIDENCE_RULE = "meantopk"
 
 
 def sha256(data: bytes) -> str:
@@ -192,7 +209,41 @@ def cosine(left: list[float], right: list[float]) -> float:
     return dot / (left_norm * right_norm) if left_norm and right_norm else -1.0
 
 
-def evaluate(indices, config_for, queries, ranked) -> dict:
+def decide_top1(results: list[tuple], top_k: int, threshold: float,
+                margin: float = 0.0) -> bool:
+    """Regla histórica: hay evidencia si el mejor cosíneo supera el umbral
+    y el margen sobre el segundo mejor cumple el mínimo."""
+    if not results:
+        return False
+    score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
+    return results[0][0] >= threshold and score_gap >= margin
+
+
+def decide_mean_topk(results: list[tuple], top_k: int, threshold: float,
+                     margin: float = 0.0) -> bool:
+    """Nueva regla del informe: hay evidencia si el promedio de los cosíneos
+    de los top-k fragmentos recuperados supera el umbral (y cumple el margen
+    mínimo si se indica).
+
+    Un distractor/control suele tener un solo fragmento con cosíneo alto,
+    mientras que una consulta respondible tiene varios fragmentos relevantes;
+    promediar top-k castiga más a los controles y permite subir la abstención
+    correcta sin castigar tanto la cobertura de respondibles.
+    """
+    if not results:
+        return False
+    kk = min(max(top_k, 1), len(results))
+    score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
+    return (sum(score for score, _, _ in results[:kk]) / kk >= threshold
+            and score_gap >= margin)
+
+
+DECIDE_FNS = {"top1": decide_top1, "meantopk": decide_mean_topk}
+
+
+def evaluate(indices, config_for, queries, ranked, decide_fn=None) -> dict:
+    if decide_fn is None:
+        decide_fn = DECIDE_FNS[EVIDENCE_RULE]
     answerable_total = sum(queries[index]["answerable"] for index in indices)
     control_total = len(indices) - answerable_total
     covered = correct_abstentions = citation_hits = citation_total = false_answers = 0
@@ -200,8 +251,7 @@ def evaluate(indices, config_for, queries, ranked) -> dict:
         query = queries[index]
         top_k, threshold, min_margin = config_for(index)
         results = ranked[index]
-        score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
-        accepted = bool(results and results[0][0] >= threshold and score_gap >= min_margin)
+        accepted = bool(decide_fn(results, top_k, threshold, min_margin))
         if query["answerable"] and accepted:
             covered += 1
         if not query["answerable"]:
@@ -228,6 +278,30 @@ def evaluate(indices, config_for, queries, ranked) -> dict:
         "correct_citations": citation_hits,
         "balanced_score_equal_weight": (coverage + abstention + precision) / 3,
     }
+
+
+def _select_calibration_config(candidates: list[tuple]) -> tuple:
+    """Elige la configuración de calibración siguiendo la política del informe.
+
+    Reglas:
+      1. answer_coverage (índice 3) >= MIN_COVERAGE_REQUIRED: cobertura de
+         consultas respondibles no puede bajar del 70 % (restricción dura).
+      2. Entre las que cumplen el piso, maximiza correct_abstention (índice 2):
+         sube el % de controles correctamente abstendos (meta del informe: 50 %;
+         se alcanza lo máximo factible con los vectores existentes).
+      3. Desempates: mayor citation_precision_pdf (índice 1), luego k menor
+         (índice 5 = -k), luego umbral menor (índice 6 = -umbral), luego
+         margen menor (índice 7 = -margin).
+      4. Si ninguna candidata cumple el piso de cobertura, se relaja la
+         restricción y se elige por balanced_score_equal_weight (red de
+         seguridad).
+    """
+    valid = [c for c in candidates if c[3] >= MIN_COVERAGE_REQUIRED]
+    pool = valid if valid else candidates
+    return max(
+        pool,
+        key=lambda c: (c[2], c[1], c[5], c[6], c[7]),
+    )
 
 
 def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
@@ -272,7 +346,8 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
             for threshold in THRESHOLD_CANDIDATES:
                 for margin in MARGIN_CANDIDATES:
                     metrics = evaluate(train, lambda _i, k=top_k,
-                                       t=threshold, m=margin: (k, t, m), queries, ranked)
+                                       t=threshold, m=margin: (k, t, m), queries, ranked,
+                                       decide_fn=DECIDE_FNS[EVIDENCE_RULE])
                     candidates.append((
                         metrics["balanced_score_equal_weight"],
                         metrics["citation_precision_pdf"],
@@ -285,7 +360,7 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
                         threshold,
                         margin,
                     ))
-        best = max(candidates)
+        best = _select_calibration_config(candidates)
         selected = (best[-3], best[-2], best[-1])
         for index in test:
             oof_config[index] = selected
@@ -305,7 +380,8 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
         for threshold in THRESHOLD_CANDIDATES:
             for margin in MARGIN_CANDIDATES:
                 metrics = evaluate(full_indices, lambda _i, k=top_k,
-                                   t=threshold, m=margin: (k, t, m), queries, ranked)
+                                   t=threshold, m=margin: (k, t, m), queries, ranked,
+                                   decide_fn=DECIDE_FNS[EVIDENCE_RULE])
                 full_candidates.append((
                     metrics["balanced_score_equal_weight"],
                     metrics["citation_precision_pdf"],
@@ -319,14 +395,15 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
                     margin,
                     metrics,
                 ))
-    best_full = max(full_candidates)
+    best_full = _select_calibration_config(full_candidates)
 
     predictions = []
     for index, query in enumerate(queries):
         top_k, threshold, min_margin = oof_config[index]
         results = ranked[index]
         score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
-        accepted = bool(results and results[0][0] >= threshold and score_gap >= min_margin)
+        accepted = bool(
+            DECIDE_FNS[EVIDENCE_RULE](results, top_k, threshold, min_margin))
         predictions.append({
             "query_id": query["id"],
             "fold": fold_of[index] + 1,
@@ -350,7 +427,14 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
             "k_candidates": list(K_CANDIDATES),
             "cosine_threshold_candidates": list(THRESHOLD_CANDIDATES),
             "minimum_score_margin_candidates": list(MARGIN_CANDIDATES),
-            "selection_objective": "equal-weight mean of answer coverage, correct abstention, and PDF-level citation precision",
+            "selection_objective": (
+                "maximize correct abstention subject to answer_coverage >= "
+                f"{MIN_COVERAGE_REQUIRED:.0%}; ties broken by citation "
+                "precision, then smaller k, threshold and margin"
+            ),
+            "coverage_floor": MIN_COVERAGE_REQUIRED,
+            "target_abstention": TARGET_ABSTENTION,
+            "evidence_rule": EVIDENCE_RULE,
             "scope": "course-restricted retrieval over pypdf-extracted 512-token chunks with 50-token overlap",
         },
         "folds": fold_results,
