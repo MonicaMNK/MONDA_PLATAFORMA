@@ -1,0 +1,19 @@
+{
+  "baseline_p95_ms": 739.61,
+  "target_p95_ms": 1653.65,
+  "degradation_pct": 123.58,
+  "target_http_error_rate": 0.0,
+  "target_acceptance_failure_rate": 0.0,
+  "limits": {
+    "p95_ms": 800,
+    "error_rate": 0.01,
+    "degradation_pct": 20
+  },
+  "checks": {
+    "target_p95_within_limit": false,
+    "target_http_error_rate_within_limit": true,
+    "target_acceptance_failure_rate_within_limit": true,
+    "degradation_within_limit": false
+  },
+  "passed": false
+}
