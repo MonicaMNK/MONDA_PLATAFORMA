@@ -4,6 +4,7 @@
 .tools/
 data/.local_secret
 data/.gemini.env
+data/.pytest*/
 __pycache__/
 *.py[cod]
 .pytest_cache/

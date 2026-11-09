@@ -4,6 +4,7 @@
 !.env.example
 data/uploads
 data/traces
+data/.pytest*/
 __pycache__
 *.pyc
 .pytest_cache
