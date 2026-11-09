@@ -1,6 +1,6 @@
 import pytest
 
-from scripts.evaluate_rag_gemini_live import validate_validation_fixture
+from scripts.evaluate_rag_gemini_live import validate_gold_sources, validate_validation_fixture
 
 
 def make_fixture():
@@ -49,6 +49,14 @@ def test_validation_fixture_rejects_missing_gold_source():
 
     with pytest.raises(ValueError, match="gold_pdf"):
         validate_validation_fixture(fixture, calibration_fixture())
+
+
+def test_validation_fixture_rejects_gold_pdf_from_a_different_course():
+    fixture = make_fixture()
+    with pytest.raises(ValueError, match="no pertenece al curso"):
+        validate_gold_sources(fixture, {"Historia": {"El Imperio Inca.pdf"}})
+
+    validate_gold_sources(fixture, {"Historia": {"El Tahuantinsuyo.pdf"}})
 
 
 def test_live_summary_lists_false_answers_and_separates_categories():

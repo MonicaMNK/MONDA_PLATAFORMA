@@ -82,6 +82,14 @@ def validate_validation_fixture(fixture: dict, calibration: dict) -> None:
         raise ValueError("El banco final contiene preguntas del conjunto de calibración.")
 
 
+def validate_gold_sources(fixture: dict, pdfs_by_course: dict[str, set[str]]) -> None:
+    for query in fixture["queries"]:
+        if query["answerable"] and query["gold_pdf"] not in pdfs_by_course[query["course"]]:
+            raise ValueError(
+                f"gold_pdf no pertenece al curso {query['course']} para {query['id']}."
+            )
+
+
 def load_and_validate_inputs(fixture_path: Path = VALIDATION_FIXTURE_PATH) -> tuple[dict, list[dict], dict, dict, str, str]:
     fixture_bytes = fixture_path.read_bytes()
     calibration_bytes = CALIBRATION_PATH.read_bytes()
@@ -97,11 +105,13 @@ def load_and_validate_inputs(fixture_path: Path = VALIDATION_FIXTURE_PATH) -> tu
 
     fragments = []
     pdf_hashes = {}
+    pdfs_by_course = {course: set() for course in COURSE_DIRS}
     for course, slug in COURSE_DIRS.items():
         for path in sorted((PDF_ROOT / slug).glob("*.pdf")):
             raw = path.read_bytes()
             relative = f"{slug}/{path.name}"
             pdf_hashes[relative] = sha256(raw)
+            pdfs_by_course[course].add(path.name)
             text = "\n\n".join(page.extract_text()
                                or "" for page in PdfReader(str(path)).pages)
             tokens = re.findall(r"\S+", text)
@@ -120,6 +130,8 @@ def load_and_validate_inputs(fixture_path: Path = VALIDATION_FIXTURE_PATH) -> tu
                     })
                 if start + 512 >= len(tokens):
                     break
+
+    validate_gold_sources(fixture, pdfs_by_course)
 
     metadata = calibration["metadata"]
     if metadata["source_pdf_sha256"] != pdf_hashes:
