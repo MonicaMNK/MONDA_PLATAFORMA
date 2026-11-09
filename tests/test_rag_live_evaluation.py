@@ -59,6 +59,7 @@ def test_live_summary_lists_false_answers_and_separates_categories():
     results = [{
         "query_id": query["id"],
         "system_abstained": False,
+        "system_answered": True,
         "citations": [],
         "generation_attempted": False,
         "generation_error": None,
@@ -72,3 +73,26 @@ def test_live_summary_lists_false_answers_and_separates_categories():
     assert summary["false_answer_query_ids"] == [query["id"]]
     assert summary["category_metrics"]["no_evidence"]["answered"] == 1
     assert summary["cross_course_source_query_ids"] == []
+    assert summary["no_evidence_correct_abstention_rate"] == 0
+    assert summary["acceptance_checks"]["correct_abstention"] is False
+
+
+def test_live_summary_does_not_count_generation_error_as_coverage_or_abstention():
+    from scripts.evaluate_rag_gemini_live import summarize
+
+    fixture = make_fixture()
+    query = fixture["queries"][0]
+    summary = summarize([{
+        "query_id": query["id"],
+        "system_abstained": False,
+        "system_answered": False,
+        "generation_error": "synthetic timeout",
+        "generation_attempted": True,
+        "answer": "",
+        "citations": [],
+        "retrieved_sources": [],
+    }], fixture["queries"])
+
+    assert summary["answer_coverage"] == 0
+    assert summary["generation_errors"] == 1
+    assert summary["category_metrics"]["factual"]["generation_errors"] == 1

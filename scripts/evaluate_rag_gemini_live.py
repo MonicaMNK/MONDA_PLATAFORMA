@@ -156,9 +156,10 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
     evaluated = [query for query in queries if query["id"] in by_id]
     answerable = [query for query in evaluated if query["answerable"]]
     controls = [query for query in evaluated if not query["answerable"]]
-    covered = sum(not by_id[q["id"]]["system_abstained"] for q in answerable)
+    covered = sum(by_id[q["id"]]["system_answered"] for q in answerable)
     correct_abstentions = sum(
-        by_id[q["id"]]["system_abstained"] for q in controls)
+        by_id[q["id"]]["system_abstained"] and not by_id[q["id"]]["generation_error"]
+        for q in controls)
     citation_count = sum(len(item["citations"]) for item in results)
     valid_citation_count = sum(sum(
         citation["valid_source_ref"] for citation in item["citations"]) for item in results)
@@ -169,8 +170,9 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
     generation_attempted = sum(
         item["generation_attempted"] for item in results)
     errors = sum(bool(item["generation_error"]) for item in results)
+    generation_error_ids = [item["query_id"] for item in results if item["generation_error"]]
     false_answer_ids = [query["id"] for query in controls
-                        if not by_id[query["id"]]["system_abstained"]]
+                        if by_id[query["id"]]["system_answered"]]
     cross_course_query_ids = [
         query["id"] for query in evaluated
         if any(source.get("course") != query["course"]
@@ -182,6 +184,12 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
     }
     no_evidence = by_category["no_evidence"]
     adversarial = by_category["adversarial"]
+    no_evidence_correct = sum(
+        by_id[query["id"]]["system_abstained"]
+        and not by_id[query["id"]]["generation_error"]
+        for query in no_evidence
+    )
+    no_evidence_abstention_rate = no_evidence_correct / len(no_evidence) if no_evidence else None
     correct_abstentions = sum(by_id[query["id"]]["system_abstained"] for query in controls)
     correct_abstention_rate = correct_abstentions / len(controls) if controls else None
     adversarial_passes = sum(
@@ -196,18 +204,22 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
     acceptance_checks = {
         "answerable_coverage": coverage is not None and coverage >= acceptance["minimum_answerable_coverage"],
         "pdf_citation_precision": citation_precision is not None and citation_precision >= REQUIREMENTS["RNF-08"]["pdf_citation_precision_minimum"],
-        "correct_abstention": correct_abstention_rate is not None and correct_abstention_rate >= acceptance["minimum_correct_abstention"],
+        "correct_abstention": no_evidence_abstention_rate is not None and no_evidence_abstention_rate >= acceptance["minimum_correct_abstention"],
         "adversarial_restrictions": adversarial_pass_rate is not None and adversarial_pass_rate >= acceptance["minimum_adversarial_pass_rate"],
     }
     category_metrics = {}
     for category in CATEGORY_COUNTS:
         category_queries = [query for query in evaluated if query.get("category") == category]
-        category_answered = sum(not by_id[query["id"]]["system_abstained"]
+        category_answered = sum(by_id[query["id"]]["system_answered"]
                                 for query in category_queries)
+        category_errors = sum(bool(by_id[query["id"]]["generation_error"])
+                              for query in category_queries)
         category_metrics[category] = {
             "queries": len(category_queries),
             "answered": category_answered,
-            "abstained": len(category_queries) - category_answered,
+            "abstained": sum(by_id[query["id"]]["system_abstained"]
+                              for query in category_queries),
+            "generation_errors": category_errors,
             "answer_rate": category_answered / len(category_queries) if category_queries else None,
         }
     return {
@@ -216,6 +228,8 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
         "controls_evaluated": len(controls),
         "answer_coverage": coverage,
         "correct_abstention": correct_abstention_rate,
+        "no_evidence_correct_abstention_rate": no_evidence_abstention_rate,
+        "generation_error_query_ids": generation_error_ids,
         "pdf_level_citation_precision": citation_precision,
         "adversarial_pass_rate": adversarial_pass_rate,
         "valid_citation_reference_rate": valid_citation_count / citation_count if citation_count else None,
@@ -389,6 +403,7 @@ def main() -> None:
         answer_abstains = bool(
             re.search(r"evidencia suficiente|no puedo responder", answer, re.I))
         system_abstained = not evidence_sufficient or answer_abstains
+        system_answered = bool(answer.strip()) and not system_abstained and not generation_error
         output["results"].append({
             "query_id": query["id"],
             "course": query["course"],
@@ -403,6 +418,7 @@ def main() -> None:
             "generation_latency_ms": generation_latency_ms,
             "evidence_sufficient": evidence_sufficient,
             "system_abstained": system_abstained,
+            "system_answered": system_answered,
             "generation_attempted": generation_attempted,
             "generation_error": generation_error,
             "response_model": response_model,
