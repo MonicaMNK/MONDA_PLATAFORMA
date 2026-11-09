@@ -176,3 +176,38 @@ def test_low_average_alert_requires_closed_attempts_and_uses_configured_threshol
         assert after['indicadores']['intentosCerrados'] == 1
         assert low_average['evidencia']['promedio'] == 10.0
         assert low_average['evidencia']['umbral'] == 11.0
+
+
+def test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert():
+    init_test_db(True)
+    with SessionLocal() as db:
+        enrollment = db.query(Enrollment).first()
+        course_id = enrollment.curso_id
+        student_id = enrollment.estudiante_id
+        now = datetime.now(timezone.utc)
+        for index, score in enumerate((10, 14), start=1):
+            assessment = Assessment(
+                curso_id=course_id,
+                titulo=f"Evaluación de referencia {index}",
+                estado="publicada",
+            )
+            db.add(assessment)
+            db.flush()
+            db.add(Attempt(
+                evaluacion_id=assessment.id,
+                estudiante_id=student_id,
+                puntaje=score,
+                fecha_inicio=now - timedelta(minutes=10 + index),
+                fecha_cierre=now - timedelta(minutes=index),
+                estado="cerrado",
+            ))
+        db.commit()
+
+    with TestClient(app) as client:
+        teacher = login(client, 'teacher')
+        result = client.get(
+            f'/api/courses/{course_id}/analytics', headers=teacher).json()
+        assert result['indicadores']['intentosCerrados'] == 2
+        assert result['indicadores']['promedio'] == 12.0
+        assert not any(alert['regla'] == 'promedio_bajo'
+                       for alert in result['alertas'])
