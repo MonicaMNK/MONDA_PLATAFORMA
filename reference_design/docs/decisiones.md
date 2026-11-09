@@ -22,7 +22,7 @@
 - CA-M4-01: Dado dos textos y modelo configurado, cuando solicita vectorización, entonces recibe dos vectores de 1536 valores finitos, en el mismo orden. [RF-06,07,10]
 - CA-M4-02: Dado proveedor devuelve dimensión incorrecta, cuando se valida el lote, entonces se rechaza todo el lote y no se escriben vectores inválidos. [RN-09]
 - CA-M4-03: Dado texto con identidad personal no necesaria, cuando se prepara la solicitud, entonces el payload minimizado y los logs excluyen esa identidad y las credenciales. [RNF-03]
-- CA-M5-01: Dado matrícula activa y contexto con coseno ≥ 0,35, cuando consulta el tutor, entonces obtiene respuesta con fuentes recuperables del curso e historial. [RF-07 a 09]
+- CA-M5-01: Dado matrícula activa y contexto con coseno ≥ 0,69, cuando consulta el tutor, entonces obtiene respuesta con fuentes recuperables del curso e historial. [RF-07 a 09]  *(Umbral histórico PI7: 0,35 — conservado para trazabilidad)*
 - CA-M5-02: Dado pregunta sin evidencia suficiente, cuando se consulta el tutor, entonces devuelve evidenceSufficient=false y cero llamadas al generador. [RF-08]
 - CA-M5-03: Dado 100 consultas sobre corpus congelado, cuando se mide de envío a respuesta, entonces mediana ≤ 3 s y p95 ≤ 5 s; se reporta además la latencia del proveedor. [RNF-02]
 - CA-M6-01: Dado docente con todos los reactivos aprobados, cuando publica y un estudiante resuelve, entonces conserva versión y califica según claves del servidor. [RF-10 a 12]

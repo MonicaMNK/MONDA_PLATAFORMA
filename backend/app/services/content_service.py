@@ -11,7 +11,7 @@ from ..core.config import settings
 from ..core.errors import api_error
 from ..db.audit import audit
 from ..models import Config, Content, ContentFolder, Job, RAGFragment, User, uid
-from ..rag import chunk_text, extract_text, get_provider_with_fallback
+from ..rag import OCRRequiredError, chunk_text, extract_text, get_provider_with_fallback
 from .access import teacher_course
 from .storage import get_storage
 
@@ -94,6 +94,8 @@ def index_content(db: Session, user: User, content: Content, mode: str | None = 
         path = storage.local_path(content.s3_key)
         text, locations = extract_text(path)
         chunks = chunk_text(text, 512, 50)
+        if not chunks and content.mime_type == "application/pdf":
+            raise OCRRequiredError("El PDF no contiene texto extraíble; requiere OCR.")
         if not chunks:
             raise ValueError("No se encontró texto extraíble")
 
@@ -153,7 +155,8 @@ def index_content(db: Session, user: User, content: Content, mode: str | None = 
         content.estado_indexacion = "error"
         content.activo = False
         job.estado = "error"
-        job.resultado = {"contentId": content.id, "errorCode": "INDEX_ERROR", "message": str(exc)[:500]}
+        error_code = "OCR_REQUIRED" if isinstance(exc, OCRRequiredError) else "INDEX_ERROR"
+        job.resultado = {"contentId": content.id, "errorCode": error_code, "message": str(exc)[:500]}
         audit(db, user.id, "CONTENT_INDEX", f"contenido:{content.id}", result="error", correlation_id=job.correlation_id)
         db.commit()
     return job

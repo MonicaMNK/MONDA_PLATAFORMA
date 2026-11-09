@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import time
 
 from sqlalchemy.orm import Session
@@ -14,9 +15,27 @@ from .access import can_access_course, require_permission
 from .tracing import trace_rag
 
 
+def _evidence_is_sufficient(ranked, threshold: float, min_margin: float = 0.0, top_k: int = 1) -> bool:
+    if not ranked:
+        return False
+    # Con top_k = 1 el promedio de los top-k coincide con el mejor cosíneo,
+    # por lo que esta regla es equivalente a la histórica "top-1 >= umbral".
+    k = max(1, min(top_k, len(ranked)))
+    mean_score = sum(f.score for f in ranked[:k]) / k
+    if mean_score < threshold:
+        return False
+    second_score = ranked[1].score if len(ranked) > 1 else -1.0
+    return ranked[0].score - second_score >= min_margin
+
+
+def _has_valid_citations(answer: str, source_count: int) -> bool:
+    citation_refs = [int(value) for value in re.findall(r"\[F(\d+)\]", answer)]
+    return bool(citation_refs) and all(1 <= ref <= source_count for ref in citation_refs)
+
+
 def _config(db: Session) -> dict:
     row = db.get(Config, "rag")
-    defaults = {"topK": settings.rag_top_k, "umbral": settings.rag_similarity_threshold, "mode": settings.rag_mode,
+    defaults = {"topK": settings.rag_top_k, "umbral": settings.rag_similarity_threshold, "margenMinimo": settings.rag_minimum_score_margin, "mode": settings.rag_mode,
                 "modelo": settings.gemini_llm_model, "modelosRespaldo": settings.gemini_llm_fallback_models}
     return {**defaults, **(row.valor or {})} if row else defaults
 
@@ -57,6 +76,7 @@ def query_rag(db: Session, user: User, course_id: str, question: str, conversati
     mode = str(cfg.get("mode") or settings.rag_mode)
     top_k = int(cfg.get("topK", settings.rag_top_k))
     threshold = float(cfg.get("umbral", settings.rag_similarity_threshold))
+    min_margin = min(2.0, max(0.0, float(cfg.get("margenMinimo", settings.rag_minimum_score_margin))))
     corr = uid()
     db.add(Message(conversacion_id=conv.id, autor="usuario", contenido=question, fuentes=[], score_max=None, evidencia_suficiente=False, correlation_id=corr))
 
@@ -74,22 +94,23 @@ def query_rag(db: Session, user: User, course_id: str, question: str, conversati
             provider_latency += time.perf_counter() - t
             if not vectors or len(vectors[0]) != 768:
                 raise ValueError("Embedding de consulta inválido; se esperaban 768 dimensiones")
-            ranked = vector_store.search(course_id=course_id, question=question, top_k=max(top_k, 1), query_vector=vectors[0], embedding_model=provider.embedding_model, embedding_provider=provider.name, content_ids=scope_ids)
+            ranked = vector_store.search(course_id=course_id, question=question, top_k=max(top_k, 2), query_vector=vectors[0], embedding_model=provider.embedding_model, embedding_provider=provider.name, content_ids=scope_ids)
         else:
-            ranked = vector_store.search(course_id=course_id, question=question, top_k=top_k, content_ids=scope_ids)
+            ranked = vector_store.search(course_id=course_id, question=question, top_k=max(top_k, 2), content_ids=scope_ids)
     except Exception as exc:
         if not settings.rag_allow_fallback:
             raise
-        ranked = vector_store.search(course_id=course_id, question=question, top_k=top_k, content_ids=scope_ids)
+        ranked = vector_store.search(course_id=course_id, question=question, top_k=max(top_k, 2), content_ids=scope_ids)
         warning = str(exc)
         from ..rag.providers.fallback import FallbackProvider
         provider = FallbackProvider()
 
+    sufficient = _evidence_is_sufficient(ranked, threshold, min_margin, top_k)
+    ranked = ranked[:max(top_k, 1)]
     content_names = {c.id: c.nombre_original for c in db.query(Content).filter(Content.id.in_([f.contenido_id for f in ranked])).all()} if ranked else {}
     sources = [{"fragmentId": f.id, "contentId": f.contenido_id, "nombre": content_names.get(f.contenido_id, "Material del curso"), "ordinal": f.ordinal, "location": f.ubicacion, "score": round(float(f.score), 4), "excerpt": f.texto[:360]} for f in ranked]
     max_score = max((f.score for f in ranked), default=0.0)
     # En fallback la similitud es léxica normalizada y usa el mismo umbral configurable como criterio operativo.
-    sufficient = bool(ranked and max_score >= threshold)
     generation_fallback = False
     if not sufficient:
         answer = "No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza."
@@ -114,6 +135,11 @@ def query_rag(db: Session, user: User, course_id: str, question: str, conversati
             output_tokens = generated.output_tokens
             if not answer:
                 raise ValueError("Generación vacía")
+            # Do not expose generated claims with missing or unbound citations.
+            # Semantic faithfulness still requires human review.
+            if not _has_valid_citations(answer, len(ranked)):
+                sufficient = False
+                answer = "No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza."
         except Exception as exc:
             if not settings.rag_allow_fallback:
                 raise

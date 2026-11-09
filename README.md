@@ -1,4 +1,4 @@
-# Plataforma Monda — repositorio integrado PI6 / PI7 (T6–T9)
+# Plataforma Monda — repositorio integrado (T6–T9)
 
 Aplicación web educativa con FastAPI, PostgreSQL 16 + pgvector, React, control de acceso por roles y tutor RAG con tres adaptadores. El repositorio conserva el diseño, contratos y diagramas PI7 en `reference_design/` y mantiene el DDL ejecutable versionado con Alembic.
 
@@ -60,13 +60,13 @@ Este modo usa SQLite persistente y el tutor léxico. Instalación y recorrido co
 
 Solo para entorno local con `MONDA_DEMO=1`:
 
-| Rol | Correo | Contraseña |
-|---|---|---|
-| Administrador | `admin@monda.local` | `Admin123!` |
-| Docente | `docente@monda.local` | `Docente123!` |
-| Estudiante | `estudiante@monda.local` | `Estudiante123!` |
+| Rol           | Correo                   | Contraseña       |
+| ------------- | ------------------------ | ---------------- |
+| Administrador | `admin@monda.local`      | `Admin123!`      |
+| Docente       | `docente@monda.local`    | `Docente123!`    |
+| Estudiante    | `estudiante@monda.local` | `Estudiante123!` |
 
-El seed crea el curso **Introducción a Sistemas**, matrícula del estudiante y fragmentos de texto base para probar el tutor en fallback. Los usuarios y las contraseñas son exclusivamente datos sintéticos de desarrollo. Deshabilita seeds y cambia secretos para cualquier entorno compartido.
+El seed crea los cursos **Historia**, **Literatura** y **Biología**, matrícula del estudiante y nueve materiales PDF de demostración en `data/demo_materials/`. El PDF de Historia sobre el descubrimiento de América incluye actualmente una capa OCR y es indexable; un PDF escaneado sin texto reconocible no genera fragmentos para el tutor. Los usuarios y las contraseñas son exclusivamente datos sintéticos de desarrollo. Deshabilita seeds y cambia secretos para cualquier entorno compartido.
 
 ## Ejecución manual sin Docker Compose completo
 
@@ -93,7 +93,7 @@ Estos comandos arrancan los procesos únicamente cuando el desarrollador los eje
 En `.env` selecciona el modo:
 
 - `RAG_MODE=auto`: elige Gemini si `GEMINI_API_KEY` está configurada; de otro modo usa fallback, si `RAG_ALLOW_FALLBACK=1`.
-- `RAG_MODE=gemini`: API de Gemini con `GEMINI_LLM_MODEL=gemini-3-flash-preview` por defecto y `GEMINI_LLM_FALLBACK_MODELS=gemini-3.8-flash,gemini-3.6-flash` como respaldos ordenados. Si la generación del modelo principal falla o devuelve texto vacío, el adaptador intenta el siguiente y registra el modelo usado. El administrador puede cambiar el modelo principal y hasta dos respaldos desde Configuración RAG. Al ser preview, el modelo principal puede cambiar o tener límites más estrictos. `GEMINI_EMBEDDING_MODEL=gemini-embedding-2` genera embeddings de 768 dimensiones compatibles con `vector(768)`; los respaldos solo se aplican a la generación y no cambian el modelo de embeddings.
+- `RAG_MODE=gemini`: API de Gemini con `GEMINI_LLM_MODEL=gemini-3-flash-preview` por defecto y `GEMINI_LLM_FALLBACK_MODELS=gemini-3.8-flash,gemini-3.6-flash` como respaldos ordenados. Requiere `GEMINI_API_KEY` y autorización explícita `GEMINI_EXTERNAL_PROCESSING_AUTHORIZED=1`; sin autorización el proveedor no se construye y el modo `auto` puede usar fallback si está permitido. Si la generación del modelo principal falla o devuelve texto vacío, el adaptador intenta el siguiente y registra el modelo usado. El administrador puede cambiar el modelo principal y hasta dos respaldos desde Configuración RAG. Al ser preview, el modelo principal puede cambiar o tener límites más estrictos. `GEMINI_EMBEDDING_MODEL=gemini-embedding-2` genera embeddings de 768 dimensiones compatibles con `vector(768)`; los respaldos solo se aplican a la generación y no cambian el modelo de embeddings.
 - `RAG_MODE=ollama`: servicio Ollama ejecutándose en la máquina anfitriona, con `OLLAMA_LLM_MODEL` y `OLLAMA_EMBEDDING_MODEL` descargados previamente.
 - `RAG_MODE=fallback`: búsqueda local por términos/frases del material; no llama a proveedor externo y funciona para smoke tests.
 
@@ -180,7 +180,7 @@ También se puede reconstruir un ZIP limpio con `python scripts/package_release.
 
 ## Recorrido de prueba sugerido
 
-1. Inicia sesión como docente y selecciona **Introducción a Sistemas**.
+1. Inicia sesión como docente y selecciona **Historia**, **Literatura** o **Biología**.
 2. Consulta los materiales existentes; carga un PDF/DOCX con texto extraíble y verifica el estado de indexación.
 3. Pregunta al tutor sobre el texto de un material y comprueba las fuentes. Con una consulta fuera de tema, verifica la abstención si no hay contexto suficiente.
 4. Genera una evaluación, revisa los reactivos y aprueba cada uno. Confirma que publicar una evaluación con reactivos no aprobados devuelve conflicto.
@@ -195,5 +195,18 @@ También se puede reconstruir un ZIP limpio con `python scripts/package_release.
 - Evalúa autorización, retención, consentimiento de participantes menores y tratamiento de datos conforme a los requisitos institucionales y normativa aplicable antes de piloto real.
 - No incluye OCR de PDF escaneado ni calificación automática de respuestas abiertas.
 - El almacenamiento local y el fallback son para desarrollo; producción necesita backups, S3 privado, observabilidad y ensayo de restauración.
+
+## Calibración del tutor RAG
+
+Los umbrales de recuperación están calibrados sobre el fixture de 100 consultas (80 respondibles + 20 controles/distractores) sin re-vectorizar las preguntas. El método selecciona la configuración que **maximiza la abstención correcta de controles** sujeta a que la **cobertura de respondibles no baje del 70 %**:
+
+- Regla de decisión: promedio de cosíneos de los fragmentos top-k ≥ umbral (con `top_k = 1` equivale al histórico "mejor cosíneo ≥ umbral").
+- Defaults del servicio: `RAG_TOP_K=1`, `RAG_SIMILARITY_THRESHOLD=0.69`, `RAG_MINIMUM_SCORE_MARGIN=0`.
+- Métricas fuera de pliegue (validación cruzada 5-fold): cobertura 73,75 %, abstención 45 %, precisión de cita 74,5 %.
+- Métricas en muestra (100 consultas): cobertura 71,25 %, abstención 50 %, precisión de cita 83,6 %.
+
+Los números anteriores provienen de `data/rag_calibration_gemini_abstencion_20261101.json`. No uses `data/rag_calibration_gemini_20261101.json` para el informe: contiene la calibración previa (igual ponderación, umbral 0,62) y no incluye las métricas de cita.
+
+Estos valores son **metas de calibración del informe**, no criterios de aceptación de OE2. La fila `rag` de la tabla `Config` en la base de datos pisa los defaults de `settings`; si existe una fila previa con valores antiguos (`topK=4`, `umbral=0.35`), se mantendrán hasta que se edite desde el panel de administrador o se re-siembre.
 
 Para estrategia de despliegue, ver [`AWS_MIGRATION.md`](AWS_MIGRATION.md). Para decisiones detalladas del diseño, ver `docs/` y `reference_design/`.

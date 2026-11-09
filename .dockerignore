@@ -4,10 +4,12 @@
 !.env.example
 data/uploads
 data/traces
+data/.pytest*/
 __pycache__
 *.pyc
 .pytest_cache
 .venv
+.venv*/
 .venv-local
 .tools
 data/.local_secret

@@ -6,10 +6,12 @@ import json
 import math
 import re
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
 from pypdf import PdfReader
+from scripts.validation_thresholds import REQUIREMENTS
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -17,7 +19,7 @@ if str(ROOT) not in sys.path:
 
 DATA = ROOT / "data"
 PDF_ROOT = DATA / "demo_materials"
-FIXTURE_PATH = DATA / "rag_calibration_100.json"
+VALIDATION_FIXTURE_PATH = DATA / "rag_validation_100.json"
 CALIBRATION_PATH = DATA / "rag_calibration_gemini_20261101.json"
 PARTIAL_PATH = DATA / "rag_gemini_live_20261101.partial.json"
 FINAL_PATH = DATA / "rag_gemini_live_20261101.json"
@@ -25,6 +27,41 @@ COURSE_DIRS = {"Biología": "biologia",
                "Historia": "historia", "Literatura": "literatura"}
 ABSTENTION = "No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza."
 CITATION_PATTERN = re.compile(r"\[F(\d+)\]")
+CATEGORY_COUNTS = REQUIREMENTS["OE2"]["category_counts"]
+FINAL_QUERY_COUNT = REQUIREMENTS["OE2"]["final_query_count"]
+
+# Regla de decisión de "evidencia suficiente" (misma política que la
+# calibración en scripts/calibrate_rag_gemini.py):
+#   "top1"  = histórico: acepta si el mejor cosíneo >= umbral y cumple el
+#     margen mínimo.
+#   "meantopk" = nuevo: acepta si el promedio de los cosíneos top-k >= umbral.
+EVIDENCE_RULE = "meantopk"
+
+
+def decide_top1(results: list[tuple], top_k: int, threshold: float,
+                margin: float = 0.0) -> bool:
+    """Regla histórica: hay evidencia si el mejor cosíneo supera el umbral
+    y el margen sobre el segundo mejor cumple el mínimo."""
+    if not results:
+        return False
+    score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
+    return results[0][0] >= threshold and score_gap >= margin
+
+
+def decide_mean_topk(results: list[tuple], top_k: int, threshold: float,
+                     margin: float = 0.0) -> bool:
+    """Nueva regla del informe: hay evidencia si el promedio de los cosíneos
+    de los top-k fragmentos recuperados supera el umbral (y cumple el margen
+    mínimo si se indica)."""
+    if not results:
+        return False
+    kk = min(max(top_k, 1), len(results))
+    score_gap = results[0][0] - results[1][0] if len(results) > 1 else 2.0
+    return (sum(score for score, _ in results[:kk]) / kk >= threshold
+            and score_gap >= margin)
+
+
+DECIDE_FNS = {"top1": decide_top1, "meantopk": decide_mean_topk}
 
 
 def sha256(data: bytes) -> str:
@@ -38,25 +75,76 @@ def save_json(path: Path, payload: dict) -> None:
     temporary.replace(path)
 
 
-def load_and_validate_inputs() -> tuple[dict, list[dict], dict, dict, str, str]:
-    fixture_bytes = FIXTURE_PATH.read_bytes()
+def validate_validation_fixture(fixture: dict, calibration: dict) -> None:
+    queries = fixture.get("queries")
+    if not isinstance(queries, list) or len(queries) != FINAL_QUERY_COUNT:
+        raise ValueError(f"El banco final debe contener exactamente {FINAL_QUERY_COUNT} consultas.")
+    ids = [str(item.get("id", "")).strip() for item in queries]
+    if any(not query_id for query_id in ids) or len(set(ids)) != len(ids):
+        raise ValueError("Cada consulta final debe tener un ID único y no vacío.")
+    if any(not isinstance(item.get("question"), str) or not item["question"].strip()
+           for item in queries):
+        raise ValueError("Cada consulta final debe incluir una pregunta no vacía.")
+    if any(item.get("course") not in COURSE_DIRS for item in queries):
+        raise ValueError("Cada consulta final debe pertenecer a un curso conocido.")
+    if any(not isinstance(item.get("answerable"), bool) for item in queries):
+        raise ValueError("Cada consulta final debe declarar answerable como booleano.")
+    categories = [item.get("category") for item in queries]
+    if any(category not in CATEGORY_COUNTS for category in categories):
+        raise ValueError("Cada consulta debe tener categoría factual, integration, no_evidence o adversarial.")
+    for category, expected_count in CATEGORY_COUNTS.items():
+        if categories.count(category) != expected_count:
+            raise ValueError(f"La categoría {category} requiere exactamente {expected_count} consultas.")
+    if any(item["answerable"] != (item["category"] in {"factual", "integration"})
+           for item in queries):
+        raise ValueError("Factual/integration deben ser respondibles; no_evidence/adversarial deben ser controles.")
+    if any(item["answerable"] and not item.get("gold_pdf") for item in queries):
+        raise ValueError("Cada consulta respondible requiere gold_pdf.")
+
+    calibration_queries = calibration.get("queries", [])
+    calibration_ids = {str(item.get("id", "")).strip() for item in calibration_queries}
+    if set(ids) & calibration_ids:
+        raise ValueError("El banco final comparte IDs con el conjunto de calibración.")
+    normalize = lambda value: " ".join(value.casefold().split())
+    normalized_queries = [normalize(item["question"]) for item in queries]
+    if len(set(normalized_queries)) != len(normalized_queries):
+        raise ValueError("El banco final contiene preguntas duplicadas.")
+    calibration_questions = {normalize(item.get("question", ""))
+                             for item in calibration_queries}
+    if any(normalize(item["question"]) in calibration_questions for item in queries):
+        raise ValueError("El banco final contiene preguntas del conjunto de calibración.")
+
+
+def validate_gold_sources(fixture: dict, pdfs_by_course: dict[str, set[str]]) -> None:
+    for query in fixture["queries"]:
+        if query["answerable"] and query["gold_pdf"] not in pdfs_by_course[query["course"]]:
+            raise ValueError(
+                f"gold_pdf no pertenece al curso {query['course']} para {query['id']}."
+            )
+
+
+def load_and_validate_inputs(fixture_path: Path = VALIDATION_FIXTURE_PATH) -> tuple[dict, list[dict], dict, dict, str, str]:
+    fixture_bytes = fixture_path.read_bytes()
     calibration_bytes = CALIBRATION_PATH.read_bytes()
     fixture = json.loads(fixture_bytes)
     calibration = json.loads(calibration_bytes)
     if calibration.get("status") != "complete":
         raise ValueError(
             "El artefacto de calibración Gemini no está completo.")
-    if fixture["queries"] != calibration["queries"]:
+    if fixture["queries"] == calibration["queries"]:
         raise ValueError(
             "El fixture de consultas no coincide con los vectores calibrados.")
+    validate_validation_fixture(fixture, calibration)
 
     fragments = []
     pdf_hashes = {}
+    pdfs_by_course = {course: set() for course in COURSE_DIRS}
     for course, slug in COURSE_DIRS.items():
         for path in sorted((PDF_ROOT / slug).glob("*.pdf")):
             raw = path.read_bytes()
             relative = f"{slug}/{path.name}"
             pdf_hashes[relative] = sha256(raw)
+            pdfs_by_course[course].add(path.name)
             text = "\n\n".join(page.extract_text()
                                or "" for page in PdfReader(str(path)).pages)
             tokens = re.findall(r"\S+", text)
@@ -75,6 +163,8 @@ def load_and_validate_inputs() -> tuple[dict, list[dict], dict, dict, str, str]:
                     })
                 if start + 512 >= len(tokens):
                     break
+
+    validate_gold_sources(fixture, pdfs_by_course)
 
     metadata = calibration["metadata"]
     if metadata["source_pdf_sha256"] != pdf_hashes:
@@ -111,9 +201,10 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
     evaluated = [query for query in queries if query["id"] in by_id]
     answerable = [query for query in evaluated if query["answerable"]]
     controls = [query for query in evaluated if not query["answerable"]]
-    covered = sum(not by_id[q["id"]]["system_abstained"] for q in answerable)
+    covered = sum(by_id[q["id"]]["system_answered"] for q in answerable)
     correct_abstentions = sum(
-        by_id[q["id"]]["system_abstained"] for q in controls)
+        by_id[q["id"]]["system_abstained"] and not by_id[q["id"]]["generation_error"]
+        for q in controls)
     citation_count = sum(len(item["citations"]) for item in results)
     valid_citation_count = sum(sum(
         citation["valid_source_ref"] for citation in item["citations"]) for item in results)
@@ -124,17 +215,79 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
     generation_attempted = sum(
         item["generation_attempted"] for item in results)
     errors = sum(bool(item["generation_error"]) for item in results)
+    generation_error_ids = [item["query_id"] for item in results if item["generation_error"]]
+    false_answer_ids = [query["id"] for query in controls
+                        if by_id[query["id"]]["system_answered"]]
+    cross_course_query_ids = [
+        query["id"] for query in evaluated
+        if any(source.get("course") != query["course"]
+               for source in by_id[query["id"]].get("retrieved_sources", []))
+    ]
+    by_category = {
+        category: [query for query in evaluated if query.get("category") == category]
+        for category in CATEGORY_COUNTS
+    }
+    no_evidence = by_category["no_evidence"]
+    adversarial = by_category["adversarial"]
+    no_evidence_correct = sum(
+        by_id[query["id"]]["system_abstained"]
+        and not by_id[query["id"]]["generation_error"]
+        for query in no_evidence
+    )
+    no_evidence_abstention_rate = no_evidence_correct / len(no_evidence) if no_evidence else None
+    correct_abstentions = sum(by_id[query["id"]]["system_abstained"] for query in controls)
+    correct_abstention_rate = correct_abstentions / len(controls) if controls else None
+    adversarial_passes = sum(
+        by_id[query["id"]]["system_abstained"]
+        and query["id"] not in cross_course_query_ids
+        for query in adversarial
+    )
+    adversarial_pass_rate = adversarial_passes / len(adversarial) if adversarial else None
+    citation_precision = correct_pdf_citations / citation_count if citation_count else None
+    coverage = covered / len(answerable) if answerable else None
+    acceptance = REQUIREMENTS["OE2"]
+    acceptance_checks = {
+        "answerable_coverage": coverage is not None and coverage >= acceptance["minimum_answerable_coverage"],
+        "pdf_citation_precision": citation_precision is not None and citation_precision >= REQUIREMENTS["RNF-08"]["pdf_citation_precision_minimum"],
+        "correct_abstention": no_evidence_abstention_rate is not None and no_evidence_abstention_rate >= acceptance["minimum_correct_abstention"],
+        "adversarial_restrictions": adversarial_pass_rate is not None and adversarial_pass_rate >= acceptance["minimum_adversarial_pass_rate"],
+    }
+    category_metrics = {}
+    for category in CATEGORY_COUNTS:
+        category_queries = [query for query in evaluated if query.get("category") == category]
+        category_answered = sum(by_id[query["id"]]["system_answered"]
+                                for query in category_queries)
+        category_errors = sum(bool(by_id[query["id"]]["generation_error"])
+                              for query in category_queries)
+        category_metrics[category] = {
+            "queries": len(category_queries),
+            "answered": category_answered,
+            "abstained": sum(by_id[query["id"]]["system_abstained"]
+                              for query in category_queries),
+            "generation_errors": category_errors,
+            "answer_rate": category_answered / len(category_queries) if category_queries else None,
+        }
     return {
         "queries_evaluated": len(evaluated),
         "answerable_evaluated": len(answerable),
         "controls_evaluated": len(controls),
-        "answer_coverage": covered / len(answerable) if answerable else None,
-        "correct_abstention": correct_abstentions / len(controls) if controls else None,
-        "pdf_level_citation_precision": correct_pdf_citations / citation_count if citation_count else None,
+        "answer_coverage": coverage,
+        "correct_abstention": correct_abstention_rate,
+        "no_evidence_correct_abstention_rate": no_evidence_abstention_rate,
+        "generation_error_query_ids": generation_error_ids,
+        "pdf_level_citation_precision": citation_precision,
+        "adversarial_pass_rate": adversarial_pass_rate,
         "valid_citation_reference_rate": valid_citation_count / citation_count if citation_count else None,
         "generated_nonempty_rate": answers_generated / generation_attempted if generation_attempted else None,
         "generation_attempted": generation_attempted,
         "generation_errors": errors,
+        "false_answer_count": len(false_answer_ids),
+        "false_answer_query_ids": false_answer_ids,
+        "cross_course_source_query_ids": cross_course_query_ids,
+        "category_metrics": category_metrics,
+        "acceptance_thresholds": acceptance,
+        "acceptance_checks": acceptance_checks,
+        "acceptance_passed": all(acceptance_checks.values()),
         "factual_answer_correctness": None,
         "factual_answer_correctness_note": "Requires independent human/reference-answer review; this fixture has no gold answer text.",
     }
@@ -149,6 +302,8 @@ def main() -> None:
                         help="Reanuda desde el JSON parcial si fixture y artefacto coinciden.")
     parser.add_argument("--confirm-external", action="store_true",
                         help="Confirma el envío de preguntas y fragmentos recuperados a Gemini.")
+    parser.add_argument("--fixture", type=Path, default=VALIDATION_FIXTURE_PATH,
+                        help="Banco final independiente de calibración (100 consultas).")
     args = parser.parse_args()
     if not 1 <= args.limit <= 100:
         raise SystemExit("--limit debe estar entre 1 y 100.")
@@ -162,7 +317,7 @@ def main() -> None:
         raise SystemExit(
             "Gemini requiere API key y GEMINI_EXTERNAL_PROCESSING_AUTHORIZED=1.")
 
-    fixture, fragments, calibration, chosen, fixture_hash, calibration_hash = load_and_validate_inputs()
+    fixture, fragments, calibration, chosen, fixture_hash, calibration_hash = load_and_validate_inputs(args.fixture)
     queries = fixture["queries"][: args.limit]
     output_metadata = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -170,10 +325,12 @@ def main() -> None:
         "llm_model_requested": settings.gemini_llm_model,
         "embedding_model": calibration["metadata"]["embedding_model"],
         "fixture_sha256": fixture_hash,
+        "calibration_fixture_sha256": calibration["metadata"]["fixture_sha256"],
         "calibration_artifact_sha256": calibration_hash,
         "source_pdf_sha256": calibration["metadata"]["source_pdf_sha256"],
         "k": chosen["k"],
         "cosine_threshold": chosen["cosine_threshold"],
+        "minimum_score_margin": chosen.get("minimum_score_margin", 0.0),
         "query_limit": args.limit,
         "human_review_required_for_factual_correctness": True,
     }
@@ -204,8 +361,11 @@ def main() -> None:
         embedding_model=calibration["metadata"]["embedding_model"],
     )
     ranked_by_query = []
+    embedding_latency_ms = []
     for index, query in enumerate(queries):
-        query_vector = calibration["query_vectors"][index]
+        embedding_started = time.perf_counter()
+        query_vector = provider.embed([query["question"]], task="query")[0]
+        embedding_latency_ms.append(round((time.perf_counter() - embedding_started) * 1000, 2))
         candidates = []
         for fragment, document_vector in zip(fragments, calibration["document_vectors"]):
             if fragment["course"] == query["course"]:
@@ -221,13 +381,19 @@ def main() -> None:
         ranked = ranked_by_query[index]
         top_k = chosen["k"]
         threshold = chosen["cosine_threshold"]
+        min_margin = chosen.get("minimum_score_margin", 0.0)
+        score_gap = ranked[0][0] - ranked[1][0] if len(ranked) > 1 else 2.0
         selected = ranked[:top_k]
         top_score = ranked[0][0] if ranked else None
-        evidence_sufficient = bool(
-            top_score is not None and top_score >= threshold)
+        # Regla de decisión de evidencia suficiente (misma política que la
+        # calibración guardada): promedio de cosíneos top-k >= umbral.
+        evidence_sufficient = decide_mean_topk(
+            [(score, fragment) for score, fragment in selected],
+            top_k, threshold, min_margin)
         source_payload = [
             {
                 "citation_id": f"F{rank + 1}",
+                "course": fragment["course"],
                 "pdf": fragment["filename"],
                 "fragment_ordinal": fragment["ordinal"],
                 "text_sha256": fragment["text_sha256"],
@@ -242,6 +408,7 @@ def main() -> None:
         generation_attempted = evidence_sufficient
         response_model = None
         input_tokens = output_tokens = None
+        generation_latency_ms = 0.0
         if not evidence_sufficient:
             answer = "No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza."
         else:
@@ -258,7 +425,9 @@ def main() -> None:
                 f"CONTEXTO:\n{context}\n\nPREGUNTA:\n{query['question']}"
             )
             try:
+                generation_started = time.perf_counter()
                 generated = provider.generate(prompt)
+                generation_latency_ms = round((time.perf_counter() - generation_started) * 1000, 2)
                 answer = generated.text.strip()
                 response_model = provider.last_generation_model
                 input_tokens = generated.input_tokens
@@ -282,15 +451,22 @@ def main() -> None:
         answer_abstains = bool(
             re.search(r"evidencia suficiente|no puedo responder", answer, re.I))
         system_abstained = not evidence_sufficient or answer_abstains
+        system_answered = bool(answer.strip()) and not system_abstained and not generation_error
         output["results"].append({
             "query_id": query["id"],
             "course": query["course"],
+            "category": query["category"],
             "question": query["question"],
             "answerable": query["answerable"],
             "gold_pdf": query["gold_pdf"],
             "top_cosine": top_score,
+            "top_two_score_gap": score_gap if ranked else None,
+            "minimum_score_margin": min_margin,
+            "embedding_latency_ms": embedding_latency_ms[index],
+            "generation_latency_ms": generation_latency_ms,
             "evidence_sufficient": evidence_sufficient,
             "system_abstained": system_abstained,
+            "system_answered": system_answered,
             "generation_attempted": generation_attempted,
             "generation_error": generation_error,
             "response_model": response_model,

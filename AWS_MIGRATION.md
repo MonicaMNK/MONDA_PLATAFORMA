@@ -91,7 +91,7 @@ Mantiene transacciones y vectores en PostgreSQL. Asegura que la extensión está
 
 ### Opción B: Amazon OpenSearch Service
 
-Crea dominio/colección con acceso privado, cifrado en reposo/en tránsito, políticas IAM y filtros por `cursoId`, `contenidoId`, versión activa y modelo. Migra/reindexa por lotes usando IDs deterministas e idempotentes. Valida que el score del motor se convierte a la similitud utilizada por la lógica de negocio; no asumas que el `score` bruto equivale al coseno `0.35`.
+Crea dominio/colección con acceso privado, cifrado en reposo/en tránsito, políticas IAM y filtros por `cursoId`, `contenidoId`, versión activa y modelo. Migra/reindexa por lotes usando IDs deterministas e idempotentes. Valida que el score del motor se convierte a la similitud utilizada por la lógica de negocio; no asumas que el `score` bruto equivale al coseno `0.69`.
 
 En ambos casos: ejecuta un conjunto etiquetado de consultas, mide Recall@k, latencia, citas y filtrado negativo entre cursos antes de decidir.
 
@@ -120,8 +120,8 @@ RAG_ALLOW_FALLBACK=0
 GEMINI_API_KEY=<secret-de-gemini>
 GEMINI_LLM_MODEL=gemini-3.8-flash
 GEMINI_EMBEDDING_MODEL=gemini-embedding-2
-RAG_TOP_K=4
-RAG_SIMILARITY_THRESHOLD=0.35
+RAG_TOP_K=1
+RAG_SIMILARITY_THRESHOLD=0.69
 MLFLOW_TRACKING_URI=<endpoint-privado-opcional>
 ```
 

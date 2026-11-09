@@ -24,6 +24,8 @@ class Settings:
     app_version: str = os.getenv("APP_VERSION", "2.0.0-entrega2")
     environment: str = os.getenv("APP_ENV", "local")
     database_url: str = os.getenv("DATABASE_URL", f"sqlite:///{DATA_DIR / 'monda.db'}")
+    db_pool_size: int = int(os.getenv("DB_POOL_SIZE", "30"))
+    db_max_overflow: int = int(os.getenv("DB_MAX_OVERFLOW", "30"))
     secret_key: str = os.getenv("MONDA_SECRET_KEY", "monda-local-change-me-2026-use-32-bytes-minimum")
     access_minutes: int = int(os.getenv("ACCESS_MINUTES", "30"))
     refresh_days: int = int(os.getenv("REFRESH_DAYS", "7"))
@@ -33,8 +35,9 @@ class Settings:
 
     rag_mode: str = os.getenv("RAG_MODE", "auto").lower()
     rag_allow_fallback: bool = _bool("RAG_ALLOW_FALLBACK", True)
-    rag_top_k: int = int(os.getenv("RAG_TOP_K", "4"))
-    rag_similarity_threshold: float = float(os.getenv("RAG_SIMILARITY_THRESHOLD", "0.35"))
+    rag_top_k: int = int(os.getenv("RAG_TOP_K", "1"))
+    rag_similarity_threshold: float = float(os.getenv("RAG_SIMILARITY_THRESHOLD", "0.69"))
+    rag_minimum_score_margin: float = float(os.getenv("RAG_MINIMUM_SCORE_MARGIN", "0.0"))
     rag_candidate_multiplier: int = int(os.getenv("RAG_CANDIDATE_MULTIPLIER", "4"))
 
     gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
