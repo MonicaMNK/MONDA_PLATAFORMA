@@ -7,6 +7,7 @@ El perfil ejecuta cinco minutos de calentamiento y quince minutos de medición. 
 En PowerShell, define `LOAD_BASE_URL`, `LOAD_COURSE_ID` y `LOAD_BEARER_TOKEN` con una cuenta de carga autorizada. El token dura 30 minutos, suficiente para un perfil de veinte minutos. Guarda cada salida JSON en una ruta distinta:
 
 ```powershell
+$null = New-Item -ItemType Directory -Force artifacts
 $env:LOAD_USERS = "25"
 $env:K6_SUMMARY_PATH = "artifacts/load-25.json"
 k6 run scripts/k6_monda_load.js
@@ -14,6 +15,8 @@ k6 run scripts/k6_monda_load.js
 $env:LOAD_USERS = "50"
 $env:K6_SUMMARY_PATH = "artifacts/load-50.json"
 k6 run scripts/k6_monda_load.js
+
+python scripts/compare_k6_summaries.py artifacts/load-25.json artifacts/load-50.json --output artifacts/comparison.json
 ```
 
 Repite ambos perfiles sobre el mismo commit, base y equipo. Los resultados locales describen ese entorno y no acreditan disponibilidad mensual ni el desempeño de AWS. No guardes tokens en los artefactos.
