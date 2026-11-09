@@ -6,6 +6,10 @@ from docx import Document
 from pypdf import PdfReader
 
 
+class OCRRequiredError(ValueError):
+    """Raised when a PDF has no extractable text and needs OCR."""
+
+
 def extract_text(path: Path) -> tuple[str, list[dict]]:
     ext = path.suffix.lower()
     if ext == ".pdf":
@@ -17,7 +21,10 @@ def extract_text(path: Path) -> tuple[str, list[dict]]:
             if text.strip():
                 texts.append(text)
                 pages.append({"page": i, "text": text})
-        return "\n\n".join(texts), pages
+        extracted = "\n\n".join(texts)
+        if not extracted.strip():
+            raise OCRRequiredError("El PDF no contiene texto extraíble; requiere OCR.")
+        return extracted, pages
     if ext == ".docx":
         doc = Document(str(path))
         blocks = []
