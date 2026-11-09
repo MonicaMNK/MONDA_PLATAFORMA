@@ -1,0 +1,41 @@
+App HTTP: 200
+Manifest HTTP: 200
+Service worker HTTP: 200
+After login: monda
+PLATAFORMA EDUCATIVA
+ESPACIO DE TRABAJO
+Mis cursos
+Materiales
+Tutor RAG
+Evaluaciones
+Sincronizaci�n
+Mis notas
+Conexi�n disponible
+E
+Estudiante Demo
+Estudiante
+PLATAFORMA MONDA
+Mis cursos
+Curso
+Biolog�a
+Literatura
+Historia
+Estudiante
+Sesion iniciada.
+�
+Hola, Estudiante
+
+Contin�a tu trabajo desde tus cursos autorizados.
+
+Cursos disponibles
+3
+Seg�n tus permisos actuales
+Tu tutor personal
+Pregunta
+Respuestas con fuentes del curso
+Tu biblioteca
+Explora
+Materiales organizados por semana
+Tus curs
+ES10 browser: offline saved=1, offline reload= True , queued keys before= 1 , after= 0
+Screenshots: captura-es10-pwa-offline-2026-11-01.png; captura-es10-pwa-sincronizado-2026-11-01.png

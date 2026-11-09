@@ -5,7 +5,7 @@
       "name": "Historia",
       "description": "Materiales sobre el descubrimiento de América, el Imperio Inca y el Tahuantinsuyo.",
       "materials": [
-        {"filename": "El Descubrimiento de Amèrica.pdf"},
+        {"filename": "El Descubrimiento de Amèrica.pdf", "requires_ocr": true},
         {"filename": "El Imperio Inca.pdf"},
         {"filename": "El Tahuantinsuyo.pdf"}
       ]

@@ -23,14 +23,17 @@ PDF_DIR = DATA_DIR / "demo_materials"
 FIXTURE_PATH = DATA_DIR / "rag_calibration_100.json"
 OUTPUT_PATH = DATA_DIR / "rag_calibration_gemini_20261101.json"
 PARTIAL_PATH = DATA_DIR / "rag_calibration_gemini_20261101.partial.json"
-TEMP_CACHE_PATH = Path.home() / "AppData" / "Local" / "Temp" / "monda_calibration_rebuild_docs.json"
-COURSE_DIRS = {"Biología": "biologia", "Historia": "historia", "Literatura": "literatura"}
+TEMP_CACHE_PATH = Path.home() / "AppData" / "Local" / "Temp" / \
+    "monda_calibration_rebuild_docs.json"
+COURSE_DIRS = {"Biología": "biologia",
+               "Historia": "historia", "Literatura": "literatura"}
 DIMENSIONS = 768
 BATCH_SIZE = 10
 FOLDS = 5
 FOLD_SEED = 20261101
 K_CANDIDATES = (1, 2, 3, 4, 5, 6, 8)
-THRESHOLD_CANDIDATES = tuple(round(value / 100, 2) for value in range(20, 81, 2))
+THRESHOLD_CANDIDATES = tuple(round(value / 100, 2)
+                             for value in range(20, 81, 2))
 
 
 def sha256(data: bytes) -> str:
@@ -42,7 +45,8 @@ def load_inputs() -> tuple[dict, list[dict], dict[str, str], str]:
     fixture = json.loads(fixture_bytes)
     queries = fixture["queries"]
     if len(queries) != 100 or sum(query["answerable"] for query in queries) != 80:
-        raise ValueError("El fixture debe contener 80 consultas respondibles y 20 controles.")
+        raise ValueError(
+            "El fixture debe contener 80 consultas respondibles y 20 controles.")
 
     fragments = []
     pdf_hashes = {}
@@ -51,11 +55,12 @@ def load_inputs() -> tuple[dict, list[dict], dict[str, str], str]:
             data = path.read_bytes()
             pdf_hashes[f"{slug}/{path.name}"] = sha256(data)
             reader = PdfReader(str(path))
-            text = "\n\n".join(page.extract_text() or "" for page in reader.pages)
+            text = "\n\n".join(page.extract_text()
+                               or "" for page in reader.pages)
             tokens = re.findall(r"\S+", text)
             ordinal = 0
             for start in range(0, len(tokens), 462):
-                piece = " ".join(tokens[start : start + 512]).strip()
+                piece = " ".join(tokens[start: start + 512]).strip()
                 if len(piece) >= 20:
                     ordinal += 1
                     fragments.append({
@@ -70,7 +75,8 @@ def load_inputs() -> tuple[dict, list[dict], dict[str, str], str]:
                     break
 
     if len(fragments) != 118 or len(pdf_hashes) != 9:
-        raise ValueError(f"Corpus inesperado: {len(fragments)} fragmentos, {len(pdf_hashes)} PDFs.")
+        raise ValueError(
+            f"Corpus inesperado: {len(fragments)} fragmentos, {len(pdf_hashes)} PDFs.")
     return fixture, fragments, pdf_hashes, sha256(fixture_bytes)
 
 
@@ -113,7 +119,8 @@ def initial_artifact(settings, fixture: dict, fragments: list[dict], pdf_hashes:
 
 def validate_partial(artifact: dict, fixture: dict, fragments: list[dict], pdf_hashes: dict[str, str], fixture_hash: str, model: str) -> None:
     metadata = artifact.get("metadata", {})
-    expected_fragments = [{key: value for key, value in item.items() if key != "text"} for item in fragments]
+    expected_fragments = [
+        {key: value for key, value in item.items() if key != "text"} for item in fragments]
     checks = (
         metadata.get("fixture_sha256") == fixture_hash,
         metadata.get("source_pdf_sha256") == pdf_hashes,
@@ -122,7 +129,8 @@ def validate_partial(artifact: dict, fixture: dict, fragments: list[dict], pdf_h
         artifact.get("fragments") == expected_fragments,
     )
     if not all(checks):
-        raise ValueError("El artefacto parcial no coincide con los PDFs, el fixture o el modelo actuales.")
+        raise ValueError(
+            "El artefacto parcial no coincide con los PDFs, el fixture o el modelo actuales.")
 
 
 def cached_fragments_match(cached: list[dict], current: list[dict]) -> bool:
@@ -161,15 +169,18 @@ def embed_batch(texts: list[str], prefix: str, settings) -> list[list[float]]:
         except Exception:
             detail = "respuesta de error no interpretable"
         raise RuntimeError(f"Gemini HTTP {response.status_code}; {detail}")
-    vectors = [item.get("values", []) for item in response.json().get("embeddings", [])]
+    vectors = [item.get("values", [])
+               for item in response.json().get("embeddings", [])]
     if len(vectors) != len(texts) or any(len(vector) != DIMENSIONS for vector in vectors):
-        raise ValueError("Gemini devolvió un número de vectores o dimensiones inesperados.")
+        raise ValueError(
+            "Gemini devolvió un número de vectores o dimensiones inesperados.")
     return [[float(value) for value in vector] for vector in vectors]
 
 
 def save_partial(artifact: dict) -> None:
     temporary_path = PARTIAL_PATH.with_suffix(".tmp")
-    temporary_path.write_text(json.dumps(artifact, ensure_ascii=False), encoding="utf-8")
+    temporary_path.write_text(json.dumps(
+        artifact, ensure_ascii=False), encoding="utf-8")
     temporary_path.replace(PARTIAL_PATH)
 
 
@@ -200,7 +211,8 @@ def evaluate(indices, config_for, queries, ranked) -> dict:
             selected = results[:top_k]
             citation_total += len(selected)
             if query["answerable"]:
-                citation_hits += sum(filename == query["gold_pdf"] for _, filename, _ in selected)
+                citation_hits += sum(filename == query["gold_pdf"]
+                                     for _, filename, _ in selected)
 
     coverage = covered / answerable_total if answerable_total else 0.0
     abstention = correct_abstentions / control_total if control_total else 0.0
@@ -237,7 +249,8 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
 
     strata = defaultdict(list)
     for index, query in enumerate(queries):
-        key = (query["course"], query["answerable"], query["gold_pdf"] if query["answerable"] else None)
+        key = (query["course"], query["answerable"],
+               query["gold_pdf"] if query["answerable"] else None)
         strata[key].append(index)
     fold_of = {}
     rng = random.Random(FOLD_SEED)
@@ -255,7 +268,8 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
         candidates = []
         for top_k in K_CANDIDATES:
             for threshold in THRESHOLD_CANDIDATES:
-                metrics = evaluate(train, lambda _i, k=top_k, t=threshold: (k, t), queries, ranked)
+                metrics = evaluate(train, lambda _i, k=top_k,
+                                   t=threshold: (k, t), queries, ranked)
                 candidates.append((
                     metrics["balanced_score_equal_weight"],
                     metrics["citation_precision_pdf"],
@@ -278,11 +292,13 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
             "selected_cosine_threshold": selected[1],
         })
 
-    out_of_fold_metrics = evaluate(full_indices, lambda index: oof_config[index], queries, ranked)
+    out_of_fold_metrics = evaluate(
+        full_indices, lambda index: oof_config[index], queries, ranked)
     full_candidates = []
     for top_k in K_CANDIDATES:
         for threshold in THRESHOLD_CANDIDATES:
-            metrics = evaluate(full_indices, lambda _i, k=top_k, t=threshold: (k, t), queries, ranked)
+            metrics = evaluate(full_indices, lambda _i, k=top_k,
+                               t=threshold: (k, t), queries, ranked)
             full_candidates.append((
                 metrics["balanced_score_equal_weight"],
                 metrics["citation_precision_pdf"],
@@ -337,64 +353,81 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Calibra k y umbral coseno del RAG con Gemini y conserva evidencia reproducible.")
-    parser.add_argument("--resume", action="store_true", help="Reanuda desde el artefacto parcial verificado.")
+    parser = argparse.ArgumentParser(
+        description="Calibra k y umbral coseno del RAG con Gemini y conserva evidencia reproducible.")
+    parser.add_argument("--resume", action="store_true",
+                        help="Reanuda desde el artefacto parcial verificado.")
     args = parser.parse_args()
 
     from backend.app.core.config import settings
     if not settings.gemini_api_key:
         raise SystemExit("GEMINI_API_KEY no está configurada.")
     if not settings.gemini_external_processing_authorized:
-        raise SystemExit("Falta GEMINI_EXTERNAL_PROCESSING_AUTHORIZED=1 para enviar los PDFs a Gemini.")
+        raise SystemExit(
+            "Falta GEMINI_EXTERNAL_PROCESSING_AUTHORIZED=1 para enviar los PDFs a Gemini.")
 
     fixture, fragments, pdf_hashes, fixture_hash = load_inputs()
     if PARTIAL_PATH.exists():
         if not args.resume:
-            raise SystemExit(f"Existe {PARTIAL_PATH}; usa --resume para continuar o archívalo antes de iniciar otro run.")
+            raise SystemExit(
+                f"Existe {PARTIAL_PATH}; usa --resume para continuar o archívalo antes de iniciar otro run.")
         artifact = json.loads(PARTIAL_PATH.read_text(encoding="utf-8"))
-        validate_partial(artifact, fixture, fragments, pdf_hashes, fixture_hash, settings.gemini_embedding_model)
+        validate_partial(artifact, fixture, fragments, pdf_hashes,
+                         fixture_hash, settings.gemini_embedding_model)
     else:
-        artifact = initial_artifact(settings, fixture, fragments, pdf_hashes, fixture_hash)
+        artifact = initial_artifact(
+            settings, fixture, fragments, pdf_hashes, fixture_hash)
         if args.resume and TEMP_CACHE_PATH.exists():
-            temporary_cache = json.loads(TEMP_CACHE_PATH.read_text(encoding="utf-8"))
+            temporary_cache = json.loads(
+                TEMP_CACHE_PATH.read_text(encoding="utf-8"))
             cached_chunks = temporary_cache.get("chunks", [])
             if not cached_fragments_match(cached_chunks, fragments):
-                raise SystemExit("La caché temporal no coincide con los fragmentos actuales; no se importó.")
+                raise SystemExit(
+                    "La caché temporal no coincide con los fragmentos actuales; no se importó.")
             vectors = temporary_cache.get("vectors", [])
             if len(vectors) > len(cached_chunks) or any(len(vector) != DIMENSIONS for vector in vectors):
-                raise SystemExit("La caché temporal tiene vectores incompletos o dimensiones incorrectas.")
+                raise SystemExit(
+                    "La caché temporal tiene vectores incompletos o dimensiones incorrectas.")
             artifact["document_vectors"] = vectors
-            artifact["metadata"]["imported_verified_temp_vectors"] = len(vectors)
+            artifact["metadata"]["imported_verified_temp_vectors"] = len(
+                vectors)
 
     save_partial(artifact)
     document_prefix = "title: none | text: "
     query_prefix = "task: question answering | query: "
     for offset in range(len(artifact["document_vectors"]), len(fragments), BATCH_SIZE):
-        group = fragments[offset : offset + BATCH_SIZE]
-        vectors = embed_batch([item["text"] for item in group], document_prefix, settings)
+        group = fragments[offset: offset + BATCH_SIZE]
+        vectors = embed_batch([item["text"]
+                              for item in group], document_prefix, settings)
         artifact["document_vectors"].extend(vectors)
         save_partial(artifact)
-        print(f"document_vectors={len(artifact['document_vectors'])}/{len(fragments)}", flush=True)
+        print(
+            f"document_vectors={len(artifact['document_vectors'])}/{len(fragments)}", flush=True)
 
     for offset in range(len(artifact["query_vectors"]), len(fixture["queries"]), BATCH_SIZE):
-        group = fixture["queries"][offset : offset + BATCH_SIZE]
-        vectors = embed_batch([item["question"] for item in group], query_prefix, settings)
+        group = fixture["queries"][offset: offset + BATCH_SIZE]
+        vectors = embed_batch([item["question"]
+                              for item in group], query_prefix, settings)
         artifact["query_vectors"].extend(vectors)
         save_partial(artifact)
-        print(f"query_vectors={len(artifact['query_vectors'])}/{len(fixture['queries'])}", flush=True)
+        print(
+            f"query_vectors={len(artifact['query_vectors'])}/{len(fixture['queries'])}", flush=True)
 
     if len(artifact["document_vectors"]) != len(fragments) or len(artifact["query_vectors"]) != len(fixture["queries"]):
         raise SystemExit("No se completaron todos los embeddings.")
     artifact["status"] = "complete"
-    artifact["metadata"]["completed_at_utc"] = datetime.now(timezone.utc).isoformat()
+    artifact["metadata"]["completed_at_utc"] = datetime.now(
+        timezone.utc).isoformat()
     artifact["metadata"]["document_embedding_count"] = len(fragments)
     artifact["metadata"]["query_embedding_count"] = len(fixture["queries"])
     artifact["calibration"] = calibrate(artifact, fragments, fixture)
     final_tmp = OUTPUT_PATH.with_suffix(".tmp")
-    final_tmp.write_text(json.dumps(artifact, ensure_ascii=False), encoding="utf-8")
+    final_tmp.write_text(json.dumps(
+        artifact, ensure_ascii=False), encoding="utf-8")
     final_tmp.replace(OUTPUT_PATH)
     PARTIAL_PATH.unlink(missing_ok=True)
-    print(f"Complete calibration evidence written to {OUTPUT_PATH.relative_to(ROOT)}")
+    print(
+        f"Complete calibration evidence written to {OUTPUT_PATH.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

@@ -155,7 +155,10 @@ def _ensure_demo_material(db, course: Course, teacher: User, course_slug: str, m
 
     has_fragments = db.query(RAGFragment.id).filter_by(
         contenido_id=content.id).first() is not None
-    rebuild_fragments = content.hash_sha256 != digest or (
+    # El PDF de demostración marcado como OCR contiene una capa de texto
+    # ilegible en algunos extractores; no se expone como material indexado.
+    requires_ocr = bool(material_data.get("requires_ocr"))
+    rebuild_fragments = requires_ocr or content.hash_sha256 != digest or (
         not has_fragments and content.estado_indexacion != "error")
     has_known_extraction_error = not rebuild_fragments and not has_fragments and content.estado_indexacion == "error"
     content.documento_id = document_id
@@ -167,8 +170,11 @@ def _ensure_demo_material(db, course: Course, teacher: User, course_slug: str, m
     content.autor_id = teacher.id
     chunks = None
     if rebuild_fragments:
-        extracted_text, _ = extract_text(get_storage().local_path(stored_key))
-        chunks = chunk_text(extracted_text)
+        if requires_ocr:
+            chunks = []
+        else:
+            extracted_text, _ = extract_text(get_storage().local_path(stored_key))
+            chunks = chunk_text(extracted_text)
         db.query(RAGFragment).filter_by(
             contenido_id=content.id).delete(synchronize_session=False)
 

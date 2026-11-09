@@ -2,7 +2,7 @@
 
 Aplicación web educativa con FastAPI, PostgreSQL 16 + pgvector, React, control de acceso por roles y tutor RAG con tres adaptadores. El repositorio conserva el diseño, contratos y diagramas PI7 en `reference_design/` y mantiene el DDL ejecutable versionado con Alembic.
 
-> **Alcance honesto:** la UI React que se sirve sin pasos de compilación está en `frontend/app.js` y `frontend/index.html`. También se incluye el proyecto fuente React + TypeScript + Tailwind/Vite en `frontend/src/`; cuando existe `frontend/dist/`, FastAPI sirve ese build. La compilación TSX no se pudo verificar en el entorno de preparación porque npm no pudo acceder a `registry.npmjs.org` (error de resolución DNS). Las pruebas de backend listadas abajo sí se ejecutaron localmente en el entorno de preparación. Antes de una presentación o despliegue real, ejecuta la instalación/build frontend y el recorrido manual descrito al final.
+La interfaz principal React + TypeScript está en `frontend/src/`; FastAPI sirve `frontend/dist/` cuando existe. La compilación `npm run build` y el recorrido de sincronización PWA en Chrome se verificaron localmente el 1 de noviembre de 2026 con datos sintéticos. El `Dockerfile` compila el frontend al construir la imagen, pero no se verificó esa construcción porque el motor Docker no estaba disponible en esta sesión. La interfaz estática anterior permanece en `frontend/app.js` y `frontend/index.html` como alternativa local sin build.
 
 ## Funcionalidades incluidas
 
@@ -103,7 +103,7 @@ Variables clave: `GEMINI_API_KEY`, `GEMINI_LLM_MODEL`, `GEMINI_EMBEDDING_MODEL`,
 
 ## Frontend React + TypeScript + Tailwind
 
-La UI estática ya incluida permite arrancar la aplicación local sin instalar herramientas frontend. El proyecto fuente moderno está en `frontend/src/`, con configuración en `frontend/package.json`, `frontend/vite.config.ts` y `frontend/tailwind.config.js`.
+El proyecto fuente está en `frontend/src/`, con configuración en `frontend/package.json`, `frontend/vite.config.ts` y `frontend/tailwind.config.js`. El módulo M8 permite guardar borradores personales sin conexión, conservarlos al recargar y sincronizarlos al recuperar la red. Los resultados observados de ES06 y ES10 están en [la evidencia local](docs/evidencias/resultado-es06-es10-2026-11-01.md).
 
 Para instalar y compilar en una máquina con acceso a npm:
 
