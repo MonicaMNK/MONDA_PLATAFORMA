@@ -8,6 +8,7 @@ __pycache__
 *.pyc
 .pytest_cache
 .venv
+.venv*/
 .venv-local
 .tools
 data/.local_secret
