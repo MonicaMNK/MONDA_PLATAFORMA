@@ -123,9 +123,12 @@ def validate_gold_sources(fixture: dict, pdfs_by_course: dict[str, set[str]]) ->
             )
 
 
-def load_and_validate_inputs(fixture_path: Path = VALIDATION_FIXTURE_PATH) -> tuple[dict, list[dict], dict, dict, str, str]:
+def load_and_validate_inputs(
+    fixture_path: Path = VALIDATION_FIXTURE_PATH,
+    calibration_path: Path = CALIBRATION_PATH,
+) -> tuple[dict, list[dict], dict, dict, str, str]:
     fixture_bytes = fixture_path.read_bytes()
-    calibration_bytes = CALIBRATION_PATH.read_bytes()
+    calibration_bytes = calibration_path.read_bytes()
     fixture = json.loads(fixture_bytes)
     calibration = json.loads(calibration_bytes)
     if calibration.get("status") != "complete":
@@ -293,7 +296,7 @@ def summarize(results: list[dict], queries: list[dict]) -> dict:
     }
 
 
-def main() -> None:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Evalúa respuestas Gemini, citas y abstenciones para el fixture RAG de 100 consultas.")
     parser.add_argument("--limit", type=int, default=100,
@@ -304,6 +307,13 @@ def main() -> None:
                         help="Confirma el envío de preguntas y fragmentos recuperados a Gemini.")
     parser.add_argument("--fixture", type=Path, default=VALIDATION_FIXTURE_PATH,
                         help="Banco final independiente de calibración (100 consultas).")
+    parser.add_argument("--calibration", type=Path, default=CALIBRATION_PATH,
+                        help="Artefacto de calibración congelado que se usará para la evaluación.")
+    return parser
+
+
+def main() -> None:
+    parser = build_parser()
     args = parser.parse_args()
     if not 1 <= args.limit <= 100:
         raise SystemExit("--limit debe estar entre 1 y 100.")
@@ -317,7 +327,8 @@ def main() -> None:
         raise SystemExit(
             "Gemini requiere API key y GEMINI_EXTERNAL_PROCESSING_AUTHORIZED=1.")
 
-    fixture, fragments, calibration, chosen, fixture_hash, calibration_hash = load_and_validate_inputs(args.fixture)
+    fixture, fragments, calibration, chosen, fixture_hash, calibration_hash = load_and_validate_inputs(
+        args.fixture, args.calibration)
     queries = fixture["queries"][: args.limit]
     output_metadata = {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
