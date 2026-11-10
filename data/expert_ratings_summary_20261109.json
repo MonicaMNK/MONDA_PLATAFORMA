@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "campaign": "E2-E3 aceptación local — 2026-11-09",
+  "repository_commit": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+  "branch": "main",
+  "generated_at_utc": "2026-11-09T16:30:00Z",
+  "source_csv": "data/expert_ratings_20261109.csv",
+  "source_csv_sha256": "a0fa23ae0f5681cdfea004a0efd21018fe7938835a4c3eb45afa4a4cbe0a1e95",
+  "instrument": "Matriz de calificaciones de expertos",
+  "rubrica": "Escala Likert 1-4: 1=insuficiente, 2=basico, 3=competente, 4=excelente",
+  "items": 5,
+  "experts": ["E01", "E02", "E03"],
+  "expert_profiles": {
+    "E01": {"rol": "docente_curso", "experiencia_anos": 12, "area": "ciencias"},
+    "E02": {"rol": "docente_curso", "experiencia_anos": 8, "area": "humanidades"},
+    "E03": {"rol": "diseno_instruccional", "experiencia_anos": 6, "area": "educacion"}
+  },
+  "scale": {"minimum": 1, "maximum": 4},
+  "missing_ratings": 0,
+  "aiken_v_by_item": {
+    "C01_cobertura_temas": 0.8889,
+    "C02_claridad_redaccion": 1.0,
+    "C03_alineacion_material": 0.8889,
+    "C04_grado_dificultad": 0.8889,
+    "C05_reduccion_adversarial": 0.8889
+  },
+  "aiken_v_by_dimension": {
+    "cobertura_temas": 0.8889,
+    "claridad_redaccion": 1.0,
+    "alineacion_material": 0.8889,
+    "grado_dificultad": 0.8889,
+    "reduccion_adversarial": 0.8889
+  },
+  "minimum_aiken_v_required": 0.80,
+  "aiken_result": "PASS",
+  "icc_2_1_absolute_agreement": -0.2308,
+  "icc_note": "Single-measure, two-way random-effects, absolute-agreement ICC; piloto con n=3 expertos. Valor negativo indica concordancia insuficiente entre jueces; no se cumple criterio de concordancia aceptable.",
+  "icc_criterion_met": false,
+  "disagreements": "C04: E02 califica 3 vs E01/E03 califican 4. ICC negativa sugiere que los jueces no coinciden en sus calificaciones relativas entre items, aunque cada V de Aiken individual supere 0.80.",
+  "aiken_result": "PASS",
+  "icc_result": "INSUFICIENTE",
+  "result": "PARCIAL",
+  "command": "python scripts/analyze_expert_ratings.py data/expert_ratings_20261109.csv --minimum 1 --maximum 4 --output data/expert_ratings_summary_20261109.json",
+  "notes": "V de Aiken por dimensión: todos >= 0.80 (PASS). ICC(2,1) = -0.2308: concordancia insuficiente entre jueces (no se cumple criterio de concordancia). Resultado global PARCIAL: validez de contenido por item aceptable, pero concordancia entre jueces insuficiente para declarar PASS sin revisión adicional."
+}

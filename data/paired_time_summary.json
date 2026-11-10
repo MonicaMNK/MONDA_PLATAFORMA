@@ -1,0 +1,21 @@
+{
+  "campaign": "O4 línea base empírica — resumen de tiempos pareados",
+  "protocol_version": "1.0",
+  "source_csv": "data/paired_times_20261109.csv",
+  "source_csv_sha256": "be5221de5439d2b51c053a891c3a9f0880c025028553058326995a41f2db2966",
+  "n": 10,
+  "answerable_count": 10,
+  "control_count": 0,
+  "manual_hl_seconds": 184.2,
+  "monda_hl_seconds": 46.6,
+  "difference_hl_seconds": 138.16,
+  "ci_95_seconds": [129.87, 146.45],
+  "percent_change_mean": 74.62,
+  "participants_improved": 10,
+  "participants_worsened": 0,
+  "test_used": "t de Student para muestras pareadas",
+  "test_p_value": 0.000001,
+  "test_significant": true,
+  "data_origin": "medicion_real_participantes",
+  "notes": "Datos observados de 10 participantes reales (5 docentes, 5 estudiantes) bajo el protocolo definido en docs/evidencias/protocolo-baseline-20261109.md. No se utilizan datos sintéticos como línea base."
+}

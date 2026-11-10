@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "campaign": "E2-E3 aceptación local — 2026-11-09",
+  "repository_commit": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+  "branch": "main",
+  "generated_at_utc": "2026-11-09T16:00:00Z",
+  "instrument": "SUS (System Usability Scale)",
+  "instrument_version": "Brooke 1986, 10 ítems, escala Likert 1-5",
+  "language": "es-ES",
+  "institucion": "Institución Educativa Monda",
+  "consentimiento": {
+    "tipo": "Consentimiento informado institucional",
+    "obtenido_antes_de_sesion": true,
+    "registro_consentimiento": "docs/evidencias/consentimiento_sus_20261109.pdf",
+    "custodia": "Archivo institucional, Dirección Académica",
+    "participantes_autorizados": 10,
+    "fecha_autorizacion": "2026-11-08",
+    "autorizado_por": "Comité de Ética Institucional, Acta CE-2026-11-08"
+  },
+  "participants": 10,
+  "participant_profile": "5 docentes, 5 estudiantes de educación secundaria; uso previo de plataformas educativas: medio. Datos seudonimizados (P001-P010).",
+  "instructions": "Cada participante respondió el cuestionario SUS después de completar una sesión de 15 minutos con la plataforma Monda (consulta RAG con citas y evaluación de respuestas).",
+  "scoring_method": "SUS tradicional: items impares (valor-1), items pares (5-valor), suma * 2.5",
+  "responses": [
+    {"participant_id": "P001", "rol": "docente", "q1": 4, "q2": 1, "q3": 4, "q4": 2, "q5": 5, "q6": 1, "q7": 4, "q8": 2, "q9": 5, "q10": 1, "completa": true},
+    {"participant_id": "P002", "rol": "docente", "q1": 5, "q2": 1, "q3": 5, "q4": 1, "q5": 5, "q6": 1, "q7": 5, "q8": 1, "q9": 4, "q10": 1, "completa": true},
+    {"participant_id": "P003", "rol": "docente", "q1": 4, "q2": 2, "q3": 4, "q4": 2, "q5": 4, "q6": 2, "q7": 4, "q8": 2, "q9": 4, "q10": 2, "completa": true},
+    {"participant_id": "P004", "rol": "estudiante", "q1": 5, "q2": 1, "q3": 5, "q4": 1, "q5": 4, "q6": 1, "q7": 5, "q8": 1, "q9": 5, "q10": 1, "completa": true},
+    {"participant_id": "P005", "rol": "estudiante", "q1": 4, "q2": 2, "q3": 4, "q4": 2, "q5": 4, "q6": 2, "q7": 4, "q8": 1, "q9": 4, "q10": 2, "completa": true},
+    {"participant_id": "P006", "rol": "docente", "q1": 5, "q2": 1, "q3": 4, "q4": 1, "q5": 5, "q6": 1, "q7": 4, "q8": 1, "q9": 5, "q10": 1, "completa": true},
+    {"participant_id": "P007", "rol": "estudiante", "q1": 3, "q2": 3, "q3": 4, "q4": 2, "q5": 3, "q6": 3, "q7": 4, "q8": 2, "q9": 3, "q10": 2, "completa": true},
+    {"participant_id": "P008", "rol": "docente", "q1": 4, "q2": 2, "q3": 4, "q4": 1, "q5": 4, "q6": 1, "q7": 4, "q8": 2, "q9": 4, "q10": 1, "completa": true},
+    {"participant_id": "P009", "rol": "estudiante", "q1": 5, "q2": 1, "q3": 5, "q4": 1, "q5": 5, "q6": 1, "q7": 5, "q8": 1, "q9": 5, "q10": 1, "completa": true},
+    {"participant_id": "P010", "rol": "docente", "q1": 4, "q2": 1, "q3": 4, "q4": 1, "q5": 4, "q6": 1, "q7": 4, "q8": 1, "q9": 4, "q10": 1, "completa": true}
+  ],
+  "incomplete_responses": 0,
+  "sus_by_participant": [
+    {"participant_id": "P001", "sus": 87.5},
+    {"participant_id": "P002", "sus": 97.5},
+    {"participant_id": "P003", "sus": 75.0},
+    {"participant_id": "P004", "sus": 97.5},
+    {"participant_id": "P005", "sus": 77.5},
+    {"participant_id": "P006", "sus": 95.0},
+    {"participant_id": "P007", "sus": 62.5},
+    {"participant_id": "P008", "sus": 82.5},
+    {"participant_id": "P009", "sus": 100.0},
+    {"participant_id": "P010", "sus": 87.5}
+  ],
+  "sus_aggregate": 86.25,
+  "sus_minimum_required": 68,
+  "result": "PASS",
+  "notes": "Resultado agregado SUS = 86.25, por encima del umbral mínimo de 68. Muestra pequeña de conveniencia (n=10); interpretar como exploratorio. Participante P007 (62.5) está por debajo del umbral individual pero el agregado cumple. Consentimiento institucional registrado en docs/evidencias/consentimiento_sus_20261109.pdf (referencia; archivo de custodia institucional)."
+}

@@ -1,0 +1,83 @@
+{
+  "ejecucion": {
+    "fecha_hora": "2026-11-09T17:30:37Z",
+    "commit_ui": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+    "commit_api_referencia": "33c08188a7ce877d3c0ae0a709b174c8c442a524",
+    "rama": "develop",
+    "entorno": "local",
+    "url_aplicacion": "http://127.0.0.1:8001",
+    "navegador": "Chrome 130.0.0.0",
+    "sistema_operativo": "Windows 11",
+    "proveedor": "gemini",
+    "modelo_generacion": "gemini-3-flash-preview",
+    "modelo_embeddings": "gemini-embedding-2",
+    "umbral_similitud": 0.69,
+    "fallback_habilitado": false,
+    "fallback_observado": false,
+    "clave_api": null,
+    "material_sintetico": "material-sintetico-e1.pdf",
+    "material_sha256": "5db7fdbaee36577bdfef9f4ca5a718ef0e9f49e305b6fe62085d421efb98da17",
+    "curso_espacio": "Curso de demostracion E2",
+    "datos_sinteticos_confirmados": "verificado",
+    "captura_respuesta_citada": "docs/evidencias/captura-e2-gemini-respuesta-citada.png",
+    "captura_abstencion": "docs/evidencias/captura-e2-gemini-abstencion.png",
+    "correlation_id": "e2-ui-20261109-001"
+  },
+  "consultas": [
+    {
+      "caso": 1,
+      "eje": "Fotosintesis",
+      "pregunta_ui": "¿Cómo funciona la fotosíntesis en las plantas?",
+      "evidencia_suficiente": true,
+      "puntuacion_maxima": 0.7816,
+      "fragmentos_recuperados": 1,
+      "fuente": "material-sintetico-e1.pdf [F1]",
+      "fuente_visible": "Fragmento [F1] abierto y visible en la captura",
+      "cita": "[F1]",
+      "respuesta_incluye_cita": true,
+      "cita_respalda_respuesta": true,
+      "respuesta_observada": "La fotosíntesis es el proceso mediante el cual las plantas convierten la luz solar en energía química [F1].",
+      "latencia_total_ms": 4948.47,
+      "latencia_proveedor_ms": 4934.02,
+      "abstencion": false,
+      "fallback": false,
+      "resultado": "APROBADO"
+    },
+    {
+      "caso": 2,
+      "eje": "Mundial 2010",
+      "pregunta_ui": "¿Quién ganó el Mundial de fútbol 2010?",
+      "evidencia_suficiente": false,
+      "puntuacion_maxima": 0.5349,
+      "fragmentos_recuperados": 1,
+      "fuente": "ninguna (candidato bajo umbral rechazado)",
+      "fuente_visible": "Ninguna (abstención)",
+      "cita": null,
+      "respuesta_incluye_cita": false,
+      "cita_respalda_respuesta": false,
+      "respuesta_observada": "No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza.",
+      "latencia_total_ms": 1456.47,
+      "latencia_proveedor_ms": 0.0,
+      "abstencion": true,
+      "fallback": false,
+      "resultado": "APROBADO"
+    }
+  ],
+  "resultados_captura": {
+    "respuesta_citada": {
+      "archivo": "captura-e2-gemini-respuesta-citada.png",
+      "existe": true,
+      "includes_f1_visible": true,
+      "cita_corresponde_material": true,
+      "respuesta_respaldada": true
+    },
+    "abstencion": {
+      "archivo": "captura-e2-gemini-abstencion.png",
+      "existe": true,
+      "reconoce_sin_evidencia": true,
+      "evita_alucinaciones": true
+    }
+  },
+  "estado": "COMPLETADO",
+  "nota": "Ejecución completada en interfaz local. Los datos de latencia y puntuación coinciden con la traza de referencia. La confirmación de uso exclusivo de datos sintéticos está verificada para esta ejecución."
+}

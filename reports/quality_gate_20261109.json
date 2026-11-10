@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-11-09T15:30:00Z",
+  "repository_commit": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+  "branch": "main",
+  "environment": "local",
+  "pipeline": "pytest + cobertura",
+  "command": "python -m pytest tests/ --cov=backend --cov-report=xml --cov-report=html -q",
+  "gate_status": "REVISION",
+  "quality_gate_criteria": {
+    "minimum_overall_coverage_percent": 80,
+    "minimum_critical_service_coverage_percent": 85,
+    "maximum_test_failures": 0,
+    "static_analysis_max_severity": "warning"
+  },
+  "results": {
+    "tests_collected": 21,
+    "tests_passed": 20,
+    "tests_failed": 0,
+    "tests_skipped": 1,
+    "overall_coverage_percent": 84.2,
+    "coverage_by_service": {
+      "backend/app/db/audit.py": {"coverage_percent": 78.5, "threshold_percent": 85, "status": "FALLA"},
+      "backend/app/rag/retriever.py": {"coverage_percent": 88.3, "threshold_percent": 85, "status": "PASS"},
+      "backend/app/rag/generator.py": {"coverage_percent": 82.1, "threshold_percent": 85, "status": "FALLA"},
+      "backend/app/api/eval.py": {"coverage_percent": 76.4, "threshold_percent": 85, "status": "FALLA"},
+      "frontend/static/app.js": {"coverage_percent": 71.0, "threshold_percent": 85, "status": "FALLA"}
+    },
+    "services_passing_critical_threshold": 1,
+    "services_failing_critical_threshold": 4,
+    "static_analysis": {
+      "tool": "ruff",
+      "severity_found": ["warning"],
+      "errors": 0,
+      "warnings": 3
+    }
+  },
+  "coverage_report_xml": "reports/coverage.xml",
+  "coverage_report_html": "reports/htmlcov/index.html",
+  "notes": "El gate global no pasa el umbral crítico de 85 % para servicios críticos. Solo retriever (88.3 %) cumple; audit (78.5 %), generator (82.1 %), API eval (76.4 %) y frontend (71.0 %) quedan por debajo. Se registra como REVISION; no se declara PASS mientras no se cubra el umbral en todos los servicios críticos."
+}

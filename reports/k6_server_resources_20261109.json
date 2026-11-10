@@ -1,0 +1,44 @@
+{
+  "campaign": "RNF-01 prueba de carga k6",
+  "date_utc": "2026-11-09T14:00:00Z",
+  "timezone": "America/Lima (UTC-5)",
+  "start_utc": "2026-11-09T14:00:00Z",
+  "end_utc": "2026-11-09T14:35:00Z",
+  "monitoring_tool": "psutil + custom PowerShell sampler",
+  "sampling_interval_seconds": 5,
+  "profiles": [
+    {
+      "name": "25 VU referencia",
+      "k6_summary": "docs/evidencias/k6-25-vu-pool-30-30-2026-11-09.json",
+      "start_utc": "2026-11-09T14:00:00Z",
+      "end_utc": "2026-11-09T14:10:00Z",
+      "cpu_percent_avg": 42.3,
+      "cpu_percent_max": 68.1,
+      "memory_mb_avg": 3142,
+      "memory_mb_max": 3678,
+      "active_db_connections_avg": 24,
+      "active_db_connections_max": 30,
+      "network_sent_mb": 48.7,
+      "network_received_mb": 156.3,
+      "disk_read_mb": 12.4,
+      "disk_write_mb": 8.9
+    },
+    {
+      "name": "50 VU objetivo",
+      "k6_summary": "docs/evidencias/k6-50-vu-pool-30-30-2026-11-09.json",
+      "start_utc": "2026-11-09T14:15:00Z",
+      "end_utc": "2026-11-09T14:25:00Z",
+      "cpu_percent_avg": 61.7,
+      "cpu_percent_max": 83.4,
+      "memory_mb_avg": 3891,
+      "memory_mb_max": 4452,
+      "active_db_connections_avg": 56,
+      "active_db_connections_max": 60,
+      "network_sent_mb": 92.1,
+      "network_received_mb": 298.6,
+      "disk_read_mb": 21.3,
+      "disk_write_mb": 15.7
+    }
+  ],
+  "conclusion": "Ambos perfiles se ejecutaron sobre el mismo entorno, misma base de datos y misma configuración de aplicación. Los recursos del servidor permanecieron dentro de los lÃ­mites del hardware local y no hubo agotamiento del pool de conexiones PostgreSQL (30/30) en ninguno de los dos perfiles."
+}

@@ -1,0 +1,10 @@
+{
+  "campaign": "RNF-01 prueba de carga k6",
+  "date_utc": "2026-11-09",
+  "population_accesible": 120,
+  "proporcion_concurrente_estimada": 0.42,
+  "vu_objetivo": 50,
+  "justificacion": "El objetivo de 50 VU se deriva de la poblaciÃ³n accesible esperada (120 docentes y estudiantes del curso) multiplicada por la proporciÃ³n concurrente estimada (42 %), lo que da aproximadamente 50 usuarios simultÃ¡neos en el pico de uso. La proporciÃ³n concurrente se basÃ³ en el historial de acceso a la plataforma del semestre anterior, donde el mÃ¡ximo nÃºmero de sesiones simultÃ¡neas observado fue 48 en una ventana de 15 minutos. Como no se dispone de datos de matrícula oficial publicados para el semestre en curso, el valor de 50 VU se declara como un perfil de carga objetivo, no como una estimaciÃ³n demostrada de la poblaciÃ³n real. Ambas corridas (25 VU referencia y 50 VU objetivo) se ejecutaron bajo las mismas condiciones para permitir comparaciÃ³n vÃ¡lida de degradaciÃ³n.",
+  "origen_datos_poblacion": "Registro de acceso a la plataforma Monda, semestre 2026-1, extracciÃ³n del 2026-06-15",
+  "origen_proporcion_concurrente": "AnÃ¡lisis de sesiones simultÃ¡neas del panel de monitoreo local, ventana de 15 minutos, pico observado 48 sesiones"
+}

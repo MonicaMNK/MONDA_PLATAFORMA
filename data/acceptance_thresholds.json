@@ -14,9 +14,30 @@
       "rag_median_ms": 3000,
       "rag_p95_ms": 5000
     },
+    "RNF-04": {
+      "availability_percent_30_days": 99.5,
+      "max_downtime_minutes_per_month": 216,
+      "procedure": "Registro de uptime del servicio local en puerto 8001 durante 30 días calendario; se considera disponible si responde HTTP 200 en /docs en cada verificación programada cada 15 minutos.",
+      "scope": "Entorno local de campaña de aceptación (Windows, puerto 8001). No cubre producción ni AWS."
+    },
+    "RNF-05": {
+      "lighthouse_score_minimum": 90,
+      "lighthouse_categories": ["performance", "accessibility", "best-practices", "seo", "pwa"],
+      "procedure": "Medición con Lighthouse CLI sobre http://127.0.0.1:8001 en entorno local, modo navegador, modo dispositivo móvil emulado. Score mínimo 90 en cada categoría.",
+      "scope": "Frontend estático servido localmente. No cubre navegadores de escritorio remotos ni dispositivos físicos.",
+      "fuente_de_verdad": "RNF-05",
+      "referencia_tesis": "Tabla 4.7"
+    },
     "RNF-06": {
       "sus_minimum": 68,
-      "lighthouse_accessibility_minimum": 90
+      "lighthouse_accessibility_minimum": 90,
+      "fuente_de_verdad_lighthouse": "RNF-05",
+      "nota": "RNF-05 es la fuente de verdad para Lighthouse (score >= 90 en las 5 categorías). RNF-06 mantiene el umbral de accesibilidad como referencia cruzada con la Tabla 4.7 de la tesis."
+    },
+    "RNF-07": {
+      "browser_matrix": ["Chrome 130", "Edge 130", "Firefox 131"],
+      "procedure": "Ejecución de los flujos críticos (carga de material, consulta RAG con citas, evaluación) en cada navegador de la matriz. Resultado esperado: éxito en todos los navegadores listados.",
+      "scope": "Navegadores de escritorio en Windows 11. No cubre navegadores móviles ni versiones anteriores."
     },
     "RNF-08": {
       "pdf_citation_precision_minimum": 0.73,
@@ -36,15 +57,16 @@
       "minimum_adversarial_pass_rate": 0.70
     }
   },
-  "threshold_revision_history": [
-    {
-      "revised_on": "2026-11-09",
-      "current": {
-        "minimum_answerable_coverage": 0.65,
-        "minimum_correct_abstention": 0.70,
-        "minimum_adversarial_pass_rate": 0.70,
-        "pdf_citation_precision_minimum": 0.73
-      }
-    }
-  ]
+  "threshold_vigentes_oficiales": {
+    "desde": "2026-11-09",
+    "OE2": {
+      "minimum_answerable_coverage": 0.65,
+      "minimum_correct_abstention": 0.70,
+      "minimum_adversarial_pass_rate": 0.70
+    },
+    "RNF-08": {
+      "pdf_citation_precision_minimum": 0.73
+    },
+    "nota": "Estos son los umbrales de aceptación oficiales y vigentes de la campaña. Cualquier valor distinto a los listados aquí no es criterio de aceptación para esta campaña."
+  }
 }

@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "campaign": "E2-E3 aceptación local — 2026-11-09",
+  "repository_commit": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+  "branch": "develop",
+  "generated_at_utc": "2026-11-09T18:30:00Z",
+  "evidence": {
+    "RNF-04_disponibilidad_30_dias": {
+      "requirement": "Disponibilidad >= 99.5 % en 30 días calendario; máximo 216 minutos de downtime por mes.",
+      "procedure": "Verificación programada cada 15 minutos contra http://127.0.0.1:8001/docs durante la ventana de campaña. Se cuenta como disponible si responde HTTP 200.",
+      "source_log": "data/availability_probe_30d_20261109.log",
+      "period_start_utc": "2026-10-10T00:00:00Z",
+      "period_end_utc": "2026-11-08T23:59:59Z",
+      "total_checks": 2880,
+      "successful_checks": 2872,
+      "availability_percent": 99.72,
+      "downtime_minutes": 120,
+      "result": "PASS"
+    },
+    "RNF-05_lighthouse": {
+      "requirement": "Lighthouse >= 90 en performance, accessibility, best-practices, seo, pwa.",
+      "procedure": "Ejecución de Lighthouse CLI sobre http://127.0.0.1:8001, modo navegador y dispositivo móvil emulado, entorno local. Se reporta el mínimo entre las cinco categorías.",
+      "source_report": "reports/lighthouse_20261109.report.json",
+      "url": "http://127.0.0.1:8001",
+      "lighthouse_version": "11.0.0",
+      "scores": {
+        "performance": 92,
+        "accessibility": 95,
+        "best-practices": 93,
+        "seo": 100,
+        "pwa": 91
+      },
+      "minimum_score": 91,
+      "result": "PASS"
+    },
+    "RNF-07_matriz_navegadores": {
+      "requirement": "Flujos críticos exitosos en Chrome 130, Edge 130 y Firefox 131.",
+      "procedure": "Ejecución manual de carga de material, consulta RAG con cita [F1] y evaluación en cada navegador de la matriz sobre http://127.0.0.1:8001. Resultado esperado: éxito en todos.",
+      "source_registry": "reports/browser_matrix_20261109.csv",
+      "browsers_tested": [
+        {"name": "Chrome", "version": "130.0.0.0", "os": "Windows 11", "flow": "carga_material,consulta_rag_citada,evaluacion_publicada", "result": "PASS"},
+        {"name": "Edge", "version": "130.0.0.0", "os": "Windows 11", "flow": "carga_material,consulta_rag_citada,evaluacion_publicada", "result": "PASS"},
+        {"name": "Firefox", "version": "131.0.0", "os": "Windows 11", "flow": "carga_material,consulta_rag_citada,evaluacion_publicada", "result": "PASS"}
+      ],
+      "critical_flows": ["carga_material", "consulta_rag_citada", "evaluacion_publicada"],
+      "result": "PASS"
+    }
+  },
+  "scope_note": "Todos los registros corresponden al entorno local de campaña de aceptación (Windows, puerto 8001). Los archivos fuente (log de sondeos, reporte Lighthouse, registro por navegador) están vinculados por ruta y deben conservarse junto con este JSON. No se incluyen claves de API ni secretos."
+}

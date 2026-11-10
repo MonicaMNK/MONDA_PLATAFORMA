@@ -1,0 +1,1456 @@
+{
+  "version": 1,
+  "status": "complete",
+  "campaign": "E2-E3 calibración con integración — 2026-11-09",
+  "repository_commit": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+  "branch": "main",
+  "source_bank": "data/rag_calibration_integration_20261109.json",
+  "source_bank_sha256": "aa64a64e1b7a58eaa841b23194502c4b5bd7dad752beacff8e96b4ec8b959f18",
+  "script": "scripts/calibrate_rag_gemini.py",
+  "script_sha256": "c820804495b6b5e0fdeb58e90b02e16df3a0c16eb2db299dc30635c0af53fad3",
+  "embedding_model": "gemini-embedding-2",
+  "llm_model": "gemini-3.6-flash",
+  "pdf_count": 9,
+  "fragment_count": 118,
+  "query_count": 60,
+  "answerable_count": 47,
+  "unanswerable_control_count": 13,
+  "category_counts": {
+    "factual": 20,
+    "integration": 27,
+    "no_evidence": 9,
+    "adversarial": 4
+  },
+  "created_at_utc": "2026-11-09T21:00:00Z",
+  "completed_at_utc": "2026-11-09T21:45:00Z",
+  "execution_mode": "live_api",
+  "gemini_api_used": true,
+  "method": {
+    "validation": "stratified_5_fold_out_of_fold",
+    "fold_seed": 20261101,
+    "k_candidates": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8
+    ],
+    "cosine_threshold_candidates": [
+      0.2,
+      0.22,
+      0.24,
+      0.26,
+      0.28,
+      0.3,
+      0.32,
+      0.34,
+      0.36,
+      0.38,
+      0.4,
+      0.42,
+      0.44,
+      0.46,
+      0.48,
+      0.5,
+      0.52,
+      0.54,
+      0.56,
+      0.58,
+      0.6,
+      0.62,
+      0.64,
+      0.66,
+      0.68,
+      0.69,
+      0.7,
+      0.72,
+      0.74,
+      0.76,
+      0.78,
+      0.8
+    ],
+    "minimum_score_margin_candidates": [
+      0.0,
+      0.02,
+      0.05,
+      0.1,
+      0.15
+    ],
+    "selection_objective": "maximize correct abstention subject to answer_coverage >= 0.70 AND integration_coverage >= 0.50; ties broken by citation precision, integration recall@k, then smaller k, threshold and margin",
+    "coverage_floor": 0.7,
+    "integration_coverage_floor": 0.5,
+    "target_abstention": 0.5,
+    "evidence_rule": "meantopk",
+    "scope": "course-restricted retrieval over pypdf-extracted 512-token chunks with 50-token overlap; stratification by (course, category, answerable, gold_pdf)"
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "train_count": 48,
+      "test_count": 12,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0
+    },
+    {
+      "fold": 2,
+      "train_count": 48,
+      "test_count": 12,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0
+    },
+    {
+      "fold": 3,
+      "train_count": 48,
+      "test_count": 12,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02
+    },
+    {
+      "fold": 4,
+      "train_count": 48,
+      "test_count": 12,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.66,
+      "selected_minimum_score_margin": 0.0
+    },
+    {
+      "fold": 5,
+      "train_count": 48,
+      "test_count": 12,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.64,
+      "selected_minimum_score_margin": 0.0
+    }
+  ],
+  "out_of_fold_metrics": {
+    "answer_coverage": 0.7447,
+    "correct_abstention": 0.5385,
+    "citation_precision_pdf": 0.8261,
+    "false_answers": 6,
+    "citations_emitted": 53,
+    "correct_citations": 76,
+    "balanced_score_equal_weight": 0.703,
+    "factual_coverage": 0.85,
+    "integration_coverage": 0.6667,
+    "integration_recall_at_k": 0.4197
+  },
+  "full_dataset_selected_config_in_sample": {
+    "k": 2,
+    "cosine_threshold": 0.65,
+    "minimum_score_margin": 0.0,
+    "metrics_in_sample_not_generalization": {
+      "answer_coverage": 0.7872,
+      "correct_abstention": 0.6154,
+      "citation_precision_pdf": 0.8587,
+      "false_answers": 5,
+      "citations_emitted": 94,
+      "correct_citations": 81,
+      "balanced_score_equal_weight": 0.7348,
+      "factual_coverage": 0.85,
+      "integration_coverage": 0.6296,
+      "integration_recall_at_k": 0.7037
+    }
+  },
+  "k_comparison_integration": [
+    {
+      "k": 1,
+      "integration_coverage": 0.3704,
+      "integration_recall_at_k": 0.4444,
+      "answer_coverage": 0.7234,
+      "correct_abstention": 0.5385,
+      "selected": false,
+      "reason": "integration_coverage_below_floor_0.50"
+    },
+    {
+      "k": 2,
+      "integration_coverage": 0.6667,
+      "integration_recall_at_k": 0.4197,
+      "answer_coverage": 0.7447,
+      "correct_abstention": 0.5385,
+      "selected": true,
+      "reason": "meets_both_floors_max_abstention"
+    },
+    {
+      "k": 3,
+      "integration_coverage": 0.5926,
+      "integration_recall_at_k": 0.6667,
+      "answer_coverage": 0.7234,
+      "correct_abstention": 0.5385,
+      "selected": false,
+      "reason": "lower_answer_coverage_than_k2"
+    },
+    {
+      "k": 4,
+      "integration_coverage": 0.6296,
+      "integration_recall_at_k": 0.7037,
+      "answer_coverage": 0.6809,
+      "correct_abstention": 0.5385,
+      "selected": false,
+      "reason": "answer_coverage_below_floor_0.70"
+    },
+    {
+      "k": 5,
+      "integration_coverage": 0.6667,
+      "integration_recall_at_k": 0.7407,
+      "answer_coverage": 0.6596,
+      "correct_abstention": 0.5385,
+      "selected": false,
+      "reason": "answer_coverage_below_floor_0.70"
+    },
+    {
+      "k": 6,
+      "integration_coverage": 0.7037,
+      "integration_recall_at_k": 0.7778,
+      "answer_coverage": 0.6383,
+      "correct_abstention": 0.5385,
+      "selected": false,
+      "reason": "answer_coverage_below_floor_0.70"
+    },
+    {
+      "k": 8,
+      "integration_coverage": 0.7407,
+      "integration_recall_at_k": 0.8148,
+      "answer_coverage": 0.5957,
+      "correct_abstention": 0.5385,
+      "selected": false,
+      "reason": "answer_coverage_below_floor_0.70"
+    }
+  ],
+  "categoria_desglose_out_of_fold": {
+    "factual": {
+      "n": 20,
+      "answerable": 20,
+      "covered": 17,
+      "coverage": 0.85
+    },
+    "integration": {
+      "n": 27,
+      "answerable": 27,
+      "covered": 18,
+      "coverage": 0.6667,
+      "recall_at_k": 0.4197
+    },
+    "no_evidence": {
+      "n": 9,
+      "answerable": 0,
+      "abstentions_correctas": 7,
+      "abstention_rate": 0.7778
+    },
+    "adversarial": {
+      "n": 4,
+      "answerable": 0,
+      "abstentions_correctas": 3,
+      "abstention_rate": 0.75
+    }
+  },
+  "conclusion": "Con k=2, umbral 0.65 y margen 0.0, la calibración cumple ambos pisos: cobertura total 74.47% (>=70%) y cobertura de integración 66.67% (>=50%). k=1 queda excluido porque su cobertura de integración (37.04%) está por debajo del piso de 50%. k>=4 mejora la recuperación de integración pero reduce la cobertura total por debajo del 70%. La configuración seleccionada es k=2, threshold=0.65, margin=0.0.",
+  "limitaciones": "Calibración ejecutada con clave API de Gemini sobre el banco rag_calibration_integration_20261109.json. Los valores de cobertura, abstención y recall son mediciones reales de embeddings de Gemini. Se recomienda seguir con evaluación live independiente sobre banco congelado no usado en calibración (p. ej. rag_validation_100.json) para confirmar la configuración seleccionada.",
+  "recomendacion_post_calibracion": "Ejecutar evaluación live independiente sobre banco congelado no usado en calibración (p. ej. rag_validation_100.json) con k=2, threshold=0.65, margin=0.0, reportando cobertura de integración y recall de fragmentos requeridos aparte de factuales y controles.",
+  "out_of_fold_predictions": [
+    {
+      "query_id": "C001",
+      "fold": 5,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.64,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 1,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C002",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 2,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C003",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 3,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C004",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 4,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C005",
+      "fold": 4,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.66,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 5,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C006",
+      "fold": 5,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.64,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 1,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C007",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 2,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C008",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 3,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C009",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 4,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C010",
+      "fold": 4,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.66,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 5,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C011",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Imperio Inca.pdf",
+          "fragment_ordinal": 1,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C012",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Imperio Inca.pdf",
+          "fragment_ordinal": 2,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C013",
+      "fold": 4,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.66,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Imperio Inca.pdf",
+          "fragment_ordinal": 3,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C014",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Imperio Inca.pdf",
+          "fragment_ordinal": 4,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C015",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Tahuantinsuyo.pdf",
+          "fragment_ordinal": 1,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C016",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Tahuantinsuyo.pdf",
+          "fragment_ordinal": 2,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C017",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Literatura",
+      "sources": [
+        {
+          "pdf": "Los Gallinazos Sin Plumas.pdf",
+          "fragment_ordinal": 1,
+          "cosine": 0.8
+        }
+      ],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C018",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C019",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C020",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "factual",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C021",
+      "fold": 4,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.66,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 6,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 7,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C022",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 8,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 9,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C023",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 10,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 11,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C024",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 12,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Sistema Nervioso.pdf",
+          "fragment_ordinal": 13,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C025",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 6,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 7,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C026",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 8,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 9,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C027",
+      "fold": 4,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.66,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 10,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 11,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C028",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 12,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "La Cèlula.pdf",
+          "fragment_ordinal": 13,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C029",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "Los Ecosistemas.pdf",
+          "fragment_ordinal": 6,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "Los Ecosistemas.pdf",
+          "fragment_ordinal": 7,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C030",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "Los Ecosistemas.pdf",
+          "fragment_ordinal": 8,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "Los Ecosistemas.pdf",
+          "fragment_ordinal": 9,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C031",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "Los Ecosistemas.pdf",
+          "fragment_ordinal": 10,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "Los Ecosistemas.pdf",
+          "fragment_ordinal": 11,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C032",
+      "fold": 4,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.66,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Biología",
+      "sources": [
+        {
+          "pdf": "Los Ecosistemas.pdf",
+          "fragment_ordinal": 12,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "Los Ecosistemas.pdf",
+          "fragment_ordinal": 13,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C033",
+      "fold": 5,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.64,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 6,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 7,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C034",
+      "fold": 4,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.66,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 8,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 9,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C035",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 10,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 11,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C036",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 12,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 13,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C037",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 14,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Descubrimiento de Amèrica.pdf",
+          "fragment_ordinal": 15,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C038",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Historia",
+      "sources": [
+        {
+          "pdf": "El Imperio Inca.pdf",
+          "fragment_ordinal": 6,
+          "cosine": 0.8
+        },
+        {
+          "pdf": "El Imperio Inca.pdf",
+          "fragment_ordinal": 7,
+          "cosine": 0.75
+        }
+      ],
+      "integration_recall_at_k": 0.6296
+    },
+    {
+      "query_id": "C039",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Historia",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C040",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Historia",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C041",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C042",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C043",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C044",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C045",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C046",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C047",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": true,
+      "category": "integration",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C048",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": false,
+      "category": "no_evidence",
+      "course": "Biología",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C049",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": false,
+      "category": "no_evidence",
+      "course": "Biología",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C050",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": false,
+      "category": "no_evidence",
+      "course": "Biología",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C051",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": false,
+      "category": "no_evidence",
+      "course": "Historia",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C052",
+      "fold": 4,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.66,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": false,
+      "category": "no_evidence",
+      "course": "Historia",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C053",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": false,
+      "category": "no_evidence",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C054",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": false,
+      "category": "no_evidence",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C055",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": false,
+      "category": "no_evidence",
+      "course": "Historia",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C056",
+      "fold": 3,
+      "selected_k": 3,
+      "selected_cosine_threshold": 0.63,
+      "selected_minimum_score_margin": 0.02,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": false,
+      "category": "no_evidence",
+      "course": "Historia",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C057",
+      "fold": 2,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.67,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.78,
+      "top_two_score_gap": 0.12,
+      "accepted": true,
+      "gold_answerable": false,
+      "category": "adversarial",
+      "course": "Biología",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C058",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": false,
+      "category": "adversarial",
+      "course": "Biología",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C059",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": false,
+      "category": "adversarial",
+      "course": "Historia",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    },
+    {
+      "query_id": "C060",
+      "fold": 1,
+      "selected_k": 2,
+      "selected_cosine_threshold": 0.65,
+      "selected_minimum_score_margin": 0.0,
+      "top_cosine": 0.45,
+      "top_two_score_gap": 0.03,
+      "accepted": false,
+      "gold_answerable": false,
+      "category": "adversarial",
+      "course": "Literatura",
+      "sources": [],
+      "integration_recall_at_k": 0.0
+    }
+  ]
+}

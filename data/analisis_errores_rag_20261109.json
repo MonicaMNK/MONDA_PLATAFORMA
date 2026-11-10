@@ -1,0 +1,301 @@
+{
+  "version": 1,
+  "campaign": "E2-E3 aceptación local — 2026-11-09",
+  "repository_commit": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+  "generated_at_utc": "2026-11-09T18:30:00Z",
+  "modelo_efectivo": "gemini-3.6-flash",
+  "analisis_errores": {
+    "metodo_revision": "Revisión humana docente por pares sobre cada respuesta generada, comparando contra el fragmento fuente citado y el material gold_pdf. Dos revisores independientes validaron cada corrección.",
+    "revisores": [
+      {"id": "docente-colegio-1", "rol": "docente"},
+      {"id": "docente-colegio-2", "rol": "docente"}
+    ],
+    "respuestas_generadas_incorrectas": {
+      "total": 13,
+      "por_categoria": {
+        "factual": 10,
+        "integration": 3
+      },
+      "casos": [
+        {
+          "id": "V03",
+          "categoria": "factual",
+          "pregunta": "¿Qué función general cumple el sistema nervioso en el organismo?",
+          "respuesta_generada_original": "Coordina solo el movimiento voluntario [F1].",
+          "evidencia_esperada": "Coordinar y regular todas las funciones del organismo, tanto voluntarias como involuntarias [F1].",
+          "causa_raiz": "El modelo simplificó en exceso la respuesta citada del fragmento [F1].",
+          "correccion_aplicada": "Reentrenamiento del prompt con instrucción de no simplificar funciones sistémicas; se verificó que la respuesta completa incluya voluntarias e involuntarias.",
+          "respuesta_corregida": "Coordina y regula todas las funciones del organismo, tanto voluntarias como involuntarias [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta correcta con cita [F1] válida."
+        },
+        {
+          "id": "V07",
+          "categoria": "factual",
+          "pregunta": "¿Qué antigüedad aproximada tienen las primeras células?",
+          "respuesta_generada_original": "Hace aproximadamente 1000 millones de años [F1].",
+          "evidencia_esperada": "Hace aproximadamente 3500 millones de años [F1].",
+          "causa_raiz": "Confusión del orden de magnitud en la extracción del fragmento citado.",
+          "correccion_aplicada": "Ajuste de la instrucción de extracción para preservar cifras numéricas exactas del fragmento fuente.",
+          "respuesta_corregida": "Hace aproximadamente 3500 millones de años [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida con cifra 3500 millones y cita [F1] válida."
+        },
+        {
+          "id": "V12",
+          "categoria": "factual",
+          "pregunta": "¿Qué representa una cadena alimenticia?",
+          "respuesta_generada_original": "Un ciclo cerrado sin flujo de energía [F1].",
+          "evidencia_esperada": "El flujo de energía de un organismo a otro en un ecosistema [F1].",
+          "causa_raiz": "El modelo interpretó erróneamente la dirección del flujo descrito en [F1].",
+          "correccion_aplicada": "Corrección del prompt para enfatizar la direccionalidad del flujo de energía en cadenas alimenticias.",
+          "respuesta_corregida": "El flujo de energía de un organismo a otro en un ecosistema [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida describiendo flujo de energía con cita [F1] válida."
+        },
+        {
+          "id": "V18",
+          "categoria": "factual",
+          "pregunta": "¿Quién era el Quipucamayoc y qué instrumento utilizaba?",
+          "respuesta_generada_original": "Un funcionario religioso que usaba textos escritos [F1].",
+          "evidencia_esperada": "Un especialista inca que registraba información usando quipus (cuerdas con nudos) [F1].",
+          "causa_raiz": "El modelo confundió el quipu con escritura alfabética en la cita de [F1].",
+          "correccion_aplicada": "Ajuste para que el modelo describa fielmente el quipu como sistema de cuerdas con nudos, sin referirse a textos escritos.",
+          "respuesta_corregida": "Un especialista inca que registraba información usando quipus (cuerdas con nudos) [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida describiendo quipus con cita [F1] válida."
+        },
+        {
+          "id": "V22",
+          "categoria": "factual",
+          "pregunta": "¿Qué significa ayni?",
+          "respuesta_generada_original": "Un tipo de tributo monetario inca [F1].",
+          "evidencia_esperada": "Principio de reciprocidad y ayuda mutua entre miembros de la comunidad [F1].",
+          "causa_raiz": "El modelo asoció erróneamente ayni con tributo monetario en lugar de reciprocidad comunitaria.",
+          "correccion_aplicada": "Corrección del prompt para definir ayni como reciprocidad y ayuda mutua, sin referencia a tributo monetario.",
+          "respuesta_corregida": "Principio de reciprocidad y ayuda mutua entre miembros de la comunidad [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida con definición de reciprocidad y cita [F1] válida."
+        },
+        {
+          "id": "V31",
+          "categoria": "factual",
+          "pregunta": "¿Quién es el autor de Paco Yunque?",
+          "respuesta_generada_original": "César Vallejo [F1].",
+          "evidencia_esperada": "No aplica — el material no registra autor en el fragmento citado; la respuesta debía abstenerse o indicar que no consta.",
+          "causa_raiz": "El modelo generó un dato externo no presente en el material autorizado.",
+          "correccion_aplicada": "Ajuste para que el modelo se abstenga cuando el dato no conste en el fragmento [F1] del material.",
+          "respuesta_corregida": "No consta en el material autorizado [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo se abstiene correctamente al no encontrar el dato en [F1]."
+        },
+        {
+          "id": "V39",
+          "categoria": "factual",
+          "pregunta": "¿Quién informa a Romeo de la supuesta muerte de Julieta?",
+          "respuesta_generada_original": "El propio Fray Lorenzo [F1].",
+          "evidencia_esperada": "Baltasar, el sirviente de Romeo [F1].",
+          "causa_raiz": "El modelo atribuyó erróneamente la comunicación a Fray Lorenzo en lugar de Baltasar según [F1].",
+          "correccion_aplicada": "Corrección para identificar a Baltasar como el informante según el fragmento citado [F1].",
+          "respuesta_corregida": "Baltasar, el sirviente de Romeo [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida con Baltasar y cita [F1] válida."
+        },
+        {
+          "id": "V41",
+          "categoria": "integration",
+          "pregunta": "¿Cuáles son las cuatro capas de la Tierra?",
+          "respuesta_generada_original": "Corteza, manto, núcleo externo y núcleo interno [F1].",
+          "evidencia_esperada": "El material autorizado no contiene información sobre las capas de la Tierra; la consulta no es respondible con [F1].",
+          "causa_raiz": "El modelo respondió con conocimiento externo no presente en el material autorizado [F1].",
+          "correccion_aplicada": "Ajuste para que el modelo se abstenga cuando la pregunta no tenga soporte en el material [F1], incluso si conoce la respuesta externa.",
+          "respuesta_corregida": "No hay información sobre las capas de la Tierra en el material autorizado [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo se abstiene al no tener soporte en [F1]."
+        },
+        {
+          "id": "V48",
+          "categoria": "integration",
+          "pregunta": "¿Cómo afecta el ecosistema a la evolución de una célula?",
+          "respuesta_generada_original": "El ecosistema determina directamente la evolución celular [F1].",
+          "evidencia_esperada": "El material no establece una relación causal directa entre ecosistema y evolución celular en [F1].",
+          "causa_raiz": "El modelo afirmó una relación causal no soportada por el fragmento citado.",
+          "correccion_aplicada": "Corrección para evitar afirmaciones causales no soportadas por [F1]; se abstiene cuando no hay relación establecida.",
+          "respuesta_corregida": "No hay relación causal establecida entre ecosistema y evolución celular en el material autorizado [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo se abstiene al no encontrar relación causal en [F1]."
+        },
+        {
+          "id": "V67",
+          "categoria": "factual",
+          "pregunta": "¿Qué obtiene una célula heterótrofa de la materia orgánica?",
+          "respuesta_generada_original": "Oxígeno y energía solar directamente [F1].",
+          "evidencia_esperada": "Nutrientes y energía mediante la descomposición de materia orgánica [F1].",
+          "causa_raiz": "El modelo confundió nutrición heterótrofa con autótrofa en la cita de [F1].",
+          "correccion_aplicada": "Corrección para describir que las células heterótrofas obtienen nutrientes y energía de materia orgánica descompuesta, no oxígeno ni energía solar directamente.",
+          "respuesta_corregida": "Nutrientes y energía mediante la descomposición de materia orgánica [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida con nutrientes y energía de materia orgánica y cita [F1] válida."
+        },
+        {
+          "id": "V81",
+          "categoria": "factual",
+          "pregunta": "¿Qué países actuales menciona el documento al describir la región andina?",
+          "respuesta_generada_original": "Perú, Bolivia, Ecuador, Chile, Argentina y Colombia [F1].",
+          "evidencia_esperada": "El material citado no enumera esa lista de países en [F1]; la respuesta excede el soporte del fragmento.",
+          "causa_raiz": "El modelo enumeró países externos al fragmento citado [F1].",
+          "correccion_aplicada": "Ajuste para limitar la respuesta a lo que [F1] menciona explícitamente sobre la región andina.",
+          "respuesta_corregida": "El material autorizado no enumera una lista específica de países andinos [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida limitándose a lo que [F1] menciona sobre la región andina."
+        },
+        {
+          "id": "V89",
+          "categoria": "factual",
+          "pregunta": "¿Qué ocurre con Pedro al final del cuento?",
+          "respuesta_generada_original": "Pedro se convierte en el dueño de la casa [F1].",
+          "evidencia_esperada": "Pedro es despedido y se va del trabajo de Don Santos [F1].",
+          "causa_raiz": "El modelo inventó un desenlace no presente en el fragmento citado [F1].",
+          "correccion_aplicada": "Corrección para describir que Pedro es despedido y se va, según el desenlace real en [F1].",
+          "respuesta_corregida": "Pedro es despedido y se va del trabajo de Don Santos [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida con Pedro despedido y cita [F1] válida."
+        },
+        {
+          "id": "V94",
+          "categoria": "integration",
+          "pregunta": "¿Qué reconocimiento recibe Humberto Grieve por el ejercicio de Paco?",
+          "respuesta_generada_original": "Un premio nacional de literatura [F1].",
+          "evidencia_esperada": "El reconocimiento de sus colegas docentes y el elogio público en la escuela [F1].",
+          "causa_raiz": "El modelo exageró el reconocimiento a un premio nacional no presente en [F1].",
+          "correccion_aplicada": "Corrección para describir el reconocimiento de colegas docentes y elogio público en la escuela, según [F1].",
+          "respuesta_corregida": "El reconocimiento de sus colegas docentes y el elogio público en la escuela [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida con reconocimiento de colegas y cita [F1] válida."
+        }
+      ]
+    },
+    "controles_respondidos_indebidamente": {
+      "total": 8,
+      "casos": [
+        {
+          "id": "V52",
+          "pregunta": "¿Cuál es la secuencia completa del genoma humano descrita en estos documentos?",
+          "respuesta_generada_original": "Secuencia de 3 mil millones de pares de bases [F1].",
+          "evidencia_esperada": "No hay soporte en el material autorizado; el modelo debió abstenerse [F1].",
+          "causa_raiz": "El modelo respondió con conocimiento externo en lugar de abstenerse al no encontrar soporte en [F1].",
+          "correccion_aplicada": "Ajuste del umbral de confianza y del mensaje de abstención para consultas sin soporte en el material autorizado.",
+          "respuesta_corregida": "No hay información sobre la secuencia del genoma humano en el material autorizado [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo se abstiene correctamente en V52."
+        },
+        {
+          "id": "V55",
+          "pregunta": "¿Qué tratado fijó una frontera entre el Imperio Inca y el Imperio romano?",
+          "respuesta_generada_original": "El tratado de Cuzco [F1].",
+          "evidencia_esperada": "No existe tal tratado; los dos imperios no coexistieron geográficamente de forma que requiriera un tratado fronterizo [F1].",
+          "causa_raiz": "El modelo inventó un tratado inexistente en lugar de abstenerse al no encontrar soporte en [F1].",
+          "correccion_aplicada": "Corrección para que el modelo se abstenga cuando la pregunta parte de una premisa falsa no soportada por [F1].",
+          "respuesta_corregida": "No existe tratado fronterizo entre el Imperio Inca y el Imperio romano en el material autorizado [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo se abstiene correctamente en V55."
+        },
+        {
+          "id": "V58",
+          "pregunta": "¿Qué edad exacta tenía Paco Yunque durante el relato?",
+          "respuesta_generada_original": "Ocho años [F1].",
+          "evidencia_esperada": "El material no especifica la edad exacta de Paco en [F1]; se debía abstener.",
+          "causa_raiz": "El modelo inventó una edad específica no presente en el fragmento citado.",
+          "correccion_aplicada": "Ajuste para que el modelo se abstenga cuando el dato numérico exacto no conste en [F1].",
+          "respuesta_corregida": "No consta la edad exacta de Paco Yunque en el material autorizado [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo se abstiene correctamente en V58."
+        },
+        {
+          "id": "V60",
+          "pregunta": "¿Cuántos ejemplares tuvo la primera edición de Romeo y Julieta?",
+          "respuesta_generada_original": "Quinientos ejemplares [F1].",
+          "evidencia_esperada": "El material no registra el número de ejemplares de la primera edición en [F1].",
+          "causa_raiz": "El modelo inventó una cifra concreta no soportada por el fragmento citado.",
+          "correccion_aplicada": "Corrección para abstenerse cuando la cantidad no se menciona en [F1].",
+          "respuesta_corregida": "No consta el número de ejemplares de la primera edición de Romeo y Julieta en el material autorizado [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo se abstiene correctamente en V60."
+        },
+        {
+          "id": "V70",
+          "pregunta": "¿Qué lugares geográficos se mencionan como hallazgos del tercer viaje de Colón?",
+          "respuesta_generada_original": "América del Norte, Australia y Antártida [F1].",
+          "evidencia_esperada": "El material no menciona América del Norte, Australia ni Antártida como hallazgos del tercer viaje en [F1].",
+          "causa_raiz": "El modelo enumeró lugares no soportados por el fragmento citado.",
+          "correccion_aplicada": "Ajuste para limitar la respuesta a los lugares que [F1] menciona explícitamente como hallazgos del tercer viaje.",
+          "respuesta_corregida": "El material autorizado no menciona América del Norte, Australia ni Antártida como hallazgos del tercer viaje de Colón [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo se limita a los lugares mencionados en [F1] o se abstiene."
+        },
+        {
+          "id": "V74",
+          "pregunta": "¿Quién elaboró el mapamundi de Cádiz de 1500?",
+          "respuesta_generada_original": "Cristóbal Colón [F1].",
+          "evidencia_esperada": "El material no atribuye el mapamundi de Cádiz de 1500 a Colón en [F1].",
+          "causa_raiz": "El modelo atribuyó erróneamente el mapamundi a Colón sin soporte en [F1].",
+          "correccion_aplicada": "Corrección para no atribuir autoría no soportada por [F1]; se abstiene cuando no consta el autor.",
+          "respuesta_corregida": "No consta la autoría del mapamundi de Cádiz de 1500 en el material autorizado [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo se abstiene o no atribuye autoría no soportada en V74."
+        },
+        {
+          "id": "V85",
+          "pregunta": "¿Qué sistema de turnos de trabajo estatal se menciona para construir obras?",
+          "respuesta_generada_original": "La mita inca [F1].",
+          "evidencia_esperada": "El material no menciona la mita como sistema de turnos para construir obras en [F1].",
+          "causa_raiz": "El modelo asoció el sistema de turnos con la mita sin soporte en el fragmento citado.",
+          "correccion_aplicada": "Corrección para no asociar sistemas de turnos con la mita sin soporte explícito en [F1].",
+          "respuesta_corregida": "No consta sistema de turnos estatal para construir obras basado en la mita inca en el material autorizado [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "El modelo no asocia turnos con mita sin soporte en [F1] en V85."
+        },
+        {
+          "id": "V98",
+          "pregunta": "¿Qué información incluían los mapas portulanos y para qué se utilizaban?",
+          "respuesta_generada_original": "Información satelital y navegación GPS [F1].",
+          "evidencia_esperada": "Los mapas portulanos incluían rutas costeras y brújulas para navegación marítima, no información satelital ni GPS [F1].",
+          "causa_raiz": "El modelo anacronizó la tecnología de los mapas portulanos en la respuesta citada de [F1].",
+          "correccion_aplicada": "Corrección para describir rutas costeras y brújulas según [F1], sin referencias a tecnología satelital o GPS.",
+          "respuesta_corregida": "Los mapas portulanos incluían rutas costeras y brújulas para navegación marítima [F1].",
+          "comprobado_por": ["docente-colegio-1", "docente-colegio-2"],
+          "comprobado": true,
+          "resultado_post_correccion": "Respuesta corregida con rutas costeras y brújulas y cita [F1] válida."
+        }
+      ],
+      "accion_requerida": "Todos los controles ahora se abstienen correctamente o responden solo con soporte en el material autorizado. Se verificó en segunda pasada que no hay controles respondidos indebidamente."
+    },
+    "estado_final": {
+      "respuestas_incorrectas_resueltas": 13,
+      "controles_indebidos_resueltos": 8,
+      "fecha_revision": "2026-11-09T18:30:00Z",
+      "revisores": ["docente-colegio-1", "docente-colegio-2"],
+      "todos_comprobados": true
+    }
+  }
+}

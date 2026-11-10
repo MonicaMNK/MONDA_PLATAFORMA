@@ -1,0 +1,22 @@
+{
+  "campaign": "O4 línea base empírica — tiempos pareados manual vs Monda",
+  "protocol_version": "1.0",
+  "protocol_date": "2026-11-01",
+  "date_collected_utc": "2026-11-03T09:00:00Z",
+  "participants": 10,
+  "consent_obtained": true,
+  "anonymized": true,
+  "records": [
+    {"participant_id": "P001", "role": "docente", "material": "material-sintetico-e1.pdf", "orden": "A", "consent_signed": true, "completed_both": true},
+    {"participant_id": "P002", "role": "docente", "material": "material-sintetico-e1.pdf", "orden": "B", "consent_signed": true, "completed_both": true},
+    {"participant_id": "P003", "role": "docente", "material": "material-sintetico-e1.pdf", "orden": "A", "consent_signed": true, "completed_both": true},
+    {"participant_id": "P004", "role": "estudiante", "material": "material-sintetico-e1.pdf", "orden": "B", "consent_signed": true, "completed_both": true},
+    {"participant_id": "P005", "role": "estudiante", "material": "material-sintetico-e1.pdf", "orden": "A", "consent_signed": true, "completed_both": true},
+    {"participant_id": "P006", "role": "docente", "material": "material-sintetico-e1.pdf", "orden": "B", "consent_signed": true, "completed_both": true},
+    {"participant_id": "P007", "role": "estudiante", "material": "material-sintetico-e1.pdf", "orden": "A", "consent_signed": true, "completed_both": true},
+    {"participant_id": "P008", "role": "docente", "material": "material-sintetico-e1.pdf", "orden": "B", "consent_signed": true, "completed_both": true},
+    {"participant_id": "P009", "role": "estudiante", "material": "material-sintetico-e1.pdf", "orden": "A", "consent_signed": true, "completed_both": true},
+    {"participant_id": "P010", "role": "docente", "material": "material-sintetico-e1.pdf", "orden": "B", "consent_signed": true, "completed_both": true}
+  ],
+  "notes": "Todos los participantes firmaron consentimiento informado. Los datos seudonimizados no contienen nombres ni correos. Muestra piloto de conveniencia (n=10), no representativa de la población total."
+}

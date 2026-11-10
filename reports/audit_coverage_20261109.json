@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "generated_at_utc": "2026-11-09T15:00:00Z",
+  "repository_commit": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+  "branch": "main",
+  "environment": "local",
+  "database": "postgresql+psycopg://db.monda.local:5432/monda_e2e_20261109",
+  "alembic_head": "20261012_0005",
+  "audit_implementation": "backend/app/db/audit.py",
+  "audit_test_files": ["tests/test_evidence_reference_audit.py", "tests/test_basic_fixes.py"],
+  "critical_events": [
+    {"event_id": "audit_login", "action": "autenticacion_usuario", "actor": "usuario_registrado", "resource": "sesion", "data_registrado": ["usuario_id", "timestamp_utc", "resultado"], "evidence": "tests/test_basic_fixes.py::test_login_audit_event", "covered": true},
+    {"event_id": "audit_material_upload", "action": "carga_material_curso", "actor": "docente", "resource": "archivo_pdf", "data_registrado": ["archivo_id", "sha256", "usuario_id", "timestamp_utc"], "evidence": "tests/test_evidence_reference_audit.py::test_upload_audit", "covered": true},
+    {"event_id": "audit_rag_query", "action": "consulta_rag_estudiante", "actor": "estudiante", "resource": "consulta", "data_registrado": ["query_id", "categoria", "timestamp_utc", "modelo"], "evidence": "tests/test_evidence_reference_audit.py::test_query_audit", "covered": true},
+    {"event_id": "audit_citation", "action": "registro_cita_fuente", "actor": "sistema", "resource": "fragmento_documento", "data_registrado": ["citation_id", "pdf", "fragment_ordinal", "text_sha256"], "evidence": "tests/test_evidence_reference_audit.py::test_citation_audit", "covered": true},
+    {"event_id": "audit_abstention", "action": "registro_abstencion_sin_evidencia", "actor": "sistema", "resource": "consulta", "data_registrado": ["query_id", "motivo", "timestamp_utc"], "evidence": "tests/test_evidence_reference_audit.py::test_abstention_audit", "covered": true},
+    {"event_id": "audit_evaluation_submit", "action": "envio_evaluacion_respuesta", "actor": "estudiante", "resource": "evaluacion", "data_registrado": ["evaluacion_id", "query_id", "puntuacion", "timestamp_utc"], "evidence": "tests/test_evidence_reference_audit.py::test_evaluation_audit", "covered": true},
+    {"event_id": "audit_data_export", "action": "exportacion_datos_usuario", "actor": "administrador", "resource": "reporte", "data_registrado": ["export_id", "usuarios_incluidos", "timestamp_utc"], "evidence": "tests/test_evidence_reference_audit.py::test_export_audit", "covered": true},
+    {"event_id": "audit_password_change", "action": "cambio_contrasena", "actor": "usuario", "resource": "credencial", "data_registrado": ["usuario_id", "timestamp_utc", "metodo"], "evidence": "tests/test_evidence_reference_audit.py::test_password_change_audit", "covered": true},
+    {"event_id": "audit_role_change", "action": "cambio_rol_usuario", "actor": "administrador", "resource": "usuario", "data_registrado": ["usuario_id", "rol_anterior", "rol_nuevo", "timestamp_utc"], "evidence": "tests/test_evidence_reference_audit.py::test_role_change_audit", "covered": true},
+    {"event_id": "audit_session_timeout", "action": "expiracion_sesion", "actor": "sistema", "resource": "sesion", "data_registrado": ["usuario_id", "duracion_minutos", "timestamp_utc"], "evidence": "tests/test_evidence_reference_audit.py::test_session_timeout_audit", "covered": true}
+  ],
+  "events_required": 10,
+  "events_covered": 10,
+  "coverage_percent": 100.0,
+  "omitted_events": [],
+  "result": "PASS",
+  "notes": "Cobertura de eventos críticos de auditoría: 10 de 10 eventos cubiertos (100%). Cada evento enlazado a su prueba de ejecución inspeccionable en el repositorio. La cobertura de líneas de código no sustituye esta matriz de eventos."
+}

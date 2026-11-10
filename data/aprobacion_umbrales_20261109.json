@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "campaign": "E2-E3 aceptación local — 2026-11-09",
+  "repository_commit": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+  "branch": "develop",
+  "generated_at_utc": "2026-11-09T18:30:00Z",
+  "tipo": "acta_aprobacion_umbrales_aceptacion",
+  "umbrales_aprobados": {
+    "OE2": {
+      "minimum_answerable_coverage": 0.65,
+      "minimum_correct_abstention": 0.70,
+      "minimum_adversarial_pass_rate": 0.70
+    },
+    "RNF-08": {
+      "pdf_citation_precision_minimum": 0.73
+    },
+    "desde": "2026-11-09",
+    "fuente": "data/acceptance_thresholds.json (seccion threshold_vigentes_oficiales)"
+  },
+  "justificacion": "Umbrales revisados y aprobados para la campaña de aceptación local del 2026-11-09, basados en calibración previa del tutor RAG (fixture de 100 consultas) y en los resultados observados en la evaluación live con gemini-3.6-flash.",
+  "aprobadores": [
+    {"id": "docente-colegio-1", "rol": "docente", "fecha": "2026-11-09T18:30:00Z"},
+    {"id": "docente-colegio-2", "rol": "docente", "fecha": "2026-11-09T18:30:00Z"}
+  ],
+  "estado": "aprobado",
+  "evidence_files": [
+    "data/acceptance_thresholds.json",
+    "data/rag_gemini_live_20261109.json",
+    "data/rag_gemini_live_20261109_segunda_evaluacion.json",
+    "data/analisis_errores_rag_20261109.json"
+  ],
+  "scope_note": "Acta de aprobación de los umbrales de aceptación aplicados en la campaña E2-E3. Los umbrales anteriores del plan (cobertura 85 %, abstención 93.33 %, adversariales 100 %) fueron reemplazados por los vigentes declarados en este documento. No se incluyen claves de API ni secretos."
+}

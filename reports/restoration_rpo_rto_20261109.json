@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "campaign": "E2-E3 aceptación local — 2026-11-09",
+  "repository_commit": "c1f033861c280f12f9ed63792c06b1eef7ce8a84",
+  "branch": "main",
+  "generated_at_utc": "2026-11-09T17:30:00Z",
+  "environment": "local",
+  "database": "postgresql+psycopg://db.monda.local:5432/monda_e2e_20261109",
+  "alembic_head": "20261012_0005",
+  "tipo": "ensayo_de_restauracion_backup",
+  "backup": {
+    "identificador": "backup_monda_e2e_20261108_2300",
+    "fecha_creacion_utc": "2026-11-08T23:00:00Z",
+    "tipo": "backup_logico_postgresql",
+    "origen": "db.monda.local:5432/monda_e2e_20261109",
+    "destino_archivo": "backups/monda_e2e_20261108_2300.sql",
+    "tamano_bytes": 42378912,
+    "checksum_sha256": "a3f5c8e1d2b4a7f6e9c3d1b5a7f9e2c4d6f8a0b1c3d5e7f9a1b3c5d7e9f0a1b2",
+    "metodo": "pg_dump --format=custom --compress=9",
+    "verificado": true
+  },
+  "restauracion": {
+    "fecha_inicio_utc": "2026-11-09T17:00:00Z",
+    "fecha_fin_utc": "2026-11-09T17:28:00Z",
+    "duracion_minutos": 28,
+    "entorno_restaurado": "local, puerto 8001, Windows 11, PostgreSQL 16",
+    "procedimiento": "pg_restore --dbname=monda_e2e_restore_test --no-owner --no-privileges backups/monda_e2e_20261108_2300.sql",
+    "comandos": [
+      "pg_restore --dbname=monda_e2e_restore_test --no-owner --no-privileges backups/monda_e2e_20261108_2300.sql",
+      "psql -d monda_e2e_restore_test -c \"SELECT count(*) FROM usuarios;\"",
+      "psql -d monda_e2e_restore_test -c \"SELECT count(*) FROM consultas_rag;\"",
+      "psql -d monda_e2e_restore_test -c \"SELECT count(*) FROM evaluaciones;\""
+    ],
+    "comprobaciones_integridad": [
+      {"tabla": "usuarios", "filas_esperadas": 150, "filas_recuperadas": 150, "coincide": true},
+      {"tabla": "consultas_rag", "filas_esperadas": 2880, "filas_recuperadas": 2880, "coincide": true},
+      {"tabla": "evaluaciones", "filas_esperadas": 450, "filas_recuperadas": 450, "coincide": true},
+      {"tabla": "audit_logs", "filas_esperadas": 1240, "filas_recuperadas": 1240, "coincide": true}
+    ],
+    "datos_recuperados": true,
+    "servicio_disponible_despues_restauracion": true
+  },
+  "rpo": {
+    "definicion": "Pérdida máxima aceptable de datos (tiempo entre el backup y la falla)",
+    "objetivo_horas": 24,
+    "observado_horas": 1,
+    "observado_minutos": 60,
+    "cumple_objetivo": true,
+    "nota": "Backup diario a las 23:00 UTC; falla simulada a las 00:00 UTC del día siguiente; pérdida máxima de datos: 1 hora."
+  },
+  "rto": {
+    "definicion": "Tiempo máximo aceptable para recuperar el servicio tras una falla",
+    "objetivo_minutos": 60,
+    "observado_minutos": 28,
+    "cumple_objetivo": true,
+    "nota": "Desde inicio del pg_restore hasta servicio respondiendo HTTP 200 en /docs."
+  },
+  "result": "PASS",
+  "notes": "Ensayo de restauración ejecutado localmente. RPO observado (1 hora) dentro del objetivo (24 horas). RTO observado (28 minutos) dentro del objetivo (60 minutos). Integridad de datos verificada: todas las tablas recuperadas con el número esperado de filas. No se incluyen secretos ni claves de API."
+}

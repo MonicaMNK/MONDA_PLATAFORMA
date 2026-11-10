@@ -35,8 +35,8 @@ class Settings:
 
     rag_mode: str = os.getenv("RAG_MODE", "auto").lower()
     rag_allow_fallback: bool = _bool("RAG_ALLOW_FALLBACK", True)
-    rag_top_k: int = int(os.getenv("RAG_TOP_K", "1"))
-    rag_similarity_threshold: float = float(os.getenv("RAG_SIMILARITY_THRESHOLD", "0.69"))
+    rag_top_k: int = int(os.getenv("RAG_TOP_K", "2"))
+    rag_similarity_threshold: float = float(os.getenv("RAG_SIMILARITY_THRESHOLD", "0.65"))
     rag_minimum_score_margin: float = float(os.getenv("RAG_MINIMUM_SCORE_MARGIN", "0.0"))
     rag_candidate_multiplier: int = int(os.getenv("RAG_CANDIDATE_MULTIPLIER", "4"))
 

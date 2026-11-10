@@ -45,6 +45,7 @@ MARGIN_CANDIDATES = (0.0, 0.02, 0.05, 0.10, 0.15)
 #     los vectores ya calculados, sin re-vectorizar las 100 consultas).
 MIN_COVERAGE_REQUIRED = 0.70
 TARGET_ABSTENTION = 0.50
+MIN_INTEGRATION_COVERAGE = 0.50
 # Regla de decisión de "evidencia suficiente":
 #   "top1"  = histórico: acepta si el mejor cosíneo >= umbral (y cumple el
 #     margen mínimo si se indica).
@@ -58,13 +59,14 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def load_inputs() -> tuple[dict, list[dict], dict[str, str], str]:
-    fixture_bytes = FIXTURE_PATH.read_bytes()
+def load_inputs(fixture_path: Path | None = None) -> tuple[dict, list[dict], dict[str, str], str]:
+    if fixture_path is None:
+        fixture_path = DATA_DIR / "rag_calibration_integration_20261109.json"
+    fixture_bytes = fixture_path.read_bytes()
     fixture = json.loads(fixture_bytes)
     queries = fixture["queries"]
-    if len(queries) != 100 or sum(query["answerable"] for query in queries) != 80:
-        raise ValueError(
-            "El fixture debe contener 80 consultas respondibles y 20 controles.")
+    answerable_count = sum(query["answerable"] for query in queries)
+    control_count = len(queries) - answerable_count
 
     fragments = []
     pdf_hashes = {}
@@ -95,10 +97,10 @@ def load_inputs() -> tuple[dict, list[dict], dict[str, str], str]:
     if len(fragments) != 118 or len(pdf_hashes) != 9:
         raise ValueError(
             f"Corpus inesperado: {len(fragments)} fragmentos, {len(pdf_hashes)} PDFs.")
-    return fixture, fragments, pdf_hashes, sha256(fixture_bytes)
+    return fixture, fragments, pdf_hashes, sha256(fixture_bytes), answerable_count, control_count
 
 
-def initial_artifact(settings, fixture: dict, fragments: list[dict], pdf_hashes: dict[str, str], fixture_hash: str) -> dict:
+def initial_artifact(settings, fixture: dict, fragments: list[dict], pdf_hashes: dict[str, str], fixture_hash: str, answerable_count: int, control_count: int) -> dict:
     try:
         commit = subprocess.run(
             ["git", "rev-parse", "HEAD"], cwd=ROOT, check=True,
@@ -119,8 +121,8 @@ def initial_artifact(settings, fixture: dict, fragments: list[dict], pdf_hashes:
             "source_pdf_sha256": pdf_hashes,
             "pdf_count": len(pdf_hashes),
             "query_count": len(fixture["queries"]),
-            "answerable_count": 80,
-            "unanswerable_control_count": 20,
+            "answerable_count": answerable_count,
+            "unanswerable_control_count": control_count,
             "fragment_count": len(fragments),
             "document_prefix": "title: none | text: ",
             "query_prefix": "task: question answering | query: ",
@@ -241,19 +243,69 @@ def decide_mean_topk(results: list[tuple], top_k: int, threshold: float,
 DECIDE_FNS = {"top1": decide_top1, "meantopk": decide_mean_topk}
 
 
+def _category_metrics(queries: list[dict]) -> dict:
+    """Devuelve los conjuntos de índices por categoría para métricas desglosadas."""
+    cats = {"factual": [], "integration": [], "no_evidence": [], "adversarial": []}
+    for index, query in enumerate(queries):
+        cat = query.get("category", "factual")
+        if cat in cats:
+            cats[cat].append(index)
+    return cats
+
+
+def _integration_recall_at_k(ranked: list[list[tuple]], index: int, top_k: int,
+                             required_fragments: list[dict]) -> float:
+    """Recall@k de los fragmentos requeridos para una consulta de integración.
+
+    Calcula cuántos de los fragmentos obligatorios aparecen entre los top-k
+    recuperados para esa consulta. Retorna 0 si no hay fragmentos requeridos.
+    """
+    if not required_fragments:
+        return 0.0
+    retrieved = {(filename, ordinal) for _, filename, ordinal in ranked[:top_k]}
+    required = {(f["pdf"], f["fragment_ordinal"]) for f in required_fragments}
+    if not required:
+        return 0.0
+    hits = len(retrieved & required)
+    return hits / len(required)
+
+
 def evaluate(indices, config_for, queries, ranked, decide_fn=None) -> dict:
     if decide_fn is None:
         decide_fn = DECIDE_FNS[EVIDENCE_RULE]
     answerable_total = sum(queries[index]["answerable"] for index in indices)
     control_total = len(indices) - answerable_total
     covered = correct_abstentions = citation_hits = citation_total = false_answers = 0
+    factual_covered = factual_total = 0
+    integration_covered = integration_total = 0
+    integration_recall_sum = 0.0
+    integration_recall_count = 0
+    cats = _category_metrics(queries)
+    cat_indices = set(indices)
     for index in indices:
         query = queries[index]
         top_k, threshold, min_margin = config_for(index)
         results = ranked[index]
         accepted = bool(decide_fn(results, top_k, threshold, min_margin))
+        cat = query.get("category", "factual")
         if query["answerable"] and accepted:
             covered += 1
+            if cat == "factual":
+                factual_covered += 1
+                factual_total += 1
+            elif cat == "integration":
+                integration_covered += 1
+                integration_total += 1
+                req = query.get("required_fragments", [])
+                integration_recall_sum += _integration_recall_at_k(
+                    ranked, index, top_k, req)
+                integration_recall_count += 1
+        if query["answerable"] and not accepted:
+            if cat == "factual":
+                factual_total += 1
+            elif cat == "integration":
+                integration_total += 1
+                integration_recall_count += 1
         if not query["answerable"]:
             if accepted:
                 false_answers += 1
@@ -266,6 +318,10 @@ def evaluate(indices, config_for, queries, ranked, decide_fn=None) -> dict:
                 citation_hits += sum(filename == query["gold_pdf"]
                                      for _, filename, _ in selected)
 
+    factual_cov = factual_covered / factual_total if factual_total else 0.0
+    integration_cov = integration_covered / integration_total if integration_total else 0.0
+    integration_recall = (integration_recall_sum / integration_recall_count
+                          if integration_recall_count else 0.0)
     coverage = covered / answerable_total if answerable_total else 0.0
     abstention = correct_abstentions / control_total if control_total else 0.0
     precision = citation_hits / citation_total if citation_total else 0.0
@@ -277,6 +333,9 @@ def evaluate(indices, config_for, queries, ranked, decide_fn=None) -> dict:
         "citations_emitted": citation_total,
         "correct_citations": citation_hits,
         "balanced_score_equal_weight": (coverage + abstention + precision) / 3,
+        "factual_coverage": factual_cov,
+        "integration_coverage": integration_cov,
+        "integration_recall_at_k": integration_recall,
     }
 
 
@@ -286,21 +345,26 @@ def _select_calibration_config(candidates: list[tuple]) -> tuple:
     Reglas:
       1. answer_coverage (índice 3) >= MIN_COVERAGE_REQUIRED: cobertura de
          consultas respondibles no puede bajar del 70 % (restricción dura).
-      2. Entre las que cumplen el piso, maximiza correct_abstention (índice 2):
-         sube el % de controles correctamente abstendos (meta del informe: 50 %;
-         se alcanza lo máximo factible con los vectores existentes).
-      3. Desempates: mayor citation_precision_pdf (índice 1), luego k menor
-         (índice 5 = -k), luego umbral menor (índice 6 = -umbral), luego
-         margen menor (índice 7 = -margin).
-      4. Si ninguna candidata cumple el piso de cobertura, se relaja la
-         restricción y se elige por balanced_score_equal_weight (red de
+      2. integration_coverage (índice 10) >= MIN_INTEGRATION_COVERAGE:
+         cobertura de preguntas de integración no puede bajar del 50 %
+         (restricción dura para calibración con integración).
+      3. Entre las que cumplen ambos pisos, maximiza correct_abstention
+         (índice 2): sube el % de controles correctamente abstendos.
+      4. Desempates: mayor citation_precision_pdf (índice 1), luego
+         mayor integration_recall_at_k (índice 11), luego k menor
+         (índice 5 = -k), luego umbral menor (índice 6 = -umbral),
+         luego margen menor (índice 7 = -margin).
+      5. Si ninguna candidata cumple ambos pisos, se relaja la restricción
+         de integración y se elige por balanced_score_equal_weight (red de
          seguridad).
     """
-    valid = [c for c in candidates if c[3] >= MIN_COVERAGE_REQUIRED]
-    pool = valid if valid else candidates
+    valid = [c for c in candidates
+             if c[3] >= MIN_COVERAGE_REQUIRED and c[4] >= MIN_INTEGRATION_COVERAGE]
+    pool = valid if valid else [c for c in candidates if c[3] >= MIN_COVERAGE_REQUIRED]
+    pool = pool if pool else candidates
     return max(
         pool,
-        key=lambda c: (c[2], c[1], c[5], c[6], c[7]),
+        key=lambda c: (c[2], c[1], c[11], c[5], c[6], c[7]),
     )
 
 
@@ -325,7 +389,8 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
 
     strata = defaultdict(list)
     for index, query in enumerate(queries):
-        key = (query["course"], query["answerable"],
+        key = (query["course"], query.get("category", "factual"),
+               query["answerable"],
                query["gold_pdf"] if query["answerable"] else None)
         strata[key].append(index)
     fold_of = {}
@@ -353,15 +418,17 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
                         metrics["citation_precision_pdf"],
                         metrics["correct_abstention"],
                         metrics["answer_coverage"],
+                        metrics["integration_coverage"],
                         -top_k,
                         -threshold,
                         -margin,
                         top_k,
                         threshold,
                         margin,
+                        metrics["integration_recall_at_k"],
                     ))
         best = _select_calibration_config(candidates)
-        selected = (best[-3], best[-2], best[-1])
+        selected = (best[8], best[9], best[10])
         for index in test:
             oof_config[index] = selected
         fold_results.append({
@@ -387,12 +454,14 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
                     metrics["citation_precision_pdf"],
                     metrics["correct_abstention"],
                     metrics["answer_coverage"],
+                    metrics["integration_coverage"],
                     -top_k,
                     -threshold,
                     -margin,
                     top_k,
                     threshold,
                     margin,
+                    metrics["integration_recall_at_k"],
                     metrics,
                 ))
     best_full = _select_calibration_config(full_candidates)
@@ -429,21 +498,24 @@ def calibrate(artifact: dict, fragments: list[dict], fixture: dict) -> dict:
             "minimum_score_margin_candidates": list(MARGIN_CANDIDATES),
             "selection_objective": (
                 "maximize correct abstention subject to answer_coverage >= "
-                f"{MIN_COVERAGE_REQUIRED:.0%}; ties broken by citation "
-                "precision, then smaller k, threshold and margin"
+                f"{MIN_COVERAGE_REQUIRED:.0%} AND integration_coverage >= "
+                f"{MIN_INTEGRATION_COVERAGE:.0%}; ties broken by citation "
+                "precision, integration recall@k, then smaller k, threshold "
+                "and margin"
             ),
             "coverage_floor": MIN_COVERAGE_REQUIRED,
+            "integration_coverage_floor": MIN_INTEGRATION_COVERAGE,
             "target_abstention": TARGET_ABSTENTION,
             "evidence_rule": EVIDENCE_RULE,
-            "scope": "course-restricted retrieval over pypdf-extracted 512-token chunks with 50-token overlap",
+            "scope": "course-restricted retrieval over pypdf-extracted 512-token chunks with 50-token overlap; stratification by (course, category, answerable, gold_pdf)",
         },
         "folds": fold_results,
         "out_of_fold_metrics": out_of_fold_metrics,
         "full_dataset_selected_config_in_sample": {
-            "k": best_full[-4],
-            "cosine_threshold": best_full[-3],
-            "minimum_score_margin": best_full[-2],
-            "metrics_in_sample_not_generalization": best_full[-1],
+            "k": best_full[8],
+            "cosine_threshold": best_full[9],
+            "minimum_score_margin": best_full[10],
+            "metrics_in_sample_not_generalization": best_full[12],
         },
         "out_of_fold_predictions": predictions,
         "citation_metric_limit": "Citation precision is evaluated at PDF-source level because the fixture gold labels identify PDFs, not pages or exact supporting fragments.",
@@ -455,6 +527,8 @@ def main() -> None:
         description="Calibra k y umbral coseno del RAG con Gemini y conserva evidencia reproducible.")
     parser.add_argument("--resume", action="store_true",
                         help="Reanuda desde el artefacto parcial verificado.")
+    parser.add_argument("--fixture", default=None,
+                        help="Ruta al banco de calibración (fixture). Por defecto usa data/rag_calibration_integration_20261109.json.")
     args = parser.parse_args()
 
     from backend.app.core.config import settings
@@ -464,7 +538,8 @@ def main() -> None:
         raise SystemExit(
             "Falta GEMINI_EXTERNAL_PROCESSING_AUTHORIZED=1 para enviar los PDFs a Gemini.")
 
-    fixture, fragments, pdf_hashes, fixture_hash = load_inputs()
+    fixture_path = Path(args.fixture) if args.fixture else None
+    fixture, fragments, pdf_hashes, fixture_hash, answerable_count, control_count = load_inputs(fixture_path)
     if PARTIAL_PATH.exists():
         if not args.resume:
             raise SystemExit(
@@ -474,7 +549,8 @@ def main() -> None:
                          fixture_hash, settings.gemini_embedding_model)
     else:
         artifact = initial_artifact(
-            settings, fixture, fragments, pdf_hashes, fixture_hash)
+            settings, fixture, fragments, pdf_hashes, fixture_hash,
+            answerable_count, control_count)
         if args.resume and TEMP_CACHE_PATH.exists():
             temporary_cache = json.loads(
                 TEMP_CACHE_PATH.read_text(encoding="utf-8"))
