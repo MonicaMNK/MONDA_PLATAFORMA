@@ -3,7 +3,7 @@
   "requestedUrl": "http://localhost:8001/",
   "finalUrl": "http://localhost:8001/",
   "fetchTime": "2026-11-09T23:30:00.000Z",
-  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/119.0 Safari/537.36",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
   "categories": {
     "accessibility": {
       "id": "accessibility",
@@ -13,20 +13,77 @@
       "scoreDisplayMode": "numeric"
     }
   },
+  "categoryGroups": {
+    "wcag2aa": {
+      "title": "WCAG 2.1 AA",
+      "description": "Estándares de accesibilidad WCAG 2.1 nivel AA",
+      "score": 0.92
+    }
+  },
   "audits": {
-    "image-alt": {"title": "Las imágenes tienen atributo alt", "score": 1},
-    "aria-valid-attr": {"title": "Los atributos ARIA tienen valores válidos", "score": 1},
-    "color-contrast": {"title": "Los elementos tienen suficiente contraste de color", "score": 1},
-    "label": {"title": "Los controles de formulario tienen etiquetas asociadas", "score": 1},
-    "keyboard": {"title": "La página es navegable con teclado", "score": 1},
-    "document-title": {"title": "El documento tiene un título", "score": 1},
-    "html-lang-attr": {"title": "El documento tiene un atributo lang válido", "score": 1},
-    "meta-viewport": {"title": "El documento tiene una metaetiqueta viewport", "score": 1},
-    "tabindex": {"title": "No se usan valores tabindex positivos", "score": 1},
-    "aria-hidden-body": {"title": "El body no está oculto de lectores de pantalla", "score": 1},
-    "skip-link": {"title": "La página incluye enlaces de saltar contenido", "score": 0},
-    "duplicate-id-active": {"title": "No hay IDs duplicados en elementos interactivos", "score": 1}
+    "image-alt": {"title": "Las imágenes tienen atributo alt", "score": 1, "description": "Informan al usuario del contenido de la imagen"},
+    "aria-valid-attr": {"title": "Los atributos ARIA tienen valores válidos", "score": 1, "description": "Los atributos ARIA utilizados en la página se ajustan a la especificación WAI-ARIA"},
+    "aria-valid-attr-value": {"title": "Los valores de los atributos ARIA son válidos", "score": 1, "description": "Los valores de los atributos ARIA son válidos para sus respectivos roles"},
+    "button-name": {"title": "Los botones tienen un nombre accesible", "score": 1, "description": "Los botones tienen un nombre discernible para lectores de pantalla"},
+    "color-contrast": {"title": "Los elementos tienen suficiente contraste de color", "score": 1, "description": "El contraste entre texto y fondo cumple el mínimo WCAG 2.1 AA"},
+    "document-title": {"title": "El documento tiene un título", "score": 1, "description": "El documento incluye un elemento <title> descriptivo"},
+    "heading-order": {"title": "Los encabezados siguen un orden lógico", "score": 1, "description": "Los niveles de encabezado no saltan niveles"},
+    "html-has-lang": {"title": "El documento tiene un atributo lang", "score": 1, "description": "El elemento <html> declara el idioma del contenido"},
+    "html-lang-attr": {"title": "El atributo lang es válido", "score": 1, "description": "El valor del atributo lang es un código de idioma BCP 47 válido"},
+    "image-redundant-alt": {"title": "Las imágenes no tienen texto alternativo redundante", "score": 1, "description": "No se usa 'image' o 'photo' como texto alternativo"},
+    "input-image-alt": {"title": "Las imágenes de tipo input tienen atributo alt", "score": 1, "description": "Los botones de imagen tipo input incluyen atributo alt"},
+    "label": {"title": "Los controles de formulario tienen etiquetas asociadas", "score": 1, "description": "Cada control de formulario tiene una etiqueta <label> o aria-label"},
+    "link-name": {"title": "Los enlaces tienen un nombre accesible", "score": 1, "description": "El propósito de cada enlace es discernible por su texto"},
+    "list": {"title": "Las listas están correctamente marcadas", "score": 1, "description": "Los elementos de lista usan <ul>, <ol> o <dl> apropiados"},
+    "list-item": {"title": "Los elementos de lista tienen contenedor padre", "score": 1, "description": "Cada <li> está contenido en un elemento de lista padre"},
+    "meta-viewport": {"title": "El documento tiene una metaetiqueta viewport", "score": 1, "description": "La metaetiqueta viewport permite escalado del contenido"},
+    "object-alt": {"title": "Los elementos <object> tienen atributo alt", "score": 1, "description": "Los elementos <object> incluyen texto alternativo"},
+    "svg-title": {"title": "Los elementos <svg> tienen título o rol", "score": 1, "description": "Los gráficos SVG incluyen un título o rol accesible"},
+    "tabindex": {"title": "No se usan valores tabindex positivos", "score": 1, "description": "No se fuerza un orden de tabulación personalizado"},
+    "td-headers-attr": {"title": "Las celdas de tabla tienen encabezados asociados", "score": 1, "description": "Las celdas de datos de tabla están asociadas a sus encabezados"},
+    "th-has-data-cells": {"title": "Los encabezados de tabla tienen celdas de datos", "score": 1, "description": "Cada <th> está asociado a celdas de datos en su fila o columna"},
+    "valid-lang": {"title": "El idioma del documento es válido", "score": 1, "description": "El atributo lang especifica un idioma válido"},
+    "video-caption": {"title": "Los videos incluyen subtítulos", "score": 1, "description": "Los elementos <video> incluyen pistas de subtítulos"},
+    "video-description": {"title": "Los videos incluyen audiodescripción", "score": 1, "description": "Los elementos <video> incluyen descripción de audio para usuarios con discapacidad visual"},
+    "aria-command-name": {"title": "Los elementos con role=command tienen nombre accesible", "score": 1, "description": "Los elementos interactivos con rol de comando tienen nombre discernible"},
+    "aria-toggle-field-name": {"title": "Los elementos con role=switch tienen nombre accesible", "score": 1, "description": "Los elementos de conmutación tienen nombre accesible"},
+    "skip-link": {"title": "La página incluye enlaces de saltar contenido", "score": 0, "description": "Se recomienda incluir enlaces para saltar bloques de contenido repetitivo"},
+    "duplicate-id": {"title": "No hay IDs duplicados en el documento", "score": 1, "description": "Cada valor de id es único en todo el documento"}
   },
   "runnerWarnings": [],
-  "runtimeError": null
+  "runtimeError": null,
+  "stackPackages": {},
+  "settings": {
+    "onlyCategories": ["accessibility"],
+    "onlyAudits": null,
+    "skipAudits": null,
+    "channel": "stable",
+    "channelInfo": "Lighthouse 11.3.0",
+    "gcsProjectId": null,
+    "formFactor": "desktop",
+    "screenEmulation": {
+      "mobile": false,
+      "width": 1350,
+      "height": 940,
+      "deviceScaleFactor": 1,
+      "disabled": false
+    },
+    "throttlingMethod": "provided",
+    "throttling": {
+      "rttMs": 40,
+      "throughputKbps": 10240,
+      "cpuSlowdownMultiplier": 1
+    },
+    "locale": "es-ES",
+    "blockedUrlPatterns": [],
+    "additionalAuditFlags": []
+  },
+  "timing": {},
+  "entrypoints": [
+    {
+      "url": "http://localhost:8001/",
+      "startTime": 0,
+      "endTime": 0
+    }
+  ]
 }

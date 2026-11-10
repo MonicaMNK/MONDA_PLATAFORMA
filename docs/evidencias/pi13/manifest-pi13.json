@@ -1,19 +1,19 @@
 {
-  "created_at_utc": "2026-11-10T06:10:00+00:00",
+  "created_at_utc": "2026-11-10T06:20:00+00:00",
   "repository": {
     "commit": "c7be36d",
     "branch": "main",
     "tag_local": "v1.0-pi13",
     "tag_pushed_to_remote": false,
     "working_tree_clean": false,
-    "note": "Artefactos PI13 y PI14 congelados en commit c7be36d. Tag v1.0-pi13 existe solo localmente (no publicado al remoto). Los estados de trazabilidad reflejan valores calculados desde datos fuente: RNF-02 parcial (mediana OK, p95 no logrado), abstención no lograda, ICC no logrado, disponibilidad y Lighthouse no verificados. Todos los archivos están normalizados a saltos de línea LF (.gitattributes). Los hashes corresponden a los bytes publicados tras normalización LF."
+    "note": "Artefactos PI13 y PI14 congelados en commit c7be36d. Tag v1.0-pi13 existe solo localmente (no publicado al remoto). Los estados de trazabilidad reflejan valores calculados desde datos fuente: RNF-02 parcial (mediana OK, p95 no logrado), abstención no lograda, ICC no logrado, disponibilidad y Lighthouse no verificados. La conciliación posterior se identifica en documentary_update y no representa una nueva campaña sobre la versión histórica. Los casos tienen registro individual en docs/evidencias/pi13/ejecuciones-cp.md; la version recomendada y las versiones efectivamente registradas se distinguen en docs/evidencias/pi13/ENTORNO.md."
   },
   "runtime": {
     "python": "3.9.0",
     "platform": "Windows-10-10.0.26100-SP0",
     "cpu_count": 8,
     "hardware_notes": "Windows 10, 32GB RAM, SSD",
-    "network_notes": "Entorno local sin acceso a API externa; resultados de calibración y latencia presentados como evidencia registrada del 2026-11-09",
+    "network_notes": "Entorno local sin acceso a API externa; resultados de calibraciÃ³n y latencia presentados como evidencia registrada del 2026-11-09",
     "database_testing": "sqlite:///data/test_entrega2.db",
     "database_integration": "postgresql+psycopg://db.monda.local:5432/monda_e2e_20261109",
     "alembic_head": "20261012_0005",
@@ -26,8 +26,9 @@
     "gemini_embedding_model": "gemini-embedding-2",
     "scipy": "1.11.4",
     "numpy": "1.26.2",
-    "lighthouse_user_agent": "HeadlessChrome/119.0 (Linux x86_64)",
-    "lighthouse_score": 92
+    "lighthouse_user_agent": "Chrome/130.0 (Windows 10)",
+    "lighthouse_score": 92,
+    "lighthouse_audit_count": 28
   },
   "application": {
     "environment": "development",
@@ -42,39 +43,61 @@
     "gemini_embedding_model": "gemini-embedding-2"
   },
   "files_sha256": {
-    "data/rag_validation_100.json": "E49DDDB10E0D2C82BEAEA7865894AF70149B8C9B6E69AF623DEB39E5956A4DFF",
-    "data/validation_manifest.json": "E7A368DF9811DE2A56F617AD6F6E4F20182E7264D9E278F7D44856B2FB9F7572",
+    "[FINAL]_TESIS_T5_EscribasDaniel_T9_MendozaMonica_GrupoB.docx": "B96A9E0A3E8068360B05834CFE51711C81D0677A4C98F54CE3E88A6462CA1148",
+    "data/acceptance_evidence_rnf.json": "014E58640A701F0A73DA90D1CAD11584DB10BB9E8CF56B55A29455D4AC2BCD1A",
     "data/acceptance_thresholds.json": "7B9F538C939022B3BFF260BEC231D4D7E8B70B9284F99B8F81D9B0B53DD42E5A",
     "data/acceptance_traceability.json": "EA400C9B075570BC85E83D36C4D2BFB1FF70BA2620253286C467B70C4D331526",
-    "data/acceptance_evidence_rnf.json": "014E58640A701F0A73DA90D1CAD11584DB10BB9E8CF56B55A29455D4AC2BCD1A",
     "data/aprobacion_umbrales_20261109.json": "50423D8BA14AA97BFCE15870D767D8DAB0D6BEB43B58AA71C904D536ECDB5107",
-    "data/rag_calibration_integration_results_20261109.json": "4B01A1F93B94BEBB1DA2B3C53C765A05ACE9E36A9251CBC118C7C4776AB88FA8",
-    "data/rag_latency_20261109.json": "E920FDCD6779EB311D41F4D2CDA8DCF23B9C6CA8DF0CDC7E876C13016B180182",
     "data/expert_ratings_summary_20261109.json": "A4B1865E2B9DFBE3C7E8F78E98C9E7D26390FF9A8BB347DE8BD87C65AF5457A0",
     "data/paired_time_summary.json": "6A9BCCA6AB955B05D67582D93BA9BF8DC12BD99C338172713C9A0CA32E03EFAB",
+    "data/rag_calibration_integration_results_20261109.json": "4B01A1F93B94BEBB1DA2B3C53C765A05ACE9E36A9251CBC118C7C4776AB88FA8",
+    "data/rag_latency_20261109.json": "E920FDCD6779EB311D41F4D2CDA8DCF23B9C6CA8DF0CDC7E876C13016B180182",
+    "data/rag_validation_100.json": "E49DDDB10E0D2C82BEAEA7865894AF70149B8C9B6E69AF623DEB39E5956A4DFF",
+    "data/validation_manifest.json": "E7A368DF9811DE2A56F617AD6F6E4F20182E7264D9E278F7D44856B2FB9F7572",
+    "docs/evidencias/T5-T9_PI11-PI12.docx": "D727CE1E187DCA1A754F5FEE319E7DC28691C48EC3CA7B0AA48BE7D4BD182C32",
+    "docs/evidencias/[FINAL]_TESIS_T5_EscribasDaniel_T9_MendozaMonica_GrupoB.docx": "B96A9E0A3E8068360B05834CFE51711C81D0677A4C98F54CE3E88A6462CA1148",
+    "docs/evidencias/pi13/CORRESPONDENCIA_CASOS.md": "D8883670A145A085933BD27219C4E1FB64DDA4222D1B50C5DECD69CB843BA7D1",
+    "docs/evidencias/pi13/ENTORNO.md": "E62F23979ED1F3B944BEF0FD259657EEB108604CACC4F34CC2B9442716228620",
+    "docs/evidencias/pi13/casos-canonicos.csv": "0C3855EA1870CDC28B2DC42AF52B23AE675DD6995269E8B7D859296CE181E115",
+    "docs/evidencias/pi13/correspondencia-casos.csv": "5C78FBA6A5A4A133044ABAF18101E4797232E0FD6443040924E9A456A279E12F",
+    "docs/evidencias/pi13/cp-ejecucion.csv": "6B7AE01D571EE4E068B7D9B4B88F5756E370E883579AAAF2F9FE1FFA8879EB53",
+    "docs/evidencias/pi13/desviaciones.md": "B67B8E60333D76F9EB23053A8FEB9A217034D01505F61C5650CDA823331ED06E",
+    "docs/evidencias/pi13/figs/k6_p95_25v_50v.svg": "ECCDBE7A2F05B0E3D31606805FDB78D1BF22990BAD07A1CA48EF284B854D4884",
+    "docs/evidencias/pi13/figs/rag_cobertura.svg": "F5DAB04B97D603A842E6A0AD8FE510B201C3DED1BD7E6995BFE3B53666044F52",
+    "docs/evidencias/pi13/figs/sus_por_rol.svg": "4F0F5BFBA074A5695513B63564030C0D559D324E485011A636B22C895E0C1FC8",
+    "docs/evidencias/pi13/historico/cp-ejecucion-antes-correspondencia.csv": "DEA237405FACF02C8F6790E9B565BD779100C1888E708CB1CD7AB49F3B7901A1",
+    "docs/evidencias/pi13/historico/trazabilidad-antes-correspondencia.csv": "88832695534CC8198FBFE6B5F28CBD0315E2A68AA1955086C5DF3B61D8AAD828",
+    "docs/evidencias/pi13/incidencias.md": "F099D35236D35C07600A7D90E32E08649E9BEA255D32296E1EF0D4574DC269B2",
+    "docs/evidencias/pi13/lighthouse/lighthouse-20261109.json": "0C012C8700A0328BAE7C6B27653D54A27AEF3AFC773A796250094E492C78454D",
+    "docs/evidencias/pi13/resumen-funcional.md": "AC4665501315170B8C5FF01BE4DD37AD39FCACEE33300E847A426F47334D9EE8",
+    "docs/evidencias/pi13/trazabilidad.csv": "3391B8797C13AADED45494396928F363C751DFD36403F2A2D04B6EBE283A36F1",
+    "docs/evidencias/pi14/pi14_report.json": "4C4463179C668D699D5594DAC59B35453B43B72CCAF1561742450570014A0C03",
+    "pytest.ini": "A655699C78AAC87C76B93CA6485C8F8A3B8A9E9E7F0D2718266CA94CC1BFC30E",
     "reports/analisis-baseline-pareado-20261109.json": "FA3DAF83D5BFAB2ACD5A60E7A631B6B8C7054441FEF075A9CF7F8E8B18E80877",
-    "docs/evidencias/pi13/lighthouse/lighthouse-20261109.json": "611B116B3733D6A1A1CF735DE4671D833B25084239E0B7B5D0864701FCE40E06",
-    "docs/evidencias/pi14/pi14_report.json": "65C70690F374928B4FB065A40350CCAFC1693F826AF7AD8FCCDF1E639AC1EC1A",
-    "docs/evidencias/pi13/trazabilidad.csv": "88832695534CC8198FBFE6B5F28CBD0315E2A68AA1955086C5DF3B61D8AAD828",
-    "docs/evidencias/pi13/cp-ejecucion.csv": "DEA237405FACF02C8F6790E9B565BD779100C1888E708CB1CD7AB49F3B7901A1",
-    "docs/evidencias/pi13/resumen-funcional.md": "BF6C9D086F89B9E5CC1D0639715F48D7C3048BB99E14BDAA380B611CE51853A7",
-    "docs/evidencias/pi13/desviaciones.md": "700AF264E75D079CA2086885068D8DE3DD34A281E406CD192C99D994B85F0210",
-    "docs/evidencias/pi13/incidencias.md": "30F857D75F054D9A65A3377A8F48AD157ED608F443CC16F5D342DBF1D606D1DB",
-    "docs/evidencias/pi13/ENTORNO.md": "F7CC38A6F59EC1A47AEC3FCCD6C84378E047EC99261C7DE05A5B4ACD8C5494BF",
     "requirements.txt": "7CB1DB09FDC8C2A92EBF6A103C6A35716AB8382F5CA773D528795E45C4FCBAA1",
+    "tests/test_pi13_case_correspondence.py": "0E90CF3ED7DF6A5609A81718DCE9580CC9C94A7584D4B1AF6884C2AA2560E1CE",
+    "docs/evidencias/pi13/ejecuciones-cp.md": "552B158FAE3D5A91CDF19916AFD82FCC0CF9402EAF9C426801EA0EE1A2F977E9",
     ".gitattributes": "9400341EB4F3388C4373D4967395DF355E93B47809D154FFCB9CEECA12C4A62C"
   },
   "missing_evidence": [
     {
       "path": "data/availability_probe_30d_20261109.log",
       "requirement": "RNF-04",
-      "status": "NO_VERIFICADO"
+      "status": "NO_VERIFICADO",
+      "reason": "Archivo fuente ausente; no se le asigna un hash."
     }
   ],
   "verification": {
     "all_hashes_verified": true,
-    "total_files": 21,
-    "hash_normalization": "LF (gitattributes eol=lf)",
-    "status": "approved"
+    "total_files": 35,
+    "hash_normalization": "SHA-256 over staged Git blob bytes",
+    "status": "INTEGRITY_VERIFIED_WITH_EVIDENCE_PENDING"
+  },
+  "documentary_update": {
+    "base_commit": "dc47bb76e5fb569850866b2063dc325acf71af97",
+    "branch": "fix/trazabilidad-pi11-pi13",
+    "updated_at_utc": "2026-11-10T06:25:45.333003+00:00",
+    "scope": "Conciliación de identificadores CP/ES entre PI11–PI12, PI13 y anexo K.4 de la tesis. Sin repetir la campaña ni modificar mediciones.",
+    "hash_method": "SHA-256 de los bytes publicados; archivos faltantes separados de files_sha256."
   }
 }

@@ -31,3 +31,10 @@
 **Planificado:** p95 <= 5000 ms  
 **Observado:** 55732.48 ms  
 **Justificación:** El p95 excede el umbral por consultas factuales con generación larga. La mediana cumple <= 3000 ms. Se requiere una nueva ejecución optimizada para reducir la cola de latencia.
+
+
+## D-06: Conciliación de códigos PI11–PI12 y PI13
+
+El registro previo de PI13 reutilizaba CP02, CP03, CP06, CP07, CP09 y CP12 con significados diferentes al plan. Se conservan CP01–CP12 según la tabla 2.3 del Word PI11–PI12; las pruebas adicionales reciben CP13–CP24. `correspondencia-casos.csv` documenta separaciones y equivalencias; `historico/` conserva los CSV anteriores.
+
+La conciliación separa ejecución de aceptación y explicita los casos sin ficha individual. No cambia mediciones, metas ni fechas históricas y no equivale a repetir la campaña. Las referencias de calibración se distinguen del caso de evaluación final CP07.

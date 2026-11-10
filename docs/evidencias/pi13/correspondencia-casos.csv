@@ -1,0 +1,19 @@
+id_anterior_pi13,id_canonico,escenario_canonico,motivo
+CP01,CP01,ES01,Sin cambio
+CP02,CP03,ES03,La consulta RAG estaba rotulada como CP02
+CP02,CP18,ES17,Separación del control de revisión mencionado en trazabilidad
+CP03,CP06,ES06,Publicación denegada al estudiante
+CP04,CP13,ES12,Acceso administrativo denegado
+CP05,CP05,ES05,Sin cambio
+CP06,CP14,ES13,Promedio 10 y 14
+CP06,CP19,ES18,Subcaso sin intentos cerrados citado en trazabilidad
+CP07,CP10,ES10,Sincronización
+CP08,CP08,ES08,Sin cambio
+CP09,CP15,ES14,Latencia; no confundir con las sesiones CP09 originales
+CP10,CP02,ES02,Separación del acceso a curso ajeno
+CP10,CP13,ES12,Separación del acceso administrativo
+CP11,CP11,ES11,"Se conserva D07, sin equipararlo a disponibilidad del entorno"
+CP12a,CP16,ES15,Lighthouse; CP12 conserva acceso autorizado
+CP12b,CP09,ES09,SUS integrado en tareas con usuarios
+CP12c,CP17,ES16,Cobertura de pruebas
+CP08,CP24,ES23,Disponibilidad se separa de la carga transaccional

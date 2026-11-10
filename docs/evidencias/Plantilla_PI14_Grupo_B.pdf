@@ -1,0 +1,292 @@
+                                   UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                              FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                         Escuela Profesional de Ingeniería de Sistemas
+
+                Dpto Académico de Ciencias de la Computación (DACC)
+
+                PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+                        Desarrollo de Proyecto de Tesis II — Sección G6 — 2026-II
+
+                          PLANTILLA DE AVANCE: PI 14
+
+                               Análisis e interpretación de resultados
+
+                             GRUPO B — Aporte práctico / software
+
+Datos del tesista                   Ej.: T4. Tesis compartida: T5–T9.
+
+ Código de tesis (T)                B — Aporte práctico / software
+ Apellidos y nombres                Sistema, aplicación o plataforma, con su versión o commit.
+ Título de la tesis                 Transcríbala tal como está en la tesis.
+ Grupo                              Enlace a scripts, hojas de cálculo y salidas del software estadístico.
+ Artefacto validado
+ Hipótesis general
+ Fecha de entrega
+ Repositorio / carpeta de análisis
+
+Instrucciones generales
+
+   • En el PI 14 se ANALIZAN e INTERPRETAN los resultados obtenidos en la ejecución de la validación (PI 13): se
+       procesan, se comparan con los criterios y los objetivos, y se aplica la estadística prevista en el PI 12.
+
+   • Trabaje sobre los datos registrados en el PI 13 y mantenga los mismos códigos (OE, CP#, indicadores, línea
+       base). No introduzca datos que no estén respaldados por una evidencia del PI 13.
+
+   • Complete las partes en orden. Las filas en gris son ejemplos: reemplácelas o elimínelas. Las tablas se
+       pueden ampliar con las filas que necesite.
+
+   • En el Grupo B se analiza si el software cumple sus requisitos y su calidad (ISO/IEC 25010) y si mejora el
+       proceso o sistema de referencia.
+
+   • Adjunte los archivos del análisis (script, notebook, hoja de cálculo o salida de SPSS / R / Python) para que el
+       asesor pueda reproducir cada cifra.
+
+   • Tesis compartida: complete además la sección "Distribución de responsabilidades" al final.
+
+Importante: el análisis debe decir con claridad qué objetivos se lograron y cuáles no, y si la hipótesis se acepta o se
+rechaza, con su valor p y el tamaño del efecto. Un objetivo no logrado, bien explicado, es un resultado válido. Este
+avance es la base del capítulo de resultados y discusión que el jurado revisará en el examen final (semana 15).
+
+Parte 0 — Seguimiento de observaciones pendientes
+
+Registre solo las observaciones que aún no estén levantadas: las del examen parcial y las de las revisiones del PI 9 + PI 10, PI
+11 + PI 12 y PI 13. El jurado las verificará en el examen final (semana 15).
+
+   N.°  Origen                      Observación  Acción realizada                       Cap. / pág.         Estado
+
+Ej. PI13        Faltan evidencias del CP04.      Se subió el reporte de carga al        Anexo 6             Levantada
+                                                 repositorio.
+
+1
+
+                                    Plantilla PI 14 — Grupo B — Sección G6 — Página 1
+                                              UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                                         FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                                    Escuela Profesional de Ingeniería de Sistemas
+
+                           Dpto Académico de Ciencias de la Computación (DACC)
+
+                           PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+   N.°    Origen                           Observación                Acción realizada             Cap. / pág.       Estado
+
+2
+
+3
+
+ 4
+Origen: Parcial / PI9+PI10 / PI11+PI12 / PI13. Estado: Levantada / En proceso / Justificada.
+
+Parte 1 — Procesar resultados
+
+Organice y depure los datos del PI 13 y obtenga la estadística descriptiva de cada indicador.
+
+1.1 Preparación de los datos               Archivos del PI 13 usados (logs, reportes de herramientas, formularios).
+                                           Registros o sesiones excluidos, valores atípicos y cómo se trataron.
+ Fuente de los datos                       Ej.: tiempos por tarea y usuario; puntaje SUS por participante.
+ Depuración                                Ej.: Python, R, SPSS, Excel; con versión.
+ Consolidación                             Nombre y ubicación del notebook, script u hoja de cálculo.
+ Herramienta de análisis
+ Archivo de análisis
+
+1.2 Estadística descriptiva por indicador
+
+            Indicador           Grupo / condición           n              Media      Mediana          DE                 Mín. – Máx.
+Tiempo por orden (min)     Con el sistema               12            4,1          3,9            0,8                3,0 – 5,6
+Tiempo por orden (min)     Proceso manual               12            12,4         12,1           2,3                9,0 – 16,5
+
+1.3 Tablas y figuras de resultados
+
+Cada tabla o figura debe tener número, título, fuente y una frase que diga qué muestra.
+
+     N.°                   Tabla / figura                             Qué muestra                             Archivo fuente
+                                                                                                  figs/tiempos.png
+Ej.       Figura 4.1. Tiempo por orden                  El sistema reduce el tiempo en todos los
+                                                        usuarios
+
+1
+
+2
+
+3
+
+Parte 2 — Comparar con criterios y objetivos
+
+2.1 Indicadores frente a la meta
+
+   OE            Criterio           Indicador                   Meta     Valor obtenido                  Brecha            ¿Logrado?
+OE2       Eficiencia       p95 con 50 usuarios          ≤2s           1,7 s                       −0,3 s             Sí
+OE3       Usabilidad       Puntaje SUS                  ≥ 68          64,5                        −3,5               No
+
+                                           Plantilla PI 14 — Grupo B — Sección G6 — Página 2
+                                           UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                                      FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                                 Escuela Profesional de Ingeniería de Sistemas
+
+                        Dpto Académico de Ciencias de la Computación (DACC)
+
+                        PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+OE            Criterio        Indicador                     Meta              Valor obtenido    Brecha                    ¿Logrado?
+
+¿Logrado?: Sí / Parcial / No. Brecha = valor obtenido − meta.
+
+2.2 Logro de los objetivos específicos
+
+Explique en una o dos frases por qué se logró o no cada OE, apoyándose en los indicadores de 2.1 y en las incidencias del PI
+13.
+
+OE                      Enunciado del OE         Nivel de logro                                Justificación (con datos)
+
+OE3  Evaluar la usabilidad del sistema con       No               SUS de 64,5, debajo de 68; los usuarios reportan
+     usuarios finales                                             dificultad en el módulo de pagos (INC03).
+
+2.3 Contraste con la línea base
+
+     Métrica            Línea base               Artefacto      Diferencia     Mejora relativa           Interpretación
+                                                                 absoluta             (%)
+Tiempo por orden        12,4                4,1                                                 El sistema reduce el tiempo a
+(min)                                                       −8,3              −66,9 %           un tercio.
+
+Parte 3 — Aplicar estadística (si corresponde)
+
+Aplique la prueba estadística prevista en el PI 12. Si su validación no admite inferencia (por ejemplo, n muy pequeño o caso
+de estudio único), escriba "No corresponde" y justifíquelo; en ese caso bastan la descriptiva y el análisis cualitativo.
+
+3.1 Hipótesis estadísticas                Ej.: no hay diferencia en el tiempo por orden entre el proceso manual y el sistema.
+                                          Ej.: el tiempo por orden con el sistema es menor que con el proceso manual.
+ H₀ (nula)                                Ej.: 0,05.
+ H₁ (alternativa)
+ Nivel de significancia (α)
+
+3.2 Verificación de supuestos
+
+     Supuesto                 Prueba usada                       Estadístico       Valor p                   Conclusión
+                                                            W = 0,82          0,02              No se cumple: se usa Wilcoxon
+Normalidad de las             Shapiro-Wilk
+diferencias
+
+                                            Plantilla PI 14 — Grupo B — Sección G6 — Página 3
+                                     UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                                FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                           Escuela Profesional de Ingeniería de Sistemas
+
+                  Dpto Académico de Ciencias de la Computación (DACC)
+
+                  PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+        Supuesto                    Prueba usada    Estadístico           Valor p                            Conclusión
+
+3.3 Resultados de la prueba de hipótesis
+
+  Hipótesis / OE         Prueba        Estadístico      Valor p   Tamaño del efecto                IC 95 %          Decisión
+HE1 / OE2         Wilcoxon pareada  Z = −3,06       0,002        r = 0,88 (grande)          −9,6 a −7,0 min  Se rechaza H₀
+
+Otras pruebas útiles en el Grupo B: t pareada o de Student, U de Mann-Whitney, chi-cuadrado (tasas de éxito), alfa de
+Cronbach del instrumento aplicado.
+
+3.4 Confiabilidad de los instrumentos aplicados (si aplica)
+
+               Instrumento                 n            Alfa de Cronbach                       Interpretación
+Cuestionario SUS                    12              0,84                  Confiabilidad buena
+
+Parte 4 — Interpretación y discusión
+
+4.1 Hallazgos principales
+
+Tres a cinco hallazgos, cada uno en una frase con su dato. Ej.: "El sistema redujo el tiempo por orden de 12,4 a 4,1 minutos (p
+= 0,002)".
+
+   N.°                       Hallazgo                                     Dato que lo respalda                            OE
+
+1
+
+2
+
+3
+
+4
+
+4.2 Contraste con los antecedentes
+
+Compare sus resultados con al menos tres antecedentes del marco teórico: ¿coinciden, superan o quedan por debajo? ¿Por
+qué?
+
+   Antecedente (autor, año)         Su resultado    Resultado del autor                     Coincide / difiere y por qué
+
+Autor (2023)                 SUS = 64,5             SUS = 78              Queda por debajo: el módulo de pagos tiene
+                                                                          más pasos.
+
+                                         Plantilla PI 14 — Grupo B — Sección G6 — Página 4
+                              UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                         FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                    Escuela Profesional de Ingeniería de Sistemas
+
+           Dpto Académico de Ciencias de la Computación (DACC)
+
+           PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+4.3 Limitaciones y amenazas a la validez
+
+Retome las amenazas del PI 12 y las desviaciones del PI 13: diga cuáles se presentaron y cómo afectan la interpretación.
+
+Limitación / amenaza             Tipo                     Efecto en los resultados     Cómo se mitigó o se reporta
+
+Muestra de 12 usuarios por       Externa          Resultados no generalizables a       Se declara como limitación y se
+conveniencia                                      toda la empresa                      propone ampliar la muestra.
+
+Tipo: Interna / Externa / De constructo / De conclusión.
+
+Parte 5 — Matriz de coherencia: objetivo → resultado → conclusión
+
+Esta matriz alimenta directamente las conclusiones de la tesis. Ninguna fila debe quedar con celdas vacías.
+
+OE / hipótesis Indicador y meta  Resultado                Prueba / decisión ¿Logrado?  Conclusión preliminar
+
+OE2 / HE1  Tiempo por orden      4,1 vs 12,4 min          Wilcoxon, se  Sí             El sistema reduce el tiempo de
+           menor                                          rechaza H₀                   registro de órdenes.
+
+Lista de verificación antes de enviar
+
+☐ Parte 0 completa (observaciones pendientes del parcial, PI 9 + PI 10, PI 11 + PI 12 y PI 13).
+☐ Datos del PI 13 depurados y consolidados; archivo de análisis adjunto y reproducible.
+☐ Estadística descriptiva de cada indicador, con tablas y figuras numeradas.
+☐ Cada indicador comparado con su meta y cada OE con su nivel de logro justificado.
+☐ Contraste con la línea base en valor absoluto y porcentaje.
+☐ Supuestos verificados y prueba estadística con valor p, tamaño del efecto y decisión (o "No corresponde"
+justificado).
+☐ Confiabilidad de los instrumentos aplicados calculada (o "No aplica").
+☐ Hallazgos contrastados con al menos tres antecedentes.
+☐ Limitaciones y amenazas a la validez declaradas.
+☐ Matriz de coherencia objetivo → resultado → conclusión sin celdas vacías.
+☐ Capítulo de resultados y discusión de la tesis actualizado con este análisis.
+☐ Archivo nombrado como T#_PI14.docx (tesis compartida: T5-T9_PI14.docx).
+
+Criterio mínimo para tesistas con retraso
+
+Si no entregó el PI 13, envíe primero sus resultados registrados con sus evidencias. De este avance, como mínimo: la
+descriptiva (1.2), los indicadores frente a la meta (2.1), la prueba de la hipótesis principal (3.3) y la matriz de coherencia
+(Parte 5).
+
+                                                              Plantilla PI 14 — Grupo B — Sección G6 — Página 5
+                   UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+              FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                         Escuela Profesional de Ingeniería de Sistemas
+
+Dpto Académico de Ciencias de la Computación (DACC)
+
+PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+Distribución de responsabilidades (solo tesis compartida)
+
+Tesista  Análisis a su cargo                                Secciones de la tesis que redacta
+
+         Plantilla PI 14 — Grupo B — Sección G6 — Página 6
+
