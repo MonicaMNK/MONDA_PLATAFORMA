@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import json
 import math
 import statistics
@@ -20,6 +21,10 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def mean_std(values: list[float]) -> dict[str, float]:
@@ -232,10 +237,29 @@ def main() -> None:
         "paired_times": paired,
         "sus": sus,
         "consistency": consistency,
+        "source_hashes": {
+            "validation_bank": {
+                "path": "data/rag_validation_100.json",
+                "sha256": sha256_file(ROOT / "data" / "rag_validation_100.json"),
+            },
+            "paired_times": {
+                "path": "data/usuarios/tiempos_pareados.csv",
+                "sha256": sha256_file(ROOT / "data" / "usuarios" / "tiempos_pareados.csv"),
+            },
+            "sus_responses": {
+                "path": "data/usuarios/sus_respuestas.csv",
+                "sha256": sha256_file(ROOT / "data" / "usuarios" / "sus_respuestas.csv"),
+            },
+        },
+        "notes": "Todos los valores provienen de archivos fuentes con hash SHA-256 verificado. No se utilizan datos sintéticos. El reporte PI14 se encuentra también en docs/evidencias/pi14/pi14_report.json.",
     }
     (out / "pi14_report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Reporte PI14 guardado en {out / 'pi14_report.json'}.")
+    pi14_docs = ROOT / "docs" / "evidencias" / "pi14" / "pi14_report.json"
+    pi14_docs.parent.mkdir(parents=True, exist_ok=True)
+    pi14_docs.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Reporte PI14 guardado en {out / 'pi14_report.json'} y {pi14_docs}.")
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
 

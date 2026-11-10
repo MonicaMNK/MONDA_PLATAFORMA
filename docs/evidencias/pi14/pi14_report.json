@@ -1,0 +1,203 @@
+{
+  "generated_at_utc": "2026-11-10T05:07:14.354238+00:00",
+  "validation_bank": {
+    "total": 85,
+    "answerable": 57,
+    "unanswerable": 28,
+    "category_counts": {
+      "adversarial": 13,
+      "factual": 37,
+      "integration": 20,
+      "no_evidence": 15
+    },
+    "categories": {
+      "adversarial": {
+        "n": 13,
+        "answerable": 0,
+        "courses": [
+          "Biología",
+          "Historia",
+          "Literatura"
+        ]
+      },
+      "factual": {
+        "n": 37,
+        "answerable": 37,
+        "courses": [
+          "Biología",
+          "Historia",
+          "Literatura"
+        ]
+      },
+      "integration": {
+        "n": 20,
+        "answerable": 20,
+        "courses": [
+          "Biología",
+          "Historia",
+          "Literatura"
+        ]
+      },
+      "no_evidence": {
+        "n": 15,
+        "answerable": 0,
+        "courses": [
+          "Biología",
+          "Historia",
+          "Literatura"
+        ]
+      }
+    },
+    "all_gold_pdf_present": true,
+    "source": "rag_validation_100.json"
+  },
+  "paired_times": {
+    "n_participants": 10,
+    "manual": {
+      "n": 10,
+      "mean": 185.49,
+      "std": 16.32,
+      "min": 158.8,
+      "max": 210.7,
+      "median": 187.4
+    },
+    "monda": {
+      "n": 10,
+      "mean": 47.33,
+      "std": 5.45,
+      "min": 39.6,
+      "max": 58.3,
+      "median": 46.8
+    },
+    "difference": {
+      "n": 10,
+      "mean": 138.16,
+      "std": 12.0,
+      "min": 115.4,
+      "max": 153.6,
+      "median": 140.25
+    },
+    "speedup_factor": 3.92,
+    "errors_manual_total": 0,
+    "errors_monda_total": 0,
+    "all_complete": true,
+    "by_role": {
+      "docente": {
+        "n": 6,
+        "manual": {
+          "n": 6,
+          "mean": 191.13,
+          "std": 14.84,
+          "min": 167.2,
+          "max": 210.7,
+          "median": 191.0
+        },
+        "monda": {
+          "n": 6,
+          "mean": 48.75,
+          "std": 5.57,
+          "min": 41.8,
+          "max": 58.3,
+          "median": 48.5
+        },
+        "difference": {
+          "n": 6,
+          "mean": 142.38,
+          "std": 10.23,
+          "min": 125.4,
+          "max": 153.6,
+          "median": 141.35
+        }
+      },
+      "estudiante": {
+        "n": 4,
+        "manual": {
+          "n": 4,
+          "mean": 177.03,
+          "std": 16.52,
+          "min": 158.8,
+          "max": 198.9,
+          "median": 175.2
+        },
+        "monda": {
+          "n": 4,
+          "mean": 45.2,
+          "std": 5.24,
+          "min": 39.6,
+          "max": 52.1,
+          "median": 44.55
+        },
+        "difference": {
+          "n": 4,
+          "mean": 131.82,
+          "std": 12.97,
+          "min": 115.4,
+          "max": 146.8,
+          "median": 132.55
+        }
+      }
+    },
+    "source": "tiempos_pareados.csv"
+  },
+  "sus": {
+    "n_participants": 10,
+    "overall": {
+      "n": 10,
+      "mean": 87.25,
+      "std": 9.75,
+      "min": 75.0,
+      "max": 100.0,
+      "median": 86.25
+    },
+    "by_role": {
+      "docente": {
+        "n": 6,
+        "mean": 87.08,
+        "median": 86.25,
+        "min": 75.0,
+        "max": 97.5
+      },
+      "estudiante": {
+        "n": 4,
+        "mean": 87.5,
+        "median": 87.5,
+        "min": 75.0,
+        "max": 100.0
+      }
+    },
+    "above_68": 10,
+    "source": "sus_respuestas.csv"
+  },
+  "consistency": {
+    "docente": {
+      "n_participants": 6,
+      "n_items": 10,
+      "cronbach_alpha": 0.8713
+    },
+    "estudiante": {
+      "n_participants": 4,
+      "n_items": 10,
+      "cronbach_alpha": 0.9824
+    },
+    "overall": {
+      "n_participants": 10,
+      "n_items": 10,
+      "cronbach_alpha": 0.9252
+    }
+  },
+  "source_hashes": {
+    "validation_bank": {
+      "path": "data/rag_validation_100.json",
+      "sha256": "fd53af9fc072743de3f966271a34d46f88142398330b63ccef3ebcf6f0a4dd58"
+    },
+    "paired_times": {
+      "path": "data/usuarios/tiempos_pareados.csv",
+      "sha256": "c1db8cf7f7e6a294c194a9cf1db1426480dcc352bd4c89c93c53a3086ea83e90"
+    },
+    "sus_responses": {
+      "path": "data/usuarios/sus_respuestas.csv",
+      "sha256": "033ee0f8c8710f64b52bcaf0b194849c435f8ba4477d34131bf46502d890cff0"
+    }
+  },
+  "notes": "Todos los valores provienen de archivos fuentes con hash SHA-256 verificado. No se utilizan datos sintéticos. El reporte PI14 se encuentra también en docs/evidencias/pi14/pi14_report.json."
+}

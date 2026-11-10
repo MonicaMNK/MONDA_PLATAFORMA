@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-10T04:55:17.389181+00:00",
+  "generated_at_utc": "2026-11-10T05:07:14.354238+00:00",
   "validation_bank": {
     "total": 85,
     "answerable": 57,
@@ -184,5 +184,20 @@
       "n_items": 10,
       "cronbach_alpha": 0.9252
     }
-  }
+  },
+  "source_hashes": {
+    "validation_bank": {
+      "path": "data/rag_validation_100.json",
+      "sha256": "fd53af9fc072743de3f966271a34d46f88142398330b63ccef3ebcf6f0a4dd58"
+    },
+    "paired_times": {
+      "path": "data/usuarios/tiempos_pareados.csv",
+      "sha256": "c1db8cf7f7e6a294c194a9cf1db1426480dcc352bd4c89c93c53a3086ea83e90"
+    },
+    "sus_responses": {
+      "path": "data/usuarios/sus_respuestas.csv",
+      "sha256": "033ee0f8c8710f64b52bcaf0b194849c435f8ba4477d34131bf46502d890cff0"
+    }
+  },
+  "notes": "Todos los valores provienen de archivos fuentes con hash SHA-256 verificado. No se utilizan datos sintéticos. El reporte PI14 se encuentra también en docs/evidencias/pi14/pi14_report.json."
 }

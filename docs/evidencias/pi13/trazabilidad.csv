@@ -13,11 +13,11 @@ OE3,Sin intentos cerrados no hay alerta,0 alertas con 0 intentos cerrados,CP06,0
 RNF-01,p95 de API transaccional,<= 800 ms,CP08,785.40 ms a 50 VU,Ninguna,docs/evidencias/pi13/resultado-k6-local-2026-11-09.md,SÍ
 RNF-01,Degradación 25→50 VU,<= 20%,CP08,6.19%,Ninguna,docs/evidencias/pi13/resultado-k6-local-2026-11-09.md,SÍ
 RNF-01,Tasa de error HTTP,< 1%,CP08,0%,Ninguna,docs/evidencias/pi13/resultado-k6-local-2026-11-09.md,SÍ
-RNF-02,Latencia RAG mediana,<= 3000 ms,CP09,<= 3000 ms (observado 1392.55 ms),Ninguna,data/rag_latency_20261109.json,SÍ
+RNF-02,Latencia RAG mediana,<= 3000 ms,CP09,<= 3000 ms (observado 1396.55 ms),Ninguna,data/rag_latency_20261109.json,SÍ
 RNF-02,Latencia RAG p95,<= 5000 ms,CP09,p95 55732.48 ms supera umbral (revisión),Ninguna,data/rag_latency_20261109.json,REVISIÓN
 RNF-03,Pruebas negativas por rol,403 en acciones no autorizadas,CP10,403 en curso ajeno y admin,Ninguna,tests/test_entrega2_backend.py::test_course_isolation_and_rbac,SÍ
 RNF-04,Disponibilidad 30 días,>= 99.5%,CP08,99.72% (documentado),Incidencia I-01,data/availability_probe_30d_20261109.log,SÍ
 RNF-05,Lighthouse accesibilidad,>= 90,CP12,script creado, pendiente ejecución,I-02,scripts/lighthouse/lighthouse_run.js,PENDIENTE
 RNF-06,SUS,>= 68,CP12,87.25,Ninguna,data/sus_scores.json,SÍ
-RNF-07,Cobertura de tests,>= 80%,CP12,coverage.xml generado,Ninguna,reports/coverage.xml,SÍ
+RNF-07,Cobertura de tests,>= 80%,CP12,coverage.xml generado,Ninguna,reports/coverage.xml,PENDIENTE
 RNF-08,Precisión de citas PDF,>= 73%,CP09,82.61%,Ninguna,data/rag_calibration_integration_results_20261109.json,SÍ
