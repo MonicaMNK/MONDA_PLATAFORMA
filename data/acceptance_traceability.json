@@ -8,6 +8,12 @@
       {"case": "enrolled_student_access", "test_file": "tests/test_entrega2_backend.py", "test": "test_course_isolation_and_rbac"},
       {"case": "different_course_access_denied", "test_file": "tests/test_entrega2_backend.py", "test": "test_course_isolation_and_rbac"}
     ],
+    "OE2": [
+      {"case": "evaluador_calcula_precision_f1", "test_file": "tests/test_rag_oe2_reference.py", "test": "test_evaluador_calcula_precision_f1_con_fuente_valida"},
+      {"case": "evaluador_calcula_abstencion", "test_file": "tests/test_rag_oe2_reference.py", "test": "test_evaluador_calcula_abstencion_correcta_sin_evidencia"},
+      {"case": "evaluador_detecta_fuentes_cruzadas", "test_file": "tests/test_rag_oe2_reference.py", "test": "test_evaluador_detecta_fuentes_cruzadas_en_caso_adversarial"},
+      {"case": "validador_acepta_fixture_de_cien_consultas", "test_file": "tests/test_rag_oe2_reference.py", "test": "test_validador_acepta_fixture_de_cien_consultas_distintas"}
+    ],
     "OE3": [
       {"case": "scores_10_14_average_12", "test_file": "tests/test_learning_workflow.py", "test": "test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert"},
       {"case": "low_average_alert", "test_file": "tests/test_learning_workflow.py", "test": "test_low_average_alert_requires_closed_attempts_and_uses_configured_threshold"},
