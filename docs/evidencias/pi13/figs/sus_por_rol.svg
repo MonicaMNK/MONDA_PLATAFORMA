@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200">
+<rect width="170" height="120" x="50" y="30" fill="#4a90e2"/>
+<rect width="170" height="150" x="230" y="0" fill="#4a90e2"/>
+<text x="135" y="190" text-anchor="middle" font-size="12">Docentes SUS=86.25</text>
+<text x="315" y="190" text-anchor="middle" font-size="12">Estudiantes SUS=82.50</text>
+</svg>

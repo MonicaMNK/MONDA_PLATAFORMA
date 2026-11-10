@@ -1,0 +1,38 @@
+# Calificación de fidelidad — Rúbrica 1-5
+
+**Instrumento:** Rúbrica de fidelidad de respuestas RAG (escala 1-5)  
+**Jueces:** 3 expertos independientes  
+**Ítems evaluados:** 10 respuestas de integración  
+**Fecha:** 2026-11-09
+
+item_id,expert_id,rating
+FID-01,E1,4
+FID-01,E2,5
+FID-01,E3,4
+FID-02,E1,3
+FID-02,E2,4
+FID-02,E3,3
+FID-03,E1,5
+FID-03,E2,4
+FID-03,E3,5
+FID-04,E1,4
+FID-04,E2,4
+FID-04,E3,4
+FID-05,E1,3
+FID-05,E2,3
+FID-05,E3,4
+FID-06,E1,4
+FID-06,E2,5
+FID-06,E3,4
+FID-07,E1,3
+FID-07,E2,3
+FID-07,E3,3
+FID-08,E1,4
+FID-08,E2,4
+FID-08,E3,5
+FID-09,E1,5
+FID-09,E2,5
+FID-09,E3,4
+FID-10,E1,4
+FID-10,E2,4
+FID-10,E3,4

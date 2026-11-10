@@ -24,3 +24,7 @@ frontend/package-lock.json.tmp
 *.db
 *.sqlite
 *.sqlite3
+*.db-journal
+.tasktmp/
+data/rag/*.json
+!data/rag/.gitkeep

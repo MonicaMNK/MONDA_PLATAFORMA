@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from fastapi.testclient import TestClient
+import pytest
+
 from backend.app.db.seed import init_test_db
 from backend.app.db.session import SessionLocal
 from backend.app.main import app
@@ -211,3 +213,43 @@ def test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert():
         assert result['indicadores']['promedio'] == 12.0
         assert not any(alert['regla'] == 'promedio_bajo'
                        for alert in result['alertas'])
+
+
+@pytest.mark.cp05
+@pytest.mark.es05
+def test_es05_uno_de_tres_reactivos_califica_6_67_y_sin_intentos_cerrados_no_alerta():
+    """ES05: 1 de 3 reactivos correctos = 6.67/20; sin intentos cerrados no hay alerta."""
+    init_test_db(True)
+    with SessionLocal() as db:
+        enrollment = db.query(Enrollment).first()
+        course_id = enrollment.curso_id
+        student_id = enrollment.estudiante_id
+        now = datetime.now(timezone.utc)
+
+        # Un intento cerrado con puntaje 6.67 (1 de 3 reactivos correctos).
+        assessment = Assessment(
+            curso_id=course_id,
+            titulo="Evaluación ES05",
+            estado="publicada",
+        )
+        db.add(assessment)
+        db.flush()
+        db.add(Attempt(
+            evaluacion_id=assessment.id,
+            estudiante_id=student_id,
+            puntaje=6.67,
+            fecha_inicio=now - timedelta(minutes=10),
+            fecha_cierre=now,
+            estado="cerrado",
+        ))
+        db.commit()
+
+    with TestClient(app) as client:
+        teacher = login(client, 'teacher')
+        path = f'/api/courses/{course_id}/analytics'
+        result = client.get(path, headers=teacher).json()
+        assert result['indicadores']['intentosCerrados'] == 1
+        assert result['indicadores']['promedio'] == 6.67
+        assert not any(alert['regla'] == 'promedio_bajo'
+                       for alert in result['alertas'])
+

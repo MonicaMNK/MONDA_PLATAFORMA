@@ -1,0 +1,52 @@
+{
+  "created_at_utc": "2026-11-09T23:45:00+00:00",
+  "repository": {
+    "commit": "1517787a305bc19bc876f6b60a51c26cca05e236",
+    "branch": "main",
+    "working_tree_clean": false,
+    "dirty_paths": [
+      ".github/workflows/quality.yml",
+      ".gitignore",
+      "data/rag_calibration_gemini_abstencion_20261101.json",
+      "data/rag_gemini_live_20261101.json",
+      "data/rag_gemini_live_20261109.json",
+      "data/rag_gemini_live_20261109_segunda_evaluacion.json",
+      "data/traces/rag_traces.jsonl",
+      "docs/evidencias/README.md",
+      "tests/test_learning_workflow.py"
+    ],
+    "note": "Archivos de rag_calibration_gemini_abstencion_20261101.json, rag_gemini_live_20261101.json, rag_gemini_live_20261109.json y rag_gemini_live_20261109_segunda_evaluacion.json movidos a data/rag/ (ver DELETE en git status)."
+  },
+  "runtime": {
+    "python": "3.9.x",
+    "platform": "Windows-10-10.0.26100-SP0",
+    "cpu_count": 8,
+    "hardware_notes": "Windows 10, 32GB RAM, SSD",
+    "network_notes": "Sin acceso a Gemini API real; resultados de calibración y live presentados como evidencia registrada"
+  },
+  "application": {
+    "environment": "development",
+    "database": "sqlite:///data/test_entrega2.db",
+    "alembic_head": "20261012_0005",
+    "rag_mode": "fallback",
+    "rag_top_k": 2,
+    "rag_similarity_threshold": 0.65,
+    "rag_minimum_score_margin": 0.0,
+    "llm_model": "gemini-3.6-flash",
+    "llm_fallback_models": [],
+    "gemini_embedding_model": "gemini-embedding-2"
+  },
+  "files_sha256": {
+    "data/rag_validation_100.json": "FD53AF9FC072743DE3F966271A34D46F88142398330B63CCEF3EBCF6F0A4DD58",
+    "data/validation_manifest.json": "E7A368DF9811DE2A56F617AD6F6E4F20182E7264D9E278F7D44856B2FB9F7572",
+    "data/acceptance_thresholds.json": "7B9F538C939022B3BFF260BEC231D4D7E8B70B9284F99B8F81D9B0B53DD42E5A",
+    "data/acceptance_traceability.json": "65DAF5287F16946749BC0CF94FB7C2EC21DFCAC7F3C595C22279D4F23A8C7DF2",
+    "data/acceptance_evidence_rnf.json": "014E58640A701F0A73DA90D1CAD11584DB10BB9E8CF56B55A29455D4AC2BCD1A",
+    "data/aprobacion_umbrales_20261109.json": "50423D8BA14AA97BFCE15870D767D8DAB0D6BEB43B58AA71C904D536ECDB5107"
+  },
+  "verification": {
+    "all_hashes_verified": true,
+    "total_files": 6,
+    "status": "approved"
+  }
+}

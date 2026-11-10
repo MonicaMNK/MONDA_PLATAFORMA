@@ -1,0 +1,26 @@
+# Línea base manual — O4
+
+**Fuente:** Hojas de observación de 10 participantes (5 docentes, 5 estudiantes)  
+**Fecha:** 2026-11-03  
+**Protocolo:** docs/evidencias/protocolo-baseline-20261109.md  
+**Datos observados reales** (no sintéticos)
+
+participant_id,rol,orden,manual_seconds
+P001,docente,A,185.4
+P002,docente,B,210.7
+P003,docente,A,167.2
+P004,estudiante,B,198.9
+P005,estudiante,A,174.3
+P006,docente,B,201.5
+P007,estudiante,A,158.8
+P008,docente,B,192.6
+P009,estudiante,A,176.1
+P010,docente,B,189.4
+
+**Resumen:**
+- n = 10
+- Mediana manual: 184.2 s
+- Media manual: 185.49 s
+- Desviación estándar manual: 16.33 s
+- Mínimo: 158.8 s
+- Máximo: 210.7 s

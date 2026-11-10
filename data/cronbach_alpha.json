@@ -1,0 +1,20 @@
+{
+  "cronbach_alpha_by_role": {
+    "docente": {
+      "n_participants": 6,
+      "n_items": 10,
+      "cronbach_alpha": 0.7829
+    },
+    "estudiante": {
+      "n_participants": 4,
+      "n_items": 10,
+      "cronbach_alpha": 0.915
+    },
+    "overall": {
+      "n_participants": 10,
+      "n_items": 10,
+      "cronbach_alpha": 0.9393
+    }
+  },
+  "interpretation": "Alfa >= 0.70 indica consistencia interna aceptable."
+}
