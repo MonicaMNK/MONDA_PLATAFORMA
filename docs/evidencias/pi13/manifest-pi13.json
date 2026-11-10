@@ -1,12 +1,12 @@
 {
-  "created_at_utc": "2026-11-10T06:00:00+00:00",
+  "created_at_utc": "2026-11-10T06:10:00+00:00",
   "repository": {
     "commit": "c7be36d",
     "branch": "main",
     "tag_local": "v1.0-pi13",
     "tag_pushed_to_remote": false,
     "working_tree_clean": false,
-    "note": "Artefactos PI13 y PI14 congelados en commit c7be36d. Tag v1.0-pi13 existe solo localmente (no publicado al remoto). Los estados de trazabilidad reflejan valores calculados desde datos fuente: RNF-02 parcial (mediana OK, p95 no logrado), abstención no lograda, ICC no logrado, disponibilidad y Lighthouse no verificados."
+    "note": "Artefactos PI13 y PI14 congelados en commit c7be36d. Tag v1.0-pi13 existe solo localmente (no publicado al remoto). Los estados de trazabilidad reflejan valores calculados desde datos fuente: RNF-02 parcial (mediana OK, p95 no logrado), abstención no lograda, ICC no logrado, disponibilidad y Lighthouse no verificados. Todos los archivos están normalizados a saltos de línea LF (.gitattributes). Los hashes corresponden a los bytes publicados tras normalización LF."
   },
   "runtime": {
     "python": "3.9.0",
@@ -42,32 +42,39 @@
     "gemini_embedding_model": "gemini-embedding-2"
   },
   "files_sha256": {
-    "data/rag_validation_100.json": "FD53AF9FC072743DE3F966271A34D46F88142398330B63CCEF3EBCF6F0A4DD58",
+    "data/rag_validation_100.json": "E49DDDB10E0D2C82BEAEA7865894AF70149B8C9B6E69AF623DEB39E5956A4DFF",
     "data/validation_manifest.json": "E7A368DF9811DE2A56F617AD6F6E4F20182E7264D9E278F7D44856B2FB9F7572",
     "data/acceptance_thresholds.json": "7B9F538C939022B3BFF260BEC231D4D7E8B70B9284F99B8F81D9B0B53DD42E5A",
-    "data/acceptance_traceability.json": "65DAF5287F16946749BC0CF94FB7C2EC21DFCAC7F3C595C22279D4F23A8C7DF2",
+    "data/acceptance_traceability.json": "EA400C9B075570BC85E83D36C4D2BFB1FF70BA2620253286C467B70C4D331526",
     "data/acceptance_evidence_rnf.json": "014E58640A701F0A73DA90D1CAD11584DB10BB9E8CF56B55A29455D4AC2BCD1A",
     "data/aprobacion_umbrales_20261109.json": "50423D8BA14AA97BFCE15870D767D8DAB0D6BEB43B58AA71C904D536ECDB5107",
-    "data/availability_probe_30d_20261109.log": "19F6FA07AA47A1E35A87C79A8C4CD2AB118AB0A67153F9BE302D4F6CDF5B9794",
-    "data/paired_time_summary.json": "6A9BCCA6AB955B05D67582D93BA9BF8DC12BD99C338172713C9A0CA32E03EFAB",
-    "data/rag_calibration_integration_results_20261109.json": "C9DF704952763486CCC79C5DA7CC2D155F65FB87B975A8FE1B0BD74F2132B73D",
-    "data/rag_latency_20261109.json": "3332E291C3D7A4B77604E207E59E61CF851A0445570F55286DAC687D49F72865",
+    "data/rag_calibration_integration_results_20261109.json": "4B01A1F93B94BEBB1DA2B3C53C765A05ACE9E36A9251CBC118C7C4776AB88FA8",
+    "data/rag_latency_20261109.json": "E920FDCD6779EB311D41F4D2CDA8DCF23B9C6CA8DF0CDC7E876C13016B180182",
     "data/expert_ratings_summary_20261109.json": "A4B1865E2B9DFBE3C7E8F78E98C9E7D26390FF9A8BB347DE8BD87C65AF5457A0",
-    "reports/analisis-baseline-pareado-20261109.json": "11913261F5D809DB4573004600F0E789E72C669C2E52D88CF6A88C77B44F2F3E",
+    "data/paired_time_summary.json": "6A9BCCA6AB955B05D67582D93BA9BF8DC12BD99C338172713C9A0CA32E03EFAB",
+    "reports/analisis-baseline-pareado-20261109.json": "FA3DAF83D5BFAB2ACD5A60E7A631B6B8C7054441FEF075A9CF7F8E8B18E80877",
     "docs/evidencias/pi13/lighthouse/lighthouse-20261109.json": "611B116B3733D6A1A1CF735DE4671D833B25084239E0B7B5D0864701FCE40E06",
-    "docs/evidencias/pi14/pi14_report.json": "66F931B9D53F3D81B46D5690B7D1E029D3B97EB9DAF3C75F1BB9C8E9003972FF",
+    "docs/evidencias/pi14/pi14_report.json": "65C70690F374928B4FB065A40350CCAFC1693F826AF7AD8FCCDF1E639AC1EC1A",
     "docs/evidencias/pi13/trazabilidad.csv": "88832695534CC8198FBFE6B5F28CBD0315E2A68AA1955086C5DF3B61D8AAD828",
     "docs/evidencias/pi13/cp-ejecucion.csv": "DEA237405FACF02C8F6790E9B565BD779100C1888E708CB1CD7AB49F3B7901A1",
     "docs/evidencias/pi13/resumen-funcional.md": "BF6C9D086F89B9E5CC1D0639715F48D7C3048BB99E14BDAA380B611CE51853A7",
     "docs/evidencias/pi13/desviaciones.md": "700AF264E75D079CA2086885068D8DE3DD34A281E406CD192C99D994B85F0210",
     "docs/evidencias/pi13/incidencias.md": "30F857D75F054D9A65A3377A8F48AD157ED608F443CC16F5D342DBF1D606D1DB",
-    "docs/evidencias/pi13/ENTORNO.md": "5620915183EA0A637B8C66F9C044B3737341D40E9DEC03C24D34E4396ECD314B",
-    "requirements.txt": "D432AE2C10A8C5E4294B69F06605D861ACBCE5FC40535762D3A1FDFFB1F623F6"
+    "docs/evidencias/pi13/ENTORNO.md": "F7CC38A6F59EC1A47AEC3FCCD6C84378E047EC99261C7DE05A5B4ACD8C5494BF",
+    "requirements.txt": "7CB1DB09FDC8C2A92EBF6A103C6A35716AB8382F5CA773D528795E45C4FCBAA1",
+    ".gitattributes": "9400341EB4F3388C4373D4967395DF355E93B47809D154FFCB9CEECA12C4A62C"
   },
-  "missing_evidence": [],
+  "missing_evidence": [
+    {
+      "path": "data/availability_probe_30d_20261109.log",
+      "requirement": "RNF-04",
+      "status": "NO_VERIFICADO"
+    }
+  ],
   "verification": {
     "all_hashes_verified": true,
     "total_files": 21,
+    "hash_normalization": "LF (gitattributes eol=lf)",
     "status": "approved"
   }
 }

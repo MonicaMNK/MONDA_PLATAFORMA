@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-10T05:57:16.409658+00:00",
+  "generated_at_utc": "2026-11-10T06:03:43.683357+00:00",
   "validation_bank": {
     "total": 85,
     "answerable": 57,
@@ -215,7 +215,7 @@
   "source_hashes": {
     "validation_bank": {
       "path": "data/rag_validation_100.json",
-      "sha256": "fd53af9fc072743de3f966271a34d46f88142398330b63ccef3ebcf6f0a4dd58"
+      "sha256": "e49dddb10e0d2c82beaea7865894af70149b8c9b6e69af623deb39e5956a4dff"
     },
     "paired_times": {
       "path": "data/usuarios/tiempos_pareados.csv",
