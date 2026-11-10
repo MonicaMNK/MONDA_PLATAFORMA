@@ -4,7 +4,7 @@
 **Rama:** main  
 **Commit:** `c7be36d` (main)  
 **Entorno:** local, puerto 8001, Windows 10 10.0.26100 SP0  
-**Tag:** `v1.0-pi13` publicado sobre commit `c7be36d`
+**Tag:** `v1.0-pi13` publicado localmente sobre commit `c7be36d` (no publicado al remoto)
 
 ## Versiones
 

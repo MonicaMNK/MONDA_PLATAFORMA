@@ -113,7 +113,23 @@ def analyze_paired_times(path: Path) -> dict:
     mean_d = float(np.mean(diffs_arr))
     sd_d = float(np.std(diffs_arr, ddof=1)) if len(diffs_arr) > 1 else 0.0
 
-    shapiro = stats.shapiro(diffs_arr)
+    if len(diffs_arr) >= 3:
+        shapiro = stats.shapiro(diffs_arr)
+        shapiro_wilk = {
+            "w": round(float(shapiro.statistic), 6),
+            "p_value": round(float(shapiro.pvalue), 6),
+            "normal": bool(shapiro.pvalue > 0.05),
+            "evaluable": True,
+        }
+    else:
+        shapiro_wilk = {
+            "w": None,
+            "p_value": None,
+            "normal": None,
+            "evaluable": False,
+            "reason": "Se requieren al menos 3 observaciones para Shapiro–Wilk",
+        }
+
     ttest = stats.ttest_rel(manual, monda, alternative="two-sided")
     dz = mean_d / sd_d if sd_d > 0 else 0.0
     ci = stats.t.interval(
@@ -139,9 +155,10 @@ def analyze_paired_times(path: Path) -> dict:
             "h1": "la diferencia media es distinta de cero",
             "alpha": 0.05,
             "n": len(rows),
-            "shapiro_wilk_w": round(float(shapiro.statistic), 6),
-            "shapiro_wilk_p": round(float(shapiro.pvalue), 6),
-            "shapiro_wilk_normal": bool(shapiro.pvalue > 0.05),
+            "shapiro_wilk_w": shapiro_wilk["w"],
+            "shapiro_wilk_p": shapiro_wilk["p_value"],
+            "shapiro_wilk_normal": shapiro_wilk["normal"],
+            "shapiro_wilk_evaluable": shapiro_wilk["evaluable"],
             "t_statistic": round(float(ttest.statistic), 6),
             "degrees_of_freedom": len(rows) - 1,
             "p_value_bilateral": round(float(ttest.pvalue), 12),

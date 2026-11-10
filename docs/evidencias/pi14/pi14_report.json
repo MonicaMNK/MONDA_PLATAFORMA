@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-10T05:48:51.003881+00:00",
+  "generated_at_utc": "2026-11-10T05:57:16.409658+00:00",
   "validation_bank": {
     "total": 85,
     "answerable": 57,
@@ -146,6 +146,7 @@
       "shapiro_wilk_w": 0.959793,
       "shapiro_wilk_p": 0.783508,
       "shapiro_wilk_normal": true,
+      "shapiro_wilk_evaluable": true,
       "t_statistic": 36.414483,
       "degrees_of_freedom": 9,
       "p_value_bilateral": 4.4e-11,
