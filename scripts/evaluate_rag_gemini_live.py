@@ -20,7 +20,7 @@ if str(ROOT) not in sys.path:
 DATA = ROOT / "data"
 PDF_ROOT = DATA / "demo_materials"
 VALIDATION_FIXTURE_PATH = DATA / "rag_validation_100.json"
-CALIBRATION_PATH = DATA / "rag_calibration_gemini_20261101.json"
+CALIBRATION_PATH = DATA / "rag_calibration_gemini_abstencion_20261101.json"
 PARTIAL_PATH = DATA / "rag_gemini_live_20261101.partial.json"
 FINAL_PATH = DATA / "rag_gemini_live_20261101.json"
 COURSE_DIRS = {"Biología": "biologia",
@@ -357,7 +357,7 @@ def main() -> None:
 
     provider = GeminiProvider(
         llm_model=settings.gemini_llm_model,
-        fallback_models=[],
+        fallback_models=settings.gemini_llm_fallback_models,
         embedding_model=calibration["metadata"]["embedding_model"],
     )
     ranked_by_query = []
@@ -458,7 +458,7 @@ def main() -> None:
             "category": query["category"],
             "question": query["question"],
             "answerable": query["answerable"],
-            "gold_pdf": query["gold_pdf"],
+            "gold_pdf": query.get("gold_pdf"),
             "top_cosine": top_score,
             "top_two_score_gap": score_gap if ranked else None,
             "minimum_score_margin": min_margin,
