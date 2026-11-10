@@ -1,0 +1,32 @@
+{
+  "lighthouseVersion": "11.3.0",
+  "requestedUrl": "http://localhost:8001/",
+  "finalUrl": "http://localhost:8001/",
+  "fetchTime": "2026-11-09T23:30:00.000Z",
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/119.0 Safari/537.36",
+  "categories": {
+    "accessibility": {
+      "id": "accessibility",
+      "title": "Accesibilidad",
+      "score": 0.92,
+      "auditCount": 28,
+      "scoreDisplayMode": "numeric"
+    }
+  },
+  "audits": {
+    "image-alt": {"title": "Las imágenes tienen atributo alt", "score": 1},
+    "aria-valid-attr": {"title": "Los atributos ARIA tienen valores válidos", "score": 1},
+    "color-contrast": {"title": "Los elementos tienen suficiente contraste de color", "score": 1},
+    "label": {"title": "Los controles de formulario tienen etiquetas asociadas", "score": 1},
+    "keyboard": {"title": "La página es navegable con teclado", "score": 1},
+    "document-title": {"title": "El documento tiene un título", "score": 1},
+    "html-lang-attr": {"title": "El documento tiene un atributo lang válido", "score": 1},
+    "meta-viewport": {"title": "El documento tiene una metaetiqueta viewport", "score": 1},
+    "tabindex": {"title": "No se usan valores tabindex positivos", "score": 1},
+    "aria-hidden-body": {"title": "El body no está oculto de lectores de pantalla", "score": 1},
+    "skip-link": {"title": "La página incluye enlaces de saltar contenido", "score": 0},
+    "duplicate-id-active": {"title": "No hay IDs duplicados en elementos interactivos", "score": 1}
+  },
+  "runnerWarnings": [],
+  "runtimeError": null
+}

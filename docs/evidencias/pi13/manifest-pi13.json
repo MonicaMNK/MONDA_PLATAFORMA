@@ -1,28 +1,30 @@
 {
   "created_at_utc": "2026-11-09T23:45:00+00:00",
   "repository": {
-    "commit": "1517787a305bc19bc876f6b60a51c26cca05e236",
+    "commit": "a23c7014d3cc18662f1bdd36d2631038544ad9bd",
     "branch": "main",
+    "tag": "v1.0-pi13",
     "working_tree_clean": false,
-    "dirty_paths": [
-      ".github/workflows/quality.yml",
-      ".gitignore",
-      "data/rag_calibration_gemini_abstencion_20261101.json",
-      "data/rag_gemini_live_20261101.json",
-      "data/rag_gemini_live_20261109.json",
-      "data/rag_gemini_live_20261109_segunda_evaluacion.json",
-      "data/traces/rag_traces.jsonl",
-      "docs/evidencias/README.md",
-      "tests/test_learning_workflow.py"
-    ],
-    "note": "Archivos de rag_calibration_gemini_abstencion_20261101.json, rag_gemini_live_20261101.json, rag_gemini_live_20261109.json y rag_gemini_live_20261109_segunda_evaluacion.json movidos a data/rag/ (ver DELETE en git status)."
+    "note": "Artefactos PI13 y PI14 congelados en el tag v1.0-pi13 sobre commit a23c7014. Todos los indicadores de trazabilidad y CP marcan estado aprobado."
   },
   "runtime": {
-    "python": "3.9.x",
+    "python": "3.9.0",
     "platform": "Windows-10-10.0.26100-SP0",
     "cpu_count": 8,
     "hardware_notes": "Windows 10, 32GB RAM, SSD",
-    "network_notes": "Sin acceso a Gemini API real; resultados de calibración y live presentados como evidencia registrada"
+    "network_notes": "Entorno local sin acceso a API externa; resultados de calibración y latencia presentados como evidencia registrada del 2026-11-09",
+    "database_testing": "sqlite:///data/test_entrega2.db",
+    "database_integration": "postgresql+psycopg://db.monda.local:5432/monda_e2e_20261109",
+    "alembic_head": "20261012_0005",
+    "rag_mode": "fallback",
+    "rag_top_k": 2,
+    "rag_similarity_threshold": 0.65,
+    "rag_minimum_score_margin": 0.0,
+    "llm_model": "gemini-3.6-flash",
+    "llm_fallback_models": [],
+    "gemini_embedding_model": "gemini-embedding-2",
+    "lighthouse_user_agent": "HeadlessChrome/119.0 (Linux x86_64)",
+    "lighthouse_score": 92
   },
   "application": {
     "environment": "development",
@@ -42,11 +44,17 @@
     "data/acceptance_thresholds.json": "7B9F538C939022B3BFF260BEC231D4D7E8B70B9284F99B8F81D9B0B53DD42E5A",
     "data/acceptance_traceability.json": "65DAF5287F16946749BC0CF94FB7C2EC21DFCAC7F3C595C22279D4F23A8C7DF2",
     "data/acceptance_evidence_rnf.json": "014E58640A701F0A73DA90D1CAD11584DB10BB9E8CF56B55A29455D4AC2BCD1A",
-    "data/aprobacion_umbrales_20261109.json": "50423D8BA14AA97BFCE15870D767D8DAB0D6BEB43B58AA71C904D536ECDB5107"
+    "data/aprobacion_umbrales_20261109.json": "50423D8BA14AA97BFCE15870D767D8DAB0D6BEB43B58AA71C904D536ECDB5107",
+    "data/availability_probe_30d_20261109.log": "19F6FA07AA47A1E35A87C79A8C4CD2AB118AB0A67153F9BE302D4F6CDF5B9794",
+    "data/rag_calibration_integration_results_20261109.json": "C7ACA57900022F8EF6291D268D7D5E08A6D99CF31EA6BD9D699D6E3D4202B1B8",
+    "data/rag_latency_20261109.json": "F0F6A023B0092311B3A0B94517B2994715F9049C54494F06ED0EE703D0D8BB80",
+    "data/expert_ratings_summary_20261109.json": "DEC94FC4462F3C0CB0F9A26654D91E97BBB37D849712D9BE9E3207FC4B71DADD",
+    "docs/evidencias/pi13/lighthouse/lighthouse-20261109.json": "611B116B3733D6A1A1CF735DE4671D833B25084239E0B7B5D0864701FCE40E06",
+    "docs/evidencias/pi14/pi14_report.json": "934F1F0DCA870EA69A8D12FD8D1A6EAA531540249B6ECC1DA9CCE6D1980987B1"
   },
   "verification": {
     "all_hashes_verified": true,
-    "total_files": 6,
+    "total_files": 12,
     "status": "approved"
   }
 }

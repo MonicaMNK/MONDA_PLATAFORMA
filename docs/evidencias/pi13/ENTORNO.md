@@ -1,15 +1,16 @@
 # Entorno de ejecución — PI13
 
 **Fecha de congelación:** 2026-11-09  
-**Rama:** develop → tag `v1.0-pi13`  
-**Commit:** `c1f033861c280f12f9ed63792c06b1eef7ce8a84` (develop)  
-**Entorno:** local, puerto 8001, Windows 10 10.0.26100 SP0
+**Rama:** main  
+**Commit:** `a23c7014d3cc18662f1bdd36d2631038544ad9bd` (main)  
+**Entorno:** local, puerto 8001, Windows 10 10.0.26100 SP0  
+**Tag:** `v1.0-pi13` publicado sobre commit `a23c7014d3cc18662f1bdd36d2631038544ad9bd`
 
 ## Versiones
 
 | Componente | Versión |
 |------------|---------|
-| Python | 3.12.16 |
+| Python | 3.9.0 |
 | k6 | v2.3.0 (imagen `grafana/k6:2.3.0`) |
 | FastAPI | 0.115.0 |
 | SQLAlchemy | 2.0.36 |
@@ -18,8 +19,8 @@
 | Alembic | 1.13.2 (head `20261012_0005`) |
 | Gemini LLM | `gemini-3.6-flash` |
 | Gemini Embedding | `gemini-embedding-2` |
-| pytest | 8.3.3 |
-| coverage | 7.6.1 |
+| pytest | 8.4.2 |
+| coverage | 7.1.0 |
 
 ## Navegadores probados
 

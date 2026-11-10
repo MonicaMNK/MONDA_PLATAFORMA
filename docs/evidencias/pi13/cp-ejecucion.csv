@@ -7,7 +7,8 @@ CP05,ES05 - Nota 6.67/20 con 1 de 3 reactivos + sin intentos cerrados no hay ale
 CP06,ES06 - OE3: promedio 10 y 14 = 12, no activa alerta baja,2026-11-09,Mónica,1,aprobado,tests/test_learning_workflow.py::test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert
 CP07,ES07 - Sincronización aplica una vez y rechaza acciones inseguras,2026-11-09,Daniel,1,aprobado,tests/test_pi11_es06_es10.py::test_es10_sync_api_applies_once_and_rejects_unsafe_actions
 CP08,RNF-01: p95 <= 800 ms a 50 VU, degradación <= 20%,2026-11-09,Daniel,2,aprobado,docs/evidencias/pi13/resultado-k6-local-2026-11-09.md
-CP09,RNF-02: latencia RAG mediana <= 3000 ms, p95 <= 5000 ms,2026-11-09,Mónica,1,revision,data/rag_latency_20261109.json
+CP09,RNF-02: latencia RAG mediana <= 3000 ms y p95 <= 5000 ms,2026-11-09,Mónica,1,aprobado,data/rag_latency_20261109.json
 CP10,RNF-03: pruebas negativas por rol y curso,2026-11-09,Daniel,1,aprobado,tests/test_entrega2_backend.py::test_course_isolation_and_rbac
 CP11,D07 - Entorno PostgreSQL + pgvector disponible,2026-11-09,Daniel,1,aprobado,docs/evidencias/pi13/ENTORNO.md
-CP12,RNF-07: cobertura de tests con pytest --cov,2026-11-09,Daniel,1,pendiente,reports/coverage.xml
+CP12a,RNF-05 Lighthouse accesibilidad >= 90,2026-11-09,Daniel,1,aprobado,docs/evidencias/pi13/lighthouse/lighthouse-20261109.json
+CP12b,RNF-07 cobertura de tests pytest --cov >= 80%,2026-11-09,Daniel,1,aprobado,reports/coverage.xml

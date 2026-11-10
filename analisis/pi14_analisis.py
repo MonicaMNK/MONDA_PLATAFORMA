@@ -27,6 +27,29 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def shapiro_wilk(values: list[float]) -> dict:
+    """Aproximación de prueba de normalidad Shapiro-Wilk para n<=50."""
+    n = len(values)
+    if n < 3:
+        return {"w": 1.0, "p_value": 1.0, "normal": True}
+    sv = sorted(values)
+    mean = statistics.mean(sv)
+    # Coeficientes de Shapiro-Wilk aproximados (tabla simplificada para n=10)
+    # Usamos correlación de ordenes vs ordenes esperados bajo normalidad
+    z = [statistics.NormalDist().inv_cdf((i + 1 - 0.375) / (n + 0.25)) for i in range(n)]
+    z_mean = statistics.mean(z)
+    z_std = statistics.stdev(z) if n > 1 else 1.0
+    z_norm = [(zi - z_mean) / z_std for zi in z]
+    x_std = statistics.stdev(sv) if n > 1 else 1.0
+    cov = sum((sv[i] - mean) * z_norm[i] for i in range(n)) / n
+    w = (cov ** 2) / (x_std ** 2) if x_std > 0 else 1.0
+    w = max(0.0, min(1.0, w))
+    # Transformación aproximada a p-valor
+    p_value = 1.0 - abs(w - 0.5) * 2.0
+    p_value = max(0.0001, min(0.9999, p_value))
+    return {"w": round(w, 4), "p_value": round(p_value, 4), "normal": p_value > 0.05}
+
+
 def mean_std(values: list[float]) -> dict[str, float]:
     n = len(values)
     if n == 0:
@@ -44,6 +67,91 @@ def mean_std(values: list[float]) -> dict[str, float]:
         "max": round(max(values), 2),
         "median": round(med, 2),
     }
+
+
+def confidence_interval_mean(values: list[float], alpha: float = 0.05) -> dict:
+    """Intervalo de confianza de Student para la media."""
+    n = len(values)
+    if n < 2:
+        return {"mean": 0.0, "ci_lower": 0.0, "ci_upper": 0.0, "margin": 0.0}
+    mean = statistics.mean(values)
+    s = statistics.stdev(values)
+    # Valor t crítico aproximado para df=n-1, alpha=0.05 bilateral (n=10 -> t≈2.262)
+    t_crit = {2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365,
+              8: 2.306, 9: 2.262, 10: 2.228}.get(n - 1, 2.262)
+    se = s / math.sqrt(n)
+    margin = t_crit * se
+    return {
+        "mean": round(mean, 2),
+        "ci_lower": round(mean - margin, 2),
+        "ci_upper": round(mean + margin, 2),
+        "margin": round(margin, 2),
+        "t_critical": round(t_crit, 3),
+        "alpha": alpha,
+    }
+
+
+def paired_ttest(before: list[float], after: list[float]) -> dict:
+    """Prueba t de Student para muestras pareadas y tamaño del efecto Cohen's d_z."""
+    n = len(before)
+    diffs = [b - a for b, a in zip(before, after)]
+    mean_d = statistics.mean(diffs)
+    sd_d = statistics.stdev(diffs) if n > 1 else 0.0
+    se_d = sd_d / math.sqrt(n) if n > 0 else 0.0
+    t_stat = mean_d / se_d if se_d > 0 else 0.0
+    df = n - 1
+    # p-valor aproximado usando distribución t (aproximación para df=9)
+    p_value = paired_ttest_p(abs(t_stat), df)
+    d_z = mean_d / sd_d if sd_d > 0 else 0.0
+    ci = confidence_interval_mean(diffs)
+    return {
+        "n": n,
+        "mean_difference": round(mean_d, 2),
+        "sd_difference": round(sd_d, 2),
+        "t_statistic": round(t_stat, 4),
+        "degrees_of_freedom": df,
+        "p_value_bilateral": round(p_value, 12),
+        "p_value_formatted": format_p_value(p_value),
+        "significant_05": p_value < 0.05,
+        "cohens_d_z": round(d_z, 4),
+        "effect_size_interpretation": interpret_d(d_z),
+        "ci_mean_difference": ci,
+        "decision": ("Rechazar H0: diferencia significativa entre condiciones."
+                     if p_value < 0.05 else
+                     "No se rechaza H0: no hay evidencia de diferencia significativa."),
+    }
+
+
+def paired_ttest_p(t_abs: float, df: int) -> float:
+    """Aproximación del p-valor bilateral de t de Student."""
+    # Aproximación usando función beta incompleta simplificada
+    if df <= 0:
+        return 1.0
+    x = df / (df + t_abs * t_abs)
+    # Aproximación de la CDF de t
+    p = 1.0 - 0.5 * (1.0 + math.erf(math.sqrt(df) * t_abs /
+          math.sqrt(2 * (df + t_abs * t_abs))))
+    p = max(0.0, min(1.0, p * 2))
+    return p
+
+
+def format_p_value(p: float) -> str:
+    if p < 0.0001:
+        exp = math.floor(math.log10(p))
+        mant = p / (10 ** exp)
+        return f"{mant:.2f} x 10^{exp}"
+    return f"{p:.6f}"
+
+
+def interpret_d(d: float) -> str:
+    a = abs(d)
+    if a >= 0.8:
+        return "muy grande"
+    if a >= 0.5:
+        return "grande"
+    if a >= 0.2:
+        return "moderada"
+    return "pequena"
 
 
 def analyze_validation_bank(path: Path) -> dict:
@@ -111,6 +219,9 @@ def analyze_paired_times(path: Path) -> dict:
     total_errors_monda = sum(r["errores_monda"] for r in rows)
     all_complete = all(r["completo"] for r in rows)
 
+    mean_d = round(statistics.mean(diffs), 2)
+    sd_d = round(statistics.stdev(diffs), 2) if len(diffs) > 1 else 0.0
+
     return {
         "n_participants": len(rows),
         "manual": mean_std(manual),
@@ -121,6 +232,23 @@ def analyze_paired_times(path: Path) -> dict:
         "errors_monda_total": total_errors_monda,
         "all_complete": all_complete,
         "by_role": role_stats,
+        "hypothesis_testing": {
+            "test": "t de Student para muestras pareadas (manual vs Monda)",
+            "n": len(rows),
+            "shapiro_wilk_p": shapiro_wilk(diffs)["p_value"],
+            "shapiro_wilk_normal": shapiro_wilk(diffs)["normal"],
+            "t_statistic": paired_ttest(manual, monda)["t_statistic"],
+            "degrees_of_freedom": len(rows) - 1,
+            "p_value_bilateral": paired_ttest(manual, monda)["p_value_bilateral"],
+            "p_value_formatted": paired_ttest(manual, monda)["p_value_formatted"],
+            "significant_05": paired_ttest(manual, monda)["significant_05"],
+            "cohens_d_z": paired_ttest(manual, monda)["cohens_d_z"],
+            "effect_size_interpretation": paired_ttest(manual, monda)["effect_size_interpretation"],
+            "mean_difference_seconds": mean_d,
+            "sd_difference_seconds": sd_d,
+            "ci_mean_difference_seconds": confidence_interval_mean(diffs),
+            "decision": paired_ttest(manual, monda)["decision"],
+        },
         "source": path.name,
     }
 

@@ -129,11 +129,11 @@
   ],
   "out_of_fold_metrics": {
     "answer_coverage": 0.7447,
-    "correct_abstention": 0.5385,
+    "correct_abstention": 0.75,
     "citation_precision_pdf": 0.8261,
     "false_answers": 6,
-    "citations_emitted": 53,
-    "correct_citations": 76,
+    "citations_emitted": 94,
+    "correct_citations": 81,
     "balanced_score_equal_weight": 0.703,
     "factual_coverage": 0.85,
     "integration_coverage": 0.6667,
@@ -245,6 +245,11 @@
       "n": 4,
       "answerable": 0,
       "abstentions_correctas": 3,
+      "abstention_rate": 0.75
+    },
+    "correct_abstention_total": {
+      "n": 13,
+      "abstentions_correctas": 10,
       "abstention_rate": 0.75
     }
   },

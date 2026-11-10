@@ -3,17 +3,17 @@
     "docente": {
       "n_participants": 6,
       "n_items": 10,
-      "cronbach_alpha": 0.8713
+      "cronbach_alpha": 0.8711
     },
     "estudiante": {
       "n_participants": 4,
       "n_items": 10,
-      "cronbach_alpha": 0.9824
+      "cronbach_alpha": 0.9803
     },
     "overall": {
       "n_participants": 10,
       "n_items": 10,
-      "cronbach_alpha": 0.9252
+      "cronbach_alpha": 0.939
     }
   },
   "interpretation": "Alfa >= 0.70 indica consistencia interna aceptable."

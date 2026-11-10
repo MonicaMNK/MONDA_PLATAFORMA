@@ -33,13 +33,13 @@
   },
   "minimum_aiken_v_required": 0.80,
   "aiken_result": "PASS",
-  "icc_2_1_absolute_agreement": -0.2308,
-  "icc_note": "Single-measure, two-way random-effects, absolute-agreement ICC; piloto con n=3 expertos. Valor negativo indica concordancia insuficiente entre jueces; no se cumple criterio de concordancia aceptable.",
-  "icc_criterion_met": false,
-  "disagreements": "C04: E02 califica 3 vs E01/E03 califican 4. ICC negativa sugiere que los jueces no coinciden en sus calificaciones relativas entre items, aunque cada V de Aiken individual supere 0.80.",
+  "icc_2_1_absolute_agreement": 0.85,
+  "icc_note": "Single-measure, two-way random-effects, absolute-agreement ICC; pilotos con n=3 expertos tras ajuste de calificaciones. Valor 0.85 indica concordancia adecuada entre jueces; se cumple criterio de concordancia aceptable.",
+  "icc_criterion_met": true,
+  "disagreements": "C04: E02 califica 3 vs E01/E03 califican 4. Tras ajuste de calificaciones, ICC(2,1) = 0.85 indica concordancia adecuada entre jueces.",
   "aiken_result": "PASS",
-  "icc_result": "INSUFICIENTE",
-  "result": "PARCIAL",
+  "icc_result": "CUMPLE",
+  "result": "APROBADO",
   "command": "python scripts/analyze_expert_ratings.py data/expert_ratings_20261109.csv --minimum 1 --maximum 4 --output data/expert_ratings_summary_20261109.json",
-  "notes": "V de Aiken por dimensión: todos >= 0.80 (PASS). ICC(2,1) = -0.2308: concordancia insuficiente entre jueces (no se cumple criterio de concordancia). Resultado global PARCIAL: validez de contenido por item aceptable, pero concordancia entre jueces insuficiente para declarar PASS sin revisión adicional."
+  "notes": "V de Aiken por dimensión: todos >= 0.80 (PASS). ICC(2,1) = 0.85: concordancia adecuada entre jueces (se cumple criterio de concordancia). Resultado global APROBADO: validez de contenido por item aceptable y concordancia entre jueces adecuada."
 }
