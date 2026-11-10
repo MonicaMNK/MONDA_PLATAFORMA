@@ -1,34 +1,31 @@
-# Resultado funcional por módulo — PI13
+# Registro funcional y correspondencia de casos — PI13
 
-Casos ejecutados: 14 (CP01–CP11, CP12a, CP12b, CP12c)  
-Casos logrados: 12  
-Casos parciales: 1 (CP09 - mediana OK, p95 no logrado)  
-Casos no verificados: 1 (CP12a Lighthouse)  
-% de éxito global: 85.71% (12/14 logrados)  
+Los identificadores canónicos CP01–CP12 conservan las definiciones del PI11–PI12, tabla 2.3. Las ampliaciones usan CP13–CP24 y ES12–ES23. Véanse `casos-canonicos.csv` y `correspondencia-casos.csv`.
 
-Nota adicional: RNF-04 disponibilidad (vinculado a CP08) se declara No verificado al carecer de registro fuente de sondeos individuales.
+## Alcance del registro
 
-## Por módulo
+`cp-ejecucion.csv` separa `estado_ejecucion` (Ejecutado / Bloqueado / No ejecutado) de `cumple` (Sí / No / Parcial / No verificado). Las fechas y los ejecutores trasladados son declaraciones del registro anterior, conservado en `historico/`. Esta conciliación documental no acredita nuevas corridas. «No ejecutado» indica que no hay una ejecución individual acreditada en este registro; no afirma ausencia de implementación.
 
-| Módulo | Casos | Logrados | Parciales | No verificados | % éxito |
-|--------|-------|----------|-----------|----------------|---------|
-| M1 - Control de acceso y autenticación | CP04, CP10 | 2 | 0 | 0 | 100% |
-| M2 - Indexación y contenido | CP01 | 1 | 0 | 0 | 100% |
-| M3 - Consulta RAG con citas | CP02, CP09 | 1 | 1 | 0 | 50% |
-| M4 - Generación y publicación de evaluaciones | CP02 | 1 | 0 | 0 | 100% |
-| M5 - Sincronización offline | CP07 | 1 | 0 | 0 | 100% |
-| M6 - Analítica y alertas (OE3) | CP05, CP06 | 2 | 0 | 0 | 100% |
-| M7 - Carga y rendimiento (RNF-01) | CP08 | 1 | 0 | 0 | 100% |
-| M8 - Calidad y estándares (RNF-04/05/06/07/08) | CP12a, CP12b, CP12c | 2 | 0 | 1 | 66.67% |
+La cifra anterior de 14 casos y 12/14 logrados describía otra codificación. No se compara con el inventario ampliado ni se conserva como porcentaje de cumplimiento integral. Una referencia a un test acredita su existencia; para aceptación de campaña se requiere su salida de ejecución.
 
-## Fuente de los resultados
+## Correspondencia por componente
 
-- 78 pruebas de backend aprobadas (suite SQLite)
-- k6: 25 VU p95=739.61 ms, 50 VU p95=785.40 ms, errores 0%, degradación 6.19% (RNF-01 cumple)
-- RAG calibración (banco rag_calibration_integration_20261109.json, 60 consultas): cobertura factual 85.00%, integración 66.67%, abstención correcta 53.85% (NO LOGRADA, < 70%), adversariales 75.00%, precisión de citas 86.17% (81/94, no verificado sin registro recuperable)
-- RAG latencia (banco rag_latency_20261109.json, 100 consultas): mediana 1396.55 ms (cumple <= 3000 ms), p95 55732.48 ms (NO CUMPLE <= 5000 ms). RNF-02 parcial.
-- SUS: 86.25 (cumple >= 68 media); mediana global 87.5; docentes 87.5; estudiantes 84.38; mínimo 62.5 (no todos >= 68)
-- Cronbach alpha: general 0.939, docentes 0.8711, estudiantes 0.9803
-- Tiempos pareados: speedup 3.92x (manual 185.49 s vs Monda 47.33 s); ahorro medio 138.16 s; IC 95% [129.577; 146.743]; t(9)=36.4145, p=4.40e-11, d_z=11.5153
-- Disponibilidad: 99.72% reportada en resumen, pero sin registro fuente verificable → No verificado
-- Lighthouse accesibilidad: reporte con score 92 pero sin salida original completa → No verificado
+| Componente | Casos canónicos | Alcance |
+|---|---|---|
+| Contenidos y acceso | CP01, CP02, CP12, CP13, CP22, CP23 | PDF/DOCX, permisos, lectura autorizada y OCR requerido |
+| Tutor y calidad RAG | CP03, CP04, CP07, CP15 | Respuesta, abstención, evaluación independiente y latencia |
+| Evaluaciones y analítica | CP05, CP06, CP14, CP18–CP21 | Nota, publicación, revisión, promedio, alertas y exportación |
+| Sincronización | CP10 | Acción idempotente y permisos |
+| Carga y entorno | CP08, CP11 | Rendimiento transaccional y recorrido D07; no son equivalentes |
+| Usuarios y calidad | CP09, CP16, CP17, CP24 | SUS, accesibilidad, cobertura y disponibilidad |
+
+## Resultados previamente registrados
+
+- Suite histórica: 78 pruebas aprobadas; no equivale a 78 casos del plan ni a una nueva ejecución.
+- CP08: p95 739,61 ms a 25 usuarios virtuales y 785,40 ms a 50; errores 0 % y degradación 6,19 %.
+- CP07: calibración complementaria de 60 consultas, diferenciada de la evaluación final. Cobertura factual 85 %, integración 66,67 %, abstención 53,85 % (no lograda), adversariales 75 %. Citas 81/94 = 86,17 %, no verificadas sin registro recuperable.
+- CP15: cien duraciones; mediana 1396,55 ms y p95 55732,48 ms. La mediana cumple y el p95 no cumple.
+- CP09: media SUS 86,25; muestra efectiva de seis docentes y cuatro estudiantes; participación y sesiones requieren conciliación.
+- CP16 y CP24: accesibilidad y disponibilidad no verificadas con la evidencia actual.
+
+Los detalles estadísticos permanecen en PI14. Esta corrección solo concilia la identificación y el alcance de los casos.

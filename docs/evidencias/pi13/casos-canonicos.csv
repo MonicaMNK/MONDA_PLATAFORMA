@@ -1,0 +1,25 @@
+id,escenario,OE,descripcion,resultado_esperado,referencia,origen
+CP01,ES01,OE1,"Carga, versión e indexación de PDF","HTTP 201, versión activa y fragmento recuperable",tests/test_entrega2_backend.py::test_material_upload_version_and_index_fallback,PI12 tabla 2.3
+CP02,ES02,OE1,Acceso denegado desde curso ajeno,HTTP 403 sin revelar contenido de otro curso,tests/test_entrega2_backend.py::test_course_isolation_and_rbac,PI12 tabla 2.3
+CP03,ES03,OE2,Respuesta RAG con fuente autorizada,Respuesta respaldada; distinguir proveedor real de controlado,tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag,PI12 tabla 2.3
+CP04,ES04,OE2,Abstención y adversariales,Conservar metas del plan y registrar revisiones; no transferir calibración a evaluación final,data/rag_calibration_integration_results_20261109.json,PI12 tabla 2.3
+CP05,ES05,OE3,Evaluación y nota sobre veinte,"Un acierto entre tres produce 6,67/20",tests/test_learning_workflow.py::test_es05_uno_de_tres_reactivos_califica_6_67_y_sin_intentos_cerrados_no_alerta,PI12 tabla 2.3
+CP06,ES06,OE3,Estudiante no puede publicar evaluación,HTTP 403 y borrador sin cambios,tests/test_pi11_es06_es10.py::test_es06_student_cannot_publish_teacher_draft,PI12 tabla 2.3
+CP07,ES07,OE2,Evaluación final RAG con banco independiente,"Cien consultas previstas; cambio a banco de 85 registrado como desviación, no como ejecución final completa",data/rag_validation_100.json,PI12 tabla 2.3
+CP08,ES08,OE1–OE3,Carga transaccional con cincuenta usuarios,Aplicar criterio documentado de carga y registrar desviaciones,docs/evidencias/resultado-k6-local-2026-11-09.md,PI12 tabla 2.3
+CP09,ES09,OE1–OE3,Tareas con usuarios y SUS,"Sesiones, consentimientos, tareas y SUS calculable; distinguir muestra planificada y efectiva",data/sus_scores.json,PI12 tabla 2.3
+CP10,ES10,OE1–OE3,Sincronización tras desconexión,"ActionId aplicado una vez, sin duplicados, permisos y conflictos",tests/test_pi11_es06_es10.py::test_es10_sync_api_applies_once_and_rejects_unsafe_actions,PI12 tabla 2.3
+CP11,ES11,OE1–OE3,D07: recorrido E1–E3 en PostgreSQL y pgvector,Recorrido integrado con logs y capturas; disponibilidad del motor no equivale a cierre D07,docs/evidencias/pi13/ENTORNO.md,PI12 tabla 2.3
+CP12,ES01,OE1,Acceso permitido a material autorizado,Estudiante matriculado accede a la versión activa sin ampliar el curso,tests/test_entrega2_backend.py::test_course_isolation_and_rbac,PI12 tabla 2.3
+CP13,ES12,OE1,Acceso administrativo denegado al estudiante,HTTP 403 en administración,tests/test_entrega2_backend.py::test_course_isolation_and_rbac,Ampliación documental; no modifica CP01–CP12
+CP14,ES13,OE3,Promedio de dos notas: diez y catorce,Promedio 12/20 sin alerta baja,tests/test_learning_workflow.py::test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert,Ampliación documental; no modifica CP01–CP12
+CP15,ES14,OE2,Latencia del tutor RAG,Mediana <= 3000 ms y p95 <= 5000 ms; valorar ambos criterios,data/rag_latency_20261109.json,Ampliación documental; no modifica CP01–CP12
+CP16,ES15,OE1–OE3,Accesibilidad con Lighthouse,Puntuación >= 90 con salida original completa,docs/evidencias/pi13/lighthouse/lighthouse-20261109.json,Ampliación documental; no modifica CP01–CP12
+CP17,ES16,OE1–OE3,Cobertura de pruebas,Cobertura >= 80 % con ejecución y alcance identificados,reports/coverage.xml,Ampliación documental; no modifica CP01–CP12
+CP18,ES17,OE3,Publicación bloqueada antes de revisión,HTTP 409 REVIEW_REQUIRED antes de aprobar reactivos,tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag,Ampliación documental; no modifica CP01–CP12
+CP19,ES18,OE3,Ausencia de alerta sin intentos cerrados,Cero alertas cuando no existen intentos cerrados,tests/test_learning_workflow.py::test_low_average_alert_requires_closed_attempts_and_uses_configured_threshold,Ampliación documental; no modifica CP01–CP12
+CP20,ES19,OE3,Alerta por promedio inferior al umbral,Alerta solo con intentos cerrados y promedio bajo umbral,tests/test_learning_workflow.py::test_low_average_alert_requires_closed_attempts_and_uses_configured_threshold,Ampliación documental; no modifica CP01–CP12
+CP21,ES20,OE3,Exportación denegada a docente ajeno,HTTP 403 al exportar un curso sin autorización,tests/test_admin_management.py::test_admin_creates_edits_users_and_assigns_courses,Ampliación documental; no modifica CP01–CP12
+CP22,ES21,OE1,Carga e indexación de DOCX,Texto extraído e indexado desde DOCX,tests/test_content_formats.py::test_docx_upload_extracts_and_indexes_text,Ampliación documental; no modifica CP01–CP12
+CP23,ES22,OE1,PDF escaneado que requiere OCR,"Estado específico requires_ocr, sin simular indexación textual",tests/test_content_formats.py::test_scanned_pdf_returns_specific_ocr_required_status,Ampliación documental; no modifica CP01–CP12
+CP24,ES23,OE1–OE3,Disponibilidad durante treinta días,Registro fuente del periodo y cálculo de disponibilidad,data/availability_probe_30d_20261109.log,Ampliación documental; no modifica CP01–CP12

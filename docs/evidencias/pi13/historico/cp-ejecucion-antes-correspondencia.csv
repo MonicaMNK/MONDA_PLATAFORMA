@@ -1,0 +1,15 @@
+id,escenario,fecha,ejecutor,N° ejecuciones,estado,ruta_evidencia
+CP01,"ES01 - Docente sube PDF y lo indexa",2026-11-09,Daniel,1,Logrado,tests/test_entrega2_backend.py::test_material_upload_version_and_index_fallback
+CP02,"ES02 - Consulta RAG con citas sobre PDF indexado",2026-11-09,Mónica,1,Logrado,tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag
+CP03,"ES03 - Estudiante no puede publicar borrador de docente",2026-11-09,Mónica,1,Logrado,tests/test_pi11_es06_es10.py::test_es06_student_cannot_publish_teacher_draft
+CP04,"ES04 - Estudiante no puede acceder a admin",2026-11-09,Daniel,1,Logrado,tests/test_entrega2_backend.py::test_course_isolation_and_rbac
+CP05,"ES05 - Nota 6.67/20 con 1 de 3 reactivos + sin intentos cerrados no hay alerta",2026-11-09,Mónica,1,Logrado,tests/test_learning_workflow.py::test_es05_uno_de_tres_reactivos_califica_6_67_y_sin_intentos_cerrados_no_alerta
+CP06,"ES06 - OE3: promedio 10 y 14 = 12, no activa alerta baja",2026-11-09,Mónica,1,Logrado,tests/test_learning_workflow.py::test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert
+CP07,"ES07 - Sincronización aplica una vez y rechaza acciones inseguras",2026-11-09,Daniel,1,Logrado,tests/test_pi11_es06_es10.py::test_es10_sync_api_applies_once_and_rejects_unsafe_actions
+CP08,"RNF-01: p95 <= 800 ms a 50 VU, degradación <= 20%",2026-11-09,Daniel,2,Logrado,docs/evidencias/resultado-k6-local-2026-11-09.md
+CP09,"RNF-02: latencia RAG mediana <= 3000 ms (logrado) y p95 <= 5000 ms (no logrado)",2026-11-09,Mónica,1,Parcial,data/rag_latency_20261109.json
+CP10,"RNF-03: pruebas negativas por rol y curso",2026-11-09,Daniel,1,Logrado,tests/test_entrega2_backend.py::test_course_isolation_and_rbac
+CP11,"D07 - Entorno PostgreSQL + pgvector disponible",2026-11-09,Daniel,1,Logrado,docs/evidencias/pi13/ENTORNO.md
+CP12a,"RNF-05 Lighthouse accesibilidad >= 90",2026-11-09,Daniel,1,No verificado,docs/evidencias/pi13/lighthouse/lighthouse-20261109.json
+CP12b,"RNF-06 SUS media >= 68",2026-11-09,Daniel,1,Logrado,data/sus_scores.json
+CP12c,"RNF-07 cobertura pytest --cov >= 80%",2026-11-09,Daniel,1,Logrado,reports/coverage.xml
