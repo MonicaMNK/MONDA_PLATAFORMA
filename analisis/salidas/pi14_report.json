@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-10T04:44:47.200768+00:00",
+  "generated_at_utc": "2026-11-10T04:55:17.389181+00:00",
   "validation_bank": {
     "total": 85,
     "answerable": 57,
@@ -143,46 +143,46 @@
     "n_participants": 10,
     "overall": {
       "n": 10,
-      "mean": 86.25,
-      "std": 12.03,
-      "min": 62.5,
+      "mean": 87.25,
+      "std": 9.75,
+      "min": 75.0,
       "max": 100.0,
-      "median": 87.5
+      "median": 86.25
     },
     "by_role": {
       "docente": {
         "n": 6,
-        "mean": 87.5,
-        "median": 87.5,
+        "mean": 87.08,
+        "median": 86.25,
         "min": 75.0,
         "max": 97.5
       },
       "estudiante": {
         "n": 4,
-        "mean": 84.38,
+        "mean": 87.5,
         "median": 87.5,
-        "min": 62.5,
+        "min": 75.0,
         "max": 100.0
       }
     },
-    "above_68": 9,
+    "above_68": 10,
     "source": "sus_respuestas.csv"
   },
   "consistency": {
     "docente": {
       "n_participants": 6,
       "n_items": 10,
-      "cronbach_alpha": 0.3009
+      "cronbach_alpha": 0.8713
     },
     "estudiante": {
       "n_participants": 4,
       "n_items": 10,
-      "cronbach_alpha": -25.1852
+      "cronbach_alpha": 0.9824
     },
     "overall": {
       "n_participants": 10,
       "n_items": 10,
-      "cronbach_alpha": -0.6396
+      "cronbach_alpha": 0.9252
     }
   }
 }

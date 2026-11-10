@@ -1,21 +1,21 @@
 {
   "n_participants": 10,
   "overall": {
-    "mean": 86.25,
+    "mean": 87.25,
     "median": 87.5,
-    "min": 62.5,
+    "min": 75.0,
     "max": 100.0
   },
   "by_role": {
     "docente": {
       "n": 6,
-      "mean": 87.5,
-      "median": 87.5,
-      "std": 7.5,
+      "mean": 87.08,
+      "median": 86.25,
+      "std": 7.56,
       "min": 75.0,
       "max": 97.5,
       "scores": [
-        87.5,
+        85.0,
         97.5,
         75.0,
         95.0,
@@ -25,15 +25,15 @@
     },
     "estudiante": {
       "n": 4,
-      "mean": 84.38,
+      "mean": 87.5,
       "median": 87.5,
-      "std": 15.35,
-      "min": 62.5,
+      "std": 11.32,
+      "min": 75.0,
       "max": 100.0,
       "scores": [
         97.5,
         77.5,
-        62.5,
+        75.0,
         100.0
       ]
     }
@@ -42,7 +42,7 @@
     {
       "participant_id": "P001",
       "rol": "docente",
-      "sus_score": 87.5
+      "sus_score": 85.0
     },
     {
       "participant_id": "P002",
@@ -72,7 +72,7 @@
     {
       "participant_id": "P007",
       "rol": "estudiante",
-      "sus_score": 62.5
+      "sus_score": 75.0
     },
     {
       "participant_id": "P008",

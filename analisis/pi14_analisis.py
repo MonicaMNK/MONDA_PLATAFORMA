@@ -185,6 +185,8 @@ def analyze_consistency(path: Path) -> dict:
             role = row["rol"].strip()
             for i in range(1, 11):
                 val = float(row[f"q{i}"])
+                if i % 2 == 0:
+                    val = 6.0 - val
                 by_role[role][i].append(val)
                 all_items[i].append(val)
 

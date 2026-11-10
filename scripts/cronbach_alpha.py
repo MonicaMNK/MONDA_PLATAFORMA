@@ -57,6 +57,8 @@ def main() -> None:
     parser.add_argument("--output", type=Path,
                         default=Path("cronbach_alpha.json"),
                         help="Archivo de salida JSON.")
+    parser.add_argument("--sus", action="store_true",
+                        help="Aplica reverse scoring de ítems pares (SUS estándar).")
     args = parser.parse_args()
 
     by_role = defaultdict(lambda: defaultdict(list))
@@ -69,6 +71,8 @@ def main() -> None:
             participants.append((pid, role))
             for i in range(1, 11):
                 val = float(row[f"q{i}"])
+                if args.sus and i % 2 == 0:
+                    val = 6.0 - val
                 by_role[role][i].append(val)
                 all_items[i].append(val)
 

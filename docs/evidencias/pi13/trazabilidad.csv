@@ -2,22 +2,22 @@ OE,indicador,meta,CP,resultado,incidencia,evidencia,cumple
 OE1,Indexación de PDFs y DOCX,100% de consultas respondibles con fuentes válidas,CP01,78/78 tests aprobados,Ninguna,tests/test_entrega2_backend.py::test_material_upload_version_and_index_fallback,SÍ
 OE1,Control de acceso por rol,Estudiante no puede crear cursos ni acceder a admin,CP04,403 en ambos casos,Ninguna,tests/test_entrega2_backend.py::test_course_isolation_and_rbac,SÍ
 OE1,Publicación bloqueada sin revisión,409 REVIEW_REQUIRED antes de aprobar preguntas,CP02,409 retornado,Ninguna,tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag,SÍ
-OE2,Cobertura de consultas respondibles,>= 65%,CP09,85.00% (17/20 factual),Ninguna,data/rag_validation_100.json,SÍ
-OE2,Cobertura de integración,>= 50%,CP09,66.67% (18/27 integration),Ninguna,data/rag_calibration_integration_results_20261109.json,SÍ
+OE2,Cobertura factual,>= 65%,CP09,85.00% (17/20),Ninguna,data/rag_calibration_integration_results_20261109.json,SÍ
+OE2,Cobertura de integración,>= 50%,CP09,66.67% (18/27),Ninguna,data/rag_calibration_integration_results_20261109.json,SÍ
 OE2,Abstención correcta controles,>= 70%,CP09,53.85% (7/13),Ninguna,data/rag_calibration_integration_results_20261109.json,REVISIÓN
 OE2,Adversariales,>= 70%,CP09,75.00% (3/4),Ninguna,data/rag_calibration_integration_results_20261109.json,SÍ
 OE2,Precisión de citas PDF,>= 73%,CP09,82.61%,Ninguna,data/rag_calibration_integration_results_20261109.json,SÍ
 OE3,Promedio 10 y 14 = 12,no activa alerta baja,CP06,promedio 12.0 sin alerta,Ninguna,tests/test_learning_workflow.py::test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert,SÍ
-OE3,Nota 6.67/20 con 1 de 3 reactivos,calificación correcta,CP05,6.67/20 con 1/3 reactivos,Ninguna,tests/test_learning_workflow.py::test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert,SÍ
+OE3,Nota 6.67/20 con 1 de 3 reactivos,calificación correcta,CP05,6.67/20 con 1/3 reactivos,Ninguna,tests/test_learning_workflow.py::test_es05_uno_de_tres_reactivos_califica_6_67_y_sin_intentos_cerrados_no_alerta,SÍ
 OE3,Sin intentos cerrados no hay alerta,0 alertas con 0 intentos cerrados,CP06,0 alertas,Ninguna,tests/test_learning_workflow.py::test_low_average_alert_requires_closed_attempts_and_uses_configured_threshold,SÍ
 RNF-01,p95 de API transaccional,<= 800 ms,CP08,785.40 ms a 50 VU,Ninguna,docs/evidencias/pi13/resultado-k6-local-2026-11-09.md,SÍ
 RNF-01,Degradación 25→50 VU,<= 20%,CP08,6.19%,Ninguna,docs/evidencias/pi13/resultado-k6-local-2026-11-09.md,SÍ
 RNF-01,Tasa de error HTTP,< 1%,CP08,0%,Ninguna,docs/evidencias/pi13/resultado-k6-local-2026-11-09.md,SÍ
-RNF-02,Latencia RAG mediana,<= 3000 ms,CP09,<= 3000 ms,Ninguna,data/rag_latency_20261109.json,SÍ
-RNF-02,Latencia RAG p95,<= 5000 ms,CP09,<= 5000 ms,Ninguna,data/rag_latency_20261109.json,SÍ
+RNF-02,Latencia RAG mediana,<= 3000 ms,CP09,<= 3000 ms (observado 1392.55 ms),Ninguna,data/rag_latency_20261109.json,SÍ
+RNF-02,Latencia RAG p95,<= 5000 ms,CP09,p95 55732.48 ms supera umbral (revisión),Ninguna,data/rag_latency_20261109.json,REVISIÓN
 RNF-03,Pruebas negativas por rol,403 en acciones no autorizadas,CP10,403 en curso ajeno y admin,Ninguna,tests/test_entrega2_backend.py::test_course_isolation_and_rbac,SÍ
 RNF-04,Disponibilidad 30 días,>= 99.5%,CP08,99.72% (documentado),Incidencia I-01,data/availability_probe_30d_20261109.log,SÍ
-RNF-05,Lighthouse accesibilidad,>= 90,CP12,pendiente script lighthouse,I-02,scripts/lighthouse/lighthouse_run.js,PENDIENTE
-RNF-06,SUS,>= 68,CP12,86.25,Ninguna,data/sus_campaign_20261109.json,SÍ
+RNF-05,Lighthouse accesibilidad,>= 90,CP12,script creado, pendiente ejecución,I-02,scripts/lighthouse/lighthouse_run.js,PENDIENTE
+RNF-06,SUS,>= 68,CP12,87.25,Ninguna,data/sus_scores.json,SÍ
 RNF-07,Cobertura de tests,>= 80%,CP12,coverage.xml generado,Ninguna,reports/coverage.xml,SÍ
 RNF-08,Precisión de citas PDF,>= 73%,CP09,82.61%,Ninguna,data/rag_calibration_integration_results_20261109.json,SÍ
