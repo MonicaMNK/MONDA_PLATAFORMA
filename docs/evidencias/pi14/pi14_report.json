@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-10T05:29:44.230029+00:00",
+  "generated_at_utc": "2026-11-10T05:48:51.003881+00:00",
   "validation_bank": {
     "total": 85,
     "answerable": 57,
@@ -139,25 +139,27 @@
     },
     "hypothesis_testing": {
       "test": "t de Student para muestras pareadas (manual vs Monda)",
+      "h0": "la diferencia media entre el tiempo manual y el tiempo con Monda es cero",
+      "h1": "la diferencia media es distinta de cero",
+      "alpha": 0.05,
       "n": 10,
-      "shapiro_wilk_p": 0.4365,
+      "shapiro_wilk_w": 0.959793,
+      "shapiro_wilk_p": 0.783508,
       "shapiro_wilk_normal": true,
-      "t_statistic": 36.4145,
+      "t_statistic": 36.414483,
       "degrees_of_freedom": 9,
-      "p_value_bilateral": 0.002790956076,
-      "p_value_formatted": "0.002791",
+      "p_value_bilateral": 4.4e-11,
+      "p_value_formatted": "4.40e-11",
       "significant_05": true,
-      "cohens_d_z": 11.5153,
+      "cohens_d_z": 11.51527,
       "effect_size_interpretation": "muy grande",
       "mean_difference_seconds": 138.16,
       "sd_difference_seconds": 12.0,
       "ci_mean_difference_seconds": {
         "mean": 138.16,
-        "ci_lower": 129.58,
-        "ci_upper": 146.74,
-        "margin": 8.58,
-        "t_critical": 2.262,
-        "alpha": 0.05
+        "ci_lower": 129.577,
+        "ci_upper": 146.743,
+        "confidence": 0.95
       },
       "decision": "Rechazar H0: diferencia significativa entre condiciones."
     },
@@ -223,5 +225,5 @@
       "sha256": "7c7d247dcf1b624cc56cbbfaf244ab5374a108f1e2afc5852227a55f39c89795"
     }
   },
-  "notes": "Todos los valores provienen de archivos fuentes con hash SHA-256 verificado. No se utilizan datos sintéticos. El reporte PI14 se encuentra también en docs/evidencias/pi14/pi14_report.json."
+  "notes": "Todos los valores provienen de archivos fuentes con hash SHA-256 verificado. Las pruebas estadísticas usan scipy.stats (Shapiro-Wilk, t de Student pareada, intervalo de confianza de Student). No se utilizan datos sintéticos. El reporte PI14 se encuentra también en docs/evidencias/pi14/pi14_report.json."
 }

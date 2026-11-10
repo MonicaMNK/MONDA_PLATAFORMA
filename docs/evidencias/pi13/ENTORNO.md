@@ -2,9 +2,9 @@
 
 **Fecha de congelación:** 2026-11-09  
 **Rama:** main  
-**Commit:** `a23c7014d3cc18662f1bdd36d2631038544ad9bd` (main)  
+**Commit:** `c7be36d` (main)  
 **Entorno:** local, puerto 8001, Windows 10 10.0.26100 SP0  
-**Tag:** `v1.0-pi13` publicado sobre commit `a23c7014d3cc18662f1bdd36d2631038544ad9bd`
+**Tag:** `v1.0-pi13` publicado sobre commit `c7be36d`
 
 ## Versiones
 

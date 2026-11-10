@@ -129,8 +129,8 @@
   ],
   "out_of_fold_metrics": {
     "answer_coverage": 0.7447,
-    "correct_abstention": 0.75,
-    "citation_precision_pdf": 0.8261,
+    "correct_abstention": 0.5385,
+    "citation_precision_pdf": 0.8617,
     "false_answers": 6,
     "citations_emitted": 94,
     "correct_citations": 81,
@@ -238,8 +238,8 @@
     "no_evidence": {
       "n": 9,
       "answerable": 0,
-      "abstentions_correctas": 7,
-      "abstention_rate": 0.7778
+      "abstentions_correctas": 4,
+      "abstention_rate": 0.4444
     },
     "adversarial": {
       "n": 4,
@@ -247,11 +247,15 @@
       "abstentions_correctas": 3,
       "abstention_rate": 0.75
     },
-    "correct_abstention_total": {
-      "n": 13,
-      "abstentions_correctas": 10,
-      "abstention_rate": 0.75
-    }
+    "control_count": 13,
+    "correct_abstentions": 7,
+    "correct_abstention": 0.5384615385,
+    "minimum_required": 0.70,
+    "criterion_met": false,
+    "result": "NO_LOGRADO",
+    "citation_precision_pdf": 0.8617,
+    "citation_precision_status": "NO_VERIFICADO",
+    "citation_note": "81/94 = 86.17% aritmético, pero falta registro recuperable de citas individuales para verificar el denominador."
   },
   "conclusion": "Con k=2, umbral 0.65 y margen 0.0, la calibración cumple ambos pisos: cobertura total 74.47% (>=70%) y cobertura de integración 66.67% (>=50%). k=1 queda excluido porque su cobertura de integración (37.04%) está por debajo del piso de 50%. k>=4 mejora la recuperación de integración pero reduce la cobertura total por debajo del 70%. La configuración seleccionada es k=2, threshold=0.65, margin=0.0.",
   "limitaciones": "Calibración ejecutada con clave API de Gemini sobre el banco rag_calibration_integration_20261109.json. Los valores de cobertura, abstención y recall son mediciones reales de embeddings de Gemini. Se recomienda seguir con evaluación live independiente sobre banco congelado no usado en calibración (p. ej. rag_validation_100.json) para confirmar la configuración seleccionada.",

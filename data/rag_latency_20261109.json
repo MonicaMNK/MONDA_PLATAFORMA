@@ -938,12 +938,19 @@
   "summary_global": {
     "n": 100,
     "median_ms": 1396.55,
-    "p95_ms": 4850.00
+    "p95_ms": 55732.48,
+    "percentile_method": "nearest_rank"
   },
-  "rag_thresholds": {
-    "median_ms": 3000,
-    "p95_ms": 5000
+  "criteria": {
+    "median": {
+      "limit_ms": 3000,
+      "met": true
+    },
+    "p95": {
+      "limit_ms": 5000,
+      "met": false
+    }
   },
-  "result": "CUMPLIDO",
-  "notes": "La p95 global (4850.00 ms) cumple el umbral de 5000 ms. La mediana (1396.55 ms) cumple el umbral de 3000 ms. Todas las categorias estan dentro de los umbrales establecidos."
+  "result": "NO_LOGRADO",
+  "notes": "La mediana (1396.55 ms) cumple <= 3000 ms, pero el p95 (55732.48 ms) excede el umbral de 5000 ms. RNF-02 no se alcanza de forma íntegra."
 }
