@@ -1,0 +1,25 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Daniel",
+    "caso": "CP24",
+    "escenario": "ES23",
+    "descripcion": "Disponibilidad durante treinta días",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "data/availability_probe_30d_20261109.log",
+    "resultado": "Logrado",
+    "entorno": "Sonda periódica de disponibilidad MONDA_PLATAFORMA",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Verificación de disponibilidad continua del servicio durante ventana de 30 días",
+      "reporte_fuente": "data/availability_probe_30d_20261109.log",
+      "sha256_reporte_fuente": "19f6fa07aa47a1e35a87c79a8c4cd2ab118ab0a67153f9be302d4f6cdf5b9794"
+    },
+    "observaciones": [
+      "Consolida la referencia al log de monitoreo continuo data/availability_probe_30d_20261109.log."
+    ]
+  },
+  "conclusion": "El caso CP24 (ES23) consolida la evidencia de disponibilidad del servicio."
+}

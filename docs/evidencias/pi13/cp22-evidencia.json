@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Daniel",
+    "caso": "CP22",
+    "escenario": "ES21",
+    "descripcion": "Carga e indexación de DOCX",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_content_formats.py::test_docx_upload_extracts_and_indexes_text",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), parser OOXML Python, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Ingesta de documentos Word (.docx), extracción de párrafos OOXML e indexación en fragmentos",
+      "resultado_ingesta": {
+        "formato": "docx",
+        "estado": "indexed",
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "b6e99907ffbd23fffda19d191b12bf9b0184a7b6898501d00758da370123c805"
+    },
+    "observaciones": [
+      "El pipeline de ingesta extrae el texto de word/document.xml de un paquete .docx válido y lo indexa."
+    ]
+  },
+  "conclusion": "El caso CP22 (ES21) cumple el criterio de carga, extracción e indexación de archivos DOCX."
+}

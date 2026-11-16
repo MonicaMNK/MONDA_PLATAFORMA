@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "ejecutor": "Daniel",
+    "caso": "CP02",
+    "escenario": "ES02",
+    "descripcion": "Acceso denegado a material de curso ajeno",
+    "id_anterior_pi13": "CP02"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_entrega2_backend.py::test_course_isolation_and_rbac",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Aislamiento multi-curso: estudiante matriculado en curso-1 intenta consultar materiales o tutor RAG de curso-2",
+      "trazabilidad_registro": "Fecha, ejecutor (Daniel) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP02)",
+      "caso_verificado": {
+        "rol_usuario": "estudiante (token-est-1, matriculado solo en curso-1)",
+        "recurso_destino": "/api/v1/courses/curso-2/materials",
+        "esperado": "403 Forbidden",
+        "obtenido": "403 Forbidden",
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "3bf3d48a65d74824a476233c6edf9dc48a928b8d7e1580c020367f3a61f3a50c"
+    },
+    "observaciones": [
+      "El control de acceso rechaza con HTTP 403 Forbidden cualquier intento de lectura o consulta sobre cursos en los que el usuario no está matriculado."
+    ]
+  },
+  "conclusion": "El caso CP02 (ES02) cumple el criterio de aislamiento entre cursos y denegación de acceso a material ajeno (403 Forbidden)."
+}

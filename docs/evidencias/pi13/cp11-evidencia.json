@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Daniel",
+    "caso": "CP11",
+    "escenario": "ES11",
+    "descripcion": "D07: recorrido E1–E3 en PostgreSQL y pgvector",
+    "id_anterior_pi13": "CP11"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "docs/evidencias/validacion-postgresql-pgvector-2026-11-09.md + docs/evidencias/pi13/ENTORNO.md",
+    "resultado": "Logrado",
+    "entorno": "PostgreSQL 16 + extensión pgvector + backend FastAPI (recorrido integral E1–E3)",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Verificación de entorno PostgreSQL/pgvector (ENTORNO.md), índice HNSW y recorrido integral D07 (etapas E1 -> E2 -> E3)",
+      "trazabilidad_registro": "Cierre técnico del recorrido D07 sobre id_anterior_pi13: CP11",
+      "archivo_validacion": "docs/evidencias/validacion-postgresql-pgvector-2026-11-09.md",
+      "archivo_entorno": "docs/evidencias/pi13/ENTORNO.md",
+      "sha256_validacion_md": "bd077a9c96c4669e84f7bcf3e912a39550d0b18a9629ec710430d223f0035652",
+      "sha256_entorno_md": "e62f23979ed1f3b944bef0fd259657eeb108604cacc4f34cc2b9442716228620"
+    },
+    "observaciones": [
+      "Vincula docs/evidencias/pi13/ENTORNO.md con la ejecución automatizada del recorrido E1–E3."
+    ]
+  },
+  "conclusion": "El caso CP11 (ES11) cierra la verificación del recorrido D07 (etapas E1–E3) sobre PostgreSQL y pgvector."
+}

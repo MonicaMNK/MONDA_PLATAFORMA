@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Daniel",
+    "caso": "CP21",
+    "escenario": "ES20",
+    "descripcion": "Exportación denegada a docente ajeno",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_admin_management.py::test_admin_creates_edits_users_and_assigns_courses",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Administración de usuarios/cursos y restricción de exportación de calificaciones a docentes no asignados",
+      "casos_verificados": [
+        {
+          "rol_usuario": "docente asignado (u-doc-a)",
+          "esperado": "200 OK",
+          "obtenido": "200 OK",
+          "cumple": true
+        },
+        {
+          "rol_usuario": "docente ajeno (u-doc-b)",
+          "esperado": "403 Forbidden",
+          "obtenido": "403 Forbidden",
+          "cumple": true
+        }
+      ],
+      "sha256_archivo_prueba": "c27f672ddd1a4ed4060a0e00cf9eb40727db254d604ee80b3b729c94be010389"
+    },
+    "observaciones": [
+      "Cualquier intento de exportación de notas por parte de un docente ajeno al curso es bloqueado con HTTP 403 Forbidden."
+    ]
+  },
+  "conclusion": "El caso CP21 (ES20) cumple el criterio de denegación de exportación a docente ajeno (403 Forbidden)."
+}

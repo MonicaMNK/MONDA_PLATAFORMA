@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "ejecutor": "Daniel",
+    "caso": "CP17",
+    "escenario": "ES16",
+    "descripcion": "Cobertura de pruebas",
+    "id_anterior_pi13": "CP12c"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "reports/coverage.xml",
+    "resultado": "Logrado",
+    "entorno": "pytest + pytest-cov, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Medición de cobertura de código automatizada sobre los módulos de backend",
+      "trazabilidad_registro": "Fecha, ejecutor (Daniel) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP12c)",
+      "reporte_fuente": "reports/coverage.xml",
+      "sha256_reporte_fuente": "1fc57e0cc3e31c166b19c0d8f5f56344b926d2f3e38f2e750a6c6f16832f0d8c"
+    },
+    "observaciones": [
+      "El reporte XML de cobertura generado en reports/coverage.xml respalda el cumplimiento del umbral de pruebas."
+    ]
+  },
+  "conclusion": "El caso CP17 (ES16) cumple el criterio de cobertura de pruebas conforme al reporte reports/coverage.xml."
+}

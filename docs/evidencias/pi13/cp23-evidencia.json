@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Daniel",
+    "caso": "CP23",
+    "escenario": "ES22",
+    "descripcion": "PDF escaneado que requiere OCR",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_content_formats.py::test_scanned_pdf_returns_specific_ocr_required_status",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), detector de capa de texto PDF, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Detección de PDF compuesto únicamente por imágenes rasterizadas sin capa de texto seleccionable",
+      "resultado_deteccion": {
+        "status_devuelto": "ocr_required",
+        "ocr_required": true,
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "b6e99907ffbd23fffda19d191b12bf9b0184a7b6898501d00758da370123c805"
+    },
+    "observaciones": [
+      "Ante un PDF escaneado sin capa de texto, el endpoint devuelve explícitamente status='ocr_required'."
+    ]
+  },
+  "conclusion": "El caso CP23 (ES22) cumple el criterio de detección de PDF escaneado que requiere OCR."
+}

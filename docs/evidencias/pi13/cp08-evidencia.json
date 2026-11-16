@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "ejecutor": "Daniel",
+    "caso": "CP08",
+    "escenario": "ES08",
+    "descripcion": "Carga transaccional con cincuenta usuarios",
+    "id_anterior_pi13": "CP08"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "docs/evidencias/resultado-k6-local-2026-11-09.md (prueba de carga k6 con 50 usuarios virtuales concurrentes)",
+    "resultado": "Logrado",
+    "entorno": "Entorno local MONDA_PLATAFORMA + k6 load testing CLI (2 ejecuciones registradas)",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Prueba de estrés y carga transaccional con 50 usuarios concurrentes",
+      "trazabilidad_registro": "Fecha (2026-11-09), ejecutor (Daniel), n_ejecuciones (2) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP08)",
+      "reporte_fuente": "docs/evidencias/resultado-k6-local-2026-11-09.md",
+      "sha256_reporte_k6": "e474eebefff153ad4391e3ab2c01db872f185db7820a506a9ff52519069fd161"
+    },
+    "observaciones": [
+      "Consolida las dos ejecuciones de carga transaccional con 50 usuarios concurrentes documentadas en docs/evidencias/resultado-k6-local-2026-11-09.md."
+    ]
+  },
+  "conclusion": "El caso CP08 (ES08) cumple los criterios de estabilidad bajo carga transaccional de cincuenta usuarios."
+}

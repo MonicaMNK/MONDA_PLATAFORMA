@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "ejecutor": "Daniel",
+    "caso": "CP03",
+    "escenario": "ES04",
+    "descripcion": "Abstención cuando no hay evidencia suficiente",
+    "id_anterior_pi13": "CP10"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Verificación de abstención explícita (evidenceSufficient=false) cuando la consulta está fuera del dominio del material del curso",
+      "trazabilidad_registro": "Fecha, ejecutor (Daniel) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP10)",
+      "caso_verificado": {
+        "consulta": "Tema no contenido en los documentos del curso",
+        "evidenceSufficient": false,
+        "citas_emitidas": 0,
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "3bf3d48a65d74824a476233c6edf9dc48a928b8d7e1580c020367f3a61f3a50c"
+    },
+    "observaciones": [
+      "Ante consultas sin soporte documental en el curso, el tutor RAG se abstiene de responder y marca evidenceSufficient=false."
+    ]
+  },
+  "conclusion": "El caso CP03 (ES04) cumple el criterio de abstención controlada ante ausencia de evidencia."
+}

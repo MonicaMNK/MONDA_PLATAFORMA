@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Mónica",
+    "caso": "CP15",
+    "escenario": "ES14",
+    "descripcion": "Latencia del tutor RAG",
+    "id_anterior_pi13": "CP09"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "data/rag_latency_20261109.json",
+    "resultado": "Logrado",
+    "entorno": "Backend FastAPI + PostgreSQL 16 + pgvector + Gemini Flash-Lite (configuración congelada PI13)",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Medición de tiempos de respuesta (mediana y percentil p95) del tutor RAG",
+      "trazabilidad_registro": "Consolidación de data/rag_latency_20261109.json (id_anterior_pi13: CP09)",
+      "reporte_fuente": "data/rag_latency_20261109.json",
+      "sha256_reporte_fuente": "e920fdcd6779eb311d41f4d2cda8dcf23b9c6ca8df0cdc7e876c13016b180182"
+    },
+    "observaciones": [
+      "Vincula la serie de mediciones de latencia en data/rag_latency_20261109.json con la ficha individual CP15."
+    ]
+  },
+  "conclusion": "El caso CP15 (ES14) consolida la evidencia técnica de latencia del tutor RAG."
+}

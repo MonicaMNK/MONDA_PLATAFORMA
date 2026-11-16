@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "ejecutor": "Daniel",
+    "caso": "CP10",
+    "escenario": "ES10",
+    "descripcion": "Sincronización tras desconexión",
+    "id_anterior_pi13": "CP07"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_pi11_es06_es10.py::test_es10_sync_api_applies_once_and_rejects_unsafe_actions",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "1 caso de prueba automatizado de sincronización idempotente tras reconexión y rechazo de acciones inseguras",
+      "trazabilidad_registro": "Fecha, ejecutor (Daniel) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP07)",
+      "operaciones_verificadas": [
+        {
+          "client_op_id": "op-001",
+          "estado_obtenido": "applied",
+          "cumple": true
+        },
+        {
+          "client_op_id": "op-001 (duplicado)",
+          "estado_obtenido": "duplicate_ignored",
+          "cumple": true
+        },
+        {
+          "client_op_id": "op-002 (insegura)",
+          "estado_obtenido": "rejected_unsafe_action",
+          "cumple": true
+        }
+      ],
+      "sha256_archivo_prueba": "1791f5df41c67fb81215a1a2b9ee3da9af17e7b79e09fe83fb8d0feba0caa91c"
+    },
+    "observaciones": [
+      "La API /api/v1/sync aplica una sola vez cada client_op_id e ignora duplicados."
+    ]
+  },
+  "conclusion": "El caso CP10 (ES10) cumple los criterios de sincronización idempotente tras desconexión."
+}

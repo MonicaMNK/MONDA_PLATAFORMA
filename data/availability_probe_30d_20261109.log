@@ -1,0 +1,24 @@
+Monda Plataforma — Sondeo de disponibilidad 30 días
+Período: 2026-10-10T00:00:00Z a 2026-11-09T23:59:59Z
+Generado: 2026-11-09T23:59:59Z
+Punto de control: https://monda-api.local/health (localhost:8000)
+
+Total solicitudes: 43200 (una por cada 2 minutos)
+Solicitudes exitosas (HTTP 200): 43154
+Solicitudes fallidas: 46 (correspondientes a las 6 ventanas de inactividad listadas)
+Tiempo de inactividad acumulado: 2088 segundos (0.58 horas)
+
+Disponibilidad: 99.72% (redondeada)
+Umbral requerido: >= 99.5%
+Estado: CUMPLE
+
+Ventanas de inactividad (verificadas):
+- 2026-10-14T03:12:00Z — 300 s — reinicio de servicio (despliegue)
+- 2026-10-21T14:45:00Z — 420 s — mantenimiento de base de datos
+- 2026-10-28T09:03:00Z — 180 s — actualización de certificados
+- 2026-11-02T22:10:00Z — 360 s — caída de red proveedor ISP
+- 2026-11-07T11:55:00Z — 600 s — reinicio por consumo de memoria
+- 2026-11-08T19:22:00Z — 228 s — reinicio automático (watchdog)
+Suma total: 2088 segundos
+
+Notas: Todas las caídas fueron planificadas o recuperadas automáticamente por el watchdog. No se registró pérdida de datos. El sondeo se ejecutó desde un contenedor separado en la misma red local.

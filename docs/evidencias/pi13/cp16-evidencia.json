@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Daniel",
+    "caso": "CP16",
+    "escenario": "ES15",
+    "descripcion": "Accesibilidad con Lighthouse",
+    "id_anterior_pi13": "CP12a"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "docs/evidencias/pi13/lighthouse/lighthouse-20261109.json",
+    "resultado": "Logrado",
+    "entorno": "Frontend MONDA_PLATAFORMA + Google Lighthouse CLI",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Auditoría de accesibilidad web (contraste, etiquetas ARIA, navegación por teclado y estructura semántica)",
+      "trazabilidad_registro": "Consolidación del reporte docs/evidencias/pi13/lighthouse/lighthouse-20261109.json (id_anterior_pi13: CP12a)",
+      "reporte_fuente": "docs/evidencias/pi13/lighthouse/lighthouse-20261109.json",
+      "sha256_reporte_fuente": "0c012c8700a0328bae7c6b27653d54a27aef3afc773a796250094e492c78454d"
+    },
+    "observaciones": [
+      "Consolida la auditoría de accesibilidad vinculada a docs/evidencias/pi13/lighthouse/lighthouse-20261109.json."
+    ]
+  },
+  "conclusion": "El caso CP16 (ES15) consolida la evidencia de accesibilidad Lighthouse."
+}

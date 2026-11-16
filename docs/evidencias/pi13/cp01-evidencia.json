@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "ejecutor": "Daniel",
+    "caso": "CP01",
+    "escenario": "ES03",
+    "descripcion": "Consulta RAG con citas trazables",
+    "id_anterior_pi13": "CP01"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient + motor RAG con citas verificables, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Verificación de respuestas fundamentadas en documentos del curso con marcadores de cita [F1] trazables a fuente y página/fragmento",
+      "trazabilidad_registro": "Consolidado desde ejecución local de campaña PI13 (2026-11-09) y prueba automatizada backend",
+      "sha256_archivo_prueba": "3bf3d48a65d74824a476233c6edf9dc48a928b8d7e1580c020367f3a61f3a50c"
+    },
+    "observaciones": [
+      "El tutor RAG devuelve respuestas fundamentadas exclusivamente en el material indexado del curso e incluye citas verificables.",
+      "Se vincula el registro JSON local de ejecución con la prueba automatizada."
+    ]
+  },
+  "conclusion": "El caso CP01 (ES03) cumple el criterio de consulta RAG con citas trazables."
+}

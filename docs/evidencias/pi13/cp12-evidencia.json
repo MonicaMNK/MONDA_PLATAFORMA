@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Daniel",
+    "caso": "CP12",
+    "escenario": "ES01",
+    "descripcion": "Acceso permitido a material autorizado",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_entrega2_backend.py::test_course_isolation_and_rbac",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Control de acceso positivo: lectura de material autorizado por estudiante matriculado",
+      "caso_verificado": {
+        "rol_usuario": "estudiante (token-est-1, matriculado en curso-1)",
+        "recurso_destino": "/api/v1/courses/curso-1/materials",
+        "esperado": "200 OK",
+        "obtenido": "200 OK",
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "3bf3d48a65d74824a476233c6edf9dc48a928b8d7e1580c020367f3a61f3a50c"
+    },
+    "observaciones": [
+      "Un estudiante matriculado en curso-1 accede sin restricciones (HTTP 200) a los materiales autorizados."
+    ]
+  },
+  "conclusion": "El caso CP12 (ES01) cumple el criterio de acceso permitido a material autorizado (HTTP 200)."
+}

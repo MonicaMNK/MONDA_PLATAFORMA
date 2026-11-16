@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "ejecutor": "Mónica",
+    "caso": "CP14",
+    "escenario": "ES13",
+    "descripcion": "Promedio de dos notas: diez y catorce",
+    "id_anterior_pi13": "CP06"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_learning_workflow.py::test_cp_oe3_average_10_and_14_is_12_and_does_not_trigger_low_alert",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Cálculo de promedio vigesimal sobre dos intentos cerrados (10 y 14 -> 12.00) y supresión de alerta temprana",
+      "trazabilidad_registro": "Fecha, ejecutor (Mónica) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP06)",
+      "calculo_verificado": {
+        "nota_intento_1": 10.0,
+        "nota_intento_2": 14.0,
+        "promedio_esperado": 12.0,
+        "promedio_obtenido": 12.0,
+        "alerta_disparada": false,
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "a2e989ce014033fd7242cc18dc724dad8e73fee1520ae5e7c77a74b108f6acda"
+    },
+    "observaciones": [
+      "Con dos evaluaciones cerradas calificadas con 10.0 y 14.0 sobre 20, el promedio aritmético resultante es 12.00 sin activar alerta."
+    ]
+  },
+  "conclusion": "El caso CP14 (ES13) cumple el criterio de cálculo de promedio vigesimal (10 y 14 = 12.00 sin alerta)."
+}

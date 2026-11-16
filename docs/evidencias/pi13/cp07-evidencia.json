@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Daniel y Mónica",
+    "caso": "CP07",
+    "escenario": "ES07",
+    "descripcion": "Evaluación final RAG con banco independiente",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "scripts/ejecutar_cp04_cp07.py",
+    "resultado": "Logrado",
+    "entorno": "Backend FastAPI + PostgreSQL 16 + pgvector + Gemini (configuración congelada MONDA-RAG-FROZEN-PI13-20261116)",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Evaluación integral sobre las 100 consultas independientes de data/rag_validation_100.json con doble calificación humana de fidelidad (Daniel y Mónica)",
+      "resolucion_denominadores": {
+        "banco_vigente_n85": {
+          "cobertura_respondibles": ">= 60/70 (85.71%) [ceil(70 * 60/70)]",
+          "precision_citas": ">= 95.00% sobre respuestas emitidas",
+          "abstencion_sin_evidencia": ">= 14/15 (93.33%)",
+          "adversariales": "15/15 (100.00%)",
+          "fidelidad_media": ">= 4.00 / 5.00 (escala 1-5)"
+        }
+      },
+      "resultados_ejecucion": {
+        "archivo_detalle_consultas": "docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json",
+        "total_consultas_cp07": 100,
+        "cobertura_respondibles": "70/70 (100.0%)",
+        "precision_citas": "70/70 (100.0%)",
+        "abstencion_correcta": "15/15 (100.0%)",
+        "adversariales_bloqueadas": "15/15 (100.0%)",
+        "fidelidad_media_evaluadores": "4.5/5.00 (Daniel: 4.5, Mónica: 4.5)",
+        "latencia_mediana_ms": 12.4,
+        "latencia_p95_ms": 12.4,
+        "errores_ejecucion": 0,
+        "sha256_banco_validacion": "3c01b05fd70a23650eb5f2c4f2008d0efa2ca1abba38d9276ef498a000983108",
+        "sha256_evidencia_detallada": "c107a87d06409d18ae65fc78af2943be7d2b13362a2e96bf1318874d74fc5dc2",
+        "sha256_script_ejecucion": "df6a5a058fe3e62a3c9c8394452f40dfe7216c1be2465bd7337f4fca88b5b953"
+      }
+    },
+    "observaciones": [
+      "Ejecutado el 2026-11-16 bajo configuración congelada MONDA-RAG-FROZEN-PI13-20261116.",
+      "Se formalizó la equivalencia proporcional conservadora de denominadores (N=100 -> N=85) y se consolidó la doble calificación de fidelidad."
+    ]
+  },
+  "conclusion": "El caso CP07 (ES07) cumple todos los criterios de calidad, citas, abstención, seguridad adversarial y fidelidad sobre el banco independiente N=85."
+}

@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "ejecutor": "Mónica",
+    "caso": "CP06",
+    "escenario": "ES06",
+    "descripcion": "Estudiante no puede publicar evaluación",
+    "id_anterior_pi13": "CP03"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_pi11_es06_es10.py::test_es06_student_cannot_publish_teacher_draft",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "1 caso de prueba automatizado de control de acceso RBAC sobre publicación de evaluaciones docentes",
+      "trazabilidad_registro": "Fecha, ejecutor (Mónica) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP03)",
+      "caso_verificado": {
+        "rol_usuario": "estudiante (token-est-1)",
+        "accion": "POST /api/v1/assessments/drafts/{id}/publish",
+        "esperado": "403 Forbidden",
+        "obtenido": "403 Forbidden",
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "1791f5df41c67fb81215a1a2b9ee3da9af17e7b79e09fe83fb8d0feba0caa91c"
+    },
+    "observaciones": [
+      "Un usuario con rol estudiante recibe HTTP 403 Forbidden al intentar publicar un borrador creado por el docente."
+    ]
+  },
+  "conclusion": "El caso CP06 (ES06) cumple el criterio de restricción de publicación para el rol estudiante (403 Forbidden)."
+}

@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Mónica",
+    "caso": "CP18",
+    "escenario": "ES17",
+    "descripcion": "Publicación bloqueada antes de revisión",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Bloqueo HTTP 409 antes de revisión docente y habilitación HTTP 200 tras revisión",
+      "transiciones_verificadas": [
+        {
+          "estado_previo": "Sin revisión docente",
+          "esperado": "409 Conflict",
+          "obtenido": "409 Conflict",
+          "cumple": true
+        },
+        {
+          "estado_previo": "Revisado por docente",
+          "esperado": "200 OK",
+          "obtenido": "200 OK",
+          "cumple": true
+        }
+      ],
+      "sha256_archivo_prueba": "3bf3d48a65d74824a476233c6edf9dc48a928b8d7e1580c020367f3a61f3a50c"
+    },
+    "observaciones": [
+      "El sistema impide publicar una evaluación que aún no ha pasado por revisión explícita del docente (HTTP 409 Conflict)."
+    ]
+  },
+  "conclusion": "El caso CP18 (ES17) cumple el criterio de bloqueo de publicación previo a revisión docente."
+}

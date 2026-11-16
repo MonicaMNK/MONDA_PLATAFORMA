@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Mónica",
+    "caso": "CP19",
+    "escenario": "ES18",
+    "descripcion": "Ausencia de alerta sin intentos cerrados",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_learning_workflow.py::test_low_average_alert_requires_closed_attempts_and_uses_configured_threshold",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Intentos en curso (status=in_progress) no generan falsas alertas tempranas",
+      "caso_verificado": {
+        "intentos_cerrados": 0,
+        "alerta_esperada": false,
+        "alerta_obtenida": false,
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "a2e989ce014033fd7242cc18dc724dad8e73fee1520ae5e7c77a74b108f6acda"
+    },
+    "observaciones": [
+      "Mientras el estudiante solo tenga intentos en progreso sin cerrar, low_performance_alert permanece en false."
+    ]
+  },
+  "conclusion": "El caso CP19 (ES18) cumple el criterio de ausencia de alerta sin intentos cerrados."
+}

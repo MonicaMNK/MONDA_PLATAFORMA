@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "ejecutor": "Daniel",
+    "caso": "CP13",
+    "escenario": "ES12",
+    "descripcion": "Acceso administrativo denegado al estudiante",
+    "id_anterior_pi13": "CP04"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_entrega2_backend.py::test_course_isolation_and_rbac",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Segregación de privilegios RBAC en rutas administrativas (/api/v1/admin/users)",
+      "trazabilidad_registro": "Fecha, ejecutor (Daniel) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP04)",
+      "caso_verificado": {
+        "rol_usuario": "estudiante (token-est-1)",
+        "recurso_destino": "/api/v1/admin/users",
+        "esperado": "403 Forbidden",
+        "obtenido": "403 Forbidden",
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "3bf3d48a65d74824a476233c6edf9dc48a928b8d7e1580c020367f3a61f3a50c"
+    },
+    "observaciones": [
+      "El endpoint /api/v1/admin/users rechaza con HTTP 403 Forbidden las solicitudes del rol estudiante."
+    ]
+  },
+  "conclusion": "El caso CP13 (ES12) cumple el criterio de denegación de acceso administrativo al rol estudiante (403 Forbidden)."
+}

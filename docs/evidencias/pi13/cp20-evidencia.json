@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Mónica",
+    "caso": "CP20",
+    "escenario": "ES19",
+    "descripcion": "Alerta por promedio inferior al umbral",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "tests/test_learning_workflow.py::test_low_average_alert_requires_closed_attempts_and_uses_configured_threshold",
+    "resultado": "Logrado",
+    "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Activación de alerta temprana cuando el promedio cerrado es menor al umbral configurado (11.00)",
+      "caso_verificado": {
+        "promedio_20": 8.0,
+        "umbral_configurado": 11.0,
+        "alerta_esperada": true,
+        "alerta_obtenida": true,
+        "cumple": true
+      },
+      "sha256_archivo_prueba": "a2e989ce014033fd7242cc18dc724dad8e73fee1520ae5e7c77a74b108f6acda"
+    },
+    "observaciones": [
+      "Al cerrarse un intento con nota 8.00/20 (< umbral 11.00), se activa low_performance_alert=true."
+    ]
+  },
+  "conclusion": "El caso CP20 (ES19) cumple el criterio de activación de alerta por promedio inferior al umbral."
+}

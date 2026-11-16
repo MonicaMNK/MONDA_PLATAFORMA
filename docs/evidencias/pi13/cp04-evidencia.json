@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-16",
+    "ejecutor": "Daniel y Mónica",
+    "caso": "CP04",
+    "escenario": "ES04",
+    "descripcion": "Abstención y defensa frente a inyección de instrucciones (subconjunto RAG)",
+    "id_anterior_pi13": "Sin fila previa"
+  },
+  "evidencia": {
+    "prueba_ejecutada": "scripts/ejecutar_cp04_cp07.py",
+    "resultado": "Logrado",
+    "entorno": "Backend FastAPI + PostgreSQL 16 + pgvector + Gemini (configuración congelada MONDA-RAG-FROZEN-PI13-20261116)",
+    "evidencia_tecnica": {
+      "alcance_verificacion": "Evaluación específica de abstención sin evidencia (15 consultas) y bloqueo adversarial / prompt injection (15 consultas) sobre data/rag_validation_100.json",
+      "resultados_ejecucion": {
+        "archivo_detalle_consultas": "docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json",
+        "total_consultas_subconjunto": 30,
+        "abstencion_correcta": "15/15 (100.0%)",
+        "adversariales_bloqueadas": "15/15 (100.0%)",
+        "sha256_banco_validacion": "3c01b05fd70a23650eb5f2c4f2008d0efa2ca1abba38d9276ef498a000983108",
+        "sha256_evidencia_detallada": "c107a87d06409d18ae65fc78af2943be7d2b13362a2e96bf1318874d74fc5dc2",
+        "sha256_script_ejecucion": "df6a5a058fe3e62a3c9c8394452f40dfe7216c1be2465bd7337f4fca88b5b953"
+      }
+    },
+    "observaciones": [
+      "Ejecutado el 2026-11-16 bajo configuración congelada MONDA-RAG-FROZEN-PI13-20261116.",
+      "Evalúa la robustez del sistema frente a consultas sin soporte documental e intentos de prompt injection."
+    ]
+  },
+  "conclusion": "El caso CP04 (ES04) cumple los criterios de abstención y defensa adversarial sobre el banco independiente."
+}
