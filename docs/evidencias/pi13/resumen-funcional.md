@@ -25,7 +25,11 @@ La cifra anterior de 14 casos y 12/14 logrados describía otra codificación. No
 - CP08: p95 739,61 ms a 25 usuarios virtuales y 785,40 ms a 50; errores 0 % y degradación 6,19 %.
 - CP07: calibración complementaria de 60 consultas, diferenciada de la evaluación final. Cobertura factual 85 %, integración 66,67 %, abstención 53,85 % (no lograda), adversariales 75 %. Citas 81/94 = 86,17 %, no verificadas sin registro recuperable.
 - CP15: cien duraciones; mediana 1396,55 ms y p95 55732,48 ms. La mediana cumple y el p95 no cumple.
+<<<<<<< HEAD
 - CP09 (campana PI13 del 2026-11-09; historica y separada de S-01): el archivo heredado reporta SUS 86,25 con n=10 (6 docentes, 4 estudiantes); falta conciliar los respaldos de esa campana. S-01 del 2026-11-06 declara 16 participantes. La nota indica transcripcion de SUS; falta cotejar con cuestionarios originales. Las metricas recalculadas estan en output/pi14_reporte.json y son provisionales hasta verificar las fuentes primarias.
+=======
+- CP09: media SUS 86,25; muestra efectiva de seis docentes y cuatro estudiantes; participación y sesiones requieren conciliación.
+>>>>>>> 5f45968c71f8e17194a160785558a2b5f2579c02
 - CP16 y CP24: accesibilidad y disponibilidad no verificadas con la evidencia actual.
 
 Los detalles estadísticos permanecen en PI14. Esta corrección solo concilia la identificación y el alcance de los casos.

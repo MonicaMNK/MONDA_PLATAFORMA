@@ -97,7 +97,10 @@ Cada entrada documenta una ejecución individual con fecha, ejecutor, entorno, r
 - Evidencia: docs/evidencias/pi13/lighthouse/lighthouse-20261109.json (28 auditorías)
 
 ## CP12b — RNF-06: SUS media >= 68
+<<<<<<< HEAD
 > Registro historico de la campana PI13 del 2026-11-09 (n=10; 6 docentes y 4 estudiantes). No corresponde a S-01 del 2026-11-03.
+=======
+>>>>>>> 5f45968c71f8e17194a160785558a2b5f2579c02
 - Fecha: 2026-11-09
 - Ejecutor: Daniel
 - Entorno: local, 10 participantes (6 docentes, 4 estudiantes)
