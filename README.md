@@ -25,7 +25,7 @@ Este modo usa SQLite persistente y el tutor léxico. Instalación y recorrido co
 [Prueba local](docs/PRUEBA_LOCAL.md).
 
 - Docker Desktop o Docker Engine + Compose plugin, recomendados para ejecutar PostgreSQL y API.
-- Alternativa sin Docker: Python 3.12+, PostgreSQL 16 con extensión pgvector instalada.
+- Alternativa sin Docker: Python 3.12+, PostgreSQL 16 con extensión pgvector instalada. Esta es la versión recomendada para la configuración actual; las versiones realmente usadas en cada ejecución histórica se registran por separado en [ENTORNO PI13](docs/evidencias/pi13/ENTORNO.md).
 - Node.js 20+ y npm solo para compilar el frontend TypeScript/Tailwind. El frontend estático incluido no necesita Node para servirlo.
 
 ## Inicio rápido (Docker)

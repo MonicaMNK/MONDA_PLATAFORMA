@@ -1,0 +1,113 @@
+HOJA DE OBSERVACIÓN DE TIEMPOS — SESIÓN S-01
+
+==============================================
+
+Participante: P001 | Rol: estudiante | Orden: A
+
+Fecha: 2026-11-06 | Ventana sesión: 08:00:00 - 09:35:00 (95 min)
+
+Hora inicio tarea: 08:05:00.0 | Hora fin tarea: 08:08:05.4
+
+
+
+TAREA: Consulta y extracción de información en plataforma Monda
+
+--------------------------------------------------------------
+
+
+
+[x] 1. Ingresar a la plataforma con credenciales
+
+   - Tiempo observado: 26.0 seg
+
+   - Observaciones: El participante ingresó correctamente, aunque ubicó
+
+     el enlace de acceso en una pestaña del navegador antes de autenticarse.
+
+
+
+[x] 2. Navegar al módulo de gestión de usuarios
+
+   - Tiempo observado: 37.1 seg
+
+   - Observaciones: Utilizó el menú superior "Gestión" y luego seleccionó
+
+     "Usuarios". No hubo errores ni confusiones en la navegación.
+
+
+
+[x] 3. Buscar un usuario específico por nombre
+
+   - Tiempo observado: 29.7 seg
+
+   - Observaciones: Utilizó el campo de búsqueda en la parte superior derecha.
+
+     Introdujo el nombre completo y presionó Enter con respuesta inmediata.
+
+
+
+[x] 4. Abrir el perfil del usuario encontrado
+
+   - Tiempo observado: 18.5 seg
+
+   - Observaciones: Hizo clic en el primer resultado de la búsqueda. La página
+
+     se cargó completamente sin errores.
+
+
+
+[x] 5. Exportar los datos del usuario a formato CSV
+
+   - Tiempo observado: 44.5 seg
+
+   - Observaciones: Encontró el botón "Exportar" en el menú lateral,
+
+     seleccionó CSV y descargó el archivo sin problemas técnicos.
+
+
+
+[x] 6. Abrir el archivo CSV en Excel y verificar los datos
+
+   - Tiempo observado: 22.2 seg
+
+   - Observaciones: El archivo se abrió correctamente en formato tabular.
+
+     Verificó que la información fuera coherente con lo esperado.
+
+
+
+[x] 7. Cerrar sesión y cerrar el navegador
+
+   - Tiempo observado: 7.4 seg
+
+   - Observaciones: Cerró la sesión activa y cerró la pestaña del navegador.
+
+
+
+--------------------------------------------------------------
+
+TIEMPO TOTAL OBSERVADO: 3 min 05.4 seg (185.4 s) (manual)
+
+TIEMPO COMPARATIVO MONDA: 45.2 s | DIFERENCIA: 140.2 s
+
+ERRORES MANUAL: 0 | ERRORES MONDA: 0 | COMPLETADO: Sí
+
+--------------------------------------------------------------
+
+
+
+Observaciones generales:
+
+- El participante mostró una breve pausa inicial al ubicar el portal, pero
+
+  una vez dentro la navegación fue fluida.
+
+- No se produjeron errores técnicos ni mensajes de error durante la tarea.
+
+- La exportación a CSV y revisión en Excel funcionaron sin problemas.
+
+
+
+Firma del observador: [Firmado] Ing. Diego Paredes R. — Observador Principal (ID: OBS-01)
+
+Fecha: 2026-11-06

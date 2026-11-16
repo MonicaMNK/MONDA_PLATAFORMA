@@ -1,0 +1,18 @@
+===================================
+
+1. Datos fuente:
+   - Archivo sesiones.csv: registra 16 participantes con fecha 2026-11-06.
+   - Archivo tiempos_pareados.csv: contiene diferencias entre tiempos manuales y Monda.
+   - Archivo sus_respuestas.csv: cuestionario SUS completado por cada participante.
+
+2. Correcciones aplicadas:
+   - sus_respuestas.csv: se transcribieron las respuestas del cuestionario original.
+     El orden A/B se guardó en una columna separada 'orden'.
+   - linea_base_manual.csv: eliminados comentarios y filas de resumen incrustado.
+
+3. Procedencia:
+   - Repositorio: C:/Users/Usuario/MONDA_PLATAFORMA/data/usuarios/
+   - Fecha de exportación: 2026-11-06T14:30:00-03:00 (UTC-3)
+   - Versión del protocolo: 2.0
+
+

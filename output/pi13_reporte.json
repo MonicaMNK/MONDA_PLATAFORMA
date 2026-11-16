@@ -1,0 +1,93 @@
+{
+  "titulo": "Informe PI13 — Trazabilidad y consistencia de la sesión S-01",
+  "fecha_generacion": "2026-11-15",
+  "version_protocolo": "2.0",
+  "resumen_ejecutivo": {
+    "objetivo": "Documentar la trazabilidad de los datos, la consistencia entre instrumentos y la procedencia del análisis.",
+    "participantes_total": 16,
+    "docentes": 2,
+    "estudiantes": 14,
+    "fecha_sesion": "2026-11-06",
+    "conclusion_principal": "S-01 registra 16 filas (14 estudiantes y 2 docentes) con fecha declarada 2026-11-06. Los conteos de archivos coinciden; la procedencia primaria de tiempos y cuestionarios aun requiere cotejo."
+  },
+  "trazabilidad": {
+    "sesion": "S-01",
+    "fecha_sesion": "2026-11-06",
+    "repositorio_origen": "C:/Users/Usuario/MONDA_PLATAFORMA/data/usuarios/",
+    "archivos_fuente": [
+      {
+        "archivo": "sesiones.csv",
+        "ruta": "data/usuarios/sesiones.csv",
+        "registro": 1,
+        "contenido": "S-01|2026-11-06|16|consulta y extraccion de informacion|tiempos pareados manual vs Monda|95 minutos"
+      },
+      {
+        "archivo": "tiempos_pareados.csv",
+        "ruta": "data/usuarios/tiempos_pareados.csv",
+        "registro": 1,
+        "contenido": "P001|estudiante|A|185.4|45.2|140.2|0|0|true"
+      },
+      {
+        "archivo": "sus_respuestas.csv",
+        "ruta": "data/usuarios/sus_respuestas.csv",
+        "registro": 1,
+        "contenido": "P001|estudiante|5|1|5|5|5|4|5|2|5|3"
+      },
+      {
+        "archivo": "linea_base_manual.csv",
+        "ruta": "data/usuarios/linea_base_manual.csv",
+        "registro": 1,
+        "contenido": "P001|estudiante|A|185.4"
+      }
+    ],
+    "inconsistencias_detectadas": [
+      {
+        "archivo": "sus_respuestas.csv",
+        "problema": "La version previa reporto valores A/B en lugar de respuestas SUS; el archivo actual contiene respuestas de 1 a 5.",
+        "solucionado": false,
+        "solucion": "La nota declara transcripcion de cuestionarios originales; no estan adjuntos para cotejo."
+      },
+      {
+        "archivo": "linea_base_manual.csv",
+        "problema": "Mezcla de comentarios, filas duplicadas y resumen incrustado",
+        "solucionado": true,
+        "solucion": "Se extrajo solo la tabla CSV limpia con una fila por participante"
+      }
+    ]
+  },
+  "consistencia_entre_instrumentos": {
+    "n_participantes_tiempos": 16,
+    "n_participantes_sus": 16,
+    "n_participantes_linea_base": 16,
+    "coincidencia_id": true,
+    "discrepancias": [],
+    "conclusion": "Los tres CSV contienen 16 IDs coincidentes y roles 14 estudiantes/2 docentes. La coincidencia de filas no sustituye el cotejo con fuentes primarias."
+  },
+  "procedencia": {
+    "repositorio": "C:/Users/Usuario/MONDA_PLATAFORMA",
+    "ruta_origen": "data/usuarios/",
+    "fecha_exportacion": "2026-11-06T14:30:00-03:00",
+    "zona_horaria": "UTC-3",
+    "version_protocolo": "2.0"
+  },
+  "evidencias_adjuntas": [
+    {
+      "tipo": "log de sesión",
+      "ruta": "docs/evidencias/sesion-usuarios/logs/S-01_log.txt"
+    },
+    {
+      "tipo": "observaciones",
+      "ruta": "docs/observaciones/S-01_observaciones.txt"
+    }
+  ],
+  "protocolo": {
+    "version": "2.0",
+    "ruta": "docs/evidencias/protocolo-sesion-S-01-v2.0.md",
+    "nota": "Ficha de aclaracion documental elaborada con archivos disponibles el 2026-11-15; no demuestra aprobacion previa a la sesion."
+  },
+  "limitaciones": [
+    "Las hojas originales de observacion de tiempos no estan incorporadas en docs/evidencias/sesion-usuarios/observaciones/.",
+    "Las respuestas SUS se calcularon desde el CSV; los cuestionarios originales no estan adjuntos para cotejar la transcripcion.",
+    "Las firmas del resumen de sesion deben validarse contra el registro firmado original."
+  ]
+}

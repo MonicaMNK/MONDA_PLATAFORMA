@@ -1,0 +1,281 @@
+                                        UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                                   FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                              Escuela Profesional de Ingeniería de Sistemas
+
+                     Dpto Académico de Ciencias de la Computación (DACC)
+
+                     PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+                             Desarrollo de Proyecto de Tesis II — Sección G6 — 2026-II
+
+                               PLANTILLA DE AVANCE: PI 13
+
+                                            Ejecución de la validación
+
+                                  GRUPO B — Aporte práctico / software
+
+Datos del tesista
+
+Código de tesis (T)          Ej.: T4. Tesis compartida: T5–T9.
+
+Apellidos y nombres
+
+Título de la tesis
+
+Grupo                        B — Aporte práctico / software
+
+Artefacto validado           Sistema, aplicación o plataforma, con su versión o commit.
+
+Fecha de entrega
+
+Periodo de ejecución de las  Del __ / __ al __ / __ de 2026.
+pruebas
+
+Repositorio / carpeta de evidencias Enlace con acceso para el asesor.
+
+Instrucciones generales
+
+   • En el PI 13 se EJECUTA la validación que se planificó y diseñó en el PI 11 + PI 12: se aplican las pruebas, se
+       registran los resultados y se documentan las incidencias con sus evidencias.
+
+   • Use los mismos códigos del PI 11 + PI 12 (OE, escenarios ES#, casos CP#, instrumentos y línea base). Así cada
+       resultado se puede rastrear hasta lo planificado.
+
+   • Complete las partes en orden. Las filas en gris son ejemplos: reemplácelas o elimínelas. Las tablas se
+       pueden ampliar con las filas que necesite.
+
+   • En el Grupo B se ejecutan las pruebas del software: funcionales, de rendimiento, de usabilidad, de
+       seguridad o de aceptación, según lo planificado.
+
+   • Todo resultado debe tener una evidencia verificable (captura, log, reporte, notebook, ficha firmada,
+       grabación) guardada en el repositorio o carpeta indicada.
+
+   • Tesis compartida: complete además la sección "Distribución de responsabilidades" al final.
+
+Importante: registre los resultados tal como salieron, aunque no alcancen la meta. Un resultado que no cumple,
+bien documentado y explicado, es válido; un resultado sin evidencia no lo es. Si cambió algo del plan (casos, datos,
+expertos, muestra), regístrelo en la Parte 3 como desviación, con su justificación. La interpretación y discusión de
+los resultados corresponde a la semana 14.
+
+Parte 0 — Seguimiento de observaciones pendientes
+
+Registre solo las observaciones que aún no estén levantadas: las del examen parcial, las de la revisión del PI 9 + PI 10 y las de
+la revisión del PI 11 + PI 12. El jurado las verificará en el examen final (semana 15).
+
+N.°    Origen                Observación                        Acción realizada             Cap. / pág.  Estado
+
+Ej. PI11+PI12        La meta del OE2 no está  Se justificó con el benchmark de la Cap. 3, p.              Levantada
+                     justificada.
+                                              literatura.                                    41
+
+                             Plantilla PI 13 — Grupo B — Sección G6 — Página 1
+                                       UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                                  FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                             Escuela Profesional de Ingeniería de Sistemas
+
+                    Dpto Académico de Ciencias de la Computación (DACC)
+
+                    PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+   N.°      Origen            Observación                  Acción realizada                     Cap. / pág.   Estado
+
+1
+
+2
+
+3
+
+ 4
+Origen: Parcial / PI9+PI10 / PI11+PI12. Estado: Levantada / En proceso / Justificada.
+
+Parte 1 — Aplicar pruebas
+
+Ejecute los casos de prueba diseñados en el PI 12, en las condiciones planificadas.
+
+1.1 Condiciones de ejecución         Ej.: v1.3.0, commit a3f9c21, build de la APK.
+                                     URL o servidor, base de datos, dispositivos, navegadores y sus versiones.
+ Versión del sistema                 Datos semilla usados y cómo se restauró el estado entre ejecuciones.
+ Entorno de prueba                   Ej.: JMeter / k6, Selenium / Cypress, Postman, OWASP ZAP, formularios SUS.
+ Datos de prueba cargados            Si aplica: n.º real de usuarios, fechas de las sesiones y consentimiento registrado.
+ Herramientas
+ Participantes
+
+1.2 Registro de ejecución de casos de prueba
+
+Una fila por caso ejecutado (o por cada repetición, si el caso se corre varias veces).
+
+   ID caso    Escenario       Fecha      Ejecutado por  N.° ejecuciones                 Estado                Evidencia
+CP01        ES1          17/11/2026  Tesista                                                    evidencias/cp01/capturas
+                                                        3                  Ejecutado
+
+Estado: Ejecutado / Bloqueado / No ejecutado (explique en la Parte 3).
+
+1.3 Sesiones con usuarios (si aplica)
+
+Si no hubo pruebas con usuarios, escriba "No aplica".
+
+   Sesión   Fecha        Participantes (n)              Tareas realizadas               Instrumento aplicado  Duración
+
+S1          18/11/2026 5                    T1 registro, T2 compra, T3                  Cuestionario SUS      40 min
+                                            consulta
+
+                                     Plantilla PI 13 — Grupo B — Sección G6 — Página 2
+                                          UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                                     FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                                Escuela Profesional de Ingeniería de Sistemas
+
+                       Dpto Académico de Ciencias de la Computación (DACC)
+
+                       PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+Parte 2 — Registrar resultados
+
+Registre los valores obtenidos con la métrica y la meta definidas en la matriz de validación del PI 11.
+
+2.1 Resultados por caso de prueba
+
+   ID caso         Resultado esperado           Resultado obtenido                  ¿Cumple?                     Observación
+CP01          Orden confirmada en ≤ 2 s   Orden confirmada en 1,6 s
+                                                                            Sí                —
+
+¿Cumple?: Sí / No / Parcial.
+
+2.2 Resultados por indicador (frente a la meta)
+
+OE                  Indicador                  Métrica                        Meta               Valor obtenido  ¿Alcanza la meta?
+                                                                      ≤2s                    1,7 s               Sí
+OE2         Tiempo de respuesta           p95 (s), 50 usuarios        ≥ 68                   72,5                Sí
+
+OE3         Satisfacción percibida        Puntaje SUS
+
+2.3 Comparación con la línea base
+
+Complete la columna "Artefacto" que quedó vacía en el PI 12 y el resultado de la prueba estadística prevista.
+
+     Métrica                  Línea base       Artefacto        Diferencia          Prueba estadística  Valor p  ¿Significativa?
+
+Tiempo para registrar  12,4               4,1                   −8,3        Wilcoxon pareada            < 0,001  Sí (α = 0,05)
+una orden (min)
+
+2.4 Resumen de pruebas funcionales
+
+              Módulo                           Casos ejecutados             Aprobados                Fallidos         % de éxito
+                                                                                              1                  91,7 %
+Gestión de órdenes                             12                     11
+
+                                          Plantilla PI 13 — Grupo B — Sección G6 — Página 3
+                                    UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                               FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                          Escuela Profesional de Ingeniería de Sistemas
+
+                 Dpto Académico de Ciencias de la Computación (DACC)
+
+                 PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+2.5 Tablas y gráficos generados
+
+Liste las tablas y figuras que irán al capítulo de resultados de la tesis.
+
+     N.°         Tabla / figura                                Qué muestra                                                   Archivo fuente
+                                                                                                                 reportes/carga.html
+Ej.       Figura 1. Tiempo de respuesta vs.  Comportamiento bajo carga
+          usuarios
+
+1
+
+2
+
+3
+
+Parte 3 — Incidencias y evidencias
+
+3.1 Registro de incidencias
+
+Registre todo problema ocurrido durante la ejecución: fallos, defectos, errores de datos, caídas del entorno, expertos que no
+respondieron, etc.
+
+     ID   Fecha               Caso /         Descripción                    Severidad                            Acción tomada                Estado
+                            escenario
+
+INC01 18/11                 CP05 / ES3  Error 500 al pagar con carrito      Alta                                 Validación agregada; caso  Resuelta
+                                        vacío                                                                    re-ejecutado
+
+Severidad: Alta / Media / Baja. Estado: Resuelta / Abierta / Aceptada (no se corrige, se justifica).
+
+3.2 Desviaciones respecto al plan (PI 11 + PI 12)
+
+Si ejecutó todo según lo planificado, escriba "Sin desviaciones".
+
+          Qué se planificó              Qué se hizo realmente                     Motivo                               Impacto en la validez
+
+n = 15 usuarios             n = 12 usuarios                        Disponibilidad de los                         Bajo: se mantiene n ≥ 10 para
+                                                                   participantes                                 SUS
+
+3.3 Inventario de evidencias
+
+Cada evidencia debe poder abrirse desde el enlace indicado. No incluya datos personales de participantes.
+
+  N.°                      Evidencia                 Tipo               Caso / indicador                         Ubicación (enlace o ruta)
+Ej.       Reporte de prueba de carga         HTML
+                                                                        CP04 / OE2                               repo/evidencias/rendimiento
+
+1
+
+2
+
+3
+
+4
+
+ 5
+Tipo: Captura / Video / Log / Reporte de herramienta / Formulario / Acta.
+
+                                                              Plantilla PI 13 — Grupo B — Sección G6 — Página 4
+                                   UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS
+                              FACULTAD DE INGENIERIA DE SISTEMAS E INFORMATICA
+
+                                         Escuela Profesional de Ingeniería de Sistemas
+
+                Dpto Académico de Ciencias de la Computación (DACC)
+
+                PROYECTO DE TESIS II – Daniel QUINTO PAZCE
+
+Parte 4 — Matriz de trazabilidad de la ejecución
+
+Cierre cada OE de punta a punta, desde lo planificado hasta lo obtenido. Ninguna fila debe quedar con celdas vacías.
+
+OE   Indicador / meta     Caso(s)      Resultado obtenido   Incidencias         Evidencia             ¿Cumple?
+                       ejecutado(s)
+
+OE2  p95 ≤ 2 s         CP04            1,7 s                Ninguna             Reporte de carga  Sí
+
+Lista de verificación antes de enviar
+
+☐ Parte 0 completa (observaciones pendientes del parcial, del PI 9 + PI 10 y del PI 11 + PI 12).
+☐ Condiciones de ejecución descritas (versión, entorno, datos), de modo que otra persona pueda repetir las
+pruebas.
+
+☐ Todos los casos de prueba del PI 12 tienen estado; los no ejecutados están explicados.
+☐ Cada indicador tiene su valor obtenido comparado con la meta.
+☐ Comparación con la línea base completa, con el resultado de la prueba estadística.
+☐ Resumen de pruebas funcionales por módulo y sesiones con usuarios registradas (si aplica).
+☐ Incidencias y desviaciones registradas con su acción o justificación.
+☐ Cada resultado tiene una evidencia accesible en el repositorio o carpeta.
+☐ Matriz de trazabilidad sin celdas vacías.
+☐ Archivo nombrado como T#_PI13.docx (tesis compartida: T5-T9_PI13.docx).
+
+Criterio mínimo para tesistas con retraso
+
+Si no entregó el PI 11 + PI 12, envíe primero su matriz de validación, la línea base y los casos de prueba. De este avance, como
+mínimo: la ejecución de los casos de un OE (1.2), sus resultados frente a la meta (2.2) y las evidencias correspondientes (3.3).
+
+Distribución de responsabilidades (solo tesis compartida)
+
+     Tesista                           Pruebas que ejecutó                      Evidencias que aporta
+
+                             Plantilla PI 13 — Grupo B — Sección G6 — Página 5
+

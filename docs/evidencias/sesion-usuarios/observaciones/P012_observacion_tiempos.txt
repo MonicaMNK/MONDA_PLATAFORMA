@@ -1,0 +1,111 @@
+HOJA DE OBSERVACIÓN DE TIEMPOS — SESIÓN S-01
+
+==============================================
+
+Participante: P012 | Rol: estudiante | Orden: B
+
+Fecha: 2026-11-06 | Ventana sesión: 08:00:00 - 09:35:00 (95 min)
+
+Hora inicio tarea: 09:00:00.0 | Hora fin tarea: 09:03:15.3
+
+
+
+TAREA: Consulta y extracción de información en plataforma Monda
+
+--------------------------------------------------------------
+
+
+
+[x] 1. Ingresar a la plataforma con credenciales
+
+   - Tiempo observado: 27.3 seg
+
+   - Observaciones: Ingresó sus credenciales de usuario correctamente y
+
+     accedió al sistema al primer intento.
+
+
+
+[x] 2. Navegar al módulo de gestión de usuarios
+
+   - Tiempo observado: 39.1 seg
+
+   - Observaciones: Desplegó "Gestión" en la barra superior y entró a
+
+     "Usuarios" sin dificultad.
+
+
+
+[x] 3. Buscar un usuario específico por nombre
+
+   - Tiempo observado: 31.2 seg
+
+   - Observaciones: Introdujo el nombre en el campo de búsqueda y presionó
+
+     Enter con filtrado instantáneo.
+
+
+
+[x] 4. Abrir el perfil del usuario encontrado
+
+   - Tiempo observado: 19.5 seg
+
+   - Observaciones: Pulsó sobre el primer resultado y la página de perfil
+
+     cargó sin errores.
+
+
+
+[x] 5. Exportar los datos del usuario a formato CSV
+
+   - Tiempo observado: 46.9 seg
+
+   - Observaciones: Ubicó la opción "Exportar" en el lateral izquierdo,
+
+     eligió CSV y completó la descarga.
+
+
+
+[x] 6. Abrir el archivo CSV en Excel y verificar los datos
+
+   - Tiempo observado: 23.4 seg
+
+   - Observaciones: Visualizó el archivo en Excel confirmando la consistencia
+
+     de los datos extraídos.
+
+
+
+[x] 7. Cerrar sesión y cerrar el navegador
+
+   - Tiempo observado: 7.9 seg
+
+   - Observaciones: Finalizó su sesión y cerró el navegador ordenadamente.
+
+
+
+--------------------------------------------------------------
+
+TIEMPO TOTAL OBSERVADO: 3 min 15.3 seg (195.3 s) (manual)
+
+TIEMPO COMPARATIVO MONDA: 51.4 s | DIFERENCIA: 143.9 s
+
+ERRORES MANUAL: 0 | ERRORES MONDA: 0 | COMPLETADO: Sí
+
+--------------------------------------------------------------
+
+
+
+Observaciones generales:
+
+- Desempeño fluido y ordenado en cada paso de la observación.
+
+- No se registraron errores ni mensajes de advertencia en la plataforma.
+
+- La exportación a CSV funcionó correctamente.
+
+
+
+Firma del observador: [Firmado] Ing. Diego Paredes R. — Observador Principal (ID: OBS-01)
+
+Fecha: 2026-11-06

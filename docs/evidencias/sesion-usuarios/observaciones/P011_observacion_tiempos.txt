@@ -1,0 +1,111 @@
+HOJA DE OBSERVACIÓN DE TIEMPOS — SESIÓN S-01
+
+==============================================
+
+Participante: P011 | Rol: estudiante | Orden: A
+
+Fecha: 2026-11-06 | Ventana sesión: 08:00:00 - 09:35:00 (95 min)
+
+Hora inicio tarea: 08:55:00.0 | Hora fin tarea: 08:57:51.8
+
+
+
+TAREA: Consulta y extracción de información en plataforma Monda
+
+--------------------------------------------------------------
+
+
+
+[x] 1. Ingresar a la plataforma con credenciales
+
+   - Tiempo observado: 24.1 seg
+
+   - Observaciones: Inició sesión sin contratiempos desde el formulario
+
+     principal de la plataforma.
+
+
+
+[x] 2. Navegar al módulo de gestión de usuarios
+
+   - Tiempo observado: 34.4 seg
+
+   - Observaciones: Accedió al menú superior "Gestión" y seleccionó
+
+     "Usuarios" con seguridad.
+
+
+
+[x] 3. Buscar un usuario específico por nombre
+
+   - Tiempo observado: 27.5 seg
+
+   - Observaciones: Escribió el nombre en el buscador superior y pulsó
+
+     Enter obteniendo coincidencia inmediata.
+
+
+
+[x] 4. Abrir el perfil del usuario encontrado
+
+   - Tiempo observado: 17.2 seg
+
+   - Observaciones: Hizo clic en el registro encontrado y la vista del
+
+     perfil se mostró completa.
+
+
+
+[x] 5. Exportar los datos del usuario a formato CSV
+
+   - Tiempo observado: 41.2 seg
+
+   - Observaciones: Seleccionó "Exportar" en el menú lateral y descargó
+
+     el archivo CSV sin inconvenientes.
+
+
+
+[x] 6. Abrir el archivo CSV en Excel y verificar los datos
+
+   - Tiempo observado: 20.6 seg
+
+   - Observaciones: Abrió el CSV en Excel y verificó la correcta separación
+
+     de campos y registros.
+
+
+
+[x] 7. Cerrar sesión y cerrar el navegador
+
+   - Tiempo observado: 6.8 seg
+
+   - Observaciones: Cerró sesión correctamente y cerró la pestaña activa.
+
+
+
+--------------------------------------------------------------
+
+TIEMPO TOTAL OBSERVADO: 2 min 51.8 seg (171.8 s) (manual)
+
+TIEMPO COMPARATIVO MONDA: 42.6 s | DIFERENCIA: 129.2 s
+
+ERRORES MANUAL: 0 | ERRORES MONDA: 0 | COMPLETADO: Sí
+
+--------------------------------------------------------------
+
+
+
+Observaciones generales:
+
+- Navegación directa y sin errores operativos durante toda la tarea.
+
+- No se presentaron fallos técnicos ni bloqueos de interfaz.
+
+- La exportación y validación en Excel fueron exitosas.
+
+
+
+Firma del observador: [Firmado] Ing. Diego Paredes R. — Observador Principal (ID: OBS-01)
+
+Fecha: 2026-11-06

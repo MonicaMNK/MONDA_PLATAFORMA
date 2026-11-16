@@ -1,0 +1,111 @@
+HOJA DE OBSERVACIÓN DE TIEMPOS — SESIÓN S-01
+
+==============================================
+
+Participante: P008 | Rol: estudiante | Orden: B
+
+Fecha: 2026-11-06 | Ventana sesión: 08:00:00 - 09:35:00 (95 min)
+
+Hora inicio tarea: 08:40:00.0 | Hora fin tarea: 08:43:12.6
+
+
+
+TAREA: Consulta y extracción de información en plataforma Monda
+
+--------------------------------------------------------------
+
+
+
+[x] 1. Ingresar a la plataforma con credenciales
+
+   - Tiempo observado: 27.0 seg
+
+   - Observaciones: Ingresó credenciales con seguridad desde el primer momento
+
+     sin presentar fallos.
+
+
+
+[x] 2. Navegar al módulo de gestión de usuarios
+
+   - Tiempo observado: 38.5 seg
+
+   - Observaciones: Seleccionó el menú superior "Gestión" y entró en
+
+     "Usuarios" sin titubeos.
+
+
+
+[x] 3. Buscar un usuario específico por nombre
+
+   - Tiempo observado: 30.8 seg
+
+   - Observaciones: Escribió el nombre en el campo de búsqueda y presionó
+
+     Enter; el sistema desplegó el resultado al instante.
+
+
+
+[x] 4. Abrir el perfil del usuario encontrado
+
+   - Tiempo observado: 19.3 seg
+
+   - Observaciones: Pulsó directamente sobre el enlace del usuario y la
+
+     página abrió sin inconvenientes.
+
+
+
+[x] 5. Exportar los datos del usuario a formato CSV
+
+   - Tiempo observado: 46.2 seg
+
+   - Observaciones: Seleccionó "Exportar" en el panel lateral, marcó la
+
+     opción CSV y obtuvo el archivo correctamente.
+
+
+
+[x] 6. Abrir el archivo CSV en Excel y verificar los datos
+
+   - Tiempo observado: 23.1 seg
+
+   - Observaciones: Visualizó el archivo en Excel comprobando que los
+
+     datos estaban bien alineados y legibles.
+
+
+
+[x] 7. Cerrar sesión y cerrar el navegador
+
+   - Tiempo observado: 7.7 seg
+
+   - Observaciones: Cerró sesión y cerró la pestaña del navegador sin demora.
+
+
+
+--------------------------------------------------------------
+
+TIEMPO TOTAL OBSERVADO: 3 min 12.6 seg (192.6 s) (manual)
+
+TIEMPO COMPARATIVO MONDA: 50.2 s | DIFERENCIA: 142.4 s
+
+ERRORES MANUAL: 0 | ERRORES MONDA: 0 | COMPLETADO: Sí
+
+--------------------------------------------------------------
+
+
+
+Observaciones generales:
+
+- Ritmo de trabajo fluido y constante en toda la sesión.
+
+- Comprendió la lógica de navegación de la interfaz desde el inicio.
+
+- No se observaron errores técnicos ni dificultades operativas.
+
+
+
+Firma del observador: [Firmado] Ing. Diego Paredes R. — Observador Principal (ID: OBS-01)
+
+Fecha: 2026-11-06

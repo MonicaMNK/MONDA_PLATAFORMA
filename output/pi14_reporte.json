@@ -1,0 +1,91 @@
+{
+  "titulo": "Informe PI14 — Análisis de la sesión S-01",
+  "fecha_generacion": "2026-11-15",
+  "version_protocolo": "2.0",
+  "resumen_ejecutivo": {
+    "objetivo": "Evaluar la experiencia de usuario de la plataforma Monda mediante tiempos pareados y cuestionario SUS.",
+    "participantes_total": 16,
+    "docentes": 2,
+    "estudiantes": 14,
+    "fecha_sesion": "2026-11-06",
+    "conclusion_principal": "En los CSV actuales (n=16), la diferencia media manual menos Monda es 137.73 s (IC 95%: 131.93 a 143.54; dz=12.64). El SUS recalculado tiene media 69.38 y desviacion estandar 15.37; alfa=0.9073. El cotejo con fuentes primarias sigue pendiente."
+  },
+  "metodologia": {
+    "diseno": "Diseño cruzado con contrabalanceo A/B",
+    "n_participantes": 16,
+    "n_docentes": 2,
+    "n_estudiantes": 14,
+    "tareas": [
+      "consulta y extracción de información"
+    ],
+    "instrumentos": [
+      {
+        "nombre": "Tiempos pareados",
+        "tipo": "medición comparativa manual vs Monda",
+        "unidad": "segundos"
+      },
+      {
+        "nombre": "SUS (System Usability Scale)",
+        "tipo": "cuestionario de 10 ítems",
+        "escala": "1-5 por ítem"
+      }
+    ],
+    "analisis_estadisticos": [
+      "Diferencia de tiempos pareados con IC 95%",
+      "Efecto Cohen (d)",
+      "Puntaje SUS estándar",
+      "Alfa de Cronbach para consistencia interna"
+    ]
+  },
+  "resultados": {
+    "tiempos_pareados": {
+      "n": 16,
+      "diferencia_definicion": "manual_seconds - monda_seconds; diferencia positiva indica menor tiempo observado con Monda",
+      "media_diff_seconds": 137.73,
+      "desviacion_estandar_seconds": 10.89,
+      "ic95_lower_seconds": 131.93,
+      "ic95_upper_seconds": 143.54,
+      "d_cohen_z": 12.6422,
+      "t_statistic": 50.568777,
+      "p_value_bilateral": 3.5578e-18,
+      "interpretacion": "Difference is statistically significant in these data; unusually large effect size requires review of source records.",
+      "conclusion": "The current CSV shows lower Monda task times; provisional until primary observation sheets are cross-checked."
+    },
+    "susp": {
+      "n": 16,
+      "media": 69.38,
+      "desv_estandar": 15.37,
+      "min": 30.0,
+      "max": 75.0,
+      "interpretacion": "Mean computed from sus_respuestas.csv; provisional until original questionnaires are cross-checked.",
+      "conclusion": "These SUS scores are computed from the current CSV; questionnaire source validation remains pending.",
+      "mediana": 75.0
+    },
+    "alfacronbach": {
+      "alpha": 0.9073,
+      "interpretacion": "Alpha computed from sus_respuestas.csv; provisional until original questionnaires are cross-checked.",
+      "conclusion": "Internal consistency computed from responses in the current CSV."
+    }
+  },
+  "evidencias": [
+    {
+      "tipo": "log de sesión",
+      "ruta": "docs/evidencias/sesion-usuarios/logs/S-01_log.txt"
+    },
+    {
+      "tipo": "observaciones",
+      "ruta": "docs/observaciones/S-01_observaciones.txt"
+    }
+  ],
+  "procedencia": {
+    "repositorio": "C:/Users/Usuario/MONDA_PLATAFORMA",
+    "fecha_exportacion": "2026-11-06T14:30:00-03:00",
+    "zona_horaria": "UTC-3"
+  },
+  "protocolo": {
+    "version": "2.0",
+    "ruta": "docs/evidencias/protocolo-sesion-S-01-v2.0.md",
+    "nota": "Aclaracion documental elaborada 2026-11-15; no valida las metricas mientras falten fuentes primarias."
+  },
+  "nota_validez": "Calculations regenerated from data/usuarios/tiempos_pareados.csv and data/usuarios/sus_respuestas.csv on 2026-11-15. Source CSVs were not modified. Cross-check against original observation sheets and questionnaires remains pending."
+}

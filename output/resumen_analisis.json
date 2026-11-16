@@ -1,0 +1,35 @@
+{
+  "n_participants": 16,
+  "docentes": 2,
+  "estudiantes": 14,
+  "fecha_sesion": "2026-11-06",
+  "alfacronbach": {
+    "alpha": 0.9073,
+    "n_items": 10,
+    "interpretacion": "Calculado desde CSV; cuestionarios originales pendientes de cotejo."
+  },
+  "tiempos_pareados": {
+    "n": 16,
+    "ic95_lower": 131.93,
+    "ic95_upper": 143.54,
+    "interpretacion": "Calculated from current CSV; primary observation sheets pending cross-check.",
+    "media_diff_seconds": 137.73,
+    "d_cohen_z": 12.6422,
+    "p_value_bilateral": 3.5578e-18
+  },
+  "susp": {
+    "n": 16,
+    "media": 69.38,
+    "desv_estandar": 15.37,
+    "min": 30.0,
+    "max": 75.0,
+    "interpretacion": "Calculado desde CSV; cuestionarios originales pendientes de cotejo.",
+    "mediana": 75.0
+  },
+  "limitaciones": [
+    "Primary observation sheets are not in the repository.",
+    "SUS and alpha were calculated from the current CSV; original questionnaires remain to be cross-checked.",
+    "Session log signatures need validation against the original signed record."
+  ],
+  "calculo_desde_csv": "data/usuarios/tiempos_pareados.csv y data/usuarios/sus_respuestas.csv; cotejo primario pendiente"
+}
