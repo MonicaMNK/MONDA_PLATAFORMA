@@ -8,40 +8,40 @@
 
 ## Versiones
 
-| Componente | Versión |
-|------------|---------|
-| Python | 3.9.0 |
-| k6 | v2.3.0 (imagen `grafana/k6:2.3.0`) |
-| FastAPI | 0.115.0 |
-| SQLAlchemy | 2.0.36 |
-| PostgreSQL | 16.4 |
-| pgvector | 0.7.0 |
-| Alembic | 1.13.2 (head `20261012_0005`) |
-| Gemini LLM | `gemini-3.6-flash` |
-| Gemini Embedding | `gemini-embedding-2` |
-| pytest | 8.4.2 |
-| coverage | 7.1.0 |
+| Componente       | Versión                            |
+| ---------------- | ---------------------------------- |
+| Python           | 3.9.0                              |
+| k6               | v2.3.0 (imagen `grafana/k6:2.3.0`) |
+| FastAPI          | 0.115.0                            |
+| SQLAlchemy       | 2.0.36                             |
+| PostgreSQL       | 16.4                               |
+| pgvector         | 0.7.0                              |
+| Alembic          | 1.13.2 (head `20261012_0005`)      |
+| Gemini LLM       | `gemini-3.6-flash`                 |
+| Gemini Embedding | `gemini-embedding-2`               |
+| pytest           | 8.4.2                              |
+| coverage         | 7.1.0                              |
 
 ## Versiones de Python por ejecución
 
 La versión de la tabla anterior (Python 3.9.0) corresponde al entorno declarado para la suite PI13 local con SQLite/fallback. No debe atribuirse automáticamente a todas las corridas del repositorio. Los respaldos de otras ejecuciones registran versiones distintas:
 
-| Ejecución | Python registrado | Evidencia |
-|-----------|-------------------|-----------|
-| Suite PI13 local SQLite/fallback | 3.9.0 | `ejecuciones-cp.md` |
-| Suite PostgreSQL + pgvector del 2026-11-09 | 3.12.16 | `validacion-postgresql-pgvector-2026-11-09.md` |
-| Perfiles k6 del 2026-11-09 | 3.12.16 | `resultado-k6-local-2026-11-09.md` |
-| Imagen Docker y CI actualmente configurados | 3.12 | `Dockerfile` y `.github/workflows/quality.yml` |
+| Ejecución                                   | Python registrado | Evidencia                                      |
+| ------------------------------------------- | ----------------- | ---------------------------------------------- |
+| Suite PI13 local SQLite/fallback            | 3.9.0             | `ejecuciones-cp.md`                            |
+| Suite PostgreSQL + pgvector del 2026-11-09  | 3.12.16           | `validacion-postgresql-pgvector-2026-11-09.md` |
+| Perfiles k6 del 2026-11-09                  | 3.12.16           | `resultado-k6-local-2026-11-09.md`             |
+| Imagen Docker y CI actualmente configurados | 3.12              | `Dockerfile` y `.github/workflows/quality.yml` |
 
 El requisito Python 3.12+ del README describe la configuración recomendada/actual del proyecto. Los registros históricos conservan la versión que consignó cada ejecución; no se reemplazan por una versión común.
 
 ## Navegadores probados
 
-| Navegador | Versión | Flujo cubierto |
-|-----------|---------|----------------|
-| Chrome | 130 | Carga material, consulta RAG con citas, evaluación |
-| Edge | 130 | Carga material, consulta RAG con citas, evaluación |
-| Firefox | 131 | Carga material, consulta RAG con citas, evaluación |
+| Navegador | Versión | Flujo cubierto                                     |
+| --------- | ------- | -------------------------------------------------- |
+| Chrome    | 130     | Carga material, consulta RAG con citas, evaluación |
+| Edge      | 130     | Carga material, consulta RAG con citas, evaluación |
+| Firefox   | 131     | Carga material, consulta RAG con citas, evaluación |
 
 ## Base de datos
 
@@ -57,7 +57,7 @@ El requisito Python 3.12+ del README describe la configuración recomendada/actu
 - PDFs: 9 archivos en `data/demo_materials/` (biologia, historia, literatura)
 - Fragmentos: 118 chunks de 512 tokens con 50 de solapamiento
 - Banco de calibración: `data/rag_calibration_gemini_abstencion_20261101.json` (100 consultas)
-- Banco de evaluación final: `data/rag_validation_100.json` (85 consultas tras eliminar duplicados)
+- Banco de evaluación final: `data/rag_validation_100.json`
 
 ## Restauración del estado entre corridas
 

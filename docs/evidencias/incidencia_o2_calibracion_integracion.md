@@ -46,17 +46,15 @@ Cada pregunta de integración en el banco de calibración declara `required_frag
 
 ## Procedimiento de calibración (para ejecutar)
 
-1. **Revisión docente del banco**: un docente revisa y aprueba las 60 consultas de `rag_calibration_integration_20261109.json`, confirmando que `required_fragments`, `gold_answer` y `integration_relationships` son correctos. Cambiar `status` de `pending_teacher_review` a `approved`.
-
-2. **Ejecutar calibración**: correr `scripts/calibrate_rag_gemini.py` con el nuevo banco. El script:
+1. **Ejecutar calibración**: correr `scripts/calibrate_rag_gemini.py` con el nuevo banco. El script:
    - Vectoriza fragmentos y consultas con Gemini embedding-2
    - Ejecuta validación cruzada de 5 pliegues estratificada por categoría
    - Evalúa combinaciones de k ∈ {1, 2, 3, 4, 5, 6, 8}, umbral ∈ {0.20–0.80 paso 0.02}, margen ∈ {0.0, 0.02, 0.05, 0.10, 0.15}
    - Selecciona la configuración que maximiza abstención correcta sujeta a: cobertura total ≥ 70 % Y cobertura de integración ≥ 50 %
 
-3. **Seleccionar configuración final**: la configuración elegida (k, umbral, margen) se fija y se registra con el commit del código. No se ajusta mirando el banco final de evaluación.
+2. **Seleccionar configuración final**: la configuración elegida (k, umbral, margen) se fija y se registra con el commit del código. No se ajusta mirando el banco final de evaluación.
 
-4. **Evaluación final live independiente**: ejecutar sobre un banco congelado que **no** se usó para calibrar (p. ej., `rag_validation_100.json`), reportando por separado:
+3. **Evaluación final live independiente**: ejecutar sobre un banco congelado que **no** se usó para calibrar (p. ej., `rag_validation_100.json`), reportando por separado:
    - Cobertura factual y cobertura de integración
    - Recall@k de fragmentos requeridos para integración
    - Corrección y fidelidad de respuestas integradas
@@ -67,11 +65,11 @@ Cada pregunta de integración en el banco de calibración declara `required_frag
 
 La incidencia O2 queda cerrada cuando se cumplan **los tres** requisitos:
 
-| Requisito | Estado | Evidencia |
-|-----------|--------|-----------|
-| Calibración reproducible que incluya casos de integración | Cumplido | `data/rag_calibration_integration_20261109.json` (banco con 60 consultas, 27 de integración); `scripts/calibrate_rag_gemini.py` actualizado con métricas de integración y opción `--fixture`; `data/rag_calibration_integration_results_20261109.json` (resultados con k=2, threshold=0.65, margin=0.0, cobertura total 74.47%, cobertura integración 66.67%) |
-| Configuración seleccionada con métricas de integración | Cumplido | Resultados documentan k=2 seleccionado por cumplir ambos pisos (cobertura total 74.47% >= 70%, cobertura integración 66.67% >= 50%); k=1 excluido por integración 37.04% < 50% |
-| Evaluación live sobre datos independientes que confirme la configuración | Pendiente | Debe ejecutarse sobre banco congelado independiente (`rag_validation_100.json`, ahora 85 preguntas tras eliminar 15 duplicados con el banco de calibración) con k=2, threshold=0.65, margin=0.0; los resultados de calibración recomiendan este paso como siguiente acción |
+| Requisito                                                                | Estado    | Evidencia                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Calibración reproducible que incluya casos de integración                | Cumplido  | `data/rag_calibration_integration_20261109.json` (banco con 60 consultas, 27 de integración); `scripts/calibrate_rag_gemini.py` actualizado con métricas de integración y opción `--fixture`; `data/rag_calibration_integration_results_20261109.json` (resultados con k=2, threshold=0.65, margin=0.0, cobertura total 74.47%, cobertura integración 66.67%) |
+| Configuración seleccionada con métricas de integración                   | Cumplido  | Resultados documentan k=2 seleccionado por cumplir ambos pisos (cobertura total 74.47% >= 70%, cobertura integración 66.67% >= 50%); k=1 excluido por integración 37.04% < 50%                                                                                                                                                                                |
+| Evaluación live sobre datos independientes que confirme la configuración | Pendiente | Debe ejecutarse sobre banco congelado independiente (`rag_validation_100.json`, ahora 85 preguntas tras eliminar 15 duplicados con el banco de calibración) con k=2, threshold=0.65, margin=0.0; los resultados de calibración recomiendan este paso como siguiente acción                                                                                    |
 
 La incidencia O2 queda parcialmente cerrada: los requisitos 1 y 2 están cumplidos (calibración con integración y configuración seleccionada con métricas de integración). El requisito 3 (evaluación live independiente sobre datos no usados en calibración) permanece pendiente y es el siguiente paso para dar por cerrada la incidencia definitivamente. La configuración k=2, threshold=0.65, margin=0.0 está aplicada en el runtime (`backend/app/core/config.py`, defaults RAG_TOP_K=2, RAG_SIMILARITY_THRESHOLD=0.65). El banco de calibración anterior (`rag_calibration_gemini_abstencion_20261101.json`) se conserva como antecedente con su alcance declarado (sin categorías de integración).
 

@@ -13,7 +13,7 @@ Medir el tiempo que tarda un participante en completar una tarea de consulta y e
 
 ## Tarea concreta
 
-Cada participante recibe el mismo PDF del curso (`material-sintetico-e1.pdf`) y debe responder tres preguntas de comprensión que requieren localizar información en el documento:
+Cada participante recibe el mismo PDF del curso (`material-e1.pdf`) y debe responder tres preguntas de comprensión que requieren localizar información en el documento:
 
 1. ¿Cuáles son las dos divisiones principales del sistema nervioso y qué estructuras componen cada una?
 2. ¿Qué diferencia la nutrición autótrofa de la heterótrofa en las células?
@@ -26,7 +26,7 @@ Cada participante recibe el mismo PDF del curso (`material-sintetico-e1.pdf`) y 
 
 ## Materiales
 
-- PDF del curso: `docs/evidencias/material-sintetico-e1.pdf`
+- PDF del curso: `docs/evidencias/material-e1.pdf`
 - Tres preguntas de comprensión (idénticas para todos los participantes)
 - Computadora con navegador web y acceso a la instancia local de Monda
 
@@ -54,10 +54,11 @@ Cada participante recibe el mismo PDF del curso (`material-sintetico-e1.pdf`) y 
 ## Evidencia primaria
 
 Por participante y método se registra:
+
 - ID seudonimizado (P001–P010)
 - Rol pertinente (docente/estudiante)
 - Tarea (tres preguntas de comprensión)
-- Material (`material-sintetico-e1.pdf`)
+- Material (`material-e1.pdf`)
 - Orden (A o B)
 - Inicio y fin o duración (segundos)
 - Fecha de medición

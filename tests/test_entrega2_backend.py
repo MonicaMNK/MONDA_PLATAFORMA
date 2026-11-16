@@ -70,7 +70,8 @@ def create_test_app(db_path: str) -> FastAPI:
 
     def assert_course_access(user: Dict, course_id: str) -> None:
         if user["role"] != "admin" and course_id not in user["courses"]:
-            raise HTTPException(status_code=403, detail="Acceso denegado a curso ajeno")
+            raise HTTPException(
+                status_code=403, detail="Acceso denegado a curso ajeno")
 
     @app.post("/api/v1/courses/{course_id}/materials")
     async def upload_material(
@@ -80,7 +81,8 @@ def create_test_app(db_path: str) -> FastAPI:
     ):
         assert_course_access(user, course_id)
         if user["role"] not in ("docente", "admin"):
-            raise HTTPException(status_code=403, detail="Solo docentes o administradores pueden subir material")
+            raise HTTPException(
+                status_code=403, detail="Solo docentes o administradores pueden subir material")
 
         raw_bytes = await file.read()
         if not raw_bytes:
@@ -94,14 +96,17 @@ def create_test_app(db_path: str) -> FastAPI:
         next_version = int(row["max_v"]) + 1
 
         material_id = str(uuid.uuid4())
-        text_content = raw_bytes.decode("utf-8", errors="ignore").strip() or f"Contenido indexado {file.filename}"
+        text_content = raw_bytes.decode(
+            "utf-8", errors="ignore").strip() or f"Contenido indexado {file.filename}"
         words = text_content.split()
         chunk_size = 20
-        segments = [" ".join(words[i : i + chunk_size]) for i in range(0, len(words), chunk_size)] or [text_content]
+        segments = [" ".join(words[i: i + chunk_size])
+                    for i in range(0, len(words), chunk_size)] or [text_content]
 
         cur.execute(
             "INSERT INTO materials (id, course_id, filename, version, sha256, status) VALUES (?, ?, ?, ?, ?, ?)",
-            (material_id, course_id, file.filename, next_version, sha, "indexed_fallback"),
+            (material_id, course_id, file.filename,
+             next_version, sha, "indexed_fallback"),
         )
         for idx, seg in enumerate(segments):
             cur.execute(
@@ -132,7 +137,8 @@ def create_test_app(db_path: str) -> FastAPI:
     @app.get("/api/v1/admin/users")
     def admin_list_users(user: Dict = Depends(get_current_user)):
         if user["role"] != "admin":
-            raise HTTPException(status_code=403, detail="Acceso administrativo denegado")
+            raise HTTPException(
+                status_code=403, detail="Acceso administrativo denegado")
         return {"users": list(USERS.values())}
 
     class RagQuery(BaseModel):
@@ -154,7 +160,8 @@ def create_test_app(db_path: str) -> FastAPI:
         ).fetchall()
 
         terms = [t.lower() for t in payload.question.split() if len(t) > 3]
-        matched = [r for r in rows if any(term in r["content"].lower() for term in terms)]
+        matched = [r for r in rows if any(
+            term in r["content"].lower() for term in terms)]
 
         if not matched:
             return {
@@ -180,7 +187,8 @@ def create_test_app(db_path: str) -> FastAPI:
     def create_assessment(payload: AssessmentCreate, user: Dict = Depends(get_current_user)):
         assert_course_access(user, payload.course_id)
         if user["role"] not in ("docente", "admin"):
-            raise HTTPException(status_code=403, detail="Solo docentes pueden crear evaluaciones")
+            raise HTTPException(
+                status_code=403, detail="Solo docentes pueden crear evaluaciones")
         aid = str(uuid.uuid4())
         cur.execute(
             "INSERT INTO assessments (id, course_id, title, reviewed_by_teacher, published) VALUES (?, ?, ?, 0, 0)",
@@ -191,27 +199,36 @@ def create_test_app(db_path: str) -> FastAPI:
 
     @app.post("/api/v1/assessments/{assessment_id}/review")
     def review_assessment(assessment_id: str, user: Dict = Depends(get_current_user)):
-        row = cur.execute("SELECT * FROM assessments WHERE id = ?", (assessment_id,)).fetchone()
+        row = cur.execute(
+            "SELECT * FROM assessments WHERE id = ?", (assessment_id,)).fetchone()
         if not row:
-            raise HTTPException(status_code=404, detail="Evaluación no encontrada")
+            raise HTTPException(
+                status_code=404, detail="Evaluación no encontrada")
         assert_course_access(user, row["course_id"])
         if user["role"] not in ("docente", "admin"):
-            raise HTTPException(status_code=403, detail="Solo docentes pueden revisar evaluaciones")
-        cur.execute("UPDATE assessments SET reviewed_by_teacher = 1 WHERE id = ?", (assessment_id,))
+            raise HTTPException(
+                status_code=403, detail="Solo docentes pueden revisar evaluaciones")
+        cur.execute(
+            "UPDATE assessments SET reviewed_by_teacher = 1 WHERE id = ?", (assessment_id,))
         conn.commit()
         return {"id": assessment_id, "reviewed": True}
 
     @app.post("/api/v1/assessments/{assessment_id}/publish")
     def publish_assessment(assessment_id: str, user: Dict = Depends(get_current_user)):
-        row = cur.execute("SELECT * FROM assessments WHERE id = ?", (assessment_id,)).fetchone()
+        row = cur.execute(
+            "SELECT * FROM assessments WHERE id = ?", (assessment_id,)).fetchone()
         if not row:
-            raise HTTPException(status_code=404, detail="Evaluación no encontrada")
+            raise HTTPException(
+                status_code=404, detail="Evaluación no encontrada")
         assert_course_access(user, row["course_id"])
         if user["role"] not in ("docente", "admin"):
-            raise HTTPException(status_code=403, detail="Estudiante no puede publicar evaluación")
+            raise HTTPException(
+                status_code=403, detail="Estudiante no puede publicar evaluación")
         if not row["reviewed_by_teacher"]:
-            raise HTTPException(status_code=409, detail="Publicación bloqueada antes de revisión docente")
-        cur.execute("UPDATE assessments SET published = 1 WHERE id = ?", (assessment_id,))
+            raise HTTPException(
+                status_code=409, detail="Publicación bloqueada antes de revisión docente")
+        cur.execute(
+            "UPDATE assessments SET published = 1 WHERE id = ?", (assessment_id,))
         conn.commit()
         return {"id": assessment_id, "published": True}
 
@@ -236,11 +253,11 @@ def test_material_upload_version_and_index_fallback(client: TestClient):
     resp_v1 = client.post(
         "/api/v1/courses/curso-1/materials",
         headers=headers_doc,
-        files={"file": ("material-sintetico-e1.pdf", pdf_v1, "application/pdf")},
+        files={"file": ("material-e1.pdf", pdf_v1, "application/pdf")},
     )
     assert resp_v1.status_code == 200
     data_v1 = resp_v1.json()
-    assert data_v1["filename"] == "material-sintetico-e1.pdf"
+    assert data_v1["filename"] == "material-e1.pdf"
     assert data_v1["version"] == 1
     assert data_v1["status"] == "indexed_fallback"
     assert data_v1["chunks_indexed"] >= 1
@@ -250,7 +267,7 @@ def test_material_upload_version_and_index_fallback(client: TestClient):
     resp_v2 = client.post(
         "/api/v1/courses/curso-1/materials",
         headers=headers_doc,
-        files={"file": ("material-sintetico-e1.pdf", pdf_v2, "application/pdf")},
+        files={"file": ("material-e1.pdf", pdf_v2, "application/pdf")},
     )
     assert resp_v2.status_code == 200
     data_v2 = resp_v2.json()
@@ -259,7 +276,8 @@ def test_material_upload_version_and_index_fallback(client: TestClient):
     assert data_v2["chunks_indexed"] >= 1
 
     # 3. Verificación de listado con ambas versiones registradas
-    listing = client.get("/api/v1/courses/curso-1/materials", headers=headers_doc)
+    listing = client.get(
+        "/api/v1/courses/curso-1/materials", headers=headers_doc)
     assert listing.status_code == 200
     items = listing.json()["items"]
     assert [it["version"] for it in items] == [1, 2]
@@ -277,17 +295,20 @@ def test_course_isolation_and_rbac(client: TestClient):
     up = client.post(
         "/api/v1/courses/curso-1/materials",
         headers=headers_doc_1,
-        files={"file": ("guia-curso1.pdf", b"%PDF-1.4\nContenido autorizado curso 1", "application/pdf")},
+        files={"file": (
+            "guia-curso1.pdf", b"%PDF-1.4\nContenido autorizado curso 1", "application/pdf")},
     )
     assert up.status_code == 200
 
     # CP12: Acceso permitido a material autorizado para estudiante matriculado
-    ok_res = client.get("/api/v1/courses/curso-1/materials", headers=headers_est_1)
+    ok_res = client.get("/api/v1/courses/curso-1/materials",
+                        headers=headers_est_1)
     assert ok_res.status_code == 200
     assert len(ok_res.json()["items"]) == 1
 
     # CP02: Acceso denegado desde curso ajeno (403 Forbidden)
-    denied_course = client.get("/api/v1/courses/curso-1/materials", headers=headers_est_2)
+    denied_course = client.get(
+        "/api/v1/courses/curso-1/materials", headers=headers_est_2)
     assert denied_course.status_code == 403
 
     # CP13: Acceso administrativo denegado al estudiante (403 Forbidden) y permitido a admin
@@ -320,7 +341,8 @@ def test_full_pi7_backend_flow_fallback_rag(client: TestClient):
     rag_res = client.post(
         "/api/v1/tutor/query",
         headers=headers_est,
-        json={"courseId": "curso-1", "question": "Como garantiza MONDA el aislamiento por courseId?"},
+        json={"courseId": "curso-1",
+              "question": "Como garantiza MONDA el aislamiento por courseId?"},
     )
     assert rag_res.status_code == 200
     body = rag_res.json()
@@ -334,11 +356,14 @@ def test_full_pi7_backend_flow_fallback_rag(client: TestClient):
         headers=headers_doc,
         json={"course_id": "curso-1", "title": "Evaluación Unidad 1"},
     ).json()
-    blocked_pub = client.post(f"/api/v1/assessments/{draft['id']}/publish", headers=headers_doc)
+    blocked_pub = client.post(
+        f"/api/v1/assessments/{draft['id']}/publish", headers=headers_doc)
     assert blocked_pub.status_code == 409
 
     # Tras revisión docente sí permite publicar
-    rev = client.post(f"/api/v1/assessments/{draft['id']}/review", headers=headers_doc)
+    rev = client.post(
+        f"/api/v1/assessments/{draft['id']}/review", headers=headers_doc)
     assert rev.status_code == 200
-    ok_pub = client.post(f"/api/v1/assessments/{draft['id']}/publish", headers=headers_doc)
+    ok_pub = client.post(
+        f"/api/v1/assessments/{draft['id']}/publish", headers=headers_doc)
     assert ok_pub.status_code == 200

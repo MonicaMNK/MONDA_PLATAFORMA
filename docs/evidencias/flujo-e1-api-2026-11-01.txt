@@ -5,4 +5,4 @@ Curso de contenido: Curso Demo Sintetico E1 Acceso
 Carga: HTTP 201; version 1; estado inicial pendiente.
 Indexacion: HTTP 200; estado indexado; fragmentos 1; proveedor fallback-lexical-v1.
 Caso negativo: estudiante sin matricula en este curso; HTTP 403 COURSE_FORBIDDEN.
-PDF adjunto: material-sintetico-e1.pdf (contenido pedagogico ficticio, sin datos personales).
+PDF adjunto: material-e1.pdf (contenido pedagogico ficticio, sin datos personales).

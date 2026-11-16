@@ -13,12 +13,12 @@ La ejecución se hizo por API HTTP contra una segunda instancia de la aplicació
 
 ## E1 — Carga, indexación y aislamiento
 
-| Paso | Resultado |
-|---|---|
-| Subida de `material-sintetico-e1.pdf` por el docente | HTTP 201 |
-| Indexación | Completada; 1 fragmento |
-| Proveedor y vector guardado | `gemini` / `gemini-embedding-2`, 768 dimensiones |
-| Estudiante sin matrícula intenta consultar el estado del material | HTTP 403 |
+| Paso                                                              | Resultado                                        |
+| ----------------------------------------------------------------- | ------------------------------------------------ |
+| Subida de `material-e1.pdf` por el docente                        | HTTP 201                                         |
+| Indexación                                                        | Completada; 1 fragmento                          |
+| Proveedor y vector guardado                                       | `gemini` / `gemini-embedding-2`, 768 dimensiones |
+| Estudiante sin matrícula intenta consultar el estado del material | HTTP 403                                         |
 
 El contenido quedó persistido en `monda.fragmentos_rag` dentro de PostgreSQL. El registro del material terminó en estado `indexado`.
 
@@ -26,9 +26,9 @@ El contenido quedó persistido en `monda.fragmentos_rag` dentro de PostgreSQL. E
 
 Se consultó el curso con dos preguntas; ambas respuestas registran proveedor `gemini` y modelo `gemini-3-flash-preview` en [rag_traces.jsonl](../../data/traces/rag_traces.jsonl).
 
-| Caso | Evidencia observada |
-|---|---|
-| Pregunta respondible sobre fotosíntesis | Evidencia suficiente; score máximo 0.7816; 1 fuente; respuesta con cita `[F1]`. Latencia total 4,948.47 ms; latencia del proveedor 4,934.02 ms. |
+| Caso                                                  | Evidencia observada                                                                                                                                         |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pregunta respondible sobre fotosíntesis               | Evidencia suficiente; score máximo 0.7816; 1 fuente; respuesta con cita `[F1]`. Latencia total 4,948.47 ms; latencia del proveedor 4,934.02 ms.             |
 | Pregunta sin respaldo sobre el Mundial de fútbol 2010 | Evidencia insuficiente; score máximo 0.5349, menor que el umbral 0.69; respuesta de abstención. No se generó respuesta factual. Latencia total 1,456.47 ms. |
 
 La consulta sin evidencia recuperó un candidato de baja puntuación, pero el sistema lo rechazó y se abstuvo. No hubo fallback.

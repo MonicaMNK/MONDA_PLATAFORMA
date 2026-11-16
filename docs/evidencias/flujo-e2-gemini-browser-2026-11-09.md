@@ -15,6 +15,7 @@
 ## 2. Configuración del sistema (Referencia API de Respaldo)
 
 Los siguientes datos corresponden a los componentes verificados en la capa de servicios backend (API) y deben ser contrastados visualmente en la interfaz:
+
 - **Proveedor RAG seleccionado en la interfaz:** Gemini
 - **Modelo de generación (Referencia API):** gemini-3-flash-preview
 - **Modelo de embeddings (Referencia API):** gemini-embedding-2
@@ -26,7 +27,8 @@ Los siguientes datos corresponden a los componentes verificados en la capa de se
 ## 3. Datos de prueba (Referencia de Casos API)
 
 Flujos de consulta que deben replicarse exactamente en la interfaz web:
-- **Material sintético utilizado:** material-sintetico-e1.pdf
+
+- **Material sintético utilizado:** material-e1.pdf
 - **Identificador del material:** 5db7fdbaee36577bdfef9f4ca5a718ef0e9f49e305b6fe62085d421efb98da17
 - **Curso o espacio de trabajo:** Curso de demostración E2
 - **Confirmación de que no se usaron datos personales:** Sí, entorno de pruebas restringido a datos sintéticos.
@@ -38,7 +40,7 @@ Flujos de consulta que deben replicarse exactamente en la interfaz web:
 1. Levantar la aplicación localmente asegurando la escucha en el puerto `8001`.
 2. Acceder mediante navegador a `http://127.0.0.1:8001`.
 3. Validar que el selector de proveedor esté posicionado en **Gemini**.
-4. Cargar el entorno o espacio de trabajo correspondiente al archivo `material-sintetico-e1.pdf`.
+4. Cargar el entorno o espacio de trabajo correspondiente al archivo `material-e1.pdf`.
 5. Ejecutar el **Caso 1 (Fotosíntesis)**, validar la presencia explícita de la cita `[F1]` en el componente de texto de la interfaz y capturar pantalla.
 6. Ejecutar el **Caso 2 (Mundial 2010)**, validar que el componente de respuesta despliegue la abstención del modelo sin alucinaciones y capturar pantalla.
 7. Almacenar los archivos físicos de imagen de manera local.
@@ -46,6 +48,7 @@ Flujos de consulta que deben replicarse exactamente en la interfaz web:
 ## 5. Resultados observados en Interfaz
 
 ### 5.1 Respuesta con evidencia (Fotosíntesis)
+
 - **Pregunta formulada en UI:** ¿Cómo funciona la fotosíntesis en las plantas?
 - **Respuesta observada en pantalla:** La fotosíntesis es el proceso mediante el cual las plantas convierten la luz solar en energía química [F1].
 - **¿Incluye `[F1]` visible en el cliente web?:** sí
@@ -55,6 +58,7 @@ Flujos de consulta que deben replicarse exactamente en la interfaz web:
 - **Resultado:** APROBADO
 
 ### 5.2 Abstención (Mundial 2010)
+
 - **Pregunta formulada en UI:** ¿Quién ganó el Mundial de fútbol 2010?
 - **Respuesta observada en pantalla:** No encuentro evidencia suficiente en los materiales autorizados de este curso para responder con confianza.
 - **¿Reconoce textualmente que no hay evidencia suficiente?:** sí
@@ -65,12 +69,14 @@ Flujos de consulta que deben replicarse exactamente en la interfaz web:
 ## 6. Control de Archivos de Evidencia Física (Capturas)
 
 Las siguientes imágenes existen para esta ejecución:
+
 - **Modo Gemini y respuesta citada:** `captura-e2-gemini-respuesta-citada.png` -> **ESTADO: EXISTE**
 - **Modo Gemini y abstención:** `captura-e2-gemini-abstencion.png` -> **ESTADO: EXISTE**
 
-*Nota técnica: Las capturas finales deberán ser copias fieles de la pantalla completa del navegador sin recortes que alteren la URL local o los selectores activos.*
+_Nota técnica: Las capturas finales deberán ser copias fieles de la pantalla completa del navegador sin recortes que alteren la URL local o los selectores activos._
 
 ## 7. Incidencias y limitaciones en Interfaz
+
 - **Errores de renderizado o del proveedor en UI:** ninguno reportado
 - **Uso de fallback visual observado:** no
 
@@ -82,6 +88,6 @@ El hito E2 ha pasado a estado **APROBADO** con los datos de navegación registra
 
 - **Registro de ejecución por API de referencia:** `flujo-e1-e3-postgresql-gemini-2026-11-09.md`
 - **Commit de la ejecución API de referencia:** 33c08188a7ce877d3c0ae0a709b174c8c442a524
-- **Material de prueba de origen:** `material-sintetico-e1.pdf`
+- **Material de prueba de origen:** `material-e1.pdf`
 - **Comando de arranque del entorno local:** `.\INICIAR_MONDA_LOCAL.bat --port 8001`
 - **JSON de ejecución:** `docs/evidencias/e2-gemini-ui-2026-11-09.json`

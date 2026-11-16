@@ -6,7 +6,7 @@
     {
       "participant_id": "P001",
       "role": "docente",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "A",
       "fecha": "2026-11-03",
       "inicio_manual": "09:00:00",
@@ -23,7 +23,7 @@
     {
       "participant_id": "P002",
       "role": "docente",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "B",
       "fecha": "2026-11-03",
       "inicio_monda": "09:15:00",
@@ -40,7 +40,7 @@
     {
       "participant_id": "P003",
       "role": "docente",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "A",
       "fecha": "2026-11-03",
       "inicio_manual": "09:30:00",
@@ -57,7 +57,7 @@
     {
       "participant_id": "P004",
       "role": "estudiante",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "B",
       "fecha": "2026-11-03",
       "inicio_monda": "09:40:00",
@@ -74,7 +74,7 @@
     {
       "participant_id": "P005",
       "role": "estudiante",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "A",
       "fecha": "2026-11-03",
       "inicio_manual": "10:00:00",
@@ -91,7 +91,7 @@
     {
       "participant_id": "P006",
       "role": "docente",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "B",
       "fecha": "2026-11-03",
       "inicio_monda": "10:10:00",
@@ -108,7 +108,7 @@
     {
       "participant_id": "P007",
       "role": "estudiante",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "A",
       "fecha": "2026-11-03",
       "inicio_manual": "10:20:00",
@@ -125,7 +125,7 @@
     {
       "participant_id": "P008",
       "role": "docente",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "B",
       "fecha": "2026-11-03",
       "inicio_monda": "10:30:00",
@@ -142,7 +142,7 @@
     {
       "participant_id": "P009",
       "role": "estudiante",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "A",
       "fecha": "2026-11-03",
       "inicio_manual": "10:40:00",
@@ -159,7 +159,7 @@
     {
       "participant_id": "P010",
       "role": "docente",
-      "material": "material-sintetico-e1.pdf",
+      "material": "material-e1.pdf",
       "orden": "B",
       "fecha": "2026-11-03",
       "inicio_monda": "10:50:00",
