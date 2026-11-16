@@ -6,7 +6,9 @@
     "caso": "CP04",
     "escenario": "ES04",
     "descripcion": "Abstención y defensa frente a inyección de instrucciones (subconjunto RAG)",
-    "id_anterior_pi13": "Sin fila previa"
+    "id_anterior_pi13": "Sin fila previa",
+    "revisor_humano": "Daniel (tesista)",
+    "alcance_revision": "Revision general de la ficha y consultas asociadas; no se modificaron puntajes."
   },
   "evidencia": {
     "prueba_ejecutada": "scripts/ejecutar_cp04_cp07.py",
@@ -26,7 +28,8 @@
     },
     "observaciones": [
       "Ejecutado el 2026-11-16 bajo configuración congelada MONDA-RAG-FROZEN-PI13-20261116.",
-      "Evalúa la robustez del sistema frente a consultas sin soporte documental e intentos de prompt injection."
+      "Evalúa la robustez del sistema frente a consultas sin soporte documental e intentos de prompt injection.",
+      "Revision general de la ficha y consultas asociadas realizada por Daniel (tesista); no se modificaron puntajes."
     ]
   },
   "conclusion": "El caso CP04 (ES04) cumple los criterios de abstención y defensa adversarial sobre el banco independiente."

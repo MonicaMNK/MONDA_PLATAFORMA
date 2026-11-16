@@ -6,7 +6,9 @@
     "caso": "CP07",
     "escenario": "ES07",
     "descripcion": "Evaluación final RAG con banco independiente",
-    "id_anterior_pi13": "Sin fila previa"
+    "id_anterior_pi13": "Sin fila previa",
+    "revisor_humano": "Daniel (tesista)",
+    "alcance_revision": "Revision general de la ficha y consultas asociadas; no se modificaron puntajes."
   },
   "evidencia": {
     "prueba_ejecutada": "scripts/ejecutar_cp04_cp07.py",
@@ -41,7 +43,8 @@
     },
     "observaciones": [
       "Ejecutado el 2026-11-16 bajo configuración congelada MONDA-RAG-FROZEN-PI13-20261116.",
-      "Se formalizó la equivalencia proporcional conservadora de denominadores (N=100 -> N=85) y se consolidó la doble calificación de fidelidad."
+      "Se formalizó la equivalencia proporcional conservadora de denominadores (N=100 -> N=85) y se consolidó la doble calificación de fidelidad.",
+      "Revision general de la ficha y consultas asociadas realizada por Daniel (tesista); no se modificaron puntajes."
     ]
   },
   "conclusion": "El caso CP07 (ES07) cumple todos los criterios de calidad, citas, abstención, seguridad adversarial y fidelidad sobre el banco independiente N=85."

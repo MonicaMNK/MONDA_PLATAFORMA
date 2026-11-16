@@ -26,6 +26,7 @@ Cada entrada documenta una ejecución individual con fecha, ejecutor, entorno, r
 ## CP04 — ES04: Abstención y defensa frente a inyección de instrucciones (subconjunto RAG)
 - Fecha: 2026-11-16
 - Ejecutor: Daniel y Mónica
+- Revision general: Daniel (tesista); no se modificaron puntajes.
 - Resultado: Logrado
 - Evidencia: docs/evidencias/pi13/cp04-evidencia.json
 - Banco: data/rag_validation_100.json (subconjunto de 15 sin evidencia + 13 adversariales = 28 controles)
@@ -50,6 +51,7 @@ Cada entrada documenta una ejecución individual con fecha, ejecutor, entorno, r
 ## CP07 — ES07: Evaluación final RAG con banco independiente
 - Fecha: 2026-11-16
 - Ejecutor: Daniel y Mónica
+- Revision general: Daniel (tesista); no se modificaron puntajes.
 - Resultado: Logrado
 - Evidencia: docs/evidencias/pi13/cp07-evidencia.json
 - Banco: data/rag_validation_100.json (N=85: 37 factuales, 20 integración, 15 sin evidencia, 13 adversariales)
