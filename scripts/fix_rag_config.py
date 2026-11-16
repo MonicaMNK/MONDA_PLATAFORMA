@@ -6,7 +6,7 @@ Uso:
 Este script:
 1. Crea el esquema si no existe (usando SQLAlchemy).
 2. Ejecuta el seed demo (que solo añade la fila rag si no existe).
-3. Corrige la fila rag existente para que quede topK=1, umbral=0.69
+3. Corrige la fila rag existente para que quede topK=2, umbral=0.65
    (los defaults de settings), actualizando version y auditoría.
 """
 from __future__ import annotations
