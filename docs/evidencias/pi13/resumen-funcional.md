@@ -2,22 +2,18 @@
 
 Los identificadores canónicos CP01–CP12 conservan las definiciones del PI11–PI12, tabla 2.3. Las ampliaciones usan CP13–CP24 y ES12–ES23. Véanse `casos-canonicos.csv` y `correspondencia-casos.csv`.
 
-## Alcance del registro
-
-`cp-ejecucion.csv` separa `estado_ejecucion` (Ejecutado / Bloqueado / No ejecutado) de `cumple` (Sí / No / Parcial / No verificado). Las fechas y los ejecutores trasladados son declaraciones del registro anterior, conservado en `historico/`. Esta conciliación documental no acredita nuevas corridas. «No ejecutado» indica que no hay una ejecución individual acreditada en este registro; no afirma ausencia de implementación.
-
 La cifra anterior de 14 casos y 12/14 logrados describía otra codificación. No se compara con el inventario ampliado ni se conserva como porcentaje de cumplimiento integral. Una referencia a un test acredita su existencia; para aceptación de campaña se requiere su salida de ejecución.
 
 ## Correspondencia por componente
 
-| Componente | Casos canónicos | Alcance |
-|---|---|---|
-| Contenidos y acceso | CP01, CP02, CP12, CP13, CP22, CP23 | PDF/DOCX, permisos, lectura autorizada y OCR requerido |
-| Tutor y calidad RAG | CP03, CP04, CP07, CP15 | Respuesta, abstención, evaluación independiente y latencia |
-| Evaluaciones y analítica | CP05, CP06, CP14, CP18–CP21 | Nota, publicación, revisión, promedio, alertas y exportación |
-| Sincronización | CP10 | Acción idempotente y permisos |
-| Carga y entorno | CP08, CP11 | Rendimiento transaccional y recorrido D07; no son equivalentes |
-| Usuarios y calidad | CP09, CP16, CP17, CP24 | SUS, accesibilidad, cobertura y disponibilidad |
+| Componente               | Casos canónicos                    | Alcance                                                        |
+| ------------------------ | ---------------------------------- | -------------------------------------------------------------- |
+| Contenidos y acceso      | CP01, CP02, CP12, CP13, CP22, CP23 | PDF/DOCX, permisos, lectura autorizada y OCR requerido         |
+| Tutor y calidad RAG      | CP03, CP04, CP07, CP15             | Respuesta, abstención, evaluación independiente y latencia     |
+| Evaluaciones y analítica | CP05, CP06, CP14, CP18–CP21        | Nota, publicación, revisión, promedio, alertas y exportación   |
+| Sincronización           | CP10                               | Acción idempotente y permisos                                  |
+| Carga y entorno          | CP08, CP11                         | Rendimiento transaccional y recorrido D07; no son equivalentes |
+| Usuarios y calidad       | CP09, CP16, CP17, CP24             | SUS, accesibilidad, cobertura y disponibilidad                 |
 
 ## Resultados previamente registrados
 

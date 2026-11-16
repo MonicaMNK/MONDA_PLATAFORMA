@@ -2,7 +2,7 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-09",
-    "ejecutor": "Mónica",
+    "ejecutor": "Rosa Chavez",
     "caso": "CP14",
     "escenario": "ES13",
     "descripcion": "Promedio de dos notas: diez y catorce",
@@ -14,7 +14,7 @@
     "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
     "evidencia_tecnica": {
       "alcance_verificacion": "Cálculo de promedio vigesimal sobre dos intentos cerrados (10 y 14 -> 12.00) y supresión de alerta temprana",
-      "trazabilidad_registro": "Fecha, ejecutor (Mónica) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP06)",
+      "trazabilidad_registro": "Fecha, ejecutor (Rosa Chavez) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP06)",
       "calculo_verificado": {
         "nota_intento_1": 10.0,
         "nota_intento_2": 14.0,

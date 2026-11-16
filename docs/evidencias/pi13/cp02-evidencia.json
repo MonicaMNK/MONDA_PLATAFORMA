@@ -2,7 +2,7 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-09",
-    "ejecutor": "Daniel",
+    "ejecutor": "Arturo Rojas",
     "caso": "CP02",
     "escenario": "ES02",
     "descripcion": "Acceso denegado a material de curso ajeno",
@@ -14,7 +14,7 @@
     "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
     "evidencia_tecnica": {
       "alcance_verificacion": "Aislamiento multi-curso: estudiante matriculado en curso-1 intenta consultar materiales o tutor RAG de curso-2",
-      "trazabilidad_registro": "Fecha, ejecutor (Daniel) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP02)",
+      "trazabilidad_registro": "Fecha, ejecutor (Arturo Rojas) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP02)",
       "caso_verificado": {
         "rol_usuario": "estudiante (token-est-1, matriculado solo en curso-1)",
         "recurso_destino": "/api/v1/courses/curso-2/materials",

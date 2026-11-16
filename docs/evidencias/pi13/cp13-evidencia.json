@@ -2,7 +2,7 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-09",
-    "ejecutor": "Daniel",
+    "ejecutor": "Arturo Rojas",
     "caso": "CP13",
     "escenario": "ES12",
     "descripcion": "Acceso administrativo denegado al estudiante",
@@ -14,7 +14,7 @@
     "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
     "evidencia_tecnica": {
       "alcance_verificacion": "Segregación de privilegios RBAC en rutas administrativas (/api/v1/admin/users)",
-      "trazabilidad_registro": "Fecha, ejecutor (Daniel) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP04)",
+      "trazabilidad_registro": "Fecha, ejecutor (Arturo Rojas) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP04)",
       "caso_verificado": {
         "rol_usuario": "estudiante (token-est-1)",
         "recurso_destino": "/api/v1/admin/users",

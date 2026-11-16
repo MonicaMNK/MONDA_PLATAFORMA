@@ -2,7 +2,7 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-09",
-    "ejecutor": "Daniel",
+    "ejecutor": "Arturo Rojas",
     "caso": "CP03",
     "escenario": "ES04",
     "descripcion": "Abstención cuando no hay evidencia suficiente",
@@ -14,7 +14,7 @@
     "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
     "evidencia_tecnica": {
       "alcance_verificacion": "Verificación de abstención explícita (evidenceSufficient=false) cuando la consulta está fuera del dominio del material del curso",
-      "trazabilidad_registro": "Fecha, ejecutor (Daniel) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP10)",
+      "trazabilidad_registro": "Fecha, ejecutor (Arturo Rojas) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP10)",
       "caso_verificado": {
         "consulta": "Tema no contenido en los documentos del curso",
         "evidenceSufficient": false,

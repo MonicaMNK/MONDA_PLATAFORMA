@@ -2,7 +2,7 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-16",
-    "ejecutor": "Daniel",
+    "ejecutor": "Arturo Rojas",
     "caso": "CP11",
     "escenario": "ES11",
     "descripcion": "D07: recorrido E1–E3 en PostgreSQL y pgvector",

@@ -2,7 +2,7 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-09",
-    "ejecutor": "Daniel",
+    "ejecutor": "Arturo Rojas",
     "caso": "CP10",
     "escenario": "ES10",
     "descripcion": "Sincronización tras desconexión",
@@ -14,7 +14,7 @@
     "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
     "evidencia_tecnica": {
       "alcance_verificacion": "1 caso de prueba automatizado de sincronización idempotente tras reconexión y rechazo de acciones inseguras",
-      "trazabilidad_registro": "Fecha, ejecutor (Daniel) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP07)",
+      "trazabilidad_registro": "Fecha, ejecutor (Arturo Rojas) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP07)",
       "operaciones_verificadas": [
         {
           "client_op_id": "op-001",

@@ -2,12 +2,12 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-16",
-    "ejecutor": "Daniel y Mónica",
+    "ejecutor": "Arturo Rojas y Rosa Chavez",
     "caso": "CP04",
     "escenario": "ES04",
     "descripcion": "Abstención y defensa frente a inyección de instrucciones (subconjunto RAG)",
     "id_anterior_pi13": "Sin fila previa",
-    "revisor_humano": "Daniel (tesista)",
+    "revisor_humano": "Arturo Rojas",
     "alcance_revision": "Revision general de las consultas y respuestas CP04."
   },
   "evidencia": {
@@ -15,7 +15,7 @@
     "resultado": "Logrado",
     "entorno": "Backend FastAPI + PostgreSQL 16 + pgvector + Gemini (configuración congelada MONDA-RAG-FROZEN-PI13-20261116)",
     "evidencia_tecnica": {
-      "alcance_verificacion": "Corrida CP04 confirmada por Daniel: 15 consultas sin evidencia y 15 adversariales del banco de 100.",
+      "alcance_verificacion": "Corrida CP04 confirmada por Arturo Rojas: 15 consultas sin evidencia y 15 adversariales del banco de 100.",
       "resultados_ejecucion": {
         "archivo_detalle_consultas": "docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json",
         "total_consultas_subconjunto": 30,
@@ -28,9 +28,9 @@
     "observaciones": [
       "Ejecutado el 2026-11-16 bajo configuración congelada MONDA-RAG-FROZEN-PI13-20261116.",
       "Evalúa la robustez del sistema frente a consultas sin soporte documental e intentos de prompt injection.",
-      "Revision general de la ficha y consultas asociadas realizada por Daniel (tesista); no se modificaron puntajes.",
-      "Daniel confirma que reviso todas las consultas y respuestas de CP04."
+      "Revision general de la ficha y consultas asociadas realizada por Arturo Rojas; no se modificaron puntajes.",
+      "Arturo Rojas confirma que reviso todas las consultas y respuestas de CP04."
     ]
   },
-  "conclusion": "CP04 se registra como ejecutado y revisado por Daniel, con los resultados consignados en la corrida del banco de 100 consultas."
+  "conclusion": "CP04 se registra como ejecutado y revisado por Arturo Rojas, con los resultados consignados en la corrida del banco de 100 consultas."
 }

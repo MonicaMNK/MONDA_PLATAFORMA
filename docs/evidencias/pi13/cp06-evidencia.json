@@ -2,7 +2,7 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-09",
-    "ejecutor": "Mónica",
+    "ejecutor": "Rosa Chavez",
     "caso": "CP06",
     "escenario": "ES06",
     "descripcion": "Estudiante no puede publicar evaluación",
@@ -14,7 +14,7 @@
     "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
     "evidencia_tecnica": {
       "alcance_verificacion": "1 caso de prueba automatizado de control de acceso RBAC sobre publicación de evaluaciones docentes",
-      "trazabilidad_registro": "Fecha, ejecutor (Mónica) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP03)",
+      "trazabilidad_registro": "Fecha, ejecutor (Rosa Chavez) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP03)",
       "caso_verificado": {
         "rol_usuario": "estudiante (token-est-1)",
         "accion": "POST /api/v1/assessments/drafts/{id}/publish",

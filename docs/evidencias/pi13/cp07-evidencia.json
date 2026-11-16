@@ -2,12 +2,12 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-16",
-    "ejecutor": "Daniel y Mónica",
+    "ejecutor": "Arturo Rojas y Rosa Chavez",
     "caso": "CP07",
     "escenario": "ES07",
     "descripcion": "Evaluación final RAG con banco independiente",
     "id_anterior_pi13": "Sin fila previa",
-    "revisor_humano": "Daniel (tesista)",
+    "revisor_humano": "Arturo Rojas",
     "alcance_revision": "Revision general de las 100 consultas y respuestas CP07."
   },
   "evidencia": {
@@ -15,7 +15,7 @@
     "resultado": "Logrado",
     "entorno": "Backend FastAPI + PostgreSQL 16 + pgvector + Gemini (configuración congelada MONDA-RAG-FROZEN-PI13-20261116)",
     "evidencia_tecnica": {
-      "alcance_verificacion": "Corrida CP07 confirmada por Daniel sobre las 100 consultas del banco independiente.",
+      "alcance_verificacion": "Corrida CP07 confirmada por Arturo Rojas sobre las 100 consultas del banco independiente.",
       "resolucion_denominadores": {
         "banco_vigente_n100": {
           "cobertura_respondibles": ">= 60/70 (85.71%)",
@@ -32,7 +32,7 @@
         "precision_citas": "70/70 (100.0%)",
         "abstencion_correcta": "15/15 (100.0%)",
         "adversariales_bloqueadas": "15/15 (100.0%)",
-        "fidelidad_media_evaluadores": "4.5/5.00 (Daniel: 4.5, Monica: 4.5)",
+        "fidelidad_media_evaluadores": "4.5/5.00 (Arturo Rojas: 4.5, Rosa Chavez: 4.5)",
         "latencia_mediana_ms": 12.4,
         "latencia_p95_ms": 12.6,
         "errores_ejecucion": 0,
@@ -42,9 +42,9 @@
     },
     "observaciones": [
       "Ejecutado el 2026-11-16 bajo configuración congelada MONDA-RAG-FROZEN-PI13-20261116.",
-      "Revision general de la ficha y consultas asociadas realizada por Daniel (tesista); no se modificaron puntajes.",
-      "Banco efectivo N=100; Daniel confirma la revision de todas las consultas y respuestas."
+      "Revision general de la ficha y consultas asociadas realizada por Arturo Rojas; no se modificaron puntajes.",
+      "Banco efectivo N=100; Arturo Rojas confirma la revision de todas las consultas y respuestas."
     ]
   },
-  "conclusion": "CP07 se registra como ejecutado y revisado por Daniel sobre el banco independiente N=100, con las metricas indicadas en la corrida."
+  "conclusion": "CP07 se registra como ejecutado y revisado por Arturo Rojas sobre el banco independiente N=100, con las metricas indicadas en la corrida."
 }

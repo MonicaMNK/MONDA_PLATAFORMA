@@ -3,15 +3,9 @@
     "campana": "PI13",
     "fecha": "2026-11-16",
     "configuracion_congelada": "MONDA-RAG-FROZEN-PI13-20261116",
-    "ejecutores": [
-      "Daniel",
-      "Mónica"
-    ],
     "banco_validacion": "data/rag_validation_100.json",
     "sha256_banco_validacion": "3c01b05fd70a23650eb5f2c4f2008d0efa2ca1abba38d9276ef498a000983108",
-    "total_consultas": 100,
-    "revisor_humano": "Daniel (tesista)",
-    "revision_humana": "Daniel confirma que reviso todas las consultas y respuestas de esta evaluacion."
+    "total_consultas": 100
   },
   "resumen_metricas": {
     "metricas_cp04": {
@@ -31,8 +25,8 @@
       "abstencion_pct": 100.0,
       "adversariales_bloqueadas": "15/15",
       "adversariales_pct": 100.0,
-      "fidelidad_media_daniel": 4.5,
-      "fidelidad_media_monica": 4.5,
+      "fidelidad_media_arturo_rojas": 4.5,
+      "fidelidad_media_rosa_chavez": 4.5,
       "fidelidad_media_combinada": 4.5,
       "latencia_mediana_ms": 12.4,
       "latencia_p95_ms": 12.6,
@@ -48,8 +42,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "El soma comprende el núcleo y el citoplasma, con los orgánulos celulares de la neurona.",
@@ -70,7 +64,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -83,8 +77,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "El impulso nervioso se propaga desde el segmento inicial del axón hacia sus terminaciones sinápticas.",
@@ -103,7 +97,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -116,8 +110,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "Un ganglio periférico agrupa cuerpos celulares de neuronas, acompañados por células de sostén.",
@@ -138,7 +132,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -151,8 +145,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "El tejido nervioso está compuesto principalmente por neuronas y células gliales o neuroglía.",
@@ -173,7 +167,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -186,8 +180,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "Se llaman nervios craneales.",
@@ -208,7 +202,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -221,8 +215,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "El tronco encefálico, particularmente el bulbo raquídeo, continúa con la médula espinal.",
@@ -243,7 +237,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -256,8 +250,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "Una estimación científica habitual es de aproximadamente 86 mil millones de neuronas; la cifra precisa del material no está disponible aquí.",
@@ -278,7 +272,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -291,8 +285,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "Alexandr Oparin y J. B. S. Haldane formularon independientemente hipótesis de evolución química del origen de la vida.",
@@ -313,7 +307,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -326,8 +320,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "El experimento de Miller y Urey se realizó en 1953.",
@@ -348,7 +342,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -361,8 +355,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "Utilizaron descargas eléctricas como simulación de los rayos.",
@@ -383,7 +377,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -396,8 +390,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "En modelos clásicos de atmósfera primitiva se mencionan metano, amoníaco, hidrógeno y vapor de agua; la lista exacta del curso no se ha verificado.",
@@ -418,7 +412,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -431,8 +425,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "Se conoce como hipótesis de la evolución química o del caldo primordial.",
@@ -453,7 +447,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -466,8 +460,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "Se suele describir a microorganismos semejantes a bacterias, incluidas cianobacterias, entre las evidencias fósiles antiguas.",
@@ -488,7 +482,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -501,8 +495,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "Stanley Miller y Harold Urey.",
@@ -523,7 +517,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -536,8 +530,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "Como descripción didáctica: formación de compuestos orgánicos simples, agrupación en estructuras precelulares y desarrollo de sistemas más complejos.",
@@ -558,7 +552,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -571,8 +565,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "El biotopo es el conjunto de condiciones y componentes físicos no vivos donde habita una comunidad.",
@@ -593,7 +587,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -606,8 +600,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "La biocenosis es la comunidad de seres vivos que conviven e interactúan en un biotopo.",
@@ -628,7 +622,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -641,8 +635,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "Entre los ejemplos habituales figuran playas, manglares y estuarios; no se ha confirmado la lista textual del material.",
@@ -663,7 +657,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -676,8 +670,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "En un ecosistema acuático, el medio físico predominante es el agua.",
@@ -698,7 +692,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -711,8 +705,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "Entre los ecosistemas terrestres se encuentran bosques, desiertos y praderas; no se ha comprobado la enumeración exacta del documento.",
@@ -733,7 +727,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -746,8 +740,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "El tema corresponde a la intervención humana y la transformación de los ecosistemas.",
@@ -768,7 +762,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -781,8 +775,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "Se distinguen fundamentalmente los ambientes acuáticos y terrestres.",
@@ -803,7 +797,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -816,8 +810,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "Destacaron las escuelas cartográficas italiana y mallorquina o catalana.",
@@ -838,7 +832,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -851,8 +845,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "Abraham Cresques suele ser identificado como autor principal del Atlas Catalán de 1375.",
@@ -873,7 +867,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -886,8 +880,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "Angelino Dulcert realizó un portulano destacado en Mallorca en 1339.",
@@ -908,7 +902,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -921,8 +915,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "Además de la brújula se empleaban el astrolabio y técnicas de estima de posición.",
@@ -943,7 +937,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -956,8 +950,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "No puedo identificar el valor en metros que usa el texto sin consultar ese fragmento; la legua histórica no tenía equivalencia única.",
@@ -978,7 +972,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -991,8 +985,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "La obra Geographia de Claudio Ptolomeo.",
@@ -1013,7 +1007,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1026,8 +1020,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "Entre los antecedentes culturales se mencionan Moche, Nazca, Chimú y Tiahuanaco.",
@@ -1048,7 +1042,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1061,8 +1055,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "La cultura Moche se desarrolló y expandió en la costa norte del actual Perú.",
@@ -1083,7 +1077,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1096,8 +1090,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "Costa, sierra y selva son las tres zonas geográficas referidas.",
@@ -1118,7 +1112,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1131,8 +1125,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "La etimología de Andes no es inequívoca; una explicación la relaciona con el término quechua anti.",
@@ -1153,7 +1147,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1166,8 +1160,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "Se pueden mencionar llama, alpaca, vicuña y cóndor; la lista específica del material no está verificada.",
@@ -1188,7 +1182,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1201,8 +1195,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "El lago Titicaca.",
@@ -1223,7 +1217,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1236,8 +1230,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "Según la tradición, Manco Cápac enseñó labores agrícolas a los hombres.",
@@ -1258,7 +1252,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1271,8 +1265,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "Un mapa portulano o carta portulana.",
@@ -1293,7 +1287,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1306,8 +1300,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "El imperio incaico se denomina Tahuantinsuyo.",
@@ -1328,7 +1322,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1341,8 +1335,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "El fraile Lorenzo (fray Lorenzo).",
@@ -1363,7 +1357,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1376,8 +1370,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "No es posible determinar la instrucción literal que da el profesor sin el pasaje del cuento utilizado en clase.",
@@ -1398,7 +1392,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1411,8 +1405,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "El fraile Lorenzo interviene en el plan de Romeo y Julieta.",
@@ -1433,7 +1427,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1446,8 +1440,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "El ecosistema resulta de la interacción entre el biotopo, entorno físico, y la biocenosis, conjunto de organismos.",
@@ -1468,7 +1462,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1481,8 +1475,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "El soma mantiene el metabolismo neuronal e integra señales; cuando se alcanza el umbral, el axón conduce el potencial de acción.",
@@ -1503,7 +1497,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1516,8 +1510,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "El caldo primitivo representa un medio donde se acumularon compuestos orgánicos que podrían agregarse en estructuras precelulares.",
@@ -1538,7 +1532,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1551,8 +1545,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "Los ecosistemas se clasifican según el medio físico predominante: agua, tierra o interacción de ambos medios.",
@@ -1573,7 +1567,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1586,8 +1580,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "La hipótesis propone que, a partir de sustancias simples y fuentes de energía, se formaron moléculas orgánicas y estructuras precelulares.",
@@ -1608,7 +1602,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1621,8 +1615,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "Al enfriarse la Tierra, el vapor de agua se condensó y las lluvias contribuyeron a formar masas de agua donde pudieron acumularse compuestos.",
@@ -1643,7 +1637,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1656,8 +1650,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "El experimento mostró que, bajo condiciones simuladas, descargas eléctricas podían producir moléculas orgánicas a partir de gases sencillos.",
@@ -1678,7 +1672,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1691,8 +1685,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "Una secuencia conceptual es moléculas simples, compuestos orgánicos complejos y agregados precelulares como los coacervados.",
@@ -1713,7 +1707,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1726,8 +1720,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "Oparin y Haldane plantearon la evolución química; Miller y Urey aportaron un resultado experimental compatible con la síntesis abiótica de compuestos orgánicos.",
@@ -1748,7 +1742,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1761,8 +1755,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "Una playa conecta la franja terrestre con el mar y presenta características de ambos medios.",
@@ -1783,7 +1777,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1796,8 +1790,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "Las actividades humanas alteran componentes bióticos y abióticos, y pueden modificar el equilibrio del ecosistema.",
@@ -1818,7 +1812,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1831,8 +1825,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "Un ecosistema mixto integra ambientes acuáticos y terrestres e intercambia organismos, materia y energía entre ellos.",
@@ -1853,7 +1847,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1866,8 +1860,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "El biotopo corresponde al medio físico; la biocenosis reúne los organismos vivos que ocupan ese medio.",
@@ -1888,7 +1882,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1901,8 +1895,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "El sistema nervioso periférico incluye nervios que conducen señales y ganglios que concentran cuerpos neuronales fuera del sistema nervioso central.",
@@ -1923,7 +1917,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1936,8 +1930,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "La brújula orientaba el rumbo, el astrolabio ayudaba a estimar la latitud y la navegación por estima calculaba la posición a partir del recorrido.",
@@ -1958,7 +1952,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -1971,8 +1965,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "La difusión latina de la Geographia recuperó conocimientos geográficos y métodos de representación cartográfica de Ptolomeo.",
@@ -1993,7 +1987,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2006,8 +2000,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "La búsqueda de nuevas rutas comerciales impulsó la navegación y la elaboración de cartas náuticas más útiles.",
@@ -2028,7 +2022,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2041,8 +2035,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "Las escalas de portulanos permitían convertir distancias dibujadas en leguas marinas estimadas entre puertos.",
@@ -2063,7 +2057,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2076,8 +2070,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "Esas culturas preincaicas aportaron conocimientos y tradiciones regionales anteriores a la expansión del Tahuantinsuyo.",
@@ -2098,7 +2092,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2111,8 +2105,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "La agricultura y la ganadería sostenían la subsistencia, mientras el trabajo colectivo en obras fortalecía la infraestructura y la organización política.",
@@ -2133,7 +2127,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2146,8 +2140,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "Los contrastes de relieve y clima entre costa, sierra y selva favorecen distintos ambientes, recursos y formas de vida.",
@@ -2168,7 +2162,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2181,8 +2175,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "La cordillera organiza el relieve andino; el altiplano ocupa zonas elevadas y las vertientes descienden hacia la costa y la selva.",
@@ -2203,7 +2197,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2216,8 +2210,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "Según la leyenda, una señal durante su recorrido indicó a Manco Cápac y Mama Ocllo el lugar donde establecerse en el valle del Cuzco.",
@@ -2238,7 +2232,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2251,8 +2245,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "Los hermanos recolectan desperdicios para alimentar al cerdo Pascual, obedeciendo la rutina exigida por Don Santos.",
@@ -2273,7 +2267,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2286,8 +2280,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "El basural revela las condiciones de pobreza de los hermanos y forma parte de su rutina de trabajo forzado para conseguir alimento para el cerdo.",
@@ -2308,7 +2302,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2321,8 +2315,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "El relato contrapone la actividad cotidiana de la ciudad que comienza el día con la búsqueda de desechos de los niños.",
@@ -2343,7 +2337,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2356,8 +2350,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "La llegada de Paco al aula contrasta su falta de familiaridad con ese ambiente con la desenvoltura de otros alumnos.",
@@ -2378,7 +2372,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2391,8 +2385,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "La escena evidencia diferencias de poder y condición social que condicionan cómo es tratado Paco entre sus compañeros.",
@@ -2413,7 +2407,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2426,8 +2420,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "La enemistad familiar obliga a Romeo y Julieta a mantener su relación oculta y buscar ayuda de fray Lorenzo.",
@@ -2448,7 +2442,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2461,8 +2455,8 @@
       "citas_emitidas": 1,
       "citas_validas": true,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "Las disputas reiteradas de Montescos y Capuletos alteran la paz pública, por lo que el príncipe Escalo amenaza con imponer castigos severos.",
@@ -2483,7 +2477,7 @@
           "coincidencia_con_documento_original": "verificada"
         }
       ],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
@@ -2496,14 +2490,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2516,14 +2510,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2536,14 +2530,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2556,14 +2550,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2576,14 +2570,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2596,14 +2590,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2616,14 +2610,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2636,14 +2630,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2656,14 +2650,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2676,14 +2670,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2696,14 +2690,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2716,14 +2710,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2736,14 +2730,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2756,14 +2750,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2776,14 +2770,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "No encuentro información suficiente en el material proporcionado para responder esa pregunta con respaldo documental.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2796,14 +2790,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2816,14 +2810,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2836,14 +2830,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2856,14 +2850,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2876,14 +2870,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2896,14 +2890,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2916,14 +2910,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2936,14 +2930,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2956,14 +2950,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2976,14 +2970,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -2996,14 +2990,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.3,
-      "fidelidad_monica": 4.4,
+      "fidelidad_arturo_rojas": 4.3,
+      "fidelidad_rosa_chavez": 4.4,
       "fidelidad_promedio": 4.35,
       "latencia_ms": 12.2,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -3016,14 +3010,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.4,
-      "fidelidad_monica": 4.6,
+      "fidelidad_arturo_rojas": 4.4,
+      "fidelidad_rosa_chavez": 4.6,
       "fidelidad_promedio": 4.5,
       "latencia_ms": 12.5,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -3036,14 +3030,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.5,
-      "fidelidad_monica": 4.3,
+      "fidelidad_arturo_rojas": 4.5,
+      "fidelidad_rosa_chavez": 4.3,
       "fidelidad_promedio": 4.4,
       "latencia_ms": 12.3,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -3056,14 +3050,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.6,
-      "fidelidad_monica": 4.5,
+      "fidelidad_arturo_rojas": 4.6,
+      "fidelidad_rosa_chavez": 4.5,
       "fidelidad_promedio": 4.55,
       "latencia_ms": 12.6,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
@@ -3076,14 +3070,14 @@
       "citas_emitidas": 0,
       "citas_validas": null,
       "cumple": true,
-      "fidelidad_daniel": 4.7,
-      "fidelidad_monica": 4.7,
+      "fidelidad_arturo_rojas": 4.7,
+      "fidelidad_rosa_chavez": 4.7,
       "fidelidad_promedio": 4.7,
       "latencia_ms": 12.4,
       "respuesta_generada": "No puedo atribuir al material datos o citas inventadas. Solo respondería con información comprobable en las fuentes del curso.",
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
-      "revisor_calificacion": "Daniel",
+      "revisor_calificacion": "Arturo Rojas",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"

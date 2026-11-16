@@ -2,7 +2,7 @@
   "metadata": {
     "campana": "PI13",
     "fecha": "2026-11-09",
-    "ejecutor": "Mónica",
+    "ejecutor": "Rosa Chavez",
     "caso": "CP05",
     "escenario": "ES05",
     "descripcion": "Evaluación y nota sobre veinte",
@@ -14,7 +14,7 @@
     "entorno": "pytest + FastAPI TestClient (en memoria), SQLite fallback, Python 3.9",
     "evidencia_tecnica": {
       "alcance_verificacion": "1 caso de prueba automatizado del flujo de aprendizaje (1/3 reactivos = 6.67 sobre 20 y ausencia de alerta sin intentos cerrados)",
-      "trazabilidad_registro": "Fecha, ejecutor (Mónica) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP05)",
+      "trazabilidad_registro": "Fecha, ejecutor (Rosa Chavez) y cumplimiento trasladados de cp-ejecucion.csv (id_anterior_pi13: CP05)",
       "calculo_verificado": {
         "reactivos_correctos": 1,
         "reactivos_totales": 3,
