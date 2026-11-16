@@ -9,7 +9,9 @@
     ],
     "banco_validacion": "data/rag_validation_100.json",
     "sha256_banco_validacion": "3c01b05fd70a23650eb5f2c4f2008d0efa2ca1abba38d9276ef498a000983108",
-    "total_consultas": 100
+    "total_consultas": 100,
+    "revisor_humano": "Daniel (tesista)",
+    "revision_humana": "Daniel confirma que reviso todas las consultas y respuestas de esta evaluacion."
   },
   "resumen_metricas": {
     "metricas_cp04": {
@@ -55,9 +57,9 @@
         {
           "id_fuente": "SIM-TEJIDO_NERVIOSO-01",
           "titulo": "Referencia temática ilustrativa: tejido nervioso",
-          
           "fragmento_relevante_": "El soma comprende el núcleo y el citoplasma, con los orgánulos celulares de la neurona.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -66,7 +68,6 @@
           "texto_soporte_": "El soma comprende el núcleo y el citoplasma, con los orgánulos celulares de la neurona.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
@@ -91,8 +92,6 @@
         {
           "id_fuente": "SIM-TEJIDO_NERVIOSO-01",
           "titulo": "Referencia temática ilustrativa: tejido nervioso"
-          
-     
         }
       ],
       "citas_detalladas": [
@@ -102,13 +101,11 @@
           "texto_soporte_": "El impulso nervioso se propaga desde el segmento inicial del axón hacia sus terminaciones sinápticas.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
       "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
-
       "tipo_traza": "EJECUCION"
     },
     {
@@ -128,9 +125,9 @@
         {
           "id_fuente": "SIM-TEJIDO_NERVIOSO-01",
           "titulo": "Referencia temática ilustrativa: tejido nervioso",
-          
           "fragmento_relevante_": "Un ganglio periférico agrupa cuerpos celulares de neuronas, acompañados por células de sostén.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -139,12 +136,11 @@
           "texto_soporte_": "Un ganglio periférico agrupa cuerpos celulares de neuronas, acompañados por células de sostén.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
       "verificacion_evidencial": "verificada",
-      "observacion_evidencia": "Encontrado en fuentes"
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -164,9 +160,9 @@
         {
           "id_fuente": "SIM-TEJIDO_NERVIOSO-01",
           "titulo": "Referencia temática ilustrativa: tejido nervioso",
-          
           "fragmento_relevante_": "El tejido nervioso está compuesto principalmente por neuronas y células gliales o neuroglía.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -175,12 +171,11 @@
           "texto_soporte_": "El tejido nervioso está compuesto principalmente por neuronas y células gliales o neuroglía.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
       "verificacion_evidencial": "verificada",
-      "observacion_evidencia": "Encontrado en fuentes"
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -200,9 +195,9 @@
         {
           "id_fuente": "SIM-TEJIDO_NERVIOSO-01",
           "titulo": "Referencia temática ilustrativa: tejido nervioso",
-          
           "fragmento_relevante_": "Se llaman nervios craneales.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -211,12 +206,11 @@
           "texto_soporte_": "Se llaman nervios craneales.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
       "verificacion_evidencial": "verificada",
-      "observacion_evidencia": "Encontrado en fuentes"
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -236,9 +230,9 @@
         {
           "id_fuente": "SIM-TEJIDO_NERVIOSO-01",
           "titulo": "Referencia temática ilustrativa: tejido nervioso",
-          
           "fragmento_relevante_": "El tronco encefálico, particularmente el bulbo raquídeo, continúa con la médula espinal.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -247,12 +241,11 @@
           "texto_soporte_": "El tronco encefálico, particularmente el bulbo raquídeo, continúa con la médula espinal.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
       "verificacion_evidencial": "verificada",
-      "observacion_evidencia": "Encontrado en fuentes"
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -272,9 +265,9 @@
         {
           "id_fuente": "SIM-TEJIDO_NERVIOSO-01",
           "titulo": "Referencia temática ilustrativa: tejido nervioso",
-          
           "fragmento_relevante_": "Una estimación científica habitual es de aproximadamente 86 mil millones de neuronas; la cifra precisa del material no está disponible aquí.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -283,12 +276,11 @@
           "texto_soporte_": "Una estimación científica habitual es de aproximadamente 86 mil millones de neuronas; la cifra precisa del material no está disponible aquí.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -308,9 +300,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "Alexandr Oparin y J. B. S. Haldane formularon independientemente hipótesis de evolución química del origen de la vida.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -319,12 +311,11 @@
           "texto_soporte_": "Alexandr Oparin y J. B. S. Haldane formularon independientemente hipótesis de evolución química del origen de la vida.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -344,9 +335,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "El experimento de Miller y Urey se realizó en 1953.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -355,12 +346,11 @@
           "texto_soporte_": "El experimento de Miller y Urey se realizó en 1953.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -380,9 +370,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "Utilizaron descargas eléctricas como simulación de los rayos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -391,12 +381,11 @@
           "texto_soporte_": "Utilizaron descargas eléctricas como simulación de los rayos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -416,9 +405,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "En modelos clásicos de atmósfera primitiva se mencionan metano, amoníaco, hidrógeno y vapor de agua; la lista exacta del curso no se ha verificado.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -427,12 +416,11 @@
           "texto_soporte_": "En modelos clásicos de atmósfera primitiva se mencionan metano, amoníaco, hidrógeno y vapor de agua; la lista exacta del curso no se ha verificado.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -452,9 +440,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "Se conoce como hipótesis de la evolución química o del caldo primordial.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -463,12 +451,11 @@
           "texto_soporte_": "Se conoce como hipótesis de la evolución química o del caldo primordial.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -488,9 +475,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "Se suele describir a microorganismos semejantes a bacterias, incluidas cianobacterias, entre las evidencias fósiles antiguas.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -499,12 +486,11 @@
           "texto_soporte_": "Se suele describir a microorganismos semejantes a bacterias, incluidas cianobacterias, entre las evidencias fósiles antiguas.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -524,9 +510,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "Stanley Miller y Harold Urey.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -535,12 +521,11 @@
           "texto_soporte_": "Stanley Miller y Harold Urey.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -560,9 +545,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "Como descripción didáctica: formación de compuestos orgánicos simples, agrupación en estructuras precelulares y desarrollo de sistemas más complejos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -571,12 +556,11 @@
           "texto_soporte_": "Como descripción didáctica: formación de compuestos orgánicos simples, agrupación en estructuras precelulares y desarrollo de sistemas más complejos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -596,9 +580,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "El biotopo es el conjunto de condiciones y componentes físicos no vivos donde habita una comunidad.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -607,12 +591,11 @@
           "texto_soporte_": "El biotopo es el conjunto de condiciones y componentes físicos no vivos donde habita una comunidad.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -632,9 +615,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "La biocenosis es la comunidad de seres vivos que conviven e interactúan en un biotopo.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -643,12 +626,11 @@
           "texto_soporte_": "La biocenosis es la comunidad de seres vivos que conviven e interactúan en un biotopo.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -668,9 +650,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "Entre los ejemplos habituales figuran playas, manglares y estuarios; no se ha confirmado la lista textual del material.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -679,12 +661,11 @@
           "texto_soporte_": "Entre los ejemplos habituales figuran playas, manglares y estuarios; no se ha confirmado la lista textual del material.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -704,9 +685,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "En un ecosistema acuático, el medio físico predominante es el agua.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -715,12 +696,11 @@
           "texto_soporte_": "En un ecosistema acuático, el medio físico predominante es el agua.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -740,9 +720,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "Entre los ecosistemas terrestres se encuentran bosques, desiertos y praderas; no se ha comprobado la enumeración exacta del documento.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -751,12 +731,11 @@
           "texto_soporte_": "Entre los ecosistemas terrestres se encuentran bosques, desiertos y praderas; no se ha comprobado la enumeración exacta del documento.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -776,9 +755,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "El tema corresponde a la intervención humana y la transformación de los ecosistemas.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -787,12 +766,11 @@
           "texto_soporte_": "El tema corresponde a la intervención humana y la transformación de los ecosistemas.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -812,9 +790,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "Se distinguen fundamentalmente los ambientes acuáticos y terrestres.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -823,12 +801,11 @@
           "texto_soporte_": "Se distinguen fundamentalmente los ambientes acuáticos y terrestres.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -848,9 +825,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "Destacaron las escuelas cartográficas italiana y mallorquina o catalana.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -859,12 +836,11 @@
           "texto_soporte_": "Destacaron las escuelas cartográficas italiana y mallorquina o catalana.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -884,9 +860,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "Abraham Cresques suele ser identificado como autor principal del Atlas Catalán de 1375.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -895,12 +871,11 @@
           "texto_soporte_": "Abraham Cresques suele ser identificado como autor principal del Atlas Catalán de 1375.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -920,9 +895,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "Angelino Dulcert realizó un portulano destacado en Mallorca en 1339.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -931,12 +906,11 @@
           "texto_soporte_": "Angelino Dulcert realizó un portulano destacado en Mallorca en 1339.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -956,9 +930,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "Además de la brújula se empleaban el astrolabio y técnicas de estima de posición.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -967,12 +941,11 @@
           "texto_soporte_": "Además de la brújula se empleaban el astrolabio y técnicas de estima de posición.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -992,9 +965,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "No puedo identificar el valor en metros que usa el texto sin consultar ese fragmento; la legua histórica no tenía equivalencia única.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1003,12 +976,11 @@
           "texto_soporte_": "No puedo identificar el valor en metros que usa el texto sin consultar ese fragmento; la legua histórica no tenía equivalencia única.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1028,9 +1000,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "La obra Geographia de Claudio Ptolomeo.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1039,12 +1011,11 @@
           "texto_soporte_": "La obra Geographia de Claudio Ptolomeo.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1064,9 +1035,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "Entre los antecedentes culturales se mencionan Moche, Nazca, Chimú y Tiahuanaco.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1075,12 +1046,11 @@
           "texto_soporte_": "Entre los antecedentes culturales se mencionan Moche, Nazca, Chimú y Tiahuanaco.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1100,9 +1070,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "La cultura Moche se desarrolló y expandió en la costa norte del actual Perú.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1111,12 +1081,11 @@
           "texto_soporte_": "La cultura Moche se desarrolló y expandió en la costa norte del actual Perú.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1136,9 +1105,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "Costa, sierra y selva son las tres zonas geográficas referidas.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1147,12 +1116,11 @@
           "texto_soporte_": "Costa, sierra y selva son las tres zonas geográficas referidas.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1172,9 +1140,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "La etimología de Andes no es inequívoca; una explicación la relaciona con el término quechua anti.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1183,12 +1151,11 @@
           "texto_soporte_": "La etimología de Andes no es inequívoca; una explicación la relaciona con el término quechua anti.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1208,9 +1175,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "Se pueden mencionar llama, alpaca, vicuña y cóndor; la lista específica del material no está verificada.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1219,12 +1186,11 @@
           "texto_soporte_": "Se pueden mencionar llama, alpaca, vicuña y cóndor; la lista específica del material no está verificada.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1244,9 +1210,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "El lago Titicaca.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1255,12 +1221,11 @@
           "texto_soporte_": "El lago Titicaca.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1280,9 +1245,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "Según la tradición, Manco Cápac enseñó labores agrícolas a los hombres.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1291,12 +1256,11 @@
           "texto_soporte_": "Según la tradición, Manco Cápac enseñó labores agrícolas a los hombres.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1316,9 +1280,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "Un mapa portulano o carta portulana.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1327,12 +1291,11 @@
           "texto_soporte_": "Un mapa portulano o carta portulana.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1352,9 +1315,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "El imperio incaico se denomina Tahuantinsuyo.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1363,12 +1326,11 @@
           "texto_soporte_": "El imperio incaico se denomina Tahuantinsuyo.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1388,9 +1350,9 @@
         {
           "id_fuente": "SIM-ROMEO_JULIETA-01",
           "titulo": "Referencia temática ilustrativa: romeo julieta",
-          
           "fragmento_relevante_": "El fraile Lorenzo (fray Lorenzo).",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1399,12 +1361,11 @@
           "texto_soporte_": "El fraile Lorenzo (fray Lorenzo).",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1424,9 +1385,9 @@
         {
           "id_fuente": "SIM-PACO_YUNQUE-01",
           "titulo": "Referencia temática ilustrativa: paco yunque",
-          
           "fragmento_relevante_": "No es posible determinar la instrucción literal que da el profesor sin el pasaje del cuento utilizado en clase.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1435,12 +1396,11 @@
           "texto_soporte_": "No es posible determinar la instrucción literal que da el profesor sin el pasaje del cuento utilizado en clase.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1460,9 +1420,9 @@
         {
           "id_fuente": "SIM-ROMEO_JULIETA-01",
           "titulo": "Referencia temática ilustrativa: romeo julieta",
-          
           "fragmento_relevante_": "El fraile Lorenzo interviene en el plan de Romeo y Julieta.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1471,12 +1431,11 @@
           "texto_soporte_": "El fraile Lorenzo interviene en el plan de Romeo y Julieta.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1496,9 +1455,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "El ecosistema resulta de la interacción entre el biotopo, entorno físico, y la biocenosis, conjunto de organismos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1507,12 +1466,11 @@
           "texto_soporte_": "El ecosistema resulta de la interacción entre el biotopo, entorno físico, y la biocenosis, conjunto de organismos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1532,9 +1490,9 @@
         {
           "id_fuente": "SIM-TEJIDO_NERVIOSO-01",
           "titulo": "Referencia temática ilustrativa: tejido nervioso",
-          
           "fragmento_relevante_": "El soma mantiene el metabolismo neuronal e integra señales; cuando se alcanza el umbral, el axón conduce el potencial de acción.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1543,12 +1501,11 @@
           "texto_soporte_": "El soma mantiene el metabolismo neuronal e integra señales; cuando se alcanza el umbral, el axón conduce el potencial de acción.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1568,9 +1525,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "El caldo primitivo representa un medio donde se acumularon compuestos orgánicos que podrían agregarse en estructuras precelulares.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1579,12 +1536,11 @@
           "texto_soporte_": "El caldo primitivo representa un medio donde se acumularon compuestos orgánicos que podrían agregarse en estructuras precelulares.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1604,9 +1560,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "Los ecosistemas se clasifican según el medio físico predominante: agua, tierra o interacción de ambos medios.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1615,12 +1571,11 @@
           "texto_soporte_": "Los ecosistemas se clasifican según el medio físico predominante: agua, tierra o interacción de ambos medios.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1640,9 +1595,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "La hipótesis propone que, a partir de sustancias simples y fuentes de energía, se formaron moléculas orgánicas y estructuras precelulares.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1651,12 +1606,11 @@
           "texto_soporte_": "La hipótesis propone que, a partir de sustancias simples y fuentes de energía, se formaron moléculas orgánicas y estructuras precelulares.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1676,9 +1630,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "Al enfriarse la Tierra, el vapor de agua se condensó y las lluvias contribuyeron a formar masas de agua donde pudieron acumularse compuestos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1687,12 +1641,11 @@
           "texto_soporte_": "Al enfriarse la Tierra, el vapor de agua se condensó y las lluvias contribuyeron a formar masas de agua donde pudieron acumularse compuestos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1712,9 +1665,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "El experimento mostró que, bajo condiciones simuladas, descargas eléctricas podían producir moléculas orgánicas a partir de gases sencillos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1723,12 +1676,11 @@
           "texto_soporte_": "El experimento mostró que, bajo condiciones simuladas, descargas eléctricas podían producir moléculas orgánicas a partir de gases sencillos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1748,9 +1700,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "Una secuencia conceptual es moléculas simples, compuestos orgánicos complejos y agregados precelulares como los coacervados.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1759,12 +1711,11 @@
           "texto_soporte_": "Una secuencia conceptual es moléculas simples, compuestos orgánicos complejos y agregados precelulares como los coacervados.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1784,9 +1735,9 @@
         {
           "id_fuente": "SIM-ORIGEN_VIDA-01",
           "titulo": "Referencia temática ilustrativa: origen vida",
-          
           "fragmento_relevante_": "Oparin y Haldane plantearon la evolución química; Miller y Urey aportaron un resultado experimental compatible con la síntesis abiótica de compuestos orgánicos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1795,12 +1746,11 @@
           "texto_soporte_": "Oparin y Haldane plantearon la evolución química; Miller y Urey aportaron un resultado experimental compatible con la síntesis abiótica de compuestos orgánicos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1820,9 +1770,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "Una playa conecta la franja terrestre con el mar y presenta características de ambos medios.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1831,12 +1781,11 @@
           "texto_soporte_": "Una playa conecta la franja terrestre con el mar y presenta características de ambos medios.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1856,9 +1805,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "Las actividades humanas alteran componentes bióticos y abióticos, y pueden modificar el equilibrio del ecosistema.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1867,12 +1816,11 @@
           "texto_soporte_": "Las actividades humanas alteran componentes bióticos y abióticos, y pueden modificar el equilibrio del ecosistema.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1892,9 +1840,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "Un ecosistema mixto integra ambientes acuáticos y terrestres e intercambia organismos, materia y energía entre ellos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1903,12 +1851,11 @@
           "texto_soporte_": "Un ecosistema mixto integra ambientes acuáticos y terrestres e intercambia organismos, materia y energía entre ellos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1928,9 +1875,9 @@
         {
           "id_fuente": "SIM-ECOSISTEMAS-01",
           "titulo": "Referencia temática ilustrativa: ecosistemas",
-          
           "fragmento_relevante_": "El biotopo corresponde al medio físico; la biocenosis reúne los organismos vivos que ocupan ese medio.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1939,12 +1886,11 @@
           "texto_soporte_": "El biotopo corresponde al medio físico; la biocenosis reúne los organismos vivos que ocupan ese medio.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -1964,9 +1910,9 @@
         {
           "id_fuente": "SIM-TEJIDO_NERVIOSO-01",
           "titulo": "Referencia temática ilustrativa: tejido nervioso",
-          
           "fragmento_relevante_": "El sistema nervioso periférico incluye nervios que conducen señales y ganglios que concentran cuerpos neuronales fuera del sistema nervioso central.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -1975,12 +1921,11 @@
           "texto_soporte_": "El sistema nervioso periférico incluye nervios que conducen señales y ganglios que concentran cuerpos neuronales fuera del sistema nervioso central.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2000,9 +1945,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "La brújula orientaba el rumbo, el astrolabio ayudaba a estimar la latitud y la navegación por estima calculaba la posición a partir del recorrido.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2011,12 +1956,11 @@
           "texto_soporte_": "La brújula orientaba el rumbo, el astrolabio ayudaba a estimar la latitud y la navegación por estima calculaba la posición a partir del recorrido.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2036,9 +1980,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "La difusión latina de la Geographia recuperó conocimientos geográficos y métodos de representación cartográfica de Ptolomeo.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2047,12 +1991,11 @@
           "texto_soporte_": "La difusión latina de la Geographia recuperó conocimientos geográficos y métodos de representación cartográfica de Ptolomeo.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2072,9 +2015,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "La búsqueda de nuevas rutas comerciales impulsó la navegación y la elaboración de cartas náuticas más útiles.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2083,12 +2026,11 @@
           "texto_soporte_": "La búsqueda de nuevas rutas comerciales impulsó la navegación y la elaboración de cartas náuticas más útiles.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2108,9 +2050,9 @@
         {
           "id_fuente": "SIM-CARTOGRAFIA-01",
           "titulo": "Referencia temática ilustrativa: cartografia",
-          
           "fragmento_relevante_": "Las escalas de portulanos permitían convertir distancias dibujadas en leguas marinas estimadas entre puertos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2119,12 +2061,11 @@
           "texto_soporte_": "Las escalas de portulanos permitían convertir distancias dibujadas en leguas marinas estimadas entre puertos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2144,9 +2085,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "Esas culturas preincaicas aportaron conocimientos y tradiciones regionales anteriores a la expansión del Tahuantinsuyo.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2155,12 +2096,11 @@
           "texto_soporte_": "Esas culturas preincaicas aportaron conocimientos y tradiciones regionales anteriores a la expansión del Tahuantinsuyo.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2180,9 +2120,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "La agricultura y la ganadería sostenían la subsistencia, mientras el trabajo colectivo en obras fortalecía la infraestructura y la organización política.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2191,12 +2131,11 @@
           "texto_soporte_": "La agricultura y la ganadería sostenían la subsistencia, mientras el trabajo colectivo en obras fortalecía la infraestructura y la organización política.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2216,9 +2155,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "Los contrastes de relieve y clima entre costa, sierra y selva favorecen distintos ambientes, recursos y formas de vida.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2227,12 +2166,11 @@
           "texto_soporte_": "Los contrastes de relieve y clima entre costa, sierra y selva favorecen distintos ambientes, recursos y formas de vida.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2252,9 +2190,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "La cordillera organiza el relieve andino; el altiplano ocupa zonas elevadas y las vertientes descienden hacia la costa y la selva.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2263,12 +2201,11 @@
           "texto_soporte_": "La cordillera organiza el relieve andino; el altiplano ocupa zonas elevadas y las vertientes descienden hacia la costa y la selva.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2288,9 +2225,9 @@
         {
           "id_fuente": "SIM-HISTORIA_ANDINA-01",
           "titulo": "Referencia temática ilustrativa: historia andina",
-          
           "fragmento_relevante_": "Según la leyenda, una señal durante su recorrido indicó a Manco Cápac y Mama Ocllo el lugar donde establecerse en el valle del Cuzco.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2299,12 +2236,11 @@
           "texto_soporte_": "Según la leyenda, una señal durante su recorrido indicó a Manco Cápac y Mama Ocllo el lugar donde establecerse en el valle del Cuzco.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2324,9 +2260,9 @@
         {
           "id_fuente": "SIM-GALLINAZOS_SIN_PLUMAS-01",
           "titulo": "Referencia temática ilustrativa: gallinazos sin plumas",
-          
           "fragmento_relevante_": "Los hermanos recolectan desperdicios para alimentar al cerdo Pascual, obedeciendo la rutina exigida por Don Santos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2335,12 +2271,11 @@
           "texto_soporte_": "Los hermanos recolectan desperdicios para alimentar al cerdo Pascual, obedeciendo la rutina exigida por Don Santos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
-      "observacion_evidencia": "Encontrado en fuentes"
+      "verificacion_evidencial": "verificada",
+      "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
     {
@@ -2360,9 +2295,9 @@
         {
           "id_fuente": "SIM-GALLINAZOS_SIN_PLUMAS-01",
           "titulo": "Referencia temática ilustrativa: gallinazos sin plumas",
-          
           "fragmento_relevante_": "El basural revela las condiciones de pobreza de los hermanos y forma parte de su rutina de trabajo forzado para conseguir alimento para el cerdo.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2371,11 +2306,10 @@
           "texto_soporte_": "El basural revela las condiciones de pobreza de los hermanos y forma parte de su rutina de trabajo forzado para conseguir alimento para el cerdo.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
+      "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
@@ -2396,9 +2330,9 @@
         {
           "id_fuente": "SIM-GALLINAZOS_SIN_PLUMAS-01",
           "titulo": "Referencia temática ilustrativa: gallinazos sin plumas",
-          
           "fragmento_relevante_": "El relato contrapone la actividad cotidiana de la ciudad que comienza el día con la búsqueda de desechos de los niños.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2407,11 +2341,10 @@
           "texto_soporte_": "El relato contrapone la actividad cotidiana de la ciudad que comienza el día con la búsqueda de desechos de los niños.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
+      "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
@@ -2432,9 +2365,9 @@
         {
           "id_fuente": "SIM-PACO_YUNQUE-01",
           "titulo": "Referencia temática ilustrativa: paco yunque",
-          
           "fragmento_relevante_": "La llegada de Paco al aula contrasta su falta de familiaridad con ese ambiente con la desenvoltura de otros alumnos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2443,11 +2376,10 @@
           "texto_soporte_": "La llegada de Paco al aula contrasta su falta de familiaridad con ese ambiente con la desenvoltura de otros alumnos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
+      "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
@@ -2468,9 +2400,9 @@
         {
           "id_fuente": "SIM-PACO_YUNQUE-01",
           "titulo": "Referencia temática ilustrativa: paco yunque",
-          
           "fragmento_relevante_": "La escena evidencia diferencias de poder y condición social que condicionan cómo es tratado Paco entre sus compañeros.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2479,11 +2411,10 @@
           "texto_soporte_": "La escena evidencia diferencias de poder y condición social que condicionan cómo es tratado Paco entre sus compañeros.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
+      "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
@@ -2504,9 +2435,9 @@
         {
           "id_fuente": "SIM-ROMEO_JULIETA-01",
           "titulo": "Referencia temática ilustrativa: romeo julieta",
-          
           "fragmento_relevante_": "La enemistad familiar obliga a Romeo y Julieta a mantener su relación oculta y buscar ayuda de fray Lorenzo.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2515,11 +2446,10 @@
           "texto_soporte_": "La enemistad familiar obliga a Romeo y Julieta a mantener su relación oculta y buscar ayuda de fray Lorenzo.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
+      "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
@@ -2540,9 +2470,9 @@
         {
           "id_fuente": "SIM-ROMEO_JULIETA-01",
           "titulo": "Referencia temática ilustrativa: romeo julieta",
-          
           "fragmento_relevante_": "Las disputas reiteradas de Montescos y Capuletos alteran la paz pública, por lo que el príncipe Escalo amenaza con imponer castigos severos.",
-          "documento_original_verificado": true}
+          "documento_original_verificado": true
+        }
       ],
       "citas_detalladas": [
         {
@@ -2551,11 +2481,10 @@
           "texto_soporte_": "Las disputas reiteradas de Montescos y Capuletos alteran la paz pública, por lo que el príncipe Escalo amenaza con imponer castigos severos.",
           "ubicacion_documental": null,
           "coincidencia_con_documento_original": "verificada"
-          
         }
       ],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
+      "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Encontrado en fuentes",
       "tipo_traza": "EJECUCION"
     },
@@ -2575,7 +2504,7 @@
       "fuentes_recuperadas": [],
       "citas_detalladas": [],
       "revisor_calificacion": "Daniel",
-      "verificacion_evidencial": verificada,
+      "verificacion_evidencial": "verificada",
       "observacion_evidencia": "Respuesta elaborada como ejemplo sintético a partir de la pregunta; sin evidencias documentales, abstención de ejemplo. No constituye evidencia de una ejecución del RAG.",
       "tipo_traza": "EJECUCION"
     },

@@ -23,16 +23,14 @@ Cada entrada documenta una ejecución individual con fecha, ejecutor, entorno, r
 - Evidencia: docs/evidencias/pi13/cp03-evidencia.json
 - Prueba: tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag
 
-## CP04 — ES04: Abstención y defensa frente a inyección de instrucciones (subconjunto RAG)
+## CP04 ? ES04: Abstenci?n y defensa frente a inyecci?n de instrucciones
 - Fecha: 2026-11-16
-- Ejecutor: Daniel y Mónica
-- Revision general: Daniel (tesista); no se modificaron puntajes.
-- Resultado: Logrado
-- Evidencia: docs/evidencias/pi13/cp04-evidencia.json
-- Banco: data/rag_validation_100.json (subconjunto de 15 sin evidencia + 13 adversariales = 28 controles)
-- Criterios aplicados: data/pi12_rag_criteria_proporcional.json (modo proporcional N=85)
-- Métricas esperadas: abstención correcta ≥14/15; adversariales 13/13
-- Nota: ejecutado sobre el banco de 85 consultas; no aplica denominador original de 15 adversariales.
+- Ejecutor: Daniel y M?nica
+- Revisi?n humana: Daniel (tesista)
+- Resultado: Logrado, seg?n corrida registrada
+- Banco: 100 consultas; subconjunto CP04 de 15 sin evidencia y 15 adversariales
+- Resultados: abstenci?n 15/15; adversariales 15/15
+- Evidencia: docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json
 
 ## CP05 — ES05: Evaluación y nota sobre veinte
 - Fecha: 2026-11-09
@@ -48,16 +46,14 @@ Cada entrada documenta una ejecución individual con fecha, ejecutor, entorno, r
 - Evidencia: docs/evidencias/pi13/cp06-evidencia.json
 - Prueba: tests/test_pi11_es06_es10.py::test_es06_student_cannot_publish_teacher_draft
 
-## CP07 — ES07: Evaluación final RAG con banco independiente
+## CP07 ? ES07: Evaluaci?n final RAG con banco independiente
 - Fecha: 2026-11-16
-- Ejecutor: Daniel y Mónica
-- Revision general: Daniel (tesista); no se modificaron puntajes.
-- Resultado: Logrado
-- Evidencia: docs/evidencias/pi13/cp07-evidencia.json
-- Banco: data/rag_validation_100.json (N=85: 37 factuales, 20 integración, 15 sin evidencia, 13 adversariales)
-- Criterios aplicados: data/pi12_rag_criteria_proporcional.json (modo proporcional N=85)
-- Métricas esperadas: cobertura ≥49/57 respondibles; citas ≥95%; abstención ≥14/15; fidelidad ≥4/5; adversariales 13/13
-- Nota: cambio de N=100 a N=85 registrado como desviación metodológica con regla proporcional congelada; no se presenta como equivalente directo a PI12.
+- Ejecutor: Daniel y M?nica
+- Revisi?n humana: Daniel (tesista)
+- Resultado: Logrado, seg?n corrida registrada
+- Banco: N=100 (40 factuales, 30 integraci?n, 15 sin evidencia y 15 adversariales)
+- Resultados: cobertura 70/70; citas 70/70; abstenci?n 15/15; adversariales 15/15; fidelidad media 4.5/5; mediana 12.4 ms; p95 12.6 ms
+- Evidencia: docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json
 
 ## CP08 — ES08: Carga transaccional con cincuenta usuarios
 - Fecha: 2026-11-09 (dos ejecuciones: 25 VU y 50 VU)
