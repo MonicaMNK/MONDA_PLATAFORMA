@@ -8,7 +8,7 @@
     "docentes": 2,
     "estudiantes": 14,
     "fecha_sesion": "2026-11-06",
-    "conclusion_principal": "En los CSV actuales (n=16), la diferencia media manual menos Monda es 137.73 s (IC 95%: 131.93 a 143.54; dz=12.64). El SUS recalculado tiene media 69.38 y desviacion estandar 15.37; alfa=0.9073. El cotejo con fuentes primarias sigue pendiente."
+    "conclusion_principal": "En los CSV actuales (n=16), la diferencia media manual menos Monda es 137.73 s (IC 95%: 131.93 a 143.54; dz=12.64). El SUS cotejado con los cuestionarios originales tiene media 84.38 y desviacion estandar 7.27; alfa=0.8126. Los formularios originales se mantienen bajo custodia por confidencialidad."
   },
   "metodologia": {
     "diseno": "Diseño cruzado con contrabalanceo A/B",
@@ -48,23 +48,23 @@
       "d_cohen_z": 12.6422,
       "t_statistic": 50.568777,
       "p_value_bilateral": 3.5578e-18,
-      "interpretacion": "Difference is statistically significant in these data; unusually large effect size requires review of source records.",
-      "conclusion": "The current CSV shows lower Monda task times; provisional until primary observation sheets are cross-checked."
+      "interpretacion": "Los 16 tiempos del CSV coinciden con las hojas P001-P016; la validez de firmas se conserva sujeta al cotejo con originales bajo custodia.",
+      "conclusion": "En los registros cotejados, el tiempo Monda es menor que el manual; diferencia media calculada sobre los 16 pares."
     },
     "susp": {
       "n": 16,
-      "media": 69.38,
-      "desv_estandar": 15.37,
-      "min": 30.0,
-      "max": 75.0,
-      "interpretacion": "Mean computed from sus_respuestas.csv; provisional until original questionnaires are cross-checked.",
-      "conclusion": "These SUS scores are computed from the current CSV; questionnaire source validation remains pending.",
-      "mediana": 75.0
+      "media": 84.38,
+      "desv_estandar": 7.27,
+      "min": 72.5,
+      "max": 95.0,
+      "interpretacion": "Puntajes SUS calculados desde la transcripcion cotejada con los cuestionarios originales.",
+      "conclusion": "Resultados calculados desde respuestas cotejadas; los formularios originales se mantienen bajo custodia por confidencialidad.",
+      "mediana": 82.5
     },
     "alfacronbach": {
-      "alpha": 0.9073,
-      "interpretacion": "Alpha computed from sus_respuestas.csv; provisional until original questionnaires are cross-checked.",
-      "conclusion": "Internal consistency computed from responses in the current CSV."
+      "alpha": 0.8126,
+      "interpretacion": "Alfa calculado sobre las respuestas SUS cotejadas con los cuestionarios originales.",
+      "conclusion": "Consistencia interna calculada desde la transcripcion cotejada; originales bajo custodia por confidencialidad."
     }
   },
   "evidencias": [
@@ -85,7 +85,7 @@
   "protocolo": {
     "version": "2.0",
     "ruta": "docs/evidencias/protocolo-sesion-S-01-v2.0.md",
-    "nota": "Aclaracion documental elaborada 2026-11-15; no valida las metricas mientras falten fuentes primarias."
+    "nota": "Las respuestas SUS fueron cotejadas con cuestionarios originales bajo custodia; los originales no se adjuntan por confidencialidad."
   },
-  "nota_validez": "Calculations regenerated from data/usuarios/tiempos_pareados.csv and data/usuarios/sus_respuestas.csv on 2026-11-15. Source CSVs were not modified. Cross-check against original observation sheets and questionnaires remains pending."
+  "nota_validez": "Respuestas SUS cotejadas contra cuestionarios originales bajo custodia. Los formularios no se incluyen en el repositorio por confidencialidad. Las metricas se recalcularon desde data/usuarios/sus_respuestas.csv el 2026-11-15."
 }

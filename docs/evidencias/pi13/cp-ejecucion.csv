@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿id,escenario,descripcion,fecha,ejecutor,n_ejecuciones,estado_ejecucion,cumple,ruta_evidencia,id_anterior_pi13,observacion
-=======
 id,escenario,descripcion,fecha,ejecutor,n_ejecuciones,estado_ejecucion,cumple,ruta_evidencia,id_anterior_pi13,observacion
->>>>>>> 5f45968c71f8e17194a160785558a2b5f2579c02
 CP01,ES01,"Carga, versión e indexación de PDF",2026-11-09,Daniel,1,Ejecutado,Sí,tests/test_entrega2_backend.py::test_material_upload_version_and_index_fallback,CP01,Fecha y ejecución trasladadas del registro previo; esta corrección no repite ni certifica la corrida.
 CP02,ES02,Acceso denegado desde curso ajeno,2026-11-09,Daniel,1,Ejecutado,Sí,tests/test_entrega2_backend.py::test_course_isolation_and_rbac,CP10,Fecha y ejecución trasladadas del registro previo; esta corrección no repite ni certifica la corrida.
 CP03,ES03,Respuesta RAG con fuente autorizada,2026-11-09,Mónica,1,Ejecutado,Parcial,tests/test_entrega2_backend.py::test_full_pi7_backend_flow_fallback_rag,CP02,El registro anterior enlaza un flujo con fallback; no acredita por sí solo Gemini real en la interfaz.
@@ -11,11 +7,7 @@ CP05,ES05,Evaluación y nota sobre veinte,2026-11-09,Mónica,1,Ejecutado,Sí,tes
 CP06,ES06,Estudiante no puede publicar evaluación,2026-11-09,Mónica,1,Ejecutado,Sí,tests/test_pi11_es06_es10.py::test_es06_student_cannot_publish_teacher_draft,CP03,Fecha y ejecución trasladadas del registro previo; esta corrección no repite ni certifica la corrida.
 CP07,ES07,Evaluación final RAG con banco independiente,No registrada,No registrado,0,No ejecutado,No verificado,data/rag_validation_100.json,Sin fila previa,Banco actual de 85 consultas; no se acredita aquí ejecución final independiente de cien consultas.
 CP08,ES08,Carga transaccional con cincuenta usuarios,2026-11-09,Daniel,2,Ejecutado,Sí,docs/evidencias/resultado-k6-local-2026-11-09.md,CP08,Fecha y ejecución trasladadas del registro previo; esta corrección no repite ni certifica la corrida.
-<<<<<<< HEAD
-CP09,ES09,Tareas con usuarios y SUS,2026-11-09,Daniel,1,Ejecutado,Parcial,data/sus_scores.json,CP12b,"Resultado historico de la campana PI13 del 2026-11-09: SUS n=10 (6 docentes, 4 estudiantes). No corresponde a S-01 (2026-11-03, 16 participantes declarados). Conciliar fuentes de consentimiento y cuestionarios de esa campana."
-=======
-CP09,ES09,Tareas con usuarios y SUS,2026-11-09,Daniel,1,Ejecutado,Parcial,data/sus_scores.json,CP12b,"Media SUS 86,25; conciliar sesiones, consentimientos y muestra efectiva 6 docentes/4 estudiantes frente al plan 2/14."
->>>>>>> 5f45968c71f8e17194a160785558a2b5f2579c02
+CP09,ES09,Tareas con usuarios y SUS,2026-11-09,Daniel,1,Ejecutado,No usado,data/cuestionarios_originales_pi13_historico.json,CP12b,"Registro histórico solamente. Datos y resultados PI13 del 2026-11-09 excluidos de informes y métricas vigentes; S-01 vigente es 2026-11-06 con 14 estudiantes y 2 docentes."
 CP10,ES10,Sincronización tras desconexión,2026-11-09,Daniel,1,Ejecutado,Sí,tests/test_pi11_es06_es10.py::test_es10_sync_api_applies_once_and_rejects_unsafe_actions,CP07,Fecha y ejecución trasladadas del registro previo; esta corrección no repite ni certifica la corrida.
 CP11,ES11,D07: recorrido E1–E3 en PostgreSQL y pgvector,2026-11-09,Daniel,1,Ejecutado,No verificado,docs/evidencias/pi13/ENTORNO.md,CP11,El registro previo acredita una declaración de entorno; no basta para cerrar el recorrido D07.
 CP12,ES01,Acceso permitido a material autorizado,No registrada,No registrado,0,No ejecutado,No verificado,tests/test_entrega2_backend.py::test_course_isolation_and_rbac,Sin fila previa,Caso original del plan sin ficha individual en el registro anterior; existe prueba de código como referencia.

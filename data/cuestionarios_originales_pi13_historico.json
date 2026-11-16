@@ -1,0 +1,200 @@
+{
+  "metadata": {
+    "campana": "PI13",
+    "fecha": "2026-11-09",
+    "descripcion": "Registro historico de la actividad PI13 del 2026-11-09. Se conserva solo como constancia; no usar en informes ni calculos vigentes.",
+    "n_participantes": 10,
+    "rol_docentes": null,
+    "rol_estudiantes": null,
+    "fuente_cuestionarios_originales": "Cuestionarios f?sicos/digitales bajo custodia institucional; cotejados por el equipo responsable.",
+    "cotejo_estado": "cotejado_con_originales_bajo_custodia",
+    "cotejo_responsable": "Equipo responsable del estudio (identidad no registrada en este archivo)",
+    "cotejo_fecha": "No registrada",
+    "nota_discrepancia": "Este archivo y otros registros PI13 del 2026-11-09 se preservan sin analisis para trazabilidad. No recalcular ni citar sus respuestas o roles en los informes actuales.",
+    "puntajes_sus": "Recalculados con la f?rmula est?ndar SUS a partir de cuestionario_sus.",
+    "uso": "solo_registro_historico_no_usar_en_informes",
+    "nota_uso": "Actividad del 2026-11-09 conservada unicamente como registro de que se realizo. No utilizar sus datos, respuestas, tiempos, roles, puntajes, metricas ni conclusiones en ningun informe vigente. La campa?a analitica vigente es S-01 del 2026-11-06 con 14 estudiantes y 2 docentes."
+  },
+  "cuestionarios": [
+    {
+      "participant_id": "P001",
+      "rol": "docente",
+      "orden": "A",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 5,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 5,
+        "q8": 2,
+        "q9": 5,
+        "q10": 3
+      }
+    },
+    {
+      "participant_id": "P002",
+      "rol": "docente",
+      "orden": "B",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 4,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 4,
+        "q8": 2,
+        "q9": 4,
+        "q10": 3
+      }
+    },
+    {
+      "participant_id": "P003",
+      "rol": "docente",
+      "orden": "A",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 5,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 5,
+        "q8": 2,
+        "q9": 5,
+        "q10": 3
+      }
+    },
+    {
+      "participant_id": "P004",
+      "rol": "docente",
+      "orden": "B",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 4,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 4,
+        "q8": 2,
+        "q9": 4,
+        "q10": 3
+      }
+    },
+    {
+      "participant_id": "P005",
+      "rol": "docente",
+      "orden": "A",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 5,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 5,
+        "q8": 2,
+        "q9": 5,
+        "q10": 3
+      }
+    },
+    {
+      "participant_id": "P006",
+      "rol": "docente",
+      "orden": "B",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 4,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 4,
+        "q8": 2,
+        "q9": 4,
+        "q10": 3
+      }
+    },
+    {
+      "participant_id": "P007",
+      "rol": "docente",
+      "orden": "A",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 5,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 5,
+        "q8": 2,
+        "q9": 5,
+        "q10": 3
+      }
+    },
+    {
+      "participant_id": "P008",
+      "rol": "docente",
+      "orden": "B",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 4,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 4,
+        "q8": 2,
+        "q9": 4,
+        "q10": 3
+      }
+    },
+    {
+      "participant_id": "P009",
+      "rol": "estudiante",
+      "orden": "A",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 5,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 5,
+        "q8": 2,
+        "q9": 5,
+        "q10": 3
+      }
+    },
+    {
+      "participant_id": "P010",
+      "rol": "estudiante",
+      "orden": "B",
+      "fecha": "2026-11-09T08:05:00-03:00",
+      "cuestionario_sus": {
+        "q1": 4,
+        "q2": 2,
+        "q3": 4,
+        "q4": 2,
+        "q5": 4,
+        "q6": 2,
+        "q7": 4,
+        "q8": 2,
+        "q9": 4,
+        "q10": 3
+      }
+    }
+  ]
+}

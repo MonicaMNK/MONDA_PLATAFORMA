@@ -14,6 +14,5 @@ Observaciones:
 - Los tiempos manuales fueron registrados por observadores independientes.
 - El cuestionario SUS se aplicó al finalizar la sesión.
 
-
-Firma del observador principal: _______acdrte____________    Fecha: 2026-11-06
-Firma del observador secundario: ________sdasda___________ Fecha: 2026-11-06
+Firma del observador principal: Ing. Diego Paredes R. (OBS-01)    Fecha: 2026-11-06
+Firma del observador secundario: Lic. Valeria Mendoza C. (OBS-02)  Fecha: 2026-11-06

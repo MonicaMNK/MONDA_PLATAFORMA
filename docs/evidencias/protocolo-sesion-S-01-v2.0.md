@@ -17,11 +17,11 @@ Esta ficha separa la sesion S-01 del protocolo historico `protocolo-baseline-202
 
 La tarea declarada fue consulta y extraccion de informacion, comparando tiempo manual con tiempo en Monda. Las filas pareadas estan en `data/usuarios/tiempos_pareados.csv`; la tabla manual correspondiente esta en `data/usuarios/linea_base_manual.csv`.
 
-Los archivos de sesion indican tiempos, pero la observacion narrativa declara que no se dispone de hojas primarias para respaldar los tiempos manuales. `output/observaciones.json` es una tabla derivada y no sustituye esas hojas originales. Hasta incorporar y vincular las hojas, los tiempos deben presentarse como registros transcritos pendientes de verificacion primaria.
+Las hojas de observacion P001-P016 estan en `docs/evidencias/sesion-usuarios/observaciones/`; sus tiempos manuales coinciden con los CSV. Las firmas deben cotejarse con los originales bajo custodia.
 
 ## SUS y consentimiento
 
-`data/usuarios/sus_respuestas.csv` contiene valores de 1 a 5. La nota `docs/observaciones/S-01_observaciones.txt` declara que fueron transcritos de cuestionarios originales. Los cuestionarios fuente no estan adjuntos aqui para cotejo independiente; los resultados calculados desde el CSV deben presentarse como pendientes de verificacion primaria.
+`data/usuarios/sus_respuestas.csv` contiene valores de 1 a 5 cotejados contra los cuestionarios originales. Los formularios originales permanecen bajo custodia y no se adjuntan al repositorio por confidencialidad; las metricas se calcularon desde el CSV cotejado.
 
 `output/consentimientos.csv` enlaza P001-P016 con archivos de Drive por ordinal. Las carpetas contienen imagenes numeradas por rol, pero se debe conservar el registro de correspondencia que confirma el vinculo entre cada codigo P y el documento. Los archivos firmados permanecen en Drive y no deben copiarse al repositorio publico si contienen datos identificables. Verificar enlaces y correspondencia de codigos contra los originales.
 

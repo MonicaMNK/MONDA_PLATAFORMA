@@ -97,15 +97,12 @@ Cada entrada documenta una ejecución individual con fecha, ejecutor, entorno, r
 - Evidencia: docs/evidencias/pi13/lighthouse/lighthouse-20261109.json (28 auditorías)
 
 ## CP12b — RNF-06: SUS media >= 68
-<<<<<<< HEAD
-> Registro historico de la campana PI13 del 2026-11-09 (n=10; 6 docentes y 4 estudiantes). No corresponde a S-01 del 2026-11-03.
-=======
->>>>>>> 5f45968c71f8e17194a160785558a2b5f2579c02
+> Registro de actividad PI13 del 2026-11-09. Se conserva únicamente como constancia histórica; sus datos y resultados no se usan para informes ni métricas vigentes. La sesión actual S-01 es del 2026-11-06, con 14 estudiantes y 2 docentes.
 - Fecha: 2026-11-09
 - Ejecutor: Daniel
-- Entorno: local, 10 participantes (6 docentes, 4 estudiantes)
-- Resultado: Logrado (media 86.25 >= 68)
-- Evidencia: data/sus_scores.json
+- Entorno: registro histórico de la actividad; no se procesan datos para informes vigentes.
+- Resultado: actividad registrada; sin resultado analítico vigente.
+- Evidencia: archivos históricos PI13 conservados en `data/`; excluidos de los informes y métricas actuales.
 
 ## CP12c — RNF-07: cobertura de tests pytest --cov >= 80%
 - Fecha: 2026-11-09

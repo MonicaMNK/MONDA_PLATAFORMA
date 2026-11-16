@@ -15,6 +15,7 @@ import argparse
 import csv
 import hashlib
 import json
+import csv
 from collections import defaultdict
 from pathlib import Path
 
@@ -89,22 +90,6 @@ def analyze_paired_times(path: Path) -> dict:
     monda = [r["monda_seconds"] for r in rows]
     diffs = [r["diference_seconds"] for r in rows]
 
-    by_role = defaultdict(list)
-    for r in rows:
-        by_role[r["rol"]].append(r)
-
-    role_stats = {}
-    for role, rlist in sorted(by_role.items()):
-        m = [x["manual_seconds"] for x in rlist]
-        mo = [x["monda_seconds"] for x in rlist]
-        d = [x["diference_seconds"] for x in rlist]
-        role_stats[role] = {
-            "n": len(rlist),
-            "manual": mean_std(m),
-            "monda": mean_std(mo),
-            "difference": mean_std(d),
-        }
-
     total_errors_manual = sum(r["errores_manual"] for r in rows)
     total_errors_monda = sum(r["errores_monda"] for r in rows)
     all_complete = all(r["completo"] for r in rows)
@@ -148,7 +133,6 @@ def analyze_paired_times(path: Path) -> dict:
         "errors_manual_total": total_errors_manual,
         "errors_monda_total": total_errors_monda,
         "all_complete": all_complete,
-        "by_role": role_stats,
         "hypothesis_testing": {
             "test": "t de Student para muestras pareadas (manual vs Monda)",
             "h0": "la diferencia media entre el tiempo manual y el tiempo con Monda es cero",
@@ -182,6 +166,7 @@ def analyze_paired_times(path: Path) -> dict:
     }
 
 
+
 def _interpret_d(d: float) -> str:
     a = abs(d)
     if a >= 0.8:
@@ -194,6 +179,8 @@ def _interpret_d(d: float) -> str:
 
 
 def analyze_sus(path: Path) -> dict:
+    if path.name != "sus_respuestas.csv" or path.parent.name != "usuarios":
+        raise ValueError("PI14 solo admite data/usuarios/sus_respuestas.csv de S-01.")
     results = []
     with path.open(encoding="utf-8-sig", newline="") as stream:
         for row in csv.DictReader(stream):
@@ -209,27 +196,13 @@ def analyze_sus(path: Path) -> dict:
             })
 
     scores = [r["sus_score"] for r in results]
-    by_role = defaultdict(list)
-    for r in results:
-        by_role[r["rol"]].append(r["sus_score"])
-
-    role_stats = {}
-    for role, slist in sorted(by_role.items()):
-        role_stats[role] = {
-            "n": len(slist),
-            "mean": round(float(np.mean(slist)), 2),
-            "median": round(float(np.median(slist)), 2),
-            "min": round(float(np.min(slist)), 2),
-            "max": round(float(np.max(slist)), 2),
-        }
-
     return {
         "n_participants": len(results),
         "overall": mean_std(scores),
-        "by_role": role_stats,
         "above_68": sum(1 for s in scores if s >= 68),
         "source": path.name,
     }
+
 
 
 def cronbach_alpha(items_scores: list[list[float]]) -> float:
@@ -251,33 +224,25 @@ def cronbach_alpha(items_scores: list[list[float]]) -> float:
 
 
 def analyze_consistency(path: Path) -> dict:
-    by_role = defaultdict(lambda: defaultdict(list))
+    if path.name != "sus_respuestas.csv" or path.parent.name != "usuarios":
+        raise ValueError("PI14 solo admite data/usuarios/sus_respuestas.csv de S-01.")
     all_items = defaultdict(list)
     with path.open(encoding="utf-8-sig", newline="") as stream:
         for row in csv.DictReader(stream):
-            role = row["rol"].strip()
             for i in range(1, 11):
                 val = float(row[f"q{i}"])
                 if i % 2 == 0:
                     val = 6.0 - val
-                by_role[role][i].append(val)
                 all_items[i].append(val)
 
-    result = {}
-    for role, items in sorted(by_role.items()):
-        item_lists = [items[i] for i in sorted(items)]
-        result[role] = {
-            "n_participants": len(items[1]),
-            "n_items": 10,
-            "cronbach_alpha": cronbach_alpha(item_lists),
-        }
     all_item_lists = [all_items[i] for i in sorted(all_items)]
-    result["overall"] = {
+    return {
+        "overall": {
         "n_participants": len(all_items[1]),
         "n_items": 10,
         "cronbach_alpha": cronbach_alpha(all_item_lists),
+        }
     }
-    return result
 
 
 def main() -> None:
@@ -291,12 +256,11 @@ def main() -> None:
 
     validation = analyze_validation_bank(
         ROOT / "data" / "rag_validation_100.json")
-    paired = analyze_paired_times(
-        ROOT / "data" / "usuarios" / "tiempos_pareados.csv")
-    sus = analyze_sus(
-        ROOT / "data" / "usuarios" / "sus_respuestas.csv")
-    consistency = analyze_consistency(
-        ROOT / "data" / "usuarios" / "sus_respuestas.csv")
+    paired_source = ROOT / "data" / "usuarios" / "tiempos_pareados.csv"
+    sus_source = ROOT / "data" / "usuarios" / "sus_respuestas.csv"
+    paired = analyze_paired_times(paired_source)
+    sus = analyze_sus(sus_source)
+    consistency = analyze_consistency(sus_source)
 
     report = {
         "generated_at_utc": __import__("datetime").datetime.now(
@@ -305,21 +269,20 @@ def main() -> None:
         "paired_times": paired,
         "sus": sus,
         "consistency": consistency,
+        "campaign": "S-01, 2026-11-06",
         "source_hashes": {
-            "validation_bank": {
-                "path": "data/rag_validation_100.json",
-                "sha256": sha256_file(ROOT / "data" / "rag_validation_100.json"),
-            },
             "paired_times": {
-                "path": "data/usuarios/tiempos_pareados.csv",
-                "sha256": sha256_file(ROOT / "data" / "usuarios" / "tiempos_pareados.csv"),
+                "path": paired_source.relative_to(ROOT).as_posix(),
+                "sha256": sha256_file(paired_source),
             },
             "sus_responses": {
-                "path": "data/usuarios/sus_respuestas.csv",
-                "sha256": sha256_file(ROOT / "data" / "usuarios" / "sus_respuestas.csv"),
+                "path": sus_source.relative_to(ROOT).as_posix(),
+                "sha256": sha256_file(sus_source),
             },
         },
-        "notes": "Todos los valores provienen de archivos fuentes con hash SHA-256 verificado. Las pruebas estadísticas usan scipy.stats (Shapiro-Wilk, t de Student pareada, intervalo de confianza de Student). No se utilizan datos sintéticos. El reporte PI14 se encuentra también en docs/evidencias/pi14/pi14_report.json.",
+        "notes": ("Informe vigente de S-01 (2026-11-06), 14 estudiantes y 2 docentes. "
+                  "Los archivos de la actividad histórica del 2026-11-09 se conservan "
+                  "solo como registro y no se usan en informes ni métricas vigentes."),
     }
     (out / "pi14_report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

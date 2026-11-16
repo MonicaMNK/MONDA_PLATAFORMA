@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-10T06:03:43.683357+00:00",
+  "generated_at_utc": "2026-11-16T04:35:23.064974+00:00",
   "validation_bank": {
     "total": 85,
     "answerable": 57,
@@ -52,114 +52,58 @@
     "source": "rag_validation_100.json"
   },
   "paired_times": {
-    "n_participants": 10,
+    "n_participants": 16,
     "manual": {
-      "n": 10,
-      "mean": 185.49,
-      "std": 16.32,
+      "n": 16,
+      "mean": 184.9,
+      "std": 15.29,
       "min": 158.8,
       "max": 210.7,
-      "median": 187.4
+      "median": 186.75
     },
     "monda": {
-      "n": 10,
-      "mean": 47.33,
-      "std": 5.45,
+      "n": 16,
+      "mean": 47.17,
+      "std": 5.16,
       "min": 39.6,
       "max": 58.3,
       "median": 46.8
     },
     "difference": {
-      "n": 10,
-      "mean": 138.16,
-      "std": 12.0,
+      "n": 16,
+      "mean": 137.73,
+      "std": 10.89,
       "min": 115.4,
       "max": 153.6,
-      "median": 140.25
+      "median": 139.9
     },
     "speedup_factor": 3.92,
     "errors_manual_total": 0,
     "errors_monda_total": 0,
     "all_complete": true,
-    "by_role": {
-      "docente": {
-        "n": 6,
-        "manual": {
-          "n": 6,
-          "mean": 191.13,
-          "std": 14.84,
-          "min": 167.2,
-          "max": 210.7,
-          "median": 191.0
-        },
-        "monda": {
-          "n": 6,
-          "mean": 48.75,
-          "std": 5.57,
-          "min": 41.8,
-          "max": 58.3,
-          "median": 48.5
-        },
-        "difference": {
-          "n": 6,
-          "mean": 142.38,
-          "std": 10.23,
-          "min": 125.4,
-          "max": 153.6,
-          "median": 141.35
-        }
-      },
-      "estudiante": {
-        "n": 4,
-        "manual": {
-          "n": 4,
-          "mean": 177.03,
-          "std": 16.52,
-          "min": 158.8,
-          "max": 198.9,
-          "median": 175.2
-        },
-        "monda": {
-          "n": 4,
-          "mean": 45.2,
-          "std": 5.24,
-          "min": 39.6,
-          "max": 52.1,
-          "median": 44.55
-        },
-        "difference": {
-          "n": 4,
-          "mean": 131.82,
-          "std": 12.97,
-          "min": 115.4,
-          "max": 146.8,
-          "median": 132.55
-        }
-      }
-    },
     "hypothesis_testing": {
       "test": "t de Student para muestras pareadas (manual vs Monda)",
       "h0": "la diferencia media entre el tiempo manual y el tiempo con Monda es cero",
       "h1": "la diferencia media es distinta de cero",
       "alpha": 0.05,
-      "n": 10,
-      "shapiro_wilk_w": 0.959793,
-      "shapiro_wilk_p": 0.783508,
+      "n": 16,
+      "shapiro_wilk_w": 0.970364,
+      "shapiro_wilk_p": 0.844474,
       "shapiro_wilk_normal": true,
       "shapiro_wilk_evaluable": true,
-      "t_statistic": 36.414483,
-      "degrees_of_freedom": 9,
-      "p_value_bilateral": 4.4e-11,
-      "p_value_formatted": "4.40e-11",
+      "t_statistic": 50.568776,
+      "degrees_of_freedom": 15,
+      "p_value_bilateral": 0.0,
+      "p_value_formatted": "3.56e-18",
       "significant_05": true,
-      "cohens_d_z": 11.51527,
+      "cohens_d_z": 12.642194,
       "effect_size_interpretation": "muy grande",
-      "mean_difference_seconds": 138.16,
-      "sd_difference_seconds": 12.0,
+      "mean_difference_seconds": 137.73,
+      "sd_difference_seconds": 10.89,
       "ci_mean_difference_seconds": {
-        "mean": 138.16,
-        "ci_lower": 129.577,
-        "ci_upper": 146.743,
+        "mean": 137.731,
+        "ci_lower": 131.926,
+        "ci_upper": 143.537,
         "confidence": 0.95
       },
       "decision": "Rechazar H0: diferencia significativa entre condiciones."
@@ -167,64 +111,35 @@
     "source": "tiempos_pareados.csv"
   },
   "sus": {
-    "n_participants": 10,
+    "n_participants": 16,
     "overall": {
-      "n": 10,
-      "mean": 86.25,
-      "std": 12.03,
-      "min": 62.5,
-      "max": 100.0,
-      "median": 87.5
+      "n": 16,
+      "mean": 84.38,
+      "std": 7.27,
+      "min": 72.5,
+      "max": 95.0,
+      "median": 82.5
     },
-    "by_role": {
-      "docente": {
-        "n": 6,
-        "mean": 87.5,
-        "median": 87.5,
-        "min": 75.0,
-        "max": 97.5
-      },
-      "estudiante": {
-        "n": 4,
-        "mean": 84.38,
-        "median": 87.5,
-        "min": 62.5,
-        "max": 100.0
-      }
-    },
-    "above_68": 9,
+    "above_68": 16,
     "source": "sus_respuestas.csv"
   },
   "consistency": {
-    "docente": {
-      "n_participants": 6,
-      "n_items": 10,
-      "cronbach_alpha": 0.8711
-    },
-    "estudiante": {
-      "n_participants": 4,
-      "n_items": 10,
-      "cronbach_alpha": 0.9803
-    },
     "overall": {
-      "n_participants": 10,
+      "n_participants": 16,
       "n_items": 10,
-      "cronbach_alpha": 0.939
+      "cronbach_alpha": 0.8126
     }
   },
+  "campaign": "S-01, 2026-11-06",
   "source_hashes": {
-    "validation_bank": {
-      "path": "data/rag_validation_100.json",
-      "sha256": "e49dddb10e0d2c82beaea7865894af70149b8c9b6e69af623deb39e5956a4dff"
-    },
     "paired_times": {
       "path": "data/usuarios/tiempos_pareados.csv",
-      "sha256": "c1db8cf7f7e6a294c194a9cf1db1426480dcc352bd4c89c93c53a3086ea83e90"
+      "sha256": "3492e7aad0c4f6f25bbb9d2524b448ee27adb74b7fceb1b0d9cb0ec57869681b"
     },
     "sus_responses": {
       "path": "data/usuarios/sus_respuestas.csv",
-      "sha256": "7c7d247dcf1b624cc56cbbfaf244ab5374a108f1e2afc5852227a55f39c89795"
+      "sha256": "7467d54a3496caebdaff817ca3f30cbb401e1fd84644bd9835f14022e0616e3a"
     }
   },
-  "notes": "Todos los valores provienen de archivos fuentes con hash SHA-256 verificado. Las pruebas estadísticas usan scipy.stats (Shapiro-Wilk, t de Student pareada, intervalo de confianza de Student). No se utilizan datos sintéticos. El reporte PI14 se encuentra también en docs/evidencias/pi14/pi14_report.json."
+  "notes": "Informe vigente de S-01 (2026-11-06), 14 estudiantes y 2 docentes. Los archivos de la actividad histórica del 2026-11-09 se conservan solo como registro y no se usan en informes ni métricas vigentes."
 }

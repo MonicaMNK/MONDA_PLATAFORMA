@@ -16,7 +16,7 @@ La planificacion PI13/tesis de 14 estudiantes y 2 docentes es distinta del pilot
 - La campana de aceptacion PI13 del 2026-11-09 reporta n=10 (6 docentes y 4 estudiantes) en `data/sus_scores.json` y `data/paired_time_summary.json`. Ese resultado no corresponde a S-01.
 - S-01, fechada 2026-11-06, registra 16 personas (14 estudiantes y 2 docentes) en `data/usuarios/sesiones.csv`. Su protocolo descriptivo separado es `protocolo-sesion-S-01-v2.0.md`.
 
-Los analisis de cada campana se mantienen separados. Para S-01, la cantidad total declarada no sustituye el n verificable de cada instrumento: las respuestas SUS figuran como transcritas segun la nota de observaciones, pero requieren cotejo con los cuestionarios originales; los tiempos manuales aun requieren hojas primarias vinculadas.
+Los analisis de cada campana se mantienen separados. Para S-01, la cantidad total declarada no sustituye el n verificable de cada instrumento: las respuestas SUS fueron cotejadas con los cuestionarios originales, que permanecen bajo custodia y no se adjuntan por confidencialidad; las hojas de observacion P001-P016 ya estan vinculadas y sus tiempos coinciden con los CSV; las firmas se mantienen sujetas a cotejo con originales bajo custodia.
 
 ## D-03: Criterio p95 de carga (CP08)
 

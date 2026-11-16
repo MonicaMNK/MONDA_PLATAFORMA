@@ -44,7 +44,7 @@ Sección 3.3 de la campaña de aceptación. Todas las rutas son relativas a la r
 | 38 | Captura respuesta citada E2 | PNG | E2 | docs/evidencias/captura-e2-gemini-respuesta-citada.png |
 | 39 | UI E2 Gemini | JSON | E2 | docs/evidencias/e2-gemini-ui-2026-11-09.json |
 
-| 40 | Protocolo descriptivo S-01 v2.0 | Markdown | Sesion S-01, 2026-11-03 | docs/evidencias/protocolo-sesion-S-01-v2.0.md |
+| 40 | Protocolo descriptivo S-01 v2.0 | Markdown | Sesion S-01, 2026-11-06 | docs/evidencias/protocolo-sesion-S-01-v2.0.md |
 
 ## Evidencia histórica (docs/evidencias/historico/)
 

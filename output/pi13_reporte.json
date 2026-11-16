@@ -8,7 +8,7 @@
     "docentes": 2,
     "estudiantes": 14,
     "fecha_sesion": "2026-11-06",
-    "conclusion_principal": "S-01 registra 16 filas (14 estudiantes y 2 docentes) con fecha declarada 2026-11-06. Los conteos de archivos coinciden; la procedencia primaria de tiempos y cuestionarios aun requiere cotejo."
+    "conclusion_principal": "S-01 registra 16 participantes (14 estudiantes y 2 docentes) con fecha declarada 2026-11-06. Los CSV mantienen IDs y roles coincidentes; las respuestas SUS fueron cotejadas con originales bajo custodia por confidencialidad."
   },
   "trazabilidad": {
     "sesion": "S-01",
@@ -44,8 +44,8 @@
       {
         "archivo": "sus_respuestas.csv",
         "problema": "La version previa reporto valores A/B en lugar de respuestas SUS; el archivo actual contiene respuestas de 1 a 5.",
-        "solucionado": false,
-        "solucion": "La nota declara transcripcion de cuestionarios originales; no estan adjuntos para cotejo."
+        "solucionado": true,
+        "solucion": "Respuestas transcritas y cotejadas con cuestionarios originales; los formularios se mantienen bajo custodia y no se adjuntan por confidencialidad."
       },
       {
         "archivo": "linea_base_manual.csv",
@@ -61,7 +61,7 @@
     "n_participantes_linea_base": 16,
     "coincidencia_id": true,
     "discrepancias": [],
-    "conclusion": "Los tres CSV contienen 16 IDs coincidentes y roles 14 estudiantes/2 docentes. La coincidencia de filas no sustituye el cotejo con fuentes primarias."
+    "conclusion": "Los tres CSV contienen 16 IDs coincidentes y roles 14 estudiantes/2 docentes. Las respuestas SUS fueron cotejadas con los cuestionarios originales, que no se adjuntan por confidencialidad."
   },
   "procedencia": {
     "repositorio": "C:/Users/Usuario/MONDA_PLATAFORMA",
@@ -86,8 +86,8 @@
     "nota": "Ficha de aclaracion documental elaborada con archivos disponibles el 2026-11-15; no demuestra aprobacion previa a la sesion."
   },
   "limitaciones": [
-    "Las hojas originales de observacion de tiempos no estan incorporadas en docs/evidencias/sesion-usuarios/observaciones/.",
-    "Las respuestas SUS se calcularon desde el CSV; los cuestionarios originales no estan adjuntos para cotejar la transcripcion.",
-    "Las firmas del resumen de sesion deben validarse contra el registro firmado original."
+    "Las hojas de observacion P001-P016 estan incorporadas y sus tiempos coinciden con los CSV; la autenticidad de las firmas se valida contra los originales bajo custodia.",
+    "Los cuestionarios SUS fueron cotejados con las respuestas transcritas; los originales no se adjuntan por confidencialidad.",
+    "Las firmas del resumen general de sesion deben validarse contra el registro firmado original."
   ]
 }

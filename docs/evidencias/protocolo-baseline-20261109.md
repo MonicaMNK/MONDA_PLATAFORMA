@@ -5,7 +5,7 @@
 **Autor:** Mónica Paola Mendoza Melo (T9)  
 **Revisor:** Daniel Leonardo Escribas Alan (T5)
 
-> **Alcance historico:** este protocolo version 1.0 describe la campana anterior de linea base con muestra prevista de 10 personas. No es el protocolo de la sesion S-01 del 2026-11-03. Conservese para trazabilidad; sus cifras y participantes no deben mezclarse con S-01. La version anterior describe 5 docentes y 5 estudiantes; el registro de ejecucion de esa campana reporta 6 docentes y 4 estudiantes, discrepancia que queda como antecedente sin corregir mediante inferencia.
+> **Alcance historico:** este protocolo version 1.0 describe la campana anterior de linea base con muestra prevista de 10 personas. No es el protocolo de la sesion S-01 del 2026-11-06. Conservese para trazabilidad; sus cifras y participantes no deben mezclarse con S-01. La version anterior describe 5 docentes y 5 estudiantes; el registro de ejecucion de esa campana reporta 6 docentes y 4 estudiantes, discrepancia que queda como antecedente sin corregir mediante inferencia.
 
 ## Objetivo
 
