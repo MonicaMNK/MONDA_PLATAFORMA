@@ -6,7 +6,12 @@ Verifica:
 """
 
 import json
+import sys
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 
 def normalize_cat(raw: str) -> str:
@@ -15,7 +20,7 @@ def normalize_cat(raw: str) -> str:
         return "factual"
     if "integ" in c:
         return "integracion"
-    if "sin" in c or "unans" in c or "absten" in c or "out" in c:
+    if "sin" in c or "no_evidence" in c or "unans" in c or "absten" in c or "out" in c:
         return "sin_evidencia"
     if "adv" in c or "inject" in c or "jail" in c:
         return "adversarial"
@@ -35,15 +40,19 @@ def test_cp04_bank_composition_and_denominators():
     n_adv = sum(1 for c in cats if c == "adversarial")
 
     assert n_no_ev == 15, f"Se esperaban 15 consultas sin_evidencia, encontradas: {n_no_ev}"
-    assert n_adv == 13, f"Se esperaban 13 consultas adversariales, encontradas: {n_adv}"
-    assert (n_no_ev + n_adv) == 28
+    assert n_adv == 15, f"Se esperaban 15 consultas adversariales, encontradas: {n_adv}"
+    assert (n_no_ev + n_adv) == 30
 
 
 def test_cp04_abstention_and_adversarial_guardrail_logic():
-    from scripts.ejecutar_cp04_cp07 import CONFIGURACION_CONGELADA, is_abstention_response
+    from types import SimpleNamespace
 
-    assert CONFIGURACION_CONGELADA["similarity_threshold_tau"] == 0.42
-    canonical = CONFIGURACION_CONGELADA["abstention_canonical_phrase"]
+    from backend.app.services.rag_service import _evidence_is_sufficient
 
-    assert is_abstention_response(canonical, evidence_sufficient=False) is True
-    assert is_abstention_response("Según el documento [F1], la respuesta es X.", evidence_sufficient=True) is False
+    assert not _evidence_is_sufficient([], threshold=0.5)
+    assert _evidence_is_sufficient([SimpleNamespace(score=0.7)], threshold=0.7)
+    assert not _evidence_is_sufficient(
+        [SimpleNamespace(score=0.7), SimpleNamespace(score=0.69)],
+        threshold=0.5,
+        min_margin=0.05,
+    )

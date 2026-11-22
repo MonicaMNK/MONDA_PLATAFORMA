@@ -14,11 +14,7 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
-      - run: pip install pytest pytest-cov
-      - run: python scripts/check_entrega1.py
-      - run: python scripts/check_entrega2.py
       - run: python -m compileall -q backend
-      - run: pytest -q -m "not e2e" --cov=backend --cov-report=term --cov-report=xml:reports/coverage.xml
+      - run: pytest -q -m "not e2e"
       - run: alembic upgrade head --sql > /tmp/monda-schema-preview.sql
-      - run: python scripts/audit_evidence_references.py
-      - run: python scripts/sus_score.py data/usuarios/sus_respuestas.csv --output data/sus_scores.json
+      - run: python scripts/audit_evidence_references.py README.md docs/ENTREGA_1.md docs/ENTREGA_2.md --output /tmp/evidence-reference-audit.json

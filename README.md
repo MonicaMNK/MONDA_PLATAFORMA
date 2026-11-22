@@ -130,18 +130,16 @@ Usa `alembic upgrade head` para aplicar migraciones. No ejecutes el DDL canónic
 ## Verificaciones automatizadas (sin iniciar servidores)
 
 ```bash
-python scripts/check_entrega1.py
-python scripts/check_entrega2.py
 pytest -q
 python -m compileall -q backend
 alembic upgrade head --sql > /tmp/monda-schema-preview.sql
 ```
 
-La suite automatizada usa la base de pruebas configurada por `tests/conftest.py`. Los resultados de PostgreSQL + pgvector, Gemini y k6 se registran por separado en el [índice de evidencias](docs/evidencias/README.md); no prueban Ollama.
+La suite automatizada contiene pruebas aisladas de los flujos locales. Los resultados de PostgreSQL + pgvector, Gemini y k6 se registran por separado en el [índice de evidencias](docs/evidencias/README.md); no prueban Ollama.
 
 La suite de SQLite del 8 de noviembre aprobó 78/78; la validación del 9 de noviembre repitió 78/78 contra PostgreSQL + pgvector y registró el recorrido API E1–E3 con Gemini real. Consulta [el índice de evidencias](docs/evidencias/README.md) para distinguir resultados actuales, históricos y pendientes.
 
-`test_gemini_mode_rag_api_with_controlled_provider_generates_cited_answer_or_abstains` usa un proveedor simulado para probar el endpoint. El banco final docente de 100 consultas se evaluó con Gemini; el resultado está en `data/rag_gemini_live_20261109.json`. Allí constan `gemini-3.6-flash` como modelo efectivo en las 54 respuestas generadas; el registro no conserva el motivo de cada respaldo. La revisión humana anotó 33 respuestas correctas y 13 incorrectas; además, 8 consultas de control recibieron respuesta en vez de abstención. Véase el [análisis del modelo efectivo](docs/evidencias/modelo-gemini-evaluacion-rag-2026-11-09.md).
+`test_gemini_mode_rag_api_with_controlled_provider_generates_cited_answer_or_abstains` usa un proveedor simulado para probar el endpoint. El banco final docente de 100 consultas se evaluó con Gemini. La revisión humana anotó 33 respuestas correctas y 13 incorrectas; además, 8 consultas de control recibieron respuesta en vez de abstención. Véase el [análisis del modelo efectivo](docs/evidencias/modelo-gemini-evaluacion-rag-2026-11-09.md).
 
 ## Estructura del repositorio
 

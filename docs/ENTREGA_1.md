@@ -44,7 +44,6 @@ tests/
 ## Verificación sin servidor
 
 ```bash
-python scripts/check_entrega1.py
 python -m compileall backend/migrations
 ```
 

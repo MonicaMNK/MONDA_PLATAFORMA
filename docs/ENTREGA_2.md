@@ -146,8 +146,6 @@ Estas credenciales son exclusivamente de demostración local.
 Sin iniciar `uvicorn`, `npm` ni procesos persistentes:
 
 ```bash
-python scripts/check_entrega1.py
-python scripts/check_entrega2.py
 pytest -q
 python -m compileall -q backend
 alembic upgrade head --sql

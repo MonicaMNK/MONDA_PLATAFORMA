@@ -4,9 +4,7 @@ Esta carpeta incorpora el ZIP original PI7 y los cambios de las entregas 1 y 2, 
 
 ## Comprobaciones ejecutadas en el entorno de preparación
 
-- `python scripts/check_entrega1.py`: OK; 22 tablas relacionales/operativas declaradas, pgvector/HNSW y auditoría append-only.
-- `python scripts/check_entrega2.py`: OK; 41 operaciones del contrato PI7 más health.
-- `pytest -q`: 6 pruebas pasadas.
+- `pytest -q -m "not e2e"`: pruebas locales sin dependencias de servicios externos.
 - `python -m compileall -q backend`: OK.
 - `alembic upgrade head --sql`: OK; produce las 22 tablas de aplicación y la tabla de versión Alembic.
 - `node --check frontend/app.js`: OK.

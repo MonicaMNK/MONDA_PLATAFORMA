@@ -94,7 +94,8 @@ def test_analyze_sus(tmp_path):
         ["P001", "docente", "4", "3", "4", "2", "4", "3", "5", "4", "3", "4"],
         ["P002", "estudiante", "3", "4", "3", "3", "4", "4", "4", "3", "4", "4"],
     ]
-    p = tmp_path / "sus.csv"
+    p = tmp_path / "usuarios" / "sus_respuestas.csv"
+    p.parent.mkdir()
     with p.open("w", encoding="utf-8-sig", newline="") as stream:
         writer = csv.writer(stream)
         writer.writerows(rows)
@@ -110,14 +111,15 @@ def test_analyze_consistency(tmp_path):
         ["P001", "docente", "4", "3", "4", "2", "4", "3", "5", "4", "3", "4"],
         ["P002", "docente", "3", "4", "3", "3", "4", "4", "4", "3", "4", "4"],
     ]
-    p = tmp_path / "sus.csv"
+    p = tmp_path / "usuarios" / "sus_respuestas.csv"
+    p.parent.mkdir()
     with p.open("w", encoding="utf-8-sig", newline="") as stream:
         writer = csv.writer(stream)
         writer.writerows(rows)
     result = analyze_consistency(p)
-    assert "docente" in result
-    assert result["docente"]["n_items"] == 10
-    assert 0.0 <= result["docente"]["cronbach_alpha"] <= 1.0
+    assert result["overall"]["n_participants"] == 2
+    assert result["overall"]["n_items"] == 10
+    assert 0.0 <= result["overall"]["cronbach_alpha"] <= 1.0
 
 
 def test_speedup_factor_reasonable():

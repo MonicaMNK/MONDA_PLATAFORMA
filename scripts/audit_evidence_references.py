@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REFERENCE_PATTERN = re.compile(
-    r"(?<![A-Za-z0-9:/])((?:docs|data|tests|backend|frontend|scripts)/[A-Za-z0-9_./\-\[\]]+\.(?:docx|pdf|md|txt|json|png|csv|py))"
+    r"(?<![A-Za-z0-9:/])((?:docs|data|tests|backend|frontend|scripts)/[A-Za-z0-9_./\-\[\]]+\.(?:docx|pdf|md|txt|jsonl|json|png|csv|py))"
 )
 
 
