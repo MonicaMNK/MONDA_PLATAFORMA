@@ -18,7 +18,7 @@
       "availability_percent_30_days": 99.5,
       "max_downtime_minutes_per_month": 216,
       "procedure": "Registro de uptime del servicio local en puerto 8001 durante 30 días calendario; se considera disponible si responde HTTP 200 en /docs en cada verificación programada cada 15 minutos.",
-      "scope": "Entorno local de campaña de aceptación (Windows, puerto 8001). No cubre producción ni AWS."
+      "scope": "Entorno local de campaña de aceptación (Windows, puerto 8001). No cubre producción."
     },
     "RNF-05": {
       "lighthouse_score_minimum": 90,

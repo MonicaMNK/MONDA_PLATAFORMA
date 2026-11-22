@@ -27,7 +27,7 @@ def main() -> None:
     os.environ.update({
         "DATABASE_URL": f"sqlite:///{(data_dir / 'monda_local.db').as_posix()}",
         "APP_ENV": "local", "MONDA_DEMO": "1", "COOKIE_SECURE": "0",
-        "RAG_MODE": os.getenv("RAG_MODE", "auto"), "RAG_ALLOW_FALLBACK": "1", "STORAGE_MODE": "local",
+        "RAG_MODE": os.getenv("RAG_MODE", "auto"), "RAG_ALLOW_FALLBACK": "1",
         "MONDA_SECRET_KEY": secret_path.read_text(encoding="utf-8").strip(),
     })
     from backend.app.db.seed import create_schema_for_tests, seed_demo_data

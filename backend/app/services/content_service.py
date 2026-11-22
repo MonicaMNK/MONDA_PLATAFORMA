@@ -58,7 +58,7 @@ def create_content(db: Session, user: User, course_id: str, filename: str, media
         nombre_original=filename,
         mime_type=canonical_mime,
         tamano_bytes=len(data),
-        s3_key=stored,
+        storage_key=stored,
         hash_sha256=hashlib.sha256(data).hexdigest(),
         autor_id=user.id,
         estado_indexacion="pendiente",
@@ -91,7 +91,7 @@ def index_content(db: Session, user: User, content: Content, mode: str | None = 
 
     try:
         storage = get_storage()
-        path = storage.local_path(content.s3_key)
+        path = storage.local_path(content.storage_key)
         text, locations = extract_text(path)
         chunks = chunk_text(text, 512, 50)
         if not chunks and content.mime_type == "application/pdf":

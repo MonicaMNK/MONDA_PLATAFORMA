@@ -14,7 +14,7 @@ La interfaz principal React + TypeScript está en `frontend/src/`; FastAPI sirve
 - Indicadores, alertas explicables, exportación CSV y sincronización idempotente de acciones permitidas.
 - PostgreSQL 16 + pgvector; 23 tablas: las 20 estructuras PI7, 2 estructuras operativas y carpetas de materiales. Versiones Alembic.
 - Auditoría append-only, OpenAPI y trazas JSONL locales; integración MLflow opcional.
-- Adaptador de almacenamiento local y adaptador S3 para migración.
+- Almacenamiento local de materiales en `data/uploads`.
 
 ## Requisitos
 
@@ -97,7 +97,7 @@ En `.env` selecciona el modo:
 - `RAG_MODE=ollama`: servicio Ollama ejecutándose en la máquina anfitriona, con `OLLAMA_LLM_MODEL` y `OLLAMA_EMBEDDING_MODEL` descargados previamente.
 - `RAG_MODE=fallback`: búsqueda local por términos/frases del material; no llama a proveedor externo y funciona para smoke tests.
 
-Variables clave: `GEMINI_API_KEY`, `GEMINI_LLM_MODEL`, `GEMINI_EMBEDDING_MODEL`, `OLLAMA_BASE_URL`, `OLLAMA_LLM_MODEL`, `OLLAMA_EMBEDDING_MODEL`, `RAG_TOP_K`, `RAG_SIMILARITY_THRESHOLD`, `STORAGE_MODE`, `S3_BUCKET`, `AWS_REGION` y `MLFLOW_TRACKING_URI`. No pongas una API key en código, Dockerfile, logs ni commits. No afirmes que una respuesta es correcta solo porque supera un umbral de similitud; revisa siempre las fuentes.
+Variables clave: `GEMINI_API_KEY`, `GEMINI_LLM_MODEL`, `GEMINI_EMBEDDING_MODEL`, `OLLAMA_BASE_URL`, `OLLAMA_LLM_MODEL`, `OLLAMA_EMBEDDING_MODEL`, `RAG_TOP_K`, `RAG_SIMILARITY_THRESHOLD` y `MLFLOW_TRACKING_URI`. No pongas una API key en código, Dockerfile, logs ni commits. No afirmes que una respuesta es correcta solo porque supera un umbral de similitud; revisa siempre las fuentes.
 
 **Actualización de modelos Gemini (noviembre de 2026).** `gemini-3.6-flash` es el modelo inicial de generación porque completó las solicitudes en la evaluación live del 2026-11-09. `gemini-2.5-flash` devolvió HTTP 404 para la cuenta probada, que Google indicó que ya no estaba disponible para nuevos usuarios. Gemini 3 Flash es un modelo de vista previa; revisa su disponibilidad y límites antes de desplegar. Se conserva `gemini-embedding-2` para embeddings de 768 dimensiones, compatibles con `vector(768)`. Referencias oficiales: [modelos Gemini](https://ai.google.dev/gemini-api/docs/models), [Gemini 3 Flash](https://ai.google.dev/gemini-api/docs/generate-content/gemini-3), [embeddings Gemini](https://ai.google.dev/gemini-api/docs/embeddings). Si se cambia el modelo de embedding, reindexa todos los materiales: espacios vectoriales de distintos modelos no se deben mezclar.
 
@@ -137,7 +137,7 @@ python -m compileall -q backend
 alembic upgrade head --sql > /tmp/monda-schema-preview.sql
 ```
 
-La suite automatizada usa la base de pruebas configurada por `tests/conftest.py`. Los resultados de PostgreSQL + pgvector, Gemini y k6 se registran por separado en el [índice de evidencias](docs/evidencias/README.md); no acreditan por sí solos el despliegue en AWS ni prueban Ollama.
+La suite automatizada usa la base de pruebas configurada por `tests/conftest.py`. Los resultados de PostgreSQL + pgvector, Gemini y k6 se registran por separado en el [índice de evidencias](docs/evidencias/README.md); no prueban Ollama.
 
 La suite de SQLite del 8 de noviembre aprobó 78/78; la validación del 9 de noviembre repitió 78/78 contra PostgreSQL + pgvector y registró el recorrido API E1–E3 con Gemini real. Consulta [el índice de evidencias](docs/evidencias/README.md) para distinguir resultados actuales, históricos y pendientes.
 
@@ -191,10 +191,10 @@ También se puede reconstruir un ZIP limpio con `python scripts/package_release.
 ## Seguridad, privacidad y limitaciones
 
 - La demo contiene contraseñas conocidas de laboratorio. Cambia credenciales y secretos antes de exponer la app a una red.
-- En local, HTTP y `COOKIE_SECURE=0` permiten probar cookies. En AWS, usa HTTPS/TLS, cookies `Secure`, IAM mínimo privilegio, Secrets Manager/KMS, RDS privado y S3 Block Public Access.
+- En local, HTTP y `COOKIE_SECURE=0` permiten probar cookies. No expongas el servidor local a redes no confiables.
 - Evalúa autorización, retención, consentimiento de participantes menores y tratamiento de datos conforme a los requisitos institucionales y normativa aplicable antes de piloto real.
 - No incluye OCR de PDF escaneado ni calificación automática de respuestas abiertas.
-- El almacenamiento local y el fallback son para desarrollo; producción necesita backups, S3 privado, observabilidad y ensayo de restauración.
+- Los materiales se almacenan localmente en `data/uploads`; conserva copias de seguridad de esa carpeta junto con la base de datos.
 
 ## Calibración del tutor RAG
 
@@ -202,4 +202,4 @@ La calibración complementaria que incluye consultas de integración seleccionó
 
 En despliegues con una fila `rag` ya existente en `Config`, esa fila tiene precedencia sobre los defaults. Para sincronizarla con `.env`, ejecuta `docker compose exec app python scripts/fix_rag_config.py`; después recarga la interfaz de administración. La evidencia de calibración está en `data/rag_calibration_integration_results_20261109.json`.
 
-Para estrategia de despliegue, ver [`AWS_MIGRATION.md`](AWS_MIGRATION.md). Para decisiones detalladas del diseño, ver `docs/` y `reference_design/`.
+Para iniciar la aplicación local, sigue la [prueba local](docs/PRUEBA_LOCAL.md). Para decisiones detalladas del diseño, ver `docs/` y `reference_design/`.

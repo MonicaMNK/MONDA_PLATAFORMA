@@ -57,7 +57,7 @@ psql -v ON_ERROR_STOP=1 -d monda -f bd/001_schema_pi7.sql
 psql -v ON_ERROR_STOP=1 -d monda -f bd/002_tablas_operativas_rag_sync.sql
 ```
 
-La implementación SQLAlchemy crea el esquema equivalente de aplicación. Para migrar a RDS define `DATABASE_URL=postgresql+psycopg://...`.
+La implementación SQLAlchemy crea el esquema equivalente de aplicación. Para usar PostgreSQL local define `DATABASE_URL=postgresql+psycopg://...`.
 
 ## 5. RAG local
 
@@ -89,14 +89,10 @@ backend/            FastAPI, seguridad, ORM y RAG
 frontend/           React local + CSS (sin CDN)
 bd/                 DDL PI7 + extensión operativa
 data/                SQLite y materiales locales
-docs/                contrato, guía AWS y matriz de implementación
+docs/                contrato, guía local y matriz de implementación
 reference_design/    anexos PI7 originales: diagramas, API, prototipo y DDL
 tests/               pruebas de integración
 ```
-
-## 8. AWS
-
-Consulta `docs/DESPLIEGUE_AWS.md`. La guía conserva la arquitectura prevista: RDS PostgreSQL, S3, ingesta desacoplada, recuperación vectorial/OpenSearch, Secrets Manager, observabilidad y despliegue HTTPS.
 
 ## 9. Alcance académico
 

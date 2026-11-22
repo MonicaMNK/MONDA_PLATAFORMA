@@ -71,7 +71,7 @@ Evidencias Gemini: gemini-smoke-sintetica-2026-11-01.txt, gemini-smoke-reintento
 
 ## Alcance
 
-Las pruebas verifican los flujos locales de esa versión en SQLite y PostgreSQL + pgvector/HNSW. No son una medición de carga ni una prueba del despliegue AWS. En esa fecha la generación de Gemini no completó por HTTP 503; el 9 de noviembre se realizó un recorrido API E1–E3 con Gemini real, documentado en [la evidencia actual](flujo-e1-e3-postgresql-gemini-2026-11-09.md). Fuentes sobre el resultado histórico: https://ai.google.dev/gemini-api/docs/troubleshooting, https://ai.google.dev/gemini-api/docs/generate-content/api-errors y https://ai.google.dev/gemini-api/docs/pricing.
+Las pruebas verifican los flujos locales de esa versión en SQLite y PostgreSQL + pgvector/HNSW. No son una medición de carga ni una prueba de producción. En esa fecha la generación de Gemini no completó por HTTP 503; el 9 de noviembre se realizó un recorrido API E1–E3 con Gemini real, documentado en [la evidencia actual](flujo-e1-e3-postgresql-gemini-2026-11-09.md). Fuentes sobre el resultado histórico: https://ai.google.dev/gemini-api/docs/troubleshooting, https://ai.google.dev/gemini-api/docs/generate-content/api-errors y https://ai.google.dev/gemini-api/docs/pricing.
 
 Actualizacion de modelo (2026-11-01): el modelo predeterminado del proyecto se cambio a `gemini-3-flash-preview` tras la llamada sintetica exitosa. El modelo es preview; verificar cuota y disponibilidad en el despliegue.
 

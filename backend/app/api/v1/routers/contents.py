@@ -68,10 +68,7 @@ def download_content(contentId: str, user: User = Depends(current_user), db: Ses
     if not content:
         api_error(404, "CONTENT_NOT_FOUND", "Contenido no encontrado.")
     can_access_course(db, user, content.curso_id)
-    try:
-        path = get_storage().local_path(content.s3_key)
-    except RuntimeError:
-        api_error(503, "DOWNLOAD_ADAPTER_REQUIRED", "El adaptador S3 debe entregar URL prefirmada en despliegue AWS.")
+    path = get_storage().local_path(content.storage_key)
     if not path.exists():
         api_error(404, "FILE_NOT_FOUND", "El archivo físico no está disponible.")
     db.add(Event(usuario_seudonimo=user.seudonimo,curso_id=content.curso_id,tipo='material_download'))
@@ -173,7 +170,7 @@ def preview_content(contentId: UUID, user: User = Depends(current_user), db: Ses
     if not content:
         api_error(404, "CONTENT_NOT_FOUND", "Material no encontrado.")
     can_access_course(db, user, content.curso_id)
-    path = get_storage().local_path(content.s3_key)
+    path = get_storage().local_path(content.storage_key)
     if not path.exists():
         api_error(404, "FILE_NOT_FOUND", "Archivo no disponible.")
     try:

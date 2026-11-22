@@ -76,7 +76,7 @@
 <g id="node7" class="node">
 <title>guardar</title>
 <path fill="#f1f5f9" stroke="#64748b" d="M293.89,-361.96C293.89,-361.96 138.76,-361.96 138.76,-361.96 132.76,-361.96 126.76,-355.96 126.76,-349.96 126.76,-349.96 126.76,-328.36 126.76,-328.36 126.76,-322.36 132.76,-316.36 138.76,-316.36 138.76,-316.36 293.89,-316.36 293.89,-316.36 299.89,-316.36 305.89,-322.36 305.89,-328.36 305.89,-328.36 305.89,-349.96 305.89,-349.96 305.89,-355.96 299.89,-361.96 293.89,-361.96"/>
-<text xml:space="preserve" text-anchor="middle" x="216.33" y="-343.06" font-family="Arial" font-size="13.00">RDS y S3</text>
+<text xml:space="preserve" text-anchor="middle" x="216.33" y="-343.06" font-family="Arial" font-size="13.00">SQLite + data/uploads</text>
 <text xml:space="preserve" text-anchor="middle" x="216.33" y="-327.46" font-family="Arial" font-size="13.00">Registrar versión pendiente</text>
 </g>
 <!-- ok&#45;&gt;guardar -->
@@ -96,7 +96,7 @@
 <g id="node8" class="node">
 <title>procesar</title>
 <path fill="#f1f5f9" stroke="#64748b" d="M324.44,-283.36C324.44,-283.36 146.22,-283.36 146.22,-283.36 140.22,-283.36 134.22,-277.36 134.22,-271.36 134.22,-271.36 134.22,-249.76 134.22,-249.76 134.22,-243.76 140.22,-237.76 146.22,-237.76 146.22,-237.76 324.44,-237.76 324.44,-237.76 330.44,-237.76 336.44,-243.76 336.44,-249.76 336.44,-249.76 336.44,-271.36 336.44,-271.36 336.44,-277.36 330.44,-283.36 324.44,-283.36"/>
-<text xml:space="preserve" text-anchor="middle" x="235.33" y="-264.46" font-family="Arial" font-size="13.00">Lambda + M4</text>
+<text xml:space="preserve" text-anchor="middle" x="235.33" y="-264.46" font-family="Arial" font-size="13.00">API local + M4</text>
 <text xml:space="preserve" text-anchor="middle" x="235.33" y="-248.86" font-family="Arial" font-size="13.00">Extraer, fragmentar y vectorizar</text>
 </g>
 <!-- guardar&#45;&gt;procesar -->
@@ -128,7 +128,7 @@
 <g id="node10" class="node">
 <title>activar</title>
 <path fill="#f1f5f9" stroke="#64748b" d="M387.05,-99.56C387.05,-99.56 201.61,-99.56 201.61,-99.56 195.61,-99.56 189.61,-93.56 189.61,-87.56 189.61,-87.56 189.61,-65.96 189.61,-65.96 189.61,-59.96 195.61,-53.96 201.61,-53.96 201.61,-53.96 387.05,-53.96 387.05,-53.96 393.05,-53.96 399.05,-59.96 399.05,-65.96 399.05,-65.96 399.05,-87.56 399.05,-87.56 399.05,-93.56 393.05,-99.56 387.05,-99.56"/>
-<text xml:space="preserve" text-anchor="middle" x="294.33" y="-80.66" font-family="Arial" font-size="13.00">RDS</text>
+<text xml:space="preserve" text-anchor="middle" x="294.33" y="-80.66" font-family="Arial" font-size="13.00">SQLite</text>
 <text xml:space="preserve" text-anchor="middle" x="294.33" y="-65.06" font-family="Arial" font-size="13.00">Activar versión de forma atómica</text>
 </g>
 <!-- completo&#45;&gt;activar -->

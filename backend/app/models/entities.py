@@ -79,7 +79,7 @@ class Content(Base):
     nombre_original: Mapped[str] = mapped_column(String(255), nullable=False, default="material")
     mime_type: Mapped[str] = mapped_column(String(100), nullable=False, default="application/pdf")
     tamano_bytes: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
-    s3_key: Mapped[str] = mapped_column(Text, nullable=False, unique=True)
+    storage_key: Mapped[str] = mapped_column("s3_key", Text, nullable=False, unique=True)
     hash_sha256: Mapped[str] = mapped_column(String(64), nullable=False)
     autor_id: Mapped[str] = mapped_column(UUID, ForeignKey("usuarios.id"), nullable=False)
     estado_indexacion: Mapped[str] = mapped_column(String(15), nullable=False, default="pendiente")

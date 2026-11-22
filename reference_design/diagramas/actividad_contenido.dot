@@ -9,13 +9,13 @@ Autorizar y validar archivo"];
  validar -> ok; ok [shape=diamond,label="¿Válido?",fillcolor=white];
  ok -> error [label="No"]; error [label="Informar error
 Conservar versión previa"];
- ok -> guardar [label="Sí"]; guardar [label="RDS y S3
+ ok -> guardar [label="Sí"]; guardar [label="SQLite + data/uploads
 Registrar versión pendiente"];
- guardar -> procesar; procesar [label="Lambda + M4
+ guardar -> procesar; procesar [label="API local + M4
 Extraer, fragmentar y vectorizar"];
  procesar -> completo; completo [shape=diamond,label="¿Índice completo?",fillcolor=white];
  completo -> error [label="No"]; completo -> activar [label="Sí"];
- activar [label="RDS
+ activar [label="SQLite
 Activar versión de forma atómica"]; activar -> fin; error -> fin;
 
 }

@@ -29,4 +29,4 @@ El objetivo de 50 VU representa usuarios concurrentes simulados, no la població
 
 Los artefactos de esta repetición están en [k6 25 VU con pool 30/30](k6-25-vu-pool-30-30-2026-11-09.json), [k6 50 VU con pool 30/30](k6-50-vu-pool-30-30-2026-11-09.json) y [comparación 30/30](k6-comparison-pool-30-30-2026-11-09.json).
 
-Los resultados locales describen ese entorno y no acreditan disponibilidad mensual ni el desempeño de AWS.
+Los resultados locales describen ese entorno y no acreditan disponibilidad mensual ni el desempeño en producción.

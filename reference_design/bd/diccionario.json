@@ -151,7 +151,7 @@
         "Número de versión"
       ],
       [
-        "s3_key",
+        "storage_key",
         "text",
         "NOT NULL UNIQUE",
         "Clave privada del objeto"
@@ -457,7 +457,7 @@
         "fragmento_id",
         "text",
         "NOT NULL",
-        "Referencia lógica a OpenSearch"
+        "Referencia lógica al índice vectorial local"
       ],
       [
         "estado_revision",

@@ -9,7 +9,6 @@ sys.path.insert(0, str(ROOT))
 load_dotenv(ROOT/'data'/'.gemini.env')
 os.environ['DATABASE_URL']=f"sqlite:///{(ROOT/'data'/'gemini_smoke.db').as_posix()}"
 os.environ['MONDA_DEMO']='1'
-os.environ['STORAGE_MODE']='local'
 from backend.app.db.seed import create_schema_for_tests, seed_demo_data
 create_schema_for_tests(reset=False)
 seed_demo_data()
@@ -30,9 +29,9 @@ from backend.app.core.config import settings
 
 with SessionLocal() as db:
     teacher = db.query(User).filter_by(correo='docente@monda.local').first()
-    content = db.query(Content).filter_by(s3_key='local/seed_sistemas.docx', activo=True).first()
+    content = db.query(Content).filter_by(storage_key='local/seed_sistemas.docx', activo=True).first()
     if content is None:
-        content = db.query(Content).filter_by(s3_key='local/seed_sistemas.docx').first()
+        content = db.query(Content).filter_by(storage_key='local/seed_sistemas.docx').first()
     cfg=db.get(Config,'rag')
     cfg.valor={**cfg.valor,'mode':'gemini','modelo':settings.gemini_llm_model}
     cfg.version+=1

@@ -5,7 +5,7 @@
 | M1 Acceso — UI-01 | `backend/main.py` auth + `frontend/app.js` Login | login, refresh, logout, recovery/reset |
 | M2 Administración — UI-09 | endpoints `/api/admin/*` | usuarios, roles, config, auditoría |
 | M3 Cursos/contenidos — UI-02/UI-03 | cursos, matrícula, upload/index | permisos por curso, versión, PDF/DOCX |
-| M4 Embedding/recuperación interna | `backend/rag.py` | TF‑IDF/coseno; intercambiable por OpenSearch |
+| M4 Embedding/recuperación interna | `backend/rag.py` | TF‑IDF/coseno; intercambiable por otro índice vectorial |
 | M5 Tutor — UI-04 | `/api/courses/{id}/rag/query` | fuentes, score, abstención y rating |
 | M6 Evaluaciones — UI-05/UI-06/UI-07 | generate/review/publish/attempts | aprobación obligatoria y nota servidor |
 | M7 Seguimiento — UI-08 | analytics, alerts, CSV | indicadores, alertas y seudonimización |

@@ -31,4 +31,4 @@ docker run --rm --mount "type=bind,source=$repo,target=/work" -w /work `
   grafana/k6:2.3.0 run scripts/k6_monda_load.js
 ```
 
-Repite ambos perfiles sobre el mismo commit, base y equipo. Los resultados locales describen ese entorno y no acreditan disponibilidad mensual ni el desempeño de AWS. No guardes tokens en los artefactos.
+Repite ambos perfiles sobre el mismo commit, base y equipo. Los resultados locales describen ese entorno y no acreditan disponibilidad mensual ni el desempeño en producción. No guardes tokens en los artefactos.

@@ -1,6 +1,6 @@
 # Entrega 2 — Backend FastAPI completo
 
-Esta entrega implementa el backend funcional de **Plataforma Monda** sobre la base de datos de la Entrega 1. El objetivo es conservar el contrato PI7, aplicar aislamiento por curso y dejar desacoplados los adaptadores RAG/almacenamiento para la futura migración a AWS.
+Esta entrega implementa el backend funcional de **Plataforma Monda** sobre la base de datos de la Entrega 1. El objetivo es conservar el contrato PI7, aplicar aislamiento por curso y mantener el procesamiento RAG y el almacenamiento de materiales para la ejecución local.
 
 ## 1. Estructura modular
 
@@ -61,7 +61,7 @@ backend/app/
 - Versionado por `documento_id + version`.
 - La versión anterior se mantiene activa hasta que la nueva termine su indexación.
 - Extracción de texto para PDF/DOCX y fragmentación en ventanas aproximadas de 512 tokens con solapamiento de 50.
-- Almacenamiento local por defecto; adaptador S3 disponible mediante `STORAGE_MODE=s3`.
+- Almacenamiento local de materiales en `data/uploads`.
 
 ## 4. Tutor RAG triple modo
 
@@ -106,7 +106,7 @@ Todas las respuestas persisten `sources`, `evidenceSufficient` y `correlationId`
 
 ## 6. Seguimiento, reportes, auditoría y sincronización
 
-- Indicadores reconciliados desde RDS/PostgreSQL: promedio, intentos cerrados, evaluaciones y utilidad del tutor.
+- Indicadores reconciliados desde PostgreSQL: promedio, intentos cerrados, evaluaciones y utilidad del tutor.
 - Sin intentos cerrados, el promedio es `null`; no se convierte ausencia en nota cero.
 - Alertas explicables para promedio bajo e inactividad, con evidencia y revisión docente.
 - Exportación CSV seudonimizada y neutralización de fórmulas.

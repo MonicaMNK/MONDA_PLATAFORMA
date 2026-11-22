@@ -143,7 +143,7 @@ def _ensure_demo_material(db, course: Course, teacher: User, course_slug: str, m
             nombre_original=material_data["filename"],
             mime_type="application/pdf",
             tamano_bytes=len(data),
-            s3_key=stored_key,
+            storage_key=stored_key,
             hash_sha256=digest,
             autor_id=teacher.id,
             estado_indexacion="pendiente",
@@ -165,7 +165,7 @@ def _ensure_demo_material(db, course: Course, teacher: User, course_slug: str, m
     content.nombre_original = material_data["filename"]
     content.mime_type = "application/pdf"
     content.tamano_bytes = len(data)
-    content.s3_key = stored_key
+    content.storage_key = stored_key
     content.hash_sha256 = digest
     content.autor_id = teacher.id
     chunks = None

@@ -297,7 +297,7 @@ z
     </g>
    </g>
    <g id="text_3">
-    <!-- RAG + RDS -->
+    <!-- RAG + base local -->
     <g transform="translate(364.052344 32.531375) scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-47" d="M 3809 666 
@@ -388,7 +388,7 @@ z
     </g>
    </g>
    <g id="text_4">
-    <!-- OpenSearch -->
+    <!-- Índice vectorial local -->
     <g transform="translate(512.927574 32.531375) scale(0.1 -0.1)">
      <defs>
       <path id="DejaVuSans-4f" d="M 2522 4238 

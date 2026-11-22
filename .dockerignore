@@ -16,5 +16,4 @@ data/.local_secret
 data/.gemini.env
 node_modules
 data/*.db
-data/s3_cache
 *.zip

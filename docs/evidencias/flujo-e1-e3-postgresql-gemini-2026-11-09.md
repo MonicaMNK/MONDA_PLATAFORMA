@@ -9,7 +9,7 @@
 - **Datos:** curso, docente, estudiante y PDF sintéticos. No se usaron datos del colegio ni de estudiantes reales.
 - **Procesamiento externo:** el texto del PDF sintético y las preguntas de prueba se enviaron a Gemini. La clave se mantuvo en el entorno temporal del proceso y no se guardó en este informe.
 
-La ejecución se hizo por API HTTP contra una segunda instancia de la aplicación conectada a la base temporal. Es una prueba de integración local, no una prueba de producción ni de AWS.
+La ejecución se hizo por API HTTP contra una segunda instancia de la aplicación conectada a la base temporal. Es una prueba de integración local, no una prueba de producción.
 
 ## E1 — Carga, indexación y aislamiento
 

@@ -57,10 +57,6 @@ class Settings:
     ollama_llm_model: str = os.getenv("OLLAMA_LLM_MODEL", "llama3")
     ollama_embedding_model: str = os.getenv("OLLAMA_EMBEDDING_MODEL", "nomic-embed-text")
 
-    storage_mode: str = os.getenv("STORAGE_MODE", "local").lower()
-    s3_bucket: str = os.getenv("S3_BUCKET", "")
-    aws_region: str = os.getenv("AWS_REGION", "us-east-1")
-
     mlflow_tracking_uri: str = os.getenv("MLFLOW_TRACKING_URI", "")
 
     max_upload_bytes: int = int(os.getenv("MAX_UPLOAD_BYTES", str(20 * 1024 * 1024)))

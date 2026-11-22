@@ -28,7 +28,7 @@
 - CA-M6-01: Dado docente con todos los reactivos aprobados, cuando publica y un estudiante resuelve, entonces conserva versión y califica según claves del servidor. [RF-10 a 12]
 - CA-M6-02: Dado evaluación con un reactivo en borrador, cuando intenta publicar, entonces recibe 409 y la evaluación permanece en borrador. [RF-11]
 - CA-M6-03: Dado estudiante con intento abierto, cuando solicita la evaluación o reenvía cierre, entonces no recibe claves antes del cierre y el reenvío no duplica calificación. [RNF-03]
-- CA-M7-01: Dado datos con dos intentos de 10 y 14, cuando consulta indicadores al mismo corte, entonces muestra promedio 12/20 y conteos reconciliados con RDS. [RF-13]
+- CA-M7-01: Dado datos con dos intentos de 10 y 14, cuando consulta indicadores al mismo corte, entonces muestra promedio 12/20 y conteos reconciliados con la base de datos. [RF-13]
 - CA-M7-02: Dado estudiante sin intentos cerrados, cuando se calcula alerta por nota, entonces muestra sin datos y no emite alerta por promedio cero. [RF-14]
 - CA-M7-03: Dado docente autorizado de un curso, cuando exporta resultados, entonces CSV contiene seudónimos y corte; no filtra cursos ajenos ni fórmulas ejecutables. [RNF-03]
 - CA-M8-01: Dado vista cargada y borrador permitido, cuando se interrumpe la conexión, entonces puede leer contenido permitido y ve estado pendiente del borrador. [RF-15]

@@ -41,7 +41,7 @@ CREATE TABLE contenidos (
   documento_id uuid NOT NULL,
   curso_id uuid NOT NULL REFERENCES cursos(id),
   version integer NOT NULL CHECK (version > 0),
-  s3_key text NOT NULL UNIQUE,
+  storage_key text NOT NULL UNIQUE,
   hash_sha256 char(64) NOT NULL,
   autor_id uuid NOT NULL REFERENCES usuarios(id),
   estado_indexacion varchar(15) NOT NULL DEFAULT 'pendiente' CHECK (estado_indexacion IN ('pendiente','procesando','indexado','error')),
