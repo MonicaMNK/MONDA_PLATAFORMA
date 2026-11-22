@@ -19,7 +19,7 @@ La cifra anterior de 14 casos y 12/14 logrados describía otra codificación. No
 
 - Suite histórica: 78 pruebas aprobadas; no equivale a 78 casos del plan ni a una nueva ejecución.
 - CP08: p95 739,61 ms a 25 usuarios virtuales y 785,40 ms a 50; errores 0 % y degradación 6,19 %.
-- CP07: calibración complementaria de 60 consultas, diferenciada de la evaluación final. Cobertura factual 85 %, integración 66,67 %, abstención 53,85 % (no lograda), adversariales 75 %. Citas 81/94 = 86,17 %, no verificadas sin registro recuperable.
+- CP07: evaluación final independiente del 2026-11-16 sobre 100 consultas. Cobertura respondibles 70/70 (40/40 factuales y 30/30 de integración), citas 70/70, abstención 15/15 y adversariales 15/15; fidelidad media 4.5/5. La calibración complementaria de 60 consultas permanece como antecedente y no sustituye los resultados finales.
 - CP15: cien duraciones; mediana 1396,55 ms y p95 55732,48 ms. La mediana cumple y el p95 no cumple.
 - **S-01 (2026-11-06):** 16 participantes, 14 estudiantes y 2 docentes; sus métricas constan en `output/pi14_reporte.json`.
 - **Registro PI13 (2026-11-09):** solo constancia de que se realizó una actividad histórica. No se usan sus respuestas, tiempos, roles ni resultados en ningún informe ni métrica vigente. Los archivos se conservan como registro histórico sin análisis.

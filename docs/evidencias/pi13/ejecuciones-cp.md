@@ -46,13 +46,14 @@ Cada entrada documenta una ejecución individual con fecha, ejecutor, entorno, r
 - Evidencia: docs/evidencias/pi13/cp06-evidencia.json
 - Prueba: tests/test_pi11_es06_es10.py::test_es06_student_cannot_publish_teacher_draft
 
-## CP07 ? ES07: Evaluaci?n final RAG con banco independiente
+## CP07 — ES07: Evaluación final RAG con banco independiente
 - Fecha: 2026-11-16
-- Ejecutor: Daniel y M?nica
-- Revisi?n humana: Daniel (tesista)
-- Resultado: Logrado, seg?n corrida registrada
-- Banco: N=100 (40 factuales, 30 integraci?n, 15 sin evidencia y 15 adversariales)
-- Resultados: cobertura 70/70; citas 70/70; abstenci?n 15/15; adversariales 15/15; fidelidad media 4.5/5; mediana 12.4 ms; p95 12.6 ms
+- Ejecutor: Arturo Rojas y Rosa Chavez
+- Revisión humana: Arturo Rojas
+- Resultado: Logrado, según corrida registrada
+- Banco: N=100 (40 factuales, 30 de integración, 15 sin evidencia y 15 adversariales)
+- Resultados: cobertura respondibles 70/70 (40/40 factuales y 30/30 de integración); citas 70/70; abstención correcta 15/15; adversariales bloqueadas 15/15; fidelidad media 4.5/5; mediana 5714 ms; p95 7792 ms; errores 0
+- Configuración reportada: MONDA-RAG-FROZEN-PI13-20261116 (k=2, umbral 0.65, margen 0.0)
 - Evidencia: docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json
 
 ## CP08 — ES08: Carga transaccional con cincuenta usuarios

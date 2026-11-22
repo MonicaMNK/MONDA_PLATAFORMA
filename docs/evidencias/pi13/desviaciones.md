@@ -8,6 +8,8 @@
 **Fecha del cambio:** 2026-11-09  
 **Justificación:** La calibración con `k=2` y `umbral=0.65` cumple el piso de cobertura total >= 70% y cobertura de integración >= 50%. La abstención correcta (53.85%) no alcanza el piso de 70%. El cambio fue aprobado por docente-colegio-1 y docente-colegio-2 en `data/aprobacion_umbrales_20261109.json`.
 
+La abstención de 53.85% corresponde solo a la calibración complementaria de 60 consultas. La evaluación final independiente CP07 del 2026-11-16 registró 15/15 abstenciones correctas y 15/15 consultas adversariales bloqueadas; véase `docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json`.
+
 ## D-02: Muestras y campanas de usuarios
 
 La planificacion PI13/tesis de 14 estudiantes y 2 docentes es distinta del piloto historico v1.0 de 10 personas. Se separan tres registros que antes aparecian mezclados:
@@ -26,7 +28,7 @@ Los analisis de cada campana se mantienen separados. Para S-01, la cantidad tota
 
 ## D-04: Banco de evaluación final
 
-**Banco original:** `data/rag_validation_100.json` con 100 consultas
+**Banco de evaluación:** `data/rag_validation_100.json` (N=100). La evaluación final CP07 del 2026-11-16 registra los 100 registros.
 
 ## D-05: RNF-02 p95 no logrado
 

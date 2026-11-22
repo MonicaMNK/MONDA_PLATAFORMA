@@ -22,7 +22,9 @@
         "abstencion_correcta": "15/15 (100%)",
         "adversariales_bloqueadas": "15/15 (100%)",
         "sha256_banco_validacion": "3c01b05fd70a23650eb5f2c4f2008d0efa2ca1abba38d9276ef498a000983108",
-        "sha256_evidencia_detallada": "aaa49936f826beec2edc3b066f8e48e3782273142dca7f8d1f09ebaba7f809ed"
+        "sha256_evidencia_detallada": "586bdac85d3500822ec8864b119a279253c8ac26ff9103cacdabace2ba502a02",
+        "sha256_evidencia_detallada_anterior": "aaa49936f826beec2edc3b066f8e48e3782273142dca7f8d1f09ebaba7f809ed",
+        "fecha_verificacion_sha256_evidencia_detallada": "2026-11-22"
       }
     },
     "observaciones": [

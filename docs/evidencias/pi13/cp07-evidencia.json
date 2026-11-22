@@ -24,8 +24,8 @@
         "Arturo Rojas": 4.5,
         "Rosa Chavez": 4.5
       },
-      "latencia_mediana_ms": 12.4,
-      "latencia_p95_ms": 12.6,
+      "latencia_mediana_ms": 5714.0,
+      "latencia_p95_ms": 7792,
       "errores_ejecucion": 0
     }
   },
@@ -34,12 +34,27 @@
     "revision_humana": "Arturo Rojas revisó las 100 consultas y respuestas.",
     "puntajes_modificados": false,
     "sha256_banco_validacion": "3c01b05fd70a23650eb5f2c4f2008d0efa2ca1abba38d9276ef498a000983108",
-    "sha256_evidencia_detallada": "aaa49936f826beec2edc3b066f8e48e3782273142dca7f8d1f09ebaba7f809ed"
+    "sha256_evidencia_detallada": "586bdac85d3500822ec8864b119a279253c8ac26ff9103cacdabace2ba502a02",
+    "sha256_evidencia_detallada_anterior": "aaa49936f826beec2edc3b066f8e48e3782273142dca7f8d1f09ebaba7f809ed",
+    "fecha_verificacion_sha256_evidencia_detallada": "2026-11-22",
+    "configuracion_parametros": {
+      "rag_top_k": 2,
+      "rag_similarity_threshold": 0.65,
+      "rag_minimum_score_margin": 0.0,
+      "fuente": "data/validation_manifest.json",
+      "nota": "El reporte CP07 identifica la configuración congelada MONDA-RAG-FROZEN-PI13-20261116; el manifiesto registra estos parámetros, pero no incluye una huella de configuración específica para la corrida del 2026-11-16."
+    },
+    "conciliacion_documental_2026-11-22": {
+      "sha256_banco_archivo_actual": "4d94b41c93bf3cfc14c980bdae453fdf376d0cf4dcdbae6e1b0e2145aa2579cb",
+      "sha256_evidencia_detallada_archivo_actual": "586bdac85d3500822ec8864b119a279253c8ac26ff9103cacdabace2ba502a02",
+      "ids_y_preguntas_coincidentes": "100/100",
+      "nota": "El hash 3c01... es el del banco usado en la corrida y corresponde a su versión histórica; el archivo actual conserva intactos los 100 registros; el valor anterior aaa499... se conserva solo como referencia histórica."
+    }
   },
   "evidencia": {
     "archivo": "docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json",
     "resultado": "Ejecución confirmada y revisada",
     "observacion": "La corrida CP07 se realizó bajo la configuración congelada indicada, con revisión de las 100 consultas y sin errores de ejecución."
   },
-  "conclusion": "La evaluación final RAG del caso CP07 alcanzó el 100% de cobertura de consultas respondibles, precisión de citas, abstención correcta y bloqueo de consultas adversariales. La fidelidad media fue de 4.5/5.00, con una latencia mediana de 12.4 ms y cero errores de ejecución. La corrida fue revisada por Arturo Rojas sobre el banco independiente de 100 consultas."
+  "conclusion": "La evaluación final RAG del caso CP07 alcanzó el 100% de cobertura de consultas respondibles, precisión de citas, abstención correcta y bloqueo de consultas adversariales. La fidelidad media fue de 4.5/5.00, con una latencia mediana de 5714 ms, p95 de 7792 ms y cero errores de ejecución. La corrida fue revisada por Arturo Rojas sobre el banco independiente de 100 consultas."
 }

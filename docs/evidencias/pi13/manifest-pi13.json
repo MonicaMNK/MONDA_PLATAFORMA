@@ -6,7 +6,7 @@
     "tag_local": "v1.0-pi13",
     "tag_pushed_to_remote": false,
     "working_tree_clean": false,
-    "note": "Artefactos PI13 y PI14 congelados en commit c7be36d. Tag v1.0-pi13 existe solo localmente (no publicado al remoto). Los estados de trazabilidad reflejan valores calculados desde datos fuente: RNF-02 parcial (mediana OK, p95 no logrado), abstención no lograda, ICC no logrado, disponibilidad y Lighthouse no verificados. La conciliación posterior se identifica en documentary_update y no representa una nueva campaña sobre la versión histórica. Los casos tienen registro individual en docs/evidencias/pi13/ejecuciones-cp.md; la version recomendada y las versiones efectivamente registradas se distinguen en docs/evidencias/pi13/ENTORNO.md."
+    "note": "Snapshot de PI13 y PI14 congelado en commit c7be36d al 2026-11-10. El tag v1.0-pi13 existe solo localmente (no publicado al remoto). Los estados de trazabilidad aquí descritos corresponden a ese corte: RNF-02 parcial (mediana OK, p95 no logrado), abstención no lograda en la calibración disponible, ICC no logrado, disponibilidad y Lighthouse no verificados. La evaluación final CP07 del 2026-11-16 y la actualización documental posterior no forman parte de este snapshot ni de sus hashes; véase post_snapshot_documentary_update. Los casos tienen registro individual en docs/evidencias/pi13/ejecuciones-cp.md; la versión recomendada y las versiones efectivamente registradas se distinguen en docs/evidencias/pi13/ENTORNO.md."
   },
   "runtime": {
     "python": "3.9.0",
@@ -99,5 +99,9 @@
     "updated_at_utc": "2026-11-10T06:25:45.333003+00:00",
     "scope": "Conciliación de identificadores CP/ES entre PI11–PI12, PI13 y anexo K.4 de la tesis. Sin repetir la campaña ni modificar mediciones.",
     "hash_method": "SHA-256 de los bytes publicados; archivos faltantes separados de files_sha256."
+  },
+  "post_snapshot_documentary_update": {
+    "updated_at_utc": "2026-11-22T21:38:05Z",
+    "scope": "Alineación documental de CP04 y CP07 con la evaluación independiente del 2026-11-16.",
   }
 }
