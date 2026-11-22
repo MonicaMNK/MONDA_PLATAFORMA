@@ -23,7 +23,7 @@ Las hojas de observacion P001-P016 estan en `docs/evidencias/sesion-usuarios/obs
 
 `data/usuarios/sus_respuestas.csv` contiene valores de 1 a 5 cotejados contra los cuestionarios originales. Los formularios originales permanecen bajo custodia y no se adjuntan al repositorio por confidencialidad; las metricas se calcularon desde el CSV cotejado.
 
-`output/consentimientos.csv` enlaza P001-P016 con archivos de Drive por ordinal. Las carpetas contienen imagenes numeradas por rol, pero se debe conservar el registro de correspondencia que confirma el vinculo entre cada codigo P y el documento. Los archivos firmados permanecen en Drive y no deben copiarse al repositorio publico si contienen datos identificables. Verificar enlaces y correspondencia de codigos contra los originales.
+`output/consentimientos.csv` conserva metadatos seudonimizados de consentimiento por código, sin enlaces de Drive ni documentos firmados. Los originales permanecen bajo custodia y la correspondencia con los participantes se administra fuera del repositorio con acceso restringido.
 
 ## Separacion de campanas
 

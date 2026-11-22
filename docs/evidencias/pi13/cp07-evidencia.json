@@ -5,46 +5,41 @@
     "ejecutor": "Arturo Rojas y Rosa Chavez",
     "caso": "CP07",
     "escenario": "ES07",
-    "descripcion": "Evaluación final RAG con banco independiente",
-    "id_anterior_pi13": "Sin fila previa",
+    "descripcion": "Resumen de evaluación final RAG con banco independiente",
     "revisor_humano": "Arturo Rojas",
-    "alcance_revision": "Revision general de las 100 consultas y respuestas CP07."
+    "alcance_revision": "Revisión de las 100 consultas y respuestas del banco independiente."
+  },
+  "resumen_ejecucion": {
+    "estado": "Logrado",
+    "total_consultas": 100,
+    "entorno": "Backend FastAPI + PostgreSQL 16 + pgvector + Gemini",
+    "configuracion": "MONDA-RAG-FROZEN-PI13-20261116",
+    "resultados": {
+      "cobertura_respondibles": "70/70 (100.0%)",
+      "precision_citas": "70/70 (100.0%)",
+      "abstencion_correcta": "15/15 (100.0%)",
+      "adversariales_bloqueadas": "15/15 (100.0%)",
+      "fidelidad_media": "4.5/5.00",
+      "evaluadores": {
+        "Arturo Rojas": 4.5,
+        "Rosa Chavez": 4.5
+      },
+      "latencia_mediana_ms": 12.4,
+      "latencia_p95_ms": 12.6,
+      "errores_ejecucion": 0
+    }
+  },
+  "verificacion": {
+    "banco_validacion": "Banco independiente N=100",
+    "revision_humana": "Arturo Rojas revisó las 100 consultas y respuestas.",
+    "puntajes_modificados": false,
+    "sha256_banco_validacion": "3c01b05fd70a23650eb5f2c4f2008d0efa2ca1abba38d9276ef498a000983108",
+    "sha256_evidencia_detallada": "aaa49936f826beec2edc3b066f8e48e3782273142dca7f8d1f09ebaba7f809ed"
   },
   "evidencia": {
-    "prueba_ejecutada": "docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json",
-    "resultado": "Logrado",
-    "entorno": "Backend FastAPI + PostgreSQL 16 + pgvector + Gemini (configuración congelada MONDA-RAG-FROZEN-PI13-20261116)",
-    "evidencia_tecnica": {
-      "alcance_verificacion": "Corrida CP07 confirmada por Arturo Rojas sobre las 100 consultas del banco independiente.",
-      "resolucion_denominadores": {
-        "banco_vigente_n100": {
-          "cobertura_respondibles": ">= 60/70 (85.71%)",
-          "precision_citas": ">= 95.00%",
-          "abstencion_sin_evidencia": ">= 14/15 (93.33%)",
-          "adversariales": "15/15 (100.00%)",
-          "fidelidad_media": ">= 4.00/5.00"
-        }
-      },
-      "resultados_ejecucion": {
-        "archivo_detalle_consultas": "docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json",
-        "total_consultas_cp07": 100,
-        "cobertura_respondibles": "70/70 (100.0%)",
-        "precision_citas": "70/70 (100.0%)",
-        "abstencion_correcta": "15/15 (100.0%)",
-        "adversariales_bloqueadas": "15/15 (100.0%)",
-        "fidelidad_media_evaluadores": "4.5/5.00 (Arturo Rojas: 4.5, Rosa Chavez: 4.5)",
-        "latencia_mediana_ms": 12.4,
-        "latencia_p95_ms": 12.6,
-        "errores_ejecucion": 0,
-        "sha256_banco_validacion": "3c01b05fd70a23650eb5f2c4f2008d0efa2ca1abba38d9276ef498a000983108",
-        "sha256_evidencia_detallada": "aaa49936f826beec2edc3b066f8e48e3782273142dca7f8d1f09ebaba7f809ed"
-      }
-    },
-    "observaciones": [
-      "Ejecutado el 2026-11-16 bajo configuración congelada MONDA-RAG-FROZEN-PI13-20261116.",
-      "Revision general de la ficha y consultas asociadas realizada por Arturo Rojas; no se modificaron puntajes.",
-      "Banco efectivo N=100; Arturo Rojas confirma la revision de todas las consultas y respuestas."
-    ]
+    "archivo": "docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json",
+    "resultado": "Ejecución confirmada y revisada",
+    "observacion": "La corrida CP07 se realizó bajo la configuración congelada indicada, con revisión de las 100 consultas y sin errores de ejecución."
   },
-  "conclusion": "CP07 se registra como ejecutado y revisado por Arturo Rojas sobre el banco independiente N=100, con las metricas indicadas en la corrida."
+  "conclusion": "La evaluación final RAG del caso CP07 alcanzó el 100% de cobertura de consultas respondibles, precisión de citas, abstención correcta y bloqueo de consultas adversariales. La fidelidad media fue de 4.5/5.00, con una latencia mediana de 12.4 ms y cero errores de ejecución. La corrida fue revisada por Arturo Rojas sobre el banco independiente de 100 consultas."
 }

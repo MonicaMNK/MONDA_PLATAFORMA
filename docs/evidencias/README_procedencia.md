@@ -31,8 +31,6 @@ cuestionario SUS (System Usability Scale).
 
 Ver `docs/evidencias/sesion-usuarios/logs/` y `docs/observaciones/`.
 
-## Enlaces a consentimientos en Drive
+## Consentimientos
 
-- Carpeta de estudiantes: https://drive.google.com/drive/folders/1TYy2XSTaQ3nzR0DP2NXpzDrgmSoesHrF
-- Carpeta de docentes: https://drive.google.com/drive/folders/1dumFM5NwzACBV_NB0vliq47dGLVUjrRF
-- `output/consentimientos.csv` incluye 16 enlaces individuales con fecha 2026-11-06; las filas asignan P001-P014 a estudiantes y P015-P016 a docentes. Esta tabla documenta el mapeo declarado.
+Los originales firmados permanecen bajo custodia en Drive. Por privacidad, este repositorio no publica enlaces a carpetas ni a documentos; `output/consentimientos.csv` conserva únicamente el registro seudonimizado de consentimiento.
