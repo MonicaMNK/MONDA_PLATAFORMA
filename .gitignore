@@ -10,6 +10,12 @@ data/usuarios/tiempos_pareados.csv
 data/usuarios/linea_base_manual.csv
 data/usuarios/ab_assignment.csv
 data/traces/rag_traces.jsonl
+data/consentimiento-baseline-20261109.json
+data/cuestionarios_originales_pi13_historico.json
+data/observacion-baseline-20261109.json
+data/paired_times_20261109.csv
+data/sus_campaign_20261109.json
+data/sus_scores.json
 docs/evidencias/sesion-usuarios/observaciones/P*_observacion_tiempos*.txt
 __pycache__/
 *.py[cod]

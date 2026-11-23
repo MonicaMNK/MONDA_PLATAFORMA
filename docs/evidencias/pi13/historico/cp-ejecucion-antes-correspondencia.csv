@@ -11,5 +11,5 @@ CP09,"RNF-02: latencia RAG mediana <= 3000 ms (logrado) y p95 <= 5000 ms (no log
 CP10,"RNF-03: pruebas negativas por rol y curso",2026-11-09,Daniel,1,Logrado,tests/test_entrega2_backend.py::test_course_isolation_and_rbac
 CP11,"D07 - Entorno PostgreSQL + pgvector disponible",2026-11-09,Daniel,1,Logrado,docs/evidencias/pi13/ENTORNO.md
 CP12a,"RNF-05 Lighthouse accesibilidad >= 90",2026-11-09,Daniel,1,No verificado,docs/evidencias/pi13/lighthouse/lighthouse-20261109.json
-CP12b,"RNF-06 SUS media >= 68",2026-11-09,Daniel,1,Logrado,data/sus_scores.json
+CP12b,"RNF-06 SUS media >= 68",2026-11-09,Daniel,1,Logrado,Datos individuales bajo custodia (no distribuidos)
 CP12c,"RNF-07 cobertura pytest --cov >= 80%",2026-11-09,Daniel,1,Logrado,reports/coverage.xml

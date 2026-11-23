@@ -15,7 +15,7 @@ La abstención de 53.85% corresponde solo a la calibración complementaria de 60
 La planificacion PI13/tesis de 14 estudiantes y 2 docentes es distinta del piloto historico v1.0 de 10 personas. Se separan tres registros que antes aparecian mezclados:
 
 - El protocolo historico v1.0, `protocolo-baseline-20261109.md`, describe una muestra prevista de 10 personas (5 docentes y 5 estudiantes). El registro de ejecucion asociado declara 10 personas, pero con roles 6 docentes y 4 estudiantes; se conserva esa discrepancia como historica.
-- La campana de aceptacion PI13 del 2026-11-09 reporta n=10 (6 docentes y 4 estudiantes) en `data/sus_scores.json` y `data/paired_time_summary.json`. Ese resultado no corresponde a S-01.
+- La campana de aceptacion PI13 del 2026-11-09 reporta n=10 en sus metricas agregadas; los archivos individuales se conservan bajo custodia y no se distribuyen. Ese resultado no corresponde a S-01.
 - S-01, fechada 2026-11-06, registra 16 personas (14 estudiantes y 2 docentes) en `data/usuarios/sesiones.csv`. Su protocolo descriptivo separado es `protocolo-sesion-S-01-v2.0.md`.
 
 Los analisis de cada campana se mantienen separados. Para S-01, la cantidad total declarada no sustituye el n verificable de cada instrumento: las respuestas SUS fueron cotejadas con los cuestionarios originales, que permanecen bajo custodia; las observaciones y tiempos individuales tambien se conservan bajo custodia y no se distribuyen en el repositorio. Solo se publican resultados agregados.

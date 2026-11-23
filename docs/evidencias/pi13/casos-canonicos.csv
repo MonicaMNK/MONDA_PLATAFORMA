@@ -7,7 +7,7 @@ CP05,ES05,OE3,Evaluación y nota sobre veinte,"Un acierto entre tres produce 6,6
 CP06,ES06,OE3,Estudiante no puede publicar evaluación,HTTP 403 y borrador sin cambios,tests/test_pi11_es06_es10.py::test_es06_student_cannot_publish_teacher_draft,PI12 tabla 2.3
 CP07,ES07,OE2,Evaluación final RAG con banco independiente,"Evaluación final ejecutada con N=100; cobertura 70/70, citas 70/70, abstención 15/15 y adversariales 15/15",docs/evidencias/pi13/rag_eval_cp04_cp07_20261116.json,PI12 tabla 2.3
 CP08,ES08,OE1–OE3,Carga transaccional con cincuenta usuarios,Aplicar criterio documentado de carga y registrar desviaciones,docs/evidencias/resultado-k6-local-2026-11-09.md,PI12 tabla 2.3
-CP09,ES09,OE1–OE3,Tareas con usuarios y SUS,"Sesiones, consentimientos, tareas y SUS calculable; distinguir muestra planificada y efectiva",data/sus_scores.json,PI12 tabla 2.3
+CP09,ES09,OE1–OE3,Tareas con usuarios y SUS,"Sesiones, consentimientos, tareas y SUS calculable; distinguir muestra planificada y efectiva","Datos individuales bajo custodia (no distribuidos)",PI12 tabla 2.3
 CP10,ES10,OE1–OE3,Sincronización tras desconexión,"ActionId aplicado una vez, sin duplicados, permisos y conflictos",tests/test_pi11_es06_es10.py::test_es10_sync_api_applies_once_and_rejects_unsafe_actions,PI12 tabla 2.3
 CP11,ES11,OE1–OE3,D07: recorrido E1–E3 en PostgreSQL y pgvector,Recorrido integrado con logs y capturas; disponibilidad del motor no equivale a cierre D07,docs/evidencias/pi13/ENTORNO.md,PI12 tabla 2.3
 CP12,ES01,OE1,Acceso permitido a material autorizado,Estudiante matriculado accede a la versión activa sin ampliar el curso,tests/test_entrega2_backend.py::test_course_isolation_and_rbac,PI12 tabla 2.3

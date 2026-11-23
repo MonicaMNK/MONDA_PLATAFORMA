@@ -22,10 +22,10 @@ Sección 3.3 de la campaña de aceptación. Todas las rutas son relativas a la r
 | 16 | Resultados calibración integración | JSON | OE2 | data/rag_calibration_integration_results_20261109.json |
 | 17 | Banco calibración integración | JSON | OE2 | data/rag_calibration_integration_20261109.json |
 | 18 | Disponibilidad 30 días | Log | RNF-04 | data/availability_probe_30d_20261109.log |
-| 19 | Campaña SUS | JSON | RNF-06 | data/sus_campaign_20261109.json |
+| 19 | Campaña SUS | Resultados individuales bajo custodia | RNF-06 | No distribuido |
 | 20 | Calificaciones expertos | CSV | Rúbrica fidelidad | data/expert_ratings_20261109.csv |
 | 21 | Resumen expertos | JSON | Rúbrica fidelidad | data/expert_ratings_summary_20261109.json |
-| 22 | Tiempos pareados | CSV | O4, línea base | data/paired_times_20261109.csv |
+| 22 | Tiempos pareados | Resultados individuales bajo custodia | O4, línea base | No distribuido |
 | 23 | Resumen tiempos pareados | JSON | O4 | data/paired_time_summary.json |
 | 24 | Manifiesto de validación | JSON | Configuración reproducible | data/validation_manifest.json |
 | 25 | Umbrales de aceptación | JSON | RNF-01/02/04/05/07/08, OE2 | data/acceptance_thresholds.json |

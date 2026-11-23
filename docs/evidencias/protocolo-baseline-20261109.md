@@ -34,9 +34,8 @@ Cada participante recibe el mismo PDF del curso (`material-e1.pdf`) y debe respo
 
 - Diseño intra-sujeto: cada participante realiza la tarea con ambos métodos.
 - Orden alternado AB/BA para reducir efecto de aprendizaje:
-  - Participantes impares (P001, P003, P005, P007, P009): orden A (manual primero, luego Monda)
-  - Participantes pares (P002, P004, P006, P008, P010): orden B (Monda primero, luego manual)
-- Se registra el orden real en el campo `orden_ab` del CSV.
+  - El orden se contrabalancea entre las condiciones A y B.
+- El detalle del orden por participante se conserva bajo custodia y no se distribuye.
 
 ## Reclutamiento de participantes
 
@@ -48,14 +47,14 @@ Cada participante recibe el mismo PDF del curso (`material-e1.pdf`) y debe respo
 ## Ética y privacidad
 
 - Cada participante firmó consentimiento informado antes de iniciar.
-- Los datos seudonimizados con identificadores P001–P010; no se registran nombres ni correos en el CSV de resultados.
-- Los consentimientos se archivan según las reglas de la universidad.
+- Los registros individuales son seudonimizados, pero siguen siendo datos de participantes y no se distribuyen en el repositorio.
+- Los consentimientos y los datos fuente se conservan bajo custodia según las reglas de la universidad.
 
 ## Evidencia primaria
 
 Por participante y método se registra:
 
-- ID seudonimizado (P001–P010)
+- ID seudonimizado
 - Rol pertinente (docente/estudiante)
 - Tarea (tres preguntas de comprensión)
 - Material (`material-e1.pdf`)
@@ -65,7 +64,7 @@ Por participante y método se registra:
 - Incidencias (si las hubo)
 - Si completó la tarea (sí/no)
 
-Las hojas de observación originales están en `data/observacion-baseline-20261109.json`. El CSV seudonimizado se generó transcribiendo esas hojas.
+Las hojas de observación y los archivos con respuestas o mediciones individuales se conservan bajo custodia restringida. El repositorio publica únicamente resultados agregados.
 
 ## Análisis estadístico
 

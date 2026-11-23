@@ -1,8 +1,7 @@
 {
   "campaign": "O4 línea base empírica — análisis estadístico pareado",
   "protocol_version": "1.0",
-  "source_csv": "data/usuarios/tiempos_pareados.csv",
-  "source_csv_sha256": "c1db8cf7f7e6a294c194a9cf1db1426480dcc352bd4c89c93c53a3086ea83e90",
+  "source_csv": "Datos individuales bajo custodia restringida; no distribuidos.",
   "analysis_date_utc": "2026-11-09T00:00:00Z",
   "analyst": "Mónica Paola Mendoza Melo (T9)",
   "reviewer": "Daniel Leonardo Escribas Alan (T5)",
