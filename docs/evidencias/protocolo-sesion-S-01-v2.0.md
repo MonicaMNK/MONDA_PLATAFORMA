@@ -9,19 +9,19 @@ Esta ficha separa la sesion S-01 del protocolo historico `protocolo-baseline-202
 - Identificador: S-01.
 - Fecha declarada: 2026-11-06.
 - Participantes declarados: 16 (14 estudiantes de secundaria y 2 docentes).
-- Codigos segun el roster actualizado: P001-P014 estudiantes; P015-P016 docentes.
+- Distribucion declarada: 14 estudiantes y 2 docentes; no se publican codigos individuales.
 - Duracion declarada: 95 minutos (08:00-09:35, UTC-3), coincidente con data/usuarios/sesiones.csv y el log actualizado.
 - Fuente de composicion: `data/usuarios/sesiones.csv`; los registros de consentimiento y observaciones individuales no se distribuyen en el repositorio por confidencialidad.
 
 ## Tarea y tiempos
 
-La tarea declarada fue consulta y extraccion de informacion, comparando tiempo manual con tiempo en Monda. Las filas pareadas estan en `data/usuarios/tiempos_pareados.csv`; la tabla manual correspondiente esta en `data/usuarios/linea_base_manual.csv`.
+La tarea declarada fue consulta y extraccion de informacion, comparando tiempo manual con tiempo en Monda. Los tiempos individuales pareados y la linea base manual se conservan bajo custodia restringida y no se distribuyen en el repositorio; aqui solo se publican resultados agregados.
 
-Las hojas de observacion P001-P016 estan en `docs/evidencias/sesion-usuarios/observaciones/`; sus tiempos manuales coinciden con los CSV. Las firmas deben cotejarse con los originales bajo custodia.
+Las observaciones individuales y las firmas permanecen bajo custodia y no se distribuyen en el repositorio.
 
 ## SUS y consentimiento
 
-`data/usuarios/sus_respuestas.csv` contiene valores de 1 a 5 cotejados contra los cuestionarios originales. Los formularios originales permanecen bajo custodia y no se adjuntan al repositorio por confidencialidad; las metricas se calcularon desde el CSV cotejado.
+Las respuestas SUS individuales, cotejadas contra los cuestionarios originales, permanecen bajo custodia y no se distribuyen en el repositorio por confidencialidad. Las metricas publicadas son agregadas.
 
 Los formularios originales y los registros de consentimiento permanecen bajo custodia y no se distribuyen en el repositorio por confidencialidad. La correspondencia entre códigos y participantes se administra fuera del repositorio con acceso restringido.
 

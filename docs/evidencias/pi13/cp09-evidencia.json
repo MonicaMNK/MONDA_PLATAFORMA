@@ -11,24 +11,21 @@
   "evidencia": {
     "prueba_ejecutada": "Sesión de evaluación con usuarios S-01 (2026-11-06, ventana 08:00:00–09:35:00 -03:00, n=16 participantes)",
     "resultado": "Logrado",
-    "entorno": "Sesión controlada S-01 sobre plataforma MONDA (14 estudiantes P001–P014 y 2 docentes P015–P016)",
+    "entorno": "Sesión controlada S-01 sobre plataforma MONDA (14 estudiantes y 2 docentes)",
     "evidencia_tecnica": {
-      "alcance_verificacion": "Ejecución pareada de tareas, aplicación de cuestionario SUS y registro de trazas RAG (n=16: 14 estudiantes P001-P014 y 2 docentes P015-P016)",
+      "alcance_verificacion": "Ejecución pareada de tareas y aplicación de cuestionario SUS (n=16: 14 estudiantes y 2 docentes); los registros individuales permanecen bajo custodia.",
       "trazabilidad_registro": "Sesión vigente S-01 del 2026-11-06 (id_anterior_pi13: CP12b)",
       "archivos_fuente": [
-        "data/usuarios/tiempos_pareados.csv",
         "data/usuarios/sesiones.csv",
         "docs/evidencias/sesion-usuarios/logs/S-01_log.txt",
         "docs/evidencias/protocolo-sesion-S-01-v2.0.md",
-        "docs/observaciones/S-01_observaciones.txt",
-        "data/traces/rag_traces.jsonl"
+        "docs/observaciones/S-01_observaciones.txt"
       ],
-      "sha256_tiempos_pareados": "3492e7aad0c4f6f25bbb9d2524b448ee27adb74b7fceb1b0d9cb0ec57869681b",
       "sha256_sesiones_csv": "4b2e1b82dc0be17884d40a038ca648bec347266fa77f13534bc829fd9d357c1b",
       "sha256_log_sesion": "d25f327ff8ba3ed9a8a7f2b5806be197f11f8ca6175273b28de716b6571d69e7"
     },
     "observaciones": [
-      "Acredita la participación de 14 estudiantes (P001–P014) y 2 docentes (P015–P016) en la sesión S-01."
+      "Acredita la participación de 14 estudiantes y 2 docentes en la sesión S-01; no se publican identificadores individuales."
     ]
   },
   "conclusion": "El caso CP09 (ES09) cumple los criterios de evaluación con usuarios y usabilidad SUS."

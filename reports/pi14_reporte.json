@@ -48,7 +48,7 @@
       "d_cohen_z": 12.6422,
       "t_statistic": 50.568777,
       "p_value_bilateral": 3.5578e-18,
-      "interpretacion": "Los 16 tiempos del CSV coinciden con las hojas P001-P016; la validez de firmas se conserva sujeta al cotejo con originales bajo custodia.",
+      "interpretacion": "Las mediciones individuales permanecen bajo custodia restringida; el repositorio publica resultados agregados.",
       "conclusion": "En los registros cotejados, el tiempo Monda es menor que el manual; diferencia media calculada sobre los 16 pares."
     },
     "susp": {
@@ -87,5 +87,5 @@
     "ruta": "docs/evidencias/protocolo-sesion-S-01-v2.0.md",
     "nota": "Las respuestas SUS fueron cotejadas con cuestionarios originales bajo custodia; los originales no se adjuntan por confidencialidad."
   },
-  "nota_validez": "Respuestas SUS cotejadas contra cuestionarios originales bajo custodia. Los formularios no se incluyen en el repositorio por confidencialidad. Las metricas se recalcularon desde data/usuarios/sus_respuestas.csv el 2026-11-15."
+  "nota_validez": "Respuestas SUS cotejadas contra cuestionarios originales bajo custodia. Los formularios y datos individuales no se distribuyen en el repositorio por confidencialidad; se publican solo metricas agregadas."
 }

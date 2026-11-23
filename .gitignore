@@ -5,6 +5,12 @@
 data/.local_secret
 data/.gemini.env
 data/.pytest*/
+data/usuarios/sus_respuestas.csv
+data/usuarios/tiempos_pareados.csv
+data/usuarios/linea_base_manual.csv
+data/usuarios/ab_assignment.csv
+data/traces/rag_traces.jsonl
+docs/evidencias/sesion-usuarios/observaciones/P*_observacion_tiempos*.txt
 __pycache__/
 *.py[cod]
 .pytest_cache/

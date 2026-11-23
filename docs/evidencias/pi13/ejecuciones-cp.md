@@ -69,7 +69,7 @@ Cada entrada documenta una ejecución individual con fecha, ejecutor, entorno, r
 - Resultado: Logrado
 - Evidencia: docs/evidencias/pi13/cp09-evidencia.json
 - Sesión vigente: S-01 (n=16)
-- Datos: data/usuarios/tiempos_pareados.csv, data/usuarios/sesiones.csv, docs/evidencias/sesion-usuarios/logs/S-01_log.txt
+- Datos individuales de tiempo y SUS: bajo custodia restringida; resultados agregados en `reports/pi14_reporte.json`. La ficha de sesion y el log tecnico no contienen respuestas individuales.
 
 ## CP10 — ES10: Sincronización tras desconexión
 - Fecha: 2026-11-09

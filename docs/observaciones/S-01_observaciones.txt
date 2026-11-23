@@ -1,17 +1,16 @@
 ===================================
 
 1. Datos fuente:
-   - Archivo sesiones.csv: registra 16 participantes con fecha 2026-11-06.
-   - Archivo tiempos_pareados.csv: contiene diferencias entre tiempos manuales y Monda.
-   - Archivo sus_respuestas.csv: cuestionario SUS completado por cada participante.
+   - La ficha de sesion registra el total declarado y la fecha 2026-11-06.
+   - Los tiempos pareados, la linea base manual, las respuestas SUS y las observaciones individuales se conservan bajo custodia restringida y no se distribuyen en el repositorio.
 
 2. Correcciones aplicadas:
-   - sus_respuestas.csv: se transcribieron las respuestas del cuestionario original.
-     El orden A/B se guardó en una columna separada 'orden'.
-   - linea_base_manual.csv: eliminados comentarios y filas de resumen incrustado.
+   - Los instrumentos se cotejaron contra los originales bajo custodia.
+   - El orden A/B se mantuvo separado durante el analisis local.
+   - Las salidas publicadas contienen metricas agregadas, no filas por participante.
 
 3. Procedencia:
-   - Repositorio: C:/Users/Usuario/MONDA_PLATAFORMA/data/usuarios/
+   - Las fuentes individuales no forman parte del repositorio publico.
    - Fecha de exportación: 2026-11-06T14:30:00-03:00 (UTC-3)
    - Versión del protocolo: 2.0
 

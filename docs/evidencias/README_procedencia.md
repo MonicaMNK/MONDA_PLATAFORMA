@@ -3,7 +3,7 @@
 ## Repositorio
 
 - **Repositorio:** `C:/Users/Usuario/MONDA_PLATAFORMA`
-- **Ruta de origen:** `data/usuarios/sesiones.csv`, `data/usuarios/tiempos_pareados.csv`, `data/usuarios/sus_respuestas.csv`
+- **Ruta de origen:** `data/usuarios/sesiones.csv`. Las respuestas SUS, mediciones individuales y observaciones se conservan bajo custodia restringida y no se distribuyen en este repositorio.
 
 ## Resumen ejecutivo
 
@@ -23,8 +23,8 @@ cuestionario SUS (System Usability Scale).
 
 ### Limitaciones
 
-- Las hojas de observacion P001-P016 estan incorporadas; los tiempos coinciden con los CSV.
-- Las respuestas SUS fueron cotejadas con los cuestionarios originales; los formularios permanecen bajo custodia y no se adjuntan por confidencialidad.
+- Las hojas de observacion individuales y los tiempos por participante permanecen bajo custodia y no se distribuyen en este repositorio.
+- Las respuestas SUS fueron cotejadas con los cuestionarios originales; los formularios y las respuestas individuales permanecen bajo custodia. Solo se publican metricas agregadas.
 - El protocolo v1.0 de 10 personas es historico; S-01 (16 participantes declarados, 2026-11-06) se documenta por separado en `docs/evidencias/protocolo-sesion-S-01-v2.0.md`.
 
 ## Evidencia

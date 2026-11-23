@@ -1,18 +1,18 @@
 {
-  "generated_at_utc": "2026-11-16T04:35:23.064974+00:00",
+  "generated_at_utc": "2026-11-23T01:10:26.029805+00:00",
   "validation_bank": {
-    "total": 85,
-    "answerable": 57,
-    "unanswerable": 28,
+    "total": 100,
+    "answerable": 70,
+    "unanswerable": 30,
     "category_counts": {
-      "adversarial": 13,
-      "factual": 37,
-      "integration": 20,
+      "adversarial": 15,
+      "factual": 40,
+      "integration": 30,
       "no_evidence": 15
     },
     "categories": {
       "adversarial": {
-        "n": 13,
+        "n": 15,
         "answerable": 0,
         "courses": [
           "Biología",
@@ -21,8 +21,8 @@
         ]
       },
       "factual": {
-        "n": 37,
-        "answerable": 37,
+        "n": 40,
+        "answerable": 40,
         "courses": [
           "Biología",
           "Historia",
@@ -30,8 +30,8 @@
         ]
       },
       "integration": {
-        "n": 20,
-        "answerable": 20,
+        "n": 30,
+        "answerable": 30,
         "courses": [
           "Biología",
           "Historia",
@@ -108,7 +108,7 @@
       },
       "decision": "Rechazar H0: diferencia significativa entre condiciones."
     },
-    "source": "tiempos_pareados.csv"
+    "source": "datos individuales bajo custodia restringida; no distribuidos"
   },
   "sus": {
     "n_participants": 16,
@@ -121,7 +121,7 @@
       "median": 82.5
     },
     "above_68": 16,
-    "source": "sus_respuestas.csv"
+    "source": "datos individuales bajo custodia restringida; no distribuidos"
   },
   "consistency": {
     "overall": {
@@ -131,15 +131,5 @@
     }
   },
   "campaign": "S-01, 2026-11-06",
-  "source_hashes": {
-    "paired_times": {
-      "path": "data/usuarios/tiempos_pareados.csv",
-      "sha256": "3492e7aad0c4f6f25bbb9d2524b448ee27adb74b7fceb1b0d9cb0ec57869681b"
-    },
-    "sus_responses": {
-      "path": "data/usuarios/sus_respuestas.csv",
-      "sha256": "7467d54a3496caebdaff817ca3f30cbb401e1fd84644bd9835f14022e0616e3a"
-    }
-  },
-  "notes": "Informe vigente de S-01 (2026-11-06), 14 estudiantes y 2 docentes. Los archivos de la actividad histórica del 2026-11-09 se conservan solo como registro y no se usan en informes ni métricas vigentes."
+  "notes": "Informe vigente de S-01 (2026-11-06), 14 estudiantes y 2 docentes. Los datos individuales se conservan bajo custodia y no se distribuyen. Los archivos de la actividad histórica del 2026-11-09 se conservan solo como registro y no se usan en informes ni métricas vigentes."
 }

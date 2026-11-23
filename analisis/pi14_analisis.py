@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import json
 import csv
 from collections import defaultdict
@@ -23,10 +22,6 @@ import numpy as np
 from scipy import stats
 
 ROOT = Path(__file__).resolve().parents[1]
-
-
-def sha256_file(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def mean_std(values: list[float]) -> dict[str, float]:
@@ -162,7 +157,7 @@ def analyze_paired_times(path: Path) -> dict:
                          if ttest.pvalue < 0.05 else
                          "No se rechaza H0: no hay evidencia de diferencia significativa."),
         },
-        "source": path.name,
+        "source": "datos individuales bajo custodia restringida; no distribuidos",
     }
 
 
@@ -200,7 +195,7 @@ def analyze_sus(path: Path) -> dict:
         "n_participants": len(results),
         "overall": mean_std(scores),
         "above_68": sum(1 for s in scores if s >= 68),
-        "source": path.name,
+        "source": "datos individuales bajo custodia restringida; no distribuidos",
     }
 
 
@@ -270,17 +265,8 @@ def main() -> None:
         "sus": sus,
         "consistency": consistency,
         "campaign": "S-01, 2026-11-06",
-        "source_hashes": {
-            "paired_times": {
-                "path": paired_source.relative_to(ROOT).as_posix(),
-                "sha256": sha256_file(paired_source),
-            },
-            "sus_responses": {
-                "path": sus_source.relative_to(ROOT).as_posix(),
-                "sha256": sha256_file(sus_source),
-            },
-        },
         "notes": ("Informe vigente de S-01 (2026-11-06), 14 estudiantes y 2 docentes. "
+                  "Los datos individuales se conservan bajo custodia y no se distribuyen. "
                   "Los archivos de la actividad histórica del 2026-11-09 se conservan "
                   "solo como registro y no se usan en informes ni métricas vigentes."),
     }
