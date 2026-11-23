@@ -11,7 +11,7 @@ Esta ficha separa la sesion S-01 del protocolo historico `protocolo-baseline-202
 - Participantes declarados: 16 (14 estudiantes de secundaria y 2 docentes).
 - Codigos segun el roster actualizado: P001-P014 estudiantes; P015-P016 docentes.
 - Duracion declarada: 95 minutos (08:00-09:35, UTC-3), coincidente con data/usuarios/sesiones.csv y el log actualizado.
-- Fuente de composicion: `data/usuarios/sesiones.csv`, `output/consentimientos.csv` y `output/observaciones.json`.
+- Fuente de composicion: `data/usuarios/sesiones.csv`; los registros de consentimiento y observaciones individuales no se distribuyen en el repositorio por confidencialidad.
 
 ## Tarea y tiempos
 
@@ -23,7 +23,7 @@ Las hojas de observacion P001-P016 estan en `docs/evidencias/sesion-usuarios/obs
 
 `data/usuarios/sus_respuestas.csv` contiene valores de 1 a 5 cotejados contra los cuestionarios originales. Los formularios originales permanecen bajo custodia y no se adjuntan al repositorio por confidencialidad; las metricas se calcularon desde el CSV cotejado.
 
-`output/consentimientos.csv` conserva metadatos seudonimizados de consentimiento por código, sin enlaces de Drive ni documentos firmados. Los originales permanecen bajo custodia y la correspondencia con los participantes se administra fuera del repositorio con acceso restringido.
+Los formularios originales y los registros de consentimiento permanecen bajo custodia y no se distribuyen en el repositorio por confidencialidad. La correspondencia entre códigos y participantes se administra fuera del repositorio con acceso restringido.
 
 ## Separacion de campanas
 

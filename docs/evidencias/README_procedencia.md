@@ -33,4 +33,4 @@ Ver `docs/evidencias/sesion-usuarios/logs/` y `docs/observaciones/`.
 
 ## Consentimientos
 
-Los originales firmados permanecen bajo custodia en Drive. Por privacidad, este repositorio no publica enlaces a carpetas ni a documentos; `output/consentimientos.csv` conserva únicamente el registro seudonimizado de consentimiento.
+Los originales firmados y los registros de consentimiento permanecen bajo custodia y no se distribuyen en este repositorio por privacidad. Tampoco se publican enlaces a carpetas ni a documentos.

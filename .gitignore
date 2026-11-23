@@ -26,5 +26,7 @@ frontend/package-lock.json.tmp
 *.sqlite3
 *.db-journal
 .tasktmp/
+output/
+overlap_ids.json
 data/rag/*.json
 !data/rag/.gitkeep

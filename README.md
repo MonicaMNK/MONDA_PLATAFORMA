@@ -56,7 +56,9 @@ Este modo usa SQLite persistente y el tutor léxico. Instalación y recorrido co
 
 4. Abre `http://localhost:8000`. API interactiva: `http://localhost:8000/docs`; healthcheck: `http://localhost:8000/api/health`.
 
-### Usuarios de prueba precargados
+### Credenciales de demostración (solo entorno local)
+
+Las cuentas siguientes son datos de demostración para probar la instalación local; no corresponden a cuentas personales ni deben reutilizarse fuera de ese entorno.
 
 Solo para entorno local con `MONDA_DEMO=1`:
 
