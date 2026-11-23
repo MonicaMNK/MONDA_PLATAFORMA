@@ -91,7 +91,7 @@ backend/app/
 - Si no existe, usa fallback ligero.
 - Si un proveedor falla y `RAG_ALLOW_FALLBACK=1`, la consulta/generación evita quedar inutilizable y degrada de forma controlada al modo ligero.
 
-Todas las respuestas persisten `sources`, `evidenceSufficient` y `correlationId`. La traza RAG se escribe en `data/traces/rag_traces.jsonl` con proveedor, modelo, latencias, fuentes y tokens cuando el proveedor los reporta. Si se define `MLFLOW_TRACKING_URI` y MLflow está instalado, se registra además una ejecución en MLflow.
+Todas las respuestas persisten `sources`, `evidenceSufficient` y `correlationId`. La traza RAG se escribe localmente como JSONL en la carpeta `data/traces/`, con proveedor, modelo, latencias, fuentes y tokens cuando el proveedor los reporta; este archivo generado no se versiona. Si se define `MLFLOW_TRACKING_URI` y MLflow está instalado, se registra además una ejecución en MLflow.
 
 ## 5. Evaluaciones
 
