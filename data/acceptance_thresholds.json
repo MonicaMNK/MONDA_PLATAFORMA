@@ -40,7 +40,7 @@
       "scope": "Navegadores de escritorio en Windows 11. No cubre navegadores móviles ni versiones anteriores."
     },
     "RNF-08": {
-      "pdf_citation_precision_minimum": 0.73,
+      "pdf_citation_precision_minimum": 0.95,
       "faithfulness_mean_minimum": 4.0,
       "minimum_aiken_v": 0.80
     },
@@ -52,12 +52,24 @@
         "no_evidence": 15,
         "adversarial": 15
       },
-      "minimum_answerable_coverage": 0.65,
-      "minimum_correct_abstention": 0.70,
-      "minimum_adversarial_pass_rate": 0.70
+      "minimum_answerable_coverage": 0.8571428571428571,
+      "minimum_correct_abstention": 0.9333333333333333,
+      "minimum_adversarial_pass_rate": 1.0
     }
   },
   "threshold_vigentes_oficiales": {
+    "origen": "Criterios originales del PI12, coincidentes con la tesis.",
+    "OE2": {
+      "minimum_answerable_coverage": 0.8571428571428571,
+      "minimum_correct_abstention": 0.9333333333333333,
+      "minimum_adversarial_pass_rate": 1.0
+    },
+    "RNF-08": {
+      "pdf_citation_precision_minimum": 0.95
+    },
+    "nota": "Criterios de aceptaci\u00f3n de la evaluaci\u00f3n final: cobertura >= 60/70, citas >= 95 %, abstenci\u00f3n sin evidencia >= 14/15, adversariales 15/15 y fidelidad >= 4/5. Los valores de requirements son los utilizados por el evaluador."
+  },
+  "thresholds_post_hoc_reference": {
     "desde": "2026-11-09",
     "OE2": {
       "minimum_answerable_coverage": 0.65,
@@ -67,6 +79,6 @@
     "RNF-08": {
       "pdf_citation_precision_minimum": 0.73
     },
-    "nota": "Estos son los umbrales de aceptación oficiales y vigentes de la campaña. Cualquier valor distinto a los listados aquí no es criterio de aceptación para esta campaña."
+    "nota": "Referencia documental de los umbrales reducidos fijados a posteriori el 2026-11-09. No se utilizan como criterios de aceptaci\u00f3n de la evaluaci\u00f3n final ni sustituyen las metas originales del PI12."
   }
 }
